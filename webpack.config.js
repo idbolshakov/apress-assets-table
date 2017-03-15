@@ -100,6 +100,7 @@ if (NODE_ENV === 'development') {
   config.entry.app.unshift('webpack-hot-middleware/client');
   config.output.publicPath = '/static/';
   config.module.loaders[0].loaders.unshift('react-hot');
+  config.module.loaders[1].loader = "style-loader!css-loader?sourceMap!sass-loader?sourceMap";
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
