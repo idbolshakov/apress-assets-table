@@ -1,0 +1,11 @@
+/*! scss-lint:disable all */
+/*! scss-lint:disable all */
+/*! jshint ignore: start */
+/*! jshint ignore: start */
+/*! eslint-disable */
+/*! eslint-disable */
+.app-tiger {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 42px 15px 10px;
+}
