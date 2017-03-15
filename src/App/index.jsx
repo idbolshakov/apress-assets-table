@@ -1,8 +1,6 @@
-import React, {Component} from 'react';
-
 import './style.scss';
 
-export default class App extends Component {
+export default class App extends React.Component {
   render() {
     return (
       <div>test34</div>

@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+const {combineReducers} = Redux;
 
 export default combineReducers({
 

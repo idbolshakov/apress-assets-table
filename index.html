@@ -2,11 +2,17 @@
 <html>
   <head>
     <title>webpack config</title>
+    <style type="text/css">
+      body { font-family: open-sans; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
 
-    <script src="/static/vendor.bundle.js"></script>
+    <script src="node_modules/react/dist/react-with-addons.min.js"></script>
+    <script src="node_modules/react-dom/dist/react-dom.min.js"></script>
+    <script src="node_modules/react-redux/dist/react-redux.min.js"></script>
+    <script src="node_modules/redux/dist/redux.min.js"></script>
     <script src="/static/app.bundle.js"></script>
   </body>
 </html>

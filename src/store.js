@@ -1,5 +1,6 @@
-import {createStore, compose} from 'redux';
 import rootReducer from './reducers';
+
+const {createStore, compose} = Redux;
 
 export default function configureStore(initialState) {
   const store = createStore(

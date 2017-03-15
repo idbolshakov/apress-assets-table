@@ -11,10 +11,11 @@ const config = {
   devtool: NODE_ENV === 'development' ? 'eval' : '',
   entry: {
     app: ['babel-polyfill', path.resolve(__dirname, './src/index')],
-    ['assets-table']: ['babel-polyfill', path.resolve(__dirname, './src/index')],
-    vendor: ['react', 'react-dom', 'redux', 'react-redux']
+    ['assets-table']: [path.resolve(__dirname, './src/export')]
   },
   output: {
+    library: 'Assets-table',
+    libraryTarget: 'umd',
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, './dist'),
   },
@@ -53,15 +54,38 @@ const config = {
     ],
     extensions: ['', '.js', '.jsx', '.css', '.scss'],
   },
+  externals: {
+    react: {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react'
+    },
+    'react-dom': {
+      root: 'ReactDom',
+      commonjs2: 'react-dom',
+      commonjs: 'react-dom',
+      amd: 'react-dom'
+    },
+    redux: {
+      root: 'Redux',
+      commonjs2: 'redux',
+      commonjs: 'redux',
+      amd: 'redux'
+    },
+    'react-redux': {
+      root: 'ReactRedux',
+      commonjs2: 'react-redux',
+      commonjs: 'react-redux',
+      amd: 'react-redux'
+    },
+
+  },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: "vendor",
-      minChunks: Infinity,
-    }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('assets-table.css', {allChunks: true}),
+    new ExtractTextPlugin('[name].css', {allChunks: true}),
     new webpack.BannerPlugin('eslint-disable'),
     new webpack.BannerPlugin('jshint ignore: start'),
     new webpack.BannerPlugin('scss-lint:disable all'),
