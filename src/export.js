@@ -1,3 +1,12 @@
 import loadFont from './utils/font-loader';
+import App from './App';
 
-export loadFont;
+
+export default {
+  utils: {
+    loadFont
+  },
+  components: {
+    App
+  }
+};
