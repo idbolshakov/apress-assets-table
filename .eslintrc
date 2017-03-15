@@ -17,7 +17,8 @@
     "jsx-quotes": ["error", "prefer-single"],
     "no-underscore-dangle": 0,
     "react/prefer-stateless-function": 0,
-    "react/prop-types": 1
+    "react/prop-types": 0,
+    "react/require-default-props": 0,
   },
   "globals": {
     "React": true,
