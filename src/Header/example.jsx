@@ -1,7 +1,7 @@
-import React from 'react';
+/* eslint no-console: 0 */
 import Header from './Header';
 
-export default class App extends React.Component {
+export default class HeaderExample extends React.Component {
 
   state = {togglerActive: false};
 
@@ -25,6 +25,8 @@ export default class App extends React.Component {
           onDeleteEmptyGroup={() => { console.log('Удалить пустые группы'); }}
         />
         <Header
+          instructionHref='/about/questions/editor'
+          toSiteHref='/catalog'
           onCallProductsAndGroups={() => { console.log('вызов модальника'); }}
         />
       </div>

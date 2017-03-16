@@ -16,6 +16,7 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "jsx-quotes": ["error", "prefer-single"],
     "no-underscore-dangle": 0,
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "react/prefer-stateless-function": 0,
     "react/prop-types": 0,
     "react/require-default-props": 0,

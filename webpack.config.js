@@ -8,7 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const config = {
-  devtool: NODE_ENV === 'development' ? 'eval' : '',
+  devtool: NODE_ENV === 'development' ? 'source-map' : '',
   entry: {
     app: ['babel-polyfill', path.resolve(__dirname, './src/index')],
     ['assets-table']: [path.resolve(__dirname, './src/export')]
@@ -35,6 +35,10 @@ const config = {
       loader: ExtractTextPlugin.extract('style', 'css!resolve-url!sass'),
     },
     {
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract('style', 'css'),
+    },
+    {
       test: /\.json$/,
       loader: 'json-loader'
     },
@@ -59,31 +63,10 @@ const config = {
     extensions: ['', '.js', '.jsx', '.css', '.scss'],
   },
   externals: {
-    react: {
-      root: 'React',
-      commonjs2: 'react',
-      commonjs: 'react',
-      amd: 'react'
-    },
-    'react-dom': {
-      root: 'ReactDom',
-      commonjs2: 'react-dom',
-      commonjs: 'react-dom',
-      amd: 'react-dom'
-    },
-    redux: {
-      root: 'Redux',
-      commonjs2: 'redux',
-      commonjs: 'redux',
-      amd: 'redux'
-    },
-    'react-redux': {
-      root: 'ReactRedux',
-      commonjs2: 'react-redux',
-      commonjs: 'react-redux',
-      amd: 'react-redux'
-    },
-
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    redux: 'redux',
+    'react-redux': 'ReactRedux'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -105,6 +88,7 @@ if (NODE_ENV === 'development') {
   config.output.publicPath = '/static/';
   config.module.loaders[0].loaders.unshift('react-hot');
   config.module.loaders[1].loader = "style-loader!css-loader?sourceMap!sass-loader?sourceMap";
+  config.module.loaders[2].loader = "style!css";
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
