@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f80ad49241b37466161f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "dce072b5798cacfb8672"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -596,7 +596,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(155);
+	module.exports = __webpack_require__(154);
 
 
 /***/ },
@@ -1049,7 +1049,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.handleBlur = handleBlur;
 	exports.checkStatus = checkStatus;
 
-	var _bemCn = __webpack_require__(96);
+	var _bemCn = __webpack_require__(95);
 
 	var _bemCn2 = _interopRequireDefault(_bemCn);
 
@@ -1570,7 +1570,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _utils = __webpack_require__(34);
 
-	__webpack_require__(126);
+	__webpack_require__(125);
 
 	var _React = React,
 	    PropTypes = _React.PropTypes;
@@ -2455,7 +2455,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _example6 = _interopRequireDefault(_example5);
 
-	__webpack_require__(123);
+	__webpack_require__(122);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2504,7 +2504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _utils = __webpack_require__(34);
 
-	__webpack_require__(124);
+	__webpack_require__(123);
 
 	var _React = React,
 	    PropTypes = _React.PropTypes;
@@ -2640,7 +2640,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _Toggler2 = _interopRequireDefault(_Toggler);
 
-	__webpack_require__(125);
+	__webpack_require__(124);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2947,40 +2947,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 95 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = loadFont;
-	var addFont = function addFont(font) {
-	  var style = document.createElement('style');
-
-	  style.rel = 'stylesheet';
-	  document.head.appendChild(style);
-	  style.textContent = font;
-	};
-
-	function loadFont(_ref) {
-	  var name = _ref.name,
-	      path = _ref.path;
-
-	  if (localStorage[name]) {
-	    addFont(localStorage[name]);
-	  } else {
-	    fetch(path).then(function (response) {
-	      return response.text();
-	    }).then(function (fontText) {
-	      localStorage[name] = fontText;
-	      addFont(fontText);
-	    });
-	  }
-	}
-
-/***/ },
-/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -3396,6 +3362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	;
 
 /***/ },
+/* 96 */,
 /* 97 */,
 /* 98 */,
 /* 99 */,
@@ -3421,7 +3388,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 119 */,
 /* 120 */,
 /* 121 */,
-/* 122 */,
+/* 122 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
 /* 123 */
 /***/ function(module, exports) {
 
@@ -3440,12 +3412,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 126 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
+/* 126 */,
 /* 127 */,
 /* 128 */,
 /* 129 */,
@@ -3473,8 +3440,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 151 */,
 /* 152 */,
 /* 153 */,
-/* 154 */,
-/* 155 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3483,10 +3449,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _fontLoader = __webpack_require__(95);
-
-	var _fontLoader2 = _interopRequireDefault(_fontLoader);
-
 	var _App = __webpack_require__(89);
 
 	var _App2 = _interopRequireDefault(_App);
@@ -3494,9 +3456,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  utils: {
-	    loadFont: _fontLoader2.default
-	  },
 	  components: {
 	    App: _App2.default
 	  }

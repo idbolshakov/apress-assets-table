@@ -37,6 +37,10 @@ const config = {
     {
       test: /\.json$/,
       loader: 'json-loader'
+    },
+    {
+      test: /\.woff$/,
+      loader: 'url?limit=65000000&mimetype=application/font-woff2&name=public/fonts/[name].[ext]'
     }]
   },
   sassLoader: {
