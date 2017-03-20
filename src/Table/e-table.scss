@@ -1,0 +1,38 @@
+@import '../styles/mixins/icons';
+
+.e-table {
+  border: 1px solid #e0e0e0; border-collapse: collapse; position: relative;
+  &-header-cell {
+    box-sizing: border-box; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; background-color: #f8f8f8; padding: 25px 20px; font: 300 13px/1 'OpenSans'; text-align: left; color: #1f2532;
+    &.is-check { display: none; }
+  }
+  &-cell {
+    font-size: 12px; color: #1f2532; height: 100px; box-sizing: border-box; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; padding: 25px 20px; text-align: left; position: relative;
+    &:after { height: 50px; width: 1px; background-color: #e0e0e0; position: absolute; content: ''; right: 0; top: 50%; margin-top: -25px; }
+    &:last-child:after { width: 0; }
+  }
+  &-header-cell,
+  &-cell {
+    &.is-check {  min-width: 60px; display: none; }
+    &.is-description {  min-width: 270px; }
+    &.is-detailed-description {  min-width: 270px; }
+    &.is-h1 {  min-width: 180px; }
+    &.is-name {  min-width: 200px; }
+    &.is-page-description {  min-width: 270px; }
+    &.is-photo {  min-width: 100px; text-align: center; }
+    &.is-product-group {  min-width: 120px; }
+    &.is-tag-title {  min-width: 240px; }
+    &.is-url { min-width: 170px; }
+  }
+  &-cell-placeholder { color: #b4b5b8; }
+  &-path-text { line-height: 12px; display: inline-block; vertical-align: text-bottom; }
+  &-path-arrow {
+    position: relative;;
+    &:after { content: ''; position: absolute; @include angle-double-right(); width: 12px; height: 12px; margin: 0 4px; }
+  }
+  &-img { max-width: 60px; max-height: 60px}
+  &-img-empty {
+    width: 60px; height: 60px; box-sizing: border-box; border: 1px dashed; position: relative;
+    &:after { @include camera-icon() width: 17px; height: 15px; content: ''; position: absolute; top: 50%; left: 50%; margin: -7.5px 0 0 -8.5px; }
+  }
+}

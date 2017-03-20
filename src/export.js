@@ -1,8 +1,9 @@
-import App from './App';
+import Header from './Header/Header';
+import Table from './Table/Table';
 
+import './styles/fonts.scss';
 
-export default {
-  components: {
-    App
-  }
+export {
+  Table,
+  Header
 };

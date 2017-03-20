@@ -1,4 +1,4 @@
-import App from './App';
+import App from './App/App';
 import store from './store';
 
 import './styles/fonts.scss';
@@ -6,7 +6,7 @@ import './styles/fonts.scss';
 const {Provider} = ReactRedux;
 
 ReactDOM.render(
-  <Provider store={store()}>
+  <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById('root')

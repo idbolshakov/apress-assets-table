@@ -1,1 +1,6 @@
 body { font-family: 'OpenSans'; }
+
+.example-wrapper {
+  margin: 50px;
+  &-table { margin: 50px; max-width: 1570px; max-height: 748px; overflow: auto; }
+}
