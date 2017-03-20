@@ -13,7 +13,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div styles={{marginBottom: 20}}>
+      <div>
         <h3>Toggler:</h3>
         <Toggler on={this.state.togglerActive} onToggle={this.switchToggler} />
       </div>
