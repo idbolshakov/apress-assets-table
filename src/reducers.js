@@ -1,5 +1,5 @@
-const {combineReducers} = Redux;
+import app from './App/reducer';
 
-export default combineReducers({
-
+export default Redux.combineReducers({
+  app
 });

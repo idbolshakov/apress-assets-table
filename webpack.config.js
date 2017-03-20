@@ -63,10 +63,30 @@ const config = {
     extensions: ['', '.js', '.jsx', '.css', '.scss'],
   },
   externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    redux: 'redux',
-    'react-redux': 'ReactRedux'
+    react: {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react'
+    },
+    'react-dom': {
+      root: 'ReactDom',
+      commonjs2: 'react-dom',
+      commonjs: 'react-dom',
+      amd: 'react-dom'
+    },
+    redux: {
+      root: 'Redux',
+      commonjs2: 'redux',
+      commonjs: 'redux',
+      amd: 'redux'
+    },
+    'react-redux': {
+      root: 'ReactRedux',
+      commonjs2: 'react-redux',
+      commonjs: 'react-redux',
+      amd: 'react-redux'
+    },
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
