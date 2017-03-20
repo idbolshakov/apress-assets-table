@@ -938,7 +938,7 @@ li.rc-select-dropdown-menu-item-divider {
   color: #1f2532;
 }
 
-.e-table-header-cell.check {
+.e-table-header-cell.is-check {
   display: none;
 }
 

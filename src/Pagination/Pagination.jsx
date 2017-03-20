@@ -1,10 +1,10 @@
+import React, {PropTypes} from 'react';
 import {Option} from 'rc-select';
 import {block} from '../utils';
 import Select from '../ComboSelect/ComboSelect';
 
 import './e-pagination.scss';
 
-const {PropTypes} = React;
 const b = block('e-pagination');
 
 const Pagination = (props) => {
