@@ -25,6 +25,6 @@ export default class PathCell extends Component {
       text = <div className={b('cell-placeholder')}>{this.props.cell.placeholder}</div>;
     }
 
-    return <td className={b('cell').mix(this.props.cell.name)}>{text}</td>;
+    return <td className={b('cell').mix(`is-${this.props.cell.name}`)}>{text}</td>;
   }
 }
