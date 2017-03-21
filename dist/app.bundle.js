@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "aca3b8ddf6c266cce35f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6e24817943c7696f4448"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8860,7 +8860,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return _react2.default.createElement(
 	        'tr',
-	        null,
+	        { className: b('body-tr') },
 	        cellComponent
 	      );
 	    }
@@ -8936,21 +8936,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	      });
 
 	      return _react2.default.createElement(
-	        'table',
-	        { className: b },
+	        'div',
+	        { className: b('wrapper') },
 	        _react2.default.createElement(
-	          'thead',
-	          null,
+	          'table',
+	          { className: b },
 	          _react2.default.createElement(
-	            'tr',
+	            'thead',
 	            null,
-	            headerCell
+	            _react2.default.createElement(
+	              'tr',
+	              { className: b('tr') },
+	              headerCell
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tbody',
+	            { className: b('body') },
+	            rowComponent
 	          )
-	        ),
-	        _react2.default.createElement(
-	          'tbody',
-	          null,
-	          rowComponent
 	        )
 	      );
 	    }
@@ -20760,11 +20764,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        url: 'Указать URL'
 	      };
 
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_Table2.default, { tableData: this.props.tableData, configCell: configCell, placeholder: placeholder })
-	      );
+	      return _react2.default.createElement(_Table2.default, { tableData: this.props.tableData, configCell: configCell, placeholder: placeholder });
 	    }
 	  }]);
 
