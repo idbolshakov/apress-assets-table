@@ -47,7 +47,9 @@ export default class App extends React.Component {
     };
 
     return (
-      <Table tableData={this.props.tableData} configCell={configCell} placeholder={placeholder} />
+      <div>
+        <Table tableData={this.props.tableData} configCell={configCell} placeholder={placeholder} />
+      </div>
     );
   }
 }

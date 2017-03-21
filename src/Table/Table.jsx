@@ -24,18 +24,16 @@ export default class Table extends Component {
     );
 
     return (
-      <div className={b('wrapper')}>
-        <table className={b}>
-          <thead>
-            <tr className={b('tr')}>
-              {headerCell}
-            </tr>
-          </thead>
-          <tbody className={b('body')}>
-            {rowComponent}
-          </tbody>
-        </table>
-      </div>
+      <table className={b}>
+        <thead>
+          <tr>
+            {headerCell}
+          </tr>
+        </thead>
+        <tbody>
+          {rowComponent}
+        </tbody>
+      </table>
     );
   }
 }
