@@ -33,7 +33,7 @@ export default class Row extends React.Component {
     });
 
     return (
-      <tr>{cellComponent}</tr>
+      <tr className={b('body-tr')}>{cellComponent}</tr>
     );
   }
 }
