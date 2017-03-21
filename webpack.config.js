@@ -109,6 +109,7 @@ if (NODE_ENV === 'development') {
   config.module.loaders[0].loaders.unshift('react-hot');
   config.module.loaders[1].loader = "style-loader!css-loader?sourceMap!sass-loader?sourceMap";
   config.module.loaders[2].loader = "style!css";
+  config.externals = {};
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
