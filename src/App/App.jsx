@@ -1,3 +1,6 @@
+import React from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import ButtonExample from '../Button/example';
 import TogglerExample from '../Toggler/example';
 import HeaderExample from '../Header/example';
@@ -10,8 +13,6 @@ import {block} from '../utils';
 import './style.scss';
 
 const b = block('example-wrapper');
-const {connect} = ReactRedux;
-const {bindActionCreators} = Redux;
 
 class App extends React.Component {
   componentWillMount() {

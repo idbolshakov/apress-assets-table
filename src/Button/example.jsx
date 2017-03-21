@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 /* eslint no-alert: 0 */
+import React from 'react';
 import Button from './Button';
 
 export default class ButtonExample extends React.Component {

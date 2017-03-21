@@ -1,4 +1,5 @@
 /* eslint no-console: 0 */
+import React from 'react';
 import Header from './Header';
 
 export default class HeaderExample extends React.Component {
