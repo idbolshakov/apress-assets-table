@@ -1,7 +1,7 @@
+import React, {PropTypes, Component} from 'react';
 import {block} from '../utils';
 
 const b = block('e-table');
-const {PropTypes, Component} = React;
 
 export default class ImageCell extends Component {
   static propTypes = {

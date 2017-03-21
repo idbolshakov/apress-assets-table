@@ -1,9 +1,9 @@
+import React, {PropTypes, Component} from 'react';
 import {block} from '../utils';
 import HeaderCell from '../HeaderCell/HeaderCell';
 import Row from '../Row/Row';
 import './e-table.scss';
 
-const {PropTypes, Component} = React;
 const b = block('e-table');
 
 export default class Table extends Component {
