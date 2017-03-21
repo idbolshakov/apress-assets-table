@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2c83443ac09d1a2023e9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c6389545542b96dc3d2c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -5878,15 +5878,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _utils = __webpack_require__(9);
 
-	var b = (0, _utils.block)('e-table');
-	var _React = React,
-	    PropTypes = _React.PropTypes;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var b = (0, _utils.block)('e-table');
 
 	var CheckCell = function CheckCell(props) {
-	  return React.createElement(
+	  return _react2.default.createElement(
 	    'td',
 	    { className: b('cell').mix('is-' + props.cell.name) },
 	    '0'
@@ -5894,7 +5897,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	CheckCell.propTypes = {
-	  cell: PropTypes.object
+	  cell: _react.PropTypes.object
 	};
 
 	exports.default = CheckCell;
@@ -6076,15 +6079,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _utils = __webpack_require__(9);
 
-	var b = (0, _utils.block)('e-table');
-	var _React = React,
-	    PropTypes = _React.PropTypes;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var b = (0, _utils.block)('e-table');
 
 	var HeaderCell = function HeaderCell(props) {
-	  return React.createElement(
+	  return _react2.default.createElement(
 	    'th',
 	    { className: b('header-cell').mix('is-' + props.cell.name.replace(/_/g, '-')) },
 	    props.cell.common.title
@@ -6092,7 +6098,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	HeaderCell.propTypes = {
-	  cell: PropTypes.object
+	  cell: _react.PropTypes.object
 	};
 
 	exports.default = HeaderCell;
@@ -6109,7 +6115,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _utils = __webpack_require__(9);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6118,9 +6130,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var b = (0, _utils.block)('e-table');
-	var _React = React,
-	    PropTypes = _React.PropTypes,
-	    Component = _React.Component;
 
 	var ImageCell = function (_Component) {
 	  _inherits(ImageCell, _Component);
@@ -6135,9 +6144,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'render',
 	    value: function render() {
 	      var src = this.props.cell.data.common.src;
-	      var img = src ? React.createElement('img', { src: src, alt: '', className: b('img') }) : React.createElement('div', { className: b('img-empty') });
+	      var img = src ? _react2.default.createElement('img', { src: src, alt: '', className: b('img') }) : _react2.default.createElement('div', { className: b('img-empty') });
 
-	      return React.createElement(
+	      return _react2.default.createElement(
 	        'td',
 	        { className: b('cell').mix('is-' + this.props.cell.name) },
 	        img
@@ -6146,17 +6155,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }]);
 
 	  return ImageCell;
-	}(Component);
+	}(_react.Component);
 
 	ImageCell.propTypes = {
-	  cell: PropTypes.shape({
-	    data: PropTypes.shape({
-	      common: PropTypes.shape({
-	        id: PropTypes.number,
-	        src: PropTypes.string
+	  cell: _react.PropTypes.shape({
+	    data: _react.PropTypes.shape({
+	      common: _react.PropTypes.shape({
+	        id: _react.PropTypes.number,
+	        src: _react.PropTypes.string
 	      })
 	    }),
-	    name: PropTypes.string
+	    name: _react.PropTypes.string
 	  })
 	};
 	exports.default = ImageCell;
@@ -6281,7 +6290,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _utils = __webpack_require__(9);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6290,9 +6305,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var b = (0, _utils.block)('e-table');
-	var _React = React,
-	    PropTypes = _React.PropTypes,
-	    Component = _React.Component;
 
 	var PathCell = function (_Component) {
 	  _inherits(PathCell, _Component);
@@ -6312,31 +6324,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (this.props.cell.data.common.ancestors.length) {
 	        path = this.props.cell.data.common.ancestors.map(function (ancestor, index) {
 	          if (index + 1 !== ancestorsLength) {
-	            return React.createElement(
+	            return _react2.default.createElement(
 	              'span',
 	              { key: index, className: b('path-text').mix(b('path-arrow')) },
 	              ancestor.name
 	            );
 	          }
 
-	          return React.createElement(
+	          return _react2.default.createElement(
 	            'span',
 	            { key: index, className: b('path-text') },
 	            ancestor.name
 	          );
 	        });
 	      } else {
-	        path = React.createElement(
+	        path = _react2.default.createElement(
 	          'span',
 	          { className: b('path-text') },
 	          this.props.cell.data.common.name
 	        );
 	      }
 
-	      return React.createElement(
+	      return _react2.default.createElement(
 	        'td',
 	        { className: b('cell').mix('is-' + this.props.cell.name) },
-	        React.createElement(
+	        _react2.default.createElement(
 	          'div',
 	          { className: b('path-cell') },
 	          path
@@ -6346,18 +6358,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }]);
 
 	  return PathCell;
-	}(Component);
+	}(_react.Component);
 
 	PathCell.propTypes = {
-	  cell: PropTypes.shape({
-	    data: PropTypes.shape({
-	      common: PropTypes.shape({
-	        id: PropTypes.number,
-	        name: PropTypes.string,
-	        ancestors: PropTypes.array
+	  cell: _react.PropTypes.shape({
+	    data: _react.PropTypes.shape({
+	      common: _react.PropTypes.shape({
+	        id: _react.PropTypes.number,
+	        name: _react.PropTypes.string,
+	        ancestors: _react.PropTypes.array
 	      })
 	    }),
-	    name: PropTypes.string
+	    name: _react.PropTypes.string
 	  })
 	};
 	exports.default = PathCell;
@@ -6373,6 +6385,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
 
 	var _TextCell = __webpack_require__(171);
 
@@ -6427,19 +6443,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        switch (_this2.props.configCell[cellName].type) {
 	          case 'text':
-	            return React.createElement(_TextCell2.default, { key: index, cell: dataRow });
+	            return _react2.default.createElement(_TextCell2.default, { key: index, cell: dataRow });
 	          case 'check':
-	            return React.createElement(_CheckCell2.default, { key: index, cell: dataRow });
+	            return _react2.default.createElement(_CheckCell2.default, { key: index, cell: dataRow });
 	          case 'img':
-	            return React.createElement(_ImageCell2.default, { key: index, cell: dataRow });
+	            return _react2.default.createElement(_ImageCell2.default, { key: index, cell: dataRow });
 	          case 'path':
-	            return React.createElement(_PathCell2.default, { key: index, cell: dataRow });
+	            return _react2.default.createElement(_PathCell2.default, { key: index, cell: dataRow });
 	          default:
-	            return React.createElement('td', { className: b('cell') });
+	            return _react2.default.createElement('td', { className: b('cell') });
 	        }
 	      });
 
-	      return React.createElement(
+	      return _react2.default.createElement(
 	        'tr',
 	        null,
 	        cellComponent
@@ -6448,7 +6464,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }]);
 
 	  return Row;
-	}(React.Component);
+	}(_react2.default.Component);
 
 	exports.default = Row;
 
@@ -6463,6 +6479,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
 
 	var _utils = __webpack_require__(9);
 
@@ -6484,10 +6504,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _React = React,
-	    PropTypes = _React.PropTypes,
-	    Component = _React.Component;
-
 	var b = (0, _utils.block)('e-table');
 
 	var Table = function (_Component) {
@@ -6505,10 +6521,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _this2 = this;
 
 	      var headerCell = this.props.tableData.columns.map(function (column, index) {
-	        return React.createElement(_HeaderCell2.default, { key: index, cell: column });
+	        return _react2.default.createElement(_HeaderCell2.default, { key: index, cell: column });
 	      });
 	      var rowComponent = this.props.tableData.rows.map(function (row, index) {
-	        return React.createElement(_Row2.default, {
+	        return _react2.default.createElement(_Row2.default, {
 	          key: index,
 	          row: row,
 	          configCell: _this2.props.configCell,
@@ -6516,19 +6532,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	      });
 
-	      return React.createElement(
+	      return _react2.default.createElement(
 	        'table',
 	        { className: b },
-	        React.createElement(
+	        _react2.default.createElement(
 	          'thead',
 	          null,
-	          React.createElement(
+	          _react2.default.createElement(
 	            'tr',
 	            null,
 	            headerCell
 	          )
 	        ),
-	        React.createElement(
+	        _react2.default.createElement(
 	          'tbody',
 	          null,
 	          rowComponent
@@ -6538,10 +6554,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }]);
 
 	  return Table;
-	}(Component);
+	}(_react.Component);
 
 	Table.propTypes = {
-	  tableData: PropTypes.object
+	  tableData: _react.PropTypes.object
 	};
 	exports.default = Table;
 
@@ -6557,7 +6573,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _utils = __webpack_require__(9);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6566,9 +6588,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var b = (0, _utils.block)('e-table');
-	var _React = React,
-	    PropTypes = _React.PropTypes,
-	    Component = _React.Component;
 
 	var PathCell = function (_Component) {
 	  _inherits(PathCell, _Component);
@@ -6585,20 +6604,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var text = null;
 
 	      if (this.props.cell.data.common.text) {
-	        text = React.createElement(
+	        text = _react2.default.createElement(
 	          'div',
 	          null,
 	          this.props.cell.data.common.text
 	        );
 	      } else {
-	        text = React.createElement(
+	        text = _react2.default.createElement(
 	          'div',
 	          { className: b('cell-placeholder') },
 	          this.props.cell.placeholder
 	        );
 	      }
 
-	      return React.createElement(
+	      return _react2.default.createElement(
 	        'td',
 	        { className: b('cell').mix('is-' + this.props.cell.name) },
 	        text
@@ -6607,17 +6626,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }]);
 
 	  return PathCell;
-	}(Component);
+	}(_react.Component);
 
 	PathCell.propTypes = {
-	  cell: PropTypes.shape({
-	    data: PropTypes.shape({
-	      common: PropTypes.shape({
-	        text: PropTypes.string
+	  cell: _react.PropTypes.shape({
+	    data: _react.PropTypes.shape({
+	      common: _react.PropTypes.shape({
+	        text: _react.PropTypes.string
 	      })
 	    }),
-	    name: PropTypes.string,
-	    placeholder: PropTypes.string
+	    name: _react.PropTypes.string,
+	    placeholder: _react.PropTypes.string
 	  })
 	};
 	exports.default = PathCell;

@@ -1,3 +1,4 @@
+import React from 'react';
 import TextCell from '../TextCell/TextCell';
 import CheckCell from '../CheckCell/CheckCell';
 import ImageCell from '../ImageCell/ImageCell';
