@@ -1,7 +1,7 @@
+import React, {PropTypes} from 'react';
 import {block} from '../utils';
 import './e-toggler.scss';
 
-const {PropTypes} = React;
 const b = block('e-toggler');
 
 const Toggler = props =>

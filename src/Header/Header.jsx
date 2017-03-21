@@ -1,8 +1,9 @@
+import React, {PropTypes} from 'react';
 import {block} from '../utils';
 import Toggler from '../Toggler/Toggler';
 import './e-header.scss';
 
-const {PropTypes} = React;
+
 const b = block('e-header');
 
 const Header = props =>

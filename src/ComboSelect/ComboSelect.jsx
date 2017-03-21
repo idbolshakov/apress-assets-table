@@ -1,3 +1,4 @@
+import React from 'react';
 import RcSelect from 'rc-select';
 import 'rc-select/assets/index.css';
 import {block} from '../utils';
