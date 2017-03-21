@@ -21,11 +21,5 @@
     "react/require-default-props": 0,
     "no-plusplus": 0,
     "react/no-array-index-key": 0
-  },
-  "globals": {
-    "React": true,
-    "ReactDOM": true,
-    "ReactRedux": true,
-    "Redux": true,
   }
 }

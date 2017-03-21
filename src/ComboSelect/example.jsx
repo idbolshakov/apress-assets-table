@@ -1,4 +1,5 @@
 /* eslint no-console: 0 */
+import React from 'react';
 import {Option} from 'rc-select';
 import 'rc-select/assets/index.css';
 import './e-select.scss';
