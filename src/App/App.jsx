@@ -7,6 +7,9 @@ import HeaderExample from '../Header/example';
 import PaginationExample from '../Pagination/example';
 import ComboSelectExample from '../ComboSelect/example';
 import TableExample from '../Table/example';
+import ScrollerExample from '../Scroller/example';
+import ActionsPanelExample from '../ActionsPanel/example';
+
 import * as actions from './actions';
 import {block} from '../utils';
 
@@ -37,6 +40,10 @@ class App extends React.Component {
         <div className={b}>
           <ComboSelectExample />
         </div>
+        <div>
+          <ScrollerExample />
+        </div>
+        <ActionsPanelExample />
         <div className={b('table')}>
           <TableExample tableData={this.props.tableData} />
         </div>
