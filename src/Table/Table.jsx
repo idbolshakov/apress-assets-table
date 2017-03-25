@@ -1,41 +1,30 @@
-import React, {PropTypes, Component} from 'react';
+import React, {PropTypes} from 'react';
+import Header from './Header';
+import Body from './Body';
 import {block} from '../utils';
-import HeaderCell from '../HeaderCell/HeaderCell';
-import Row from '../Row/Row';
 import './e-table.scss';
 
 const b = block('e-table');
 
-export default class Table extends Component {
-  static propTypes = {
-    tableData: PropTypes.object,
-  };
-  render() {
-    const headerCell = this.props.tableData.columns.map((column, index) =>
-      <HeaderCell key={index} cell={column} />
-    );
-    const rowComponent = this.props.tableData.rows.map((row, index) =>
-      <Row
-        key={index}
-        row={row}
-        configCell={this.props.configCell}
-        placeholder={this.props.placeholder}
+const Table = props =>
+  <div className={b}>
+    <table className={b('wrapper')}>
+      <thead>
+        <Header table={props.table} />
+      </thead>
+      <Body
+        table={props.table}
+        config={props.config}
+        placeholder={props.placeholder}
+        actions={props.actions}
       />
-    );
+    </table>
+  </div>;
 
-    return (
-      <div className={b('wrapper')}>
-        <table className={b}>
-          <thead>
-            <tr className={b('tr')}>
-              {headerCell}
-            </tr>
-          </thead>
-          <tbody className={b('body')}>
-            {rowComponent}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-}
+Table.propTypes = {
+  table: PropTypes.object,
+  config: PropTypes.object,
+  placeholder: PropTypes.object
+};
+
+export default Table;

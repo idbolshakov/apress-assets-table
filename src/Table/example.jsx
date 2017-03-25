@@ -3,24 +3,29 @@ import Table from './Table';
 
 export default class App extends React.Component {
   render() {
-    const configCell = {
+    const config = {
       check: {
         type: 'check'
       },
       description: {
-        type: 'text'
+        type: 'text',
+        maxLen: 255
       },
       'detailed-description': {
-        type: 'text'
+        type: 'text',
+        maxLen: 255
       },
       h1: {
-        type: 'text'
+        type: 'text',
+        maxLen: 255
       },
       name: {
-        type: 'text'
+        type: 'text',
+        maxLen: 75
       },
       'page-description': {
-        type: 'text'
+        type: 'text',
+        maxLen: 255
       },
       photo: {
         type: 'img'
@@ -29,10 +34,12 @@ export default class App extends React.Component {
         type: 'path'
       },
       'tag-title': {
-        type: 'text'
+        type: 'text',
+        maxLen: 255
       },
       url: {
-        type: 'text'
+        type: 'text',
+        maxLen: 255
       }
     };
 
@@ -47,7 +54,12 @@ export default class App extends React.Component {
     };
 
     return (
-      <Table tableData={this.props.tableData} configCell={configCell} placeholder={placeholder} />
+      <Table
+        table={this.props.table}
+        config={config}
+        placeholder={placeholder}
+        actions={this.props.actions}
+      />
     );
   }
 }

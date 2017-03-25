@@ -1,0 +1,30 @@
+const getSelectionText = () => {
+  const elem = document.activeElement;
+
+  if (elem && elem.tagName.toLowerCase() === 'input') {
+    return document.activeElement.value.substring(elem.selectionStart, elem.selectionEnd);
+  }
+
+  return window.getSelection().toString();
+};
+
+const maxLength = (options) => {
+  const curentLength = options.string.length;
+  const selectionLength = getSelectionText().length;
+  const pasteLength = (options.paste && options.paste.length) - 1 || 0;
+
+  return ((options.maxLen + selectionLength) - (curentLength + pasteLength)) > 0;
+};
+
+export default function validation(options) {
+  switch (options.type) {
+    case 'MAX_LENGTH':
+      return maxLength(options);
+
+    case 'IS_NUMBER':
+      return maxLength(options);
+
+    default:
+      return true;
+  }
+}

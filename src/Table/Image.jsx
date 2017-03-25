@@ -22,10 +22,6 @@ export default class ImageCell extends Component {
       <img src={src} alt='' className={b('img')} /> :
       <div className={b('img-empty')} />;
 
-    return (
-      <td className={b('cell').mix(`is-${this.props.cell.name}`)}>
-        {img}
-      </td>
-    );
+    return <td className={b('cell').mix(`is-${this.props.cell.name}`)}>{img}</td>;
   }
 }
