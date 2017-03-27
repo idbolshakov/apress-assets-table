@@ -1,6 +1,12 @@
 body { font-family: 'OpenSans'; }
+a, a:visited { color: #028dd8; }
+a:hover { color: #00a6ff; }
+button { outline: none; }
 
-.example-wrapper {
-  margin: 50px;
-  &-table { width: 1570px; height: 748px; }
+.example {
+  &-wrapper {
+    margin: 50px;
+    &-table { width: 1570px; height: 748px; }
+  }
+  &-test-box { border: 1px solid black; }
 }

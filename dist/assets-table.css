@@ -5,7 +5,7 @@
   width: 80px;
   height: 30px;
   border-radius: 15.4px;
-  background-image: linear-gradient(to right, #e0e0e0, #eeeeee), linear-gradient(#ffffff, #ffffff);
+  background-image: linear-gradient(to right, #e0e0e0, #eee), linear-gradient(#fff, #fff);
   box-shadow: inset 0px 1px 4px 0 rgba(44, 44, 44, 0.31);
   cursor: pointer;
   position: relative;
@@ -16,8 +16,8 @@
   display: block;
   width: 56px;
   height: 8px;
-  background-image: linear-gradient(to right, #e93161, #e3b61c), linear-gradient(#ffffff, #ffffff);
-  box-shadow: 0 2px 1px 0 #ffffff, inset 0 2px 2px 0 rgba(31, 37, 50, 0.48);
+  background-image: linear-gradient(to right, #e93161, #e3b61c), linear-gradient(#fff, #fff);
+  box-shadow: 0 2px 1px 0 #fff, inset 0 2px 2px 0 rgba(31, 37, 50, 0.48);
   position: absolute;
   top: 50%;
   left: 10px;
@@ -30,8 +30,8 @@
   display: block;
   width: 18px;
   height: 18px;
-  background-image: linear-gradient(to right, #ffffff, #eeeeee), linear-gradient(#ffffff, #ffffff);
-  box-shadow: 0 4px 4px 0 rgba(31, 37, 50, 0.15), inset 0 1px 0 0 #ffffff;
+  background-image: linear-gradient(to right, #fff, #eee), linear-gradient(#fff, #fff);
+  box-shadow: 0 4px 4px 0 rgba(31, 37, 50, 0.15), inset 0 1px 0 0 #fff;
   border-radius: 10px;
   position: absolute;
   top: 50%;
@@ -1061,7 +1061,7 @@ li.rc-select-dropdown-menu-item-divider {
 .e-table-path-arrow:after {
   content: '';
   position: absolute;
-  background: url('data:image/svg+xml,<svg fill="#1f2532" width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M979 960q0 13-10 23l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23zm384 0q0 13-10 23l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23z"/></svg>') 50%/contain no-repeat;
+  background: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMWYyNTMyIiB3aWR0aD0iMTc5MiIgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik05NzkgOTYwcTAgMTMtMTAgMjNsLTQ2NiA0NjZxLTEwIDEwLTIzIDEwdC0yMy0xMGwtNTAtNTBxLTEwLTEwLTEwLTIzdDEwLTIzbDM5My0zOTMtMzkzLTM5M3EtMTAtMTAtMTAtMjN0MTAtMjNsNTAtNTBxMTAtMTAgMjMtMTB0MjMgMTBsNDY2IDQ2NnExMCAxMCAxMCAyM3ptMzg0IDBxMCAxMy0xMCAyM2wtNDY2IDQ2NnEtMTAgMTAtMjMgMTB0LTIzLTEwbC01MC01MHEtMTAtMTAtMTAtMjN0MTAtMjNsMzkzLTM5My0zOTMtMzkzcS0xMC0xMC0xMC0yM3QxMC0yM2w1MC01MHExMC0xMCAyMy0xMHQyMyAxMGw0NjYgNDY2cTEwIDEwIDEwIDIzeiIvPjwvc3ZnPg==") 50%/contain no-repeat;
   width: 12px;
   height: 12px;
   margin: 0 4px;
@@ -1081,7 +1081,7 @@ li.rc-select-dropdown-menu-item-divider {
 }
 
 .e-table-img-empty:after {
-  background: url('data:image/svg+xml,<svg fill="#1f2532" width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M896 672q119 0 203.5 84.5t84.5 203.5-84.5 203.5-203.5 84.5-203.5-84.5-84.5-203.5 84.5-203.5 203.5-84.5zm704-416q106 0 181 75t75 181v896q0 106-75 181t-181 75h-1408q-106 0-181-75t-75-181v-896q0-106 75-181t181-75h224l51-136q19-49 69.5-84.5t103.5-35.5h512q53 0 103.5 35.5t69.5 84.5l51 136h224zm-704 1152q185 0 316.5-131.5t131.5-316.5-131.5-316.5-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5z"/></svg>') 50%/contain no-repeat;
+  background: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMWYyNTMyIiB3aWR0aD0iMTc5MiIgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik04OTYgNjcycTExOSAwIDIwMy41IDg0LjV0ODQuNSAyMDMuNS04NC41IDIwMy41LTIwMy41IDg0LjUtMjAzLjUtODQuNS04NC41LTIwMy41IDg0LjUtMjAzLjUgMjAzLjUtODQuNXptNzA0LTQxNnExMDYgMCAxODEgNzV0NzUgMTgxdjg5NnEwIDEwNi03NSAxODF0LTE4MSA3NWgtMTQwOHEtMTA2IDAtMTgxLTc1dC03NS0xODF2LTg5NnEwLTEwNiA3NS0xODF0MTgxLTc1aDIyNGw1MS0xMzZxMTktNDkgNjkuNS04NC41dDEwMy41LTM1LjVoNTEycTUzIDAgMTAzLjUgMzUuNXQ2OS41IDg0LjVsNTEgMTM2aDIyNHptLTcwNCAxMTUycTE4NSAwIDMxNi41LTEzMS41dDEzMS41LTMxNi41LTEzMS41LTMxNi41LTMxNi41LTEzMS41LTMxNi41IDEzMS41LTEzMS41IDMxNi41IDEzMS41IDMxNi41IDMxNi41IDEzMS41eiIvPjwvc3ZnPg==") 50%/contain no-repeat;
   width: 17px;
   height: 15px;
   content: '';
