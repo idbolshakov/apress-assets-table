@@ -8,8 +8,14 @@
   &-section-2 { display: flex; }
   &-section-1 { border-bottom: 1px solid #e0e0e0; padding: 0 10px 0 30px; align-items: center; height: 55px; }
   &-section-2 { height: 56px; }
-  &-breadcrumb-item:after { @include angle-double-right-icon(#1f2532); content: ''; width: 13px; height: 13px; display: inline-block; vertical-align: middle; margin: 0 20px; }
-  &-breadcrumb-item:last-child:after { display: none; }
+  &-breadcrumb-item {
+    text-decoration: none; font-size: 13px; color: #028dd8; font-weight: bold; cursor: pointer;
+    &:after { @include angle-double-right-icon(#1f2532); content: ''; width: 13px; height: 13px; display: inline-block; vertical-align: middle; margin: 0 20px; }
+    &:last-child {
+      color: #1f2532; cursor: default;
+      &:after { display: none; }
+    }
+  }
   &-last-actions-label { margin-right: 20px; white-space: nowrap; }
   &-button {
     @include button; margin-right: 10px; width: 45px; height: 30px; border-radius: 3px; border: solid 1px #e0e0e0; text-indent: -99999px; transition: all 0.3s;

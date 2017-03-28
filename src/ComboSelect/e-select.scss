@@ -1,14 +1,15 @@
 @import '../styles/mixins/icons';
 
 .e-select {
-  .rc-select-selection { border-radius: 0; background: #fff; border: solid 1px #e0e0e0; font-size: 12px; }
+  * { height: 24px; line-height: 24px; }
+  .rc-select-selection { border-radius: 0; background: #fff; border: solid 1px #e0e0e0!important; font-size: 12px; box-shadow: none !important; }
   .rc-select-arrow b { @include angle-down-icon(#1f2532); border: none; width: 12px; height: 12px; margin-top: -6px; margin-left: -6px; }
   .rc-select-enabled .rc-select-selection:hover { border-color: #00a6ff; box-shadow: none; }
 }
 .e-select-drop-down {
   border-radius: 0; font-size: 12px; background-color: #fff; box-shadow: 0 0 9px 0 rgba(59, 61, 77, 0.52);
   .rc-select-dropdown-menu-item {
-    color: #1f2532;
+    color: #1f2532; height: 35px; line-height: 35px; box-sizing: border-box; padding: 0; text-align: center; font-size: 12px;
     &-active { background: #f2f2f2; }
   }
   .rc-select-dropdown-menu { max-height: 300px; overflow: auto; }

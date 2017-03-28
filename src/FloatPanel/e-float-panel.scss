@@ -1,0 +1,29 @@
+@import '../styles/mixins/icons';
+
+.e-float-panel {
+  $root: &;
+  position: relative; display: inline-block; width: 100%; transition: width .5s; border: solid 1px #e0e0e0;
+  &-wrapper { transition: opacity .5s; opacity: 1; width: 100%; max-height: 100%; box-sizing: border-box; overflow: hidden; }
+  &-toggler {
+    box-sizing: border-box; z-index: 1; cursor: pointer; background: #f6f6f6; width: 30px; height: 70px; position: absolute; top: 0; right: 0; border-left: solid 1px #e0e0e0; border-bottom: solid 1px #e0e0e0;
+    &:before,
+    &:after { transition: transform .5s; @include angle-right-icon(#c1c1c1); transform: rotate(180deg); content: ''; width: 20px; height: 20px; position: absolute; top: 50%; left: calc(50% - 13px); margin: - 7px 0 0 0; }
+    &:before { left: calc(50% - 7px); }
+    &:hover {
+      &:before,
+      &:after { @include angle-right-icon(#028dd8); }
+    }
+  }
+  &.is-tree { width: 310px; }
+  &.is-hide {
+    width: 30px;
+    #{$root} {
+      &-wrapper { opacity: 0; };
+      &-toggler {
+        border-left: 0;
+        &:before,
+        &:after { transform: rotate(0); }
+      }
+    }
+  }
+}

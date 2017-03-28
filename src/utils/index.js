@@ -1,7 +1,7 @@
 import b from 'bem-cn';
 import axios from 'axios';
 
-export const api = axios.create({baseURL: '/api/v1/'});
+export const api = axios.create({baseURL: ''});
 
 b.setup({el: '-'});
 
