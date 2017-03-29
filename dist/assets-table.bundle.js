@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bd6dc3c730ed9828bab5"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9e4f3ff954a845d935ff"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -7359,7 +7359,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ref: function ref(elem) {
 	              return elem && elem.focus();
 	            },
-	            className: b('cell-text').is({ focus: this.state.focus }),
+	            className: b('cell-text').is({ focus: this.state.focus, edit: this.state.edit }),
 	            contentEditable: this.state.edit,
 	            onBlur: function onBlur(e) {
 	              _this2.handlerEdit(false);

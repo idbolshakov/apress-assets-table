@@ -70,7 +70,7 @@ export default class PathCell extends Component {
         <div
           data-charactersLeft={this.state.charactersLeft}
           ref={elem => elem && elem.focus()}
-          className={b('cell-text').is({focus: this.state.focus})}
+          className={b('cell-text').is({focus: this.state.focus, edit: this.state.edit})}
           contentEditable={this.state.edit}
           onBlur={(e) => {
             this.handlerEdit(false);

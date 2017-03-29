@@ -1093,6 +1093,16 @@ li.rc-select-dropdown-menu-item-divider {
   width: 0;
 }
 
+.e-table-cell:last-child .e-table-cell-text.is-edit {
+  right: 0;
+  left: auto;
+}
+
+.e-table-cell:first-child .e-table-cell-text.is-edit {
+  right: auto;
+  left: 0;
+}
+
 .e-table-header-cell.is-check,
 .e-table-cell.is-check {
   max-width: 60px;
