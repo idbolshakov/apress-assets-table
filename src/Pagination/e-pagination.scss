@@ -17,4 +17,7 @@
   &-next.is-disabled:after { @include long-arrow-right-icon(#c1c1c1); }
   &-prev.is-disabled:before { @include long-arrow-left-icon(#c1c1c1); }
   &-select-count { margin: 0 5px; }
+  & .e-select-drop-down {
+    width: 300px;
+  }
 }

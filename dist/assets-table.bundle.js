@@ -78,7 +78,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
+<<<<<<< HEAD
 /******/ 	var hotCurrentHash = "9e4f3ff954a845d935ff"; // eslint-disable-line no-unused-vars
+=======
+/******/ 	var hotCurrentHash = "53cf2f0de4a42aabd8ca"; // eslint-disable-line no-unused-vars
+>>>>>>> feature(triger): Добавит компоненты Checkbox, Actions, починит селект
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -596,7 +600,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(371);
+	module.exports = __webpack_require__(376);
 
 
 /***/ },
@@ -3206,6 +3210,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.OptGroup = exports.Option = undefined;
+
+	var _Select = __webpack_require__(312);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Option = __webpack_require__(311);
+
+	var _Option2 = _interopRequireDefault(_Option);
+
+	var _OptGroup = __webpack_require__(310);
+
+	var _OptGroup2 = _interopRequireDefault(_OptGroup);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	_Select2["default"].Option = _Option2["default"];
+	_Select2["default"].OptGroup = _OptGroup2["default"];
+	exports.Option = _Option2["default"];
+	exports.OptGroup = _OptGroup2["default"];
+	exports["default"] = _Select2["default"];
+
+/***/ },
+/* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3401,42 +3436,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Scroller;
 
 /***/ },
-/* 88 */,
 /* 89 */,
 /* 90 */,
 /* 91 */,
 /* 92 */,
-/* 93 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.OptGroup = exports.Option = undefined;
-
-	var _Select = __webpack_require__(312);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Option = __webpack_require__(311);
-
-	var _Option2 = _interopRequireDefault(_Option);
-
-	var _OptGroup = __webpack_require__(310);
-
-	var _OptGroup2 = _interopRequireDefault(_OptGroup);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	_Select2["default"].Option = _Option2["default"];
-	_Select2["default"].OptGroup = _OptGroup2["default"];
-	exports.Option = _Option2["default"];
-	exports.OptGroup = _OptGroup2["default"];
-	exports["default"] = _Select2["default"];
-
-/***/ },
+/* 93 */,
 /* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -3753,7 +3757,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _rcSelect = __webpack_require__(93);
+	var _rcSelect = __webpack_require__(87);
 
 	var _rcSelect2 = _interopRequireDefault(_rcSelect);
 
@@ -3772,7 +3776,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _rcSelect2.default,
 	    _extends({
 	      notFoundContent: '\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E',
-	      className: b(), dropdownClassName: 'e-select-drop-down' }, props),
+	      dropdownMatchSelectWidth: false,
+	      className: b.mix(props.mix)(), dropdownClassName: 'e-select-drop-down' }, props),
 	    props.children
 	  );
 	};
@@ -6151,7 +6156,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _utils = __webpack_require__(3);
 
-	var _Scroller = __webpack_require__(87);
+	var _Scroller = __webpack_require__(88);
 
 	var _Scroller2 = _interopRequireDefault(_Scroller);
 
@@ -6565,7 +6570,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _rcSelect = __webpack_require__(93);
+	var _rcSelect = __webpack_require__(87);
 
 	var _utils = __webpack_require__(3);
 
@@ -6623,7 +6628,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          style: { width: 52 },
 	          onChange: function onChange(val) {
 	            props.onSelect(+val);
-	          }
+	          },
+	          dropdownAlign: { points: ['tc', 'bc'] },
+	          dropdownMenuStyle: { width: 85 }
 	        },
 	        options
 	      )
@@ -16795,7 +16802,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 368 */,
 /* 369 */,
 /* 370 */,
-/* 371 */
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16837,7 +16849,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _SaveControl2 = _interopRequireDefault(_SaveControl);
 
-	var _Scroller = __webpack_require__(87);
+	var _Scroller = __webpack_require__(88);
 
 	var _Scroller2 = _interopRequireDefault(_Scroller);
 
