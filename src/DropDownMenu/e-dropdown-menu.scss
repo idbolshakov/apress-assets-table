@@ -1,0 +1,20 @@
+.e-dropdown-menu {
+  box-sizing: border-box; padding: 25px 0 21px 0; margin-top: 10px; background: #fff; position: relative; width: 220px; box-shadow: 0 0 9px 0 rgba(59, 61, 77, 0.52); margin-left: -20px;
+  & * { box-sizing: border-box; }
+  &-menu { text-transform: uppercase; }
+  &-title { font-size: 12px; color: #c1c1c1; text-transform: uppercase; margin-bottom: 20px; padding: 0 20px; line-height: 1; }
+  &-menu-item {
+    font-size: 12px; height: 30px; line-height: 30px; padding: 0 20px; cursor: pointer;
+    &:hover { background: #f2f2f2; }
+  }
+  &:after { content: ''; position: absolute; top: 0; left: 40px; margin-top: -6px; width: 0; height: 0; border-style: solid; border-width: 0 6px 6px 6px; border-color: transparent transparent #fff transparent; }
+  &:before { content: ''; position: absolute; top: 0; left: 40px; margin-top: -9px; margin-left: -2px; width: 0; height: 0; border-style: solid; border-width: 0 8px 8px 8px; border-color: transparent transparent rgb(221, 221, 224) transparent; }
+}
+
+.rc-dropdown-placement-topLeft {
+  .e-dropdown-menu {
+    margin-top: -10px;
+    &:after { content: ''; top: 100%; margin-top: 0; border-style: solid; border-width: 6px 6px 0 6px; border-color: #fff transparent transparent transparent; }
+    &:before { content: ''; top: 100%; margin-top: 0; margin-left: -2px; border-style: solid; border-width: 8px 8px 0 8px; border-color: rgb(221, 221, 224) transparent transparent transparent; }
+  }
+}

@@ -965,10 +965,94 @@ li.rc-select-dropdown-menu-item-divider {
 
 .e-pagination-select-count {
   margin: 0 5px;
+}.e-dropdown-menu {
+  box-sizing: border-box;
+  padding: 25px 0 21px 0;
+  margin-top: 10px;
+  background: #fff;
+  position: relative;
+  width: 220px;
+  box-shadow: 0 0 9px 0 rgba(59, 61, 77, 0.52);
+  margin-left: -20px;
 }
 
-.e-pagination .e-select-drop-down {
-  width: 300px;
+.e-dropdown-menu * {
+  box-sizing: border-box;
+}
+
+.e-dropdown-menu-menu {
+  text-transform: uppercase;
+}
+
+.e-dropdown-menu-title {
+  font-size: 12px;
+  color: #c1c1c1;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding: 0 20px;
+  line-height: 1;
+}
+
+.e-dropdown-menu-menu-item {
+  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.e-dropdown-menu-menu-item:hover {
+  background: #f2f2f2;
+}
+
+.e-dropdown-menu:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 40px;
+  margin-top: -6px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 6px 6px 6px;
+  border-color: transparent transparent #fff transparent;
+}
+
+.e-dropdown-menu:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 40px;
+  margin-top: -9px;
+  margin-left: -2px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 8px 8px 8px;
+  border-color: transparent transparent #dddde0 transparent;
+}
+
+.rc-dropdown-placement-topLeft .e-dropdown-menu {
+  margin-top: -10px;
+}
+
+.rc-dropdown-placement-topLeft .e-dropdown-menu:after {
+  content: '';
+  top: 100%;
+  margin-top: 0;
+  border-style: solid;
+  border-width: 6px 6px 0 6px;
+  border-color: #fff transparent transparent transparent;
+}
+
+.rc-dropdown-placement-topLeft .e-dropdown-menu:before {
+  content: '';
+  top: 100%;
+  margin-top: 0;
+  margin-left: -2px;
+  border-style: solid;
+  border-width: 8px 8px 0 8px;
+  border-color: #dddde0 transparent transparent transparent;
 }@keyframes spin {
   from {
     transform: rotate(0deg);
@@ -1260,6 +1344,22 @@ li.rc-select-dropdown-menu-item-divider {
 
 .e-table-cell-text[data-charactersLeft='0']:after {
   color: #dc6263;
+}
+
+.e-table-header-title {
+  padding-right: 20px;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.e-table-header-title:after {
+  background: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMWYyNTMyIiB3aWR0aD0iMTc5MiIgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMzk1IDczNnEwIDEzLTEwIDIzbC00NjYgNDY2cS0xMCAxMC0yMyAxMHQtMjMtMTBsLTQ2Ni00NjZxLTEwLTEwLTEwLTIzdDEwLTIzbDUwLTUwcTEwLTEwIDIzLTEwdDIzIDEwbDM5MyAzOTMgMzkzLTM5M3ExMC0xMCAyMy0xMHQyMyAxMGw1MCA1MHExMCAxMCAxMCAyM3oiLz48L3N2Zz4=") 50%/contain no-repeat;
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 13px;
+  height: 13px;
 }
 
 .loader {
@@ -1959,6 +2059,20 @@ li.rc-select-dropdown-menu-item-divider {
   background: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjZGM2MjYzIiB3aWR0aD0iMTc5MiIgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik03MDQgNzM2djU3NnEwIDE0LTkgMjN0LTIzIDloLTY0cS0xNCAwLTIzLTl0LTktMjN2LTU3NnEwLTE0IDktMjN0MjMtOWg2NHExNCAwIDIzIDl0OSAyM3ptMjU2IDB2NTc2cTAgMTQtOSAyM3QtMjMgOWgtNjRxLTE0IDAtMjMtOXQtOS0yM3YtNTc2cTAtMTQgOS0yM3QyMy05aDY0cTE0IDAgMjMgOXQ5IDIzem0yNTYgMHY1NzZxMCAxNC05IDIzdC0yMyA5aC02NHEtMTQgMC0yMy05dC05LTIzdi01NzZxMC0xNCA5LTIzdDIzLTloNjRxMTQgMCAyMyA5dDkgMjN6bTEyOCA3MjR2LTk0OGgtODk2djk0OHEwIDIyIDcgNDAuNXQxNC41IDI3IDEwLjUgOC41aDgzMnEzIDAgMTAuNS04LjV0MTQuNS0yNyA3LTQwLjV6bS02NzItMTA3Nmg0NDhsLTQ4LTExN3EtNy05LTE3LTExaC0zMTdxLTEwIDItMTcgMTF6bTkyOCAzMnY2NHEwIDE0LTkgMjN0LTIzIDloLTk2djk0OHEwIDgzLTQ3IDE0My41dC0xMTMgNjAuNWgtODMycS02NiAwLTExMy01OC41dC00Ny0xNDEuNXYtOTUyaC05NnEtMTQgMC0yMy05dC05LTIzdi02NHEwLTE0IDktMjN0MjMtOWgzMDlsNzAtMTY3cTE1LTM3IDU0LTYzdDc5LTI2aDMyMHE0MCAwIDc5IDI2dDU0IDYzbDcwIDE2N2gzMDlxMTQgMCAyMyA5dDkgMjN6Ii8+PC9zdmc+") 50%/contain no-repeat;
   border-color: #dc6263;
   background-size: 13px;
+}.rc-dropdown {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  z-index: 1070;
+  display: block;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.rc-dropdown-hidden {
+  display: none;
 }body {
   font-family: 'OpenSans';
 }

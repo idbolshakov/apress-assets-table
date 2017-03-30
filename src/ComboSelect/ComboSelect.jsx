@@ -10,7 +10,9 @@ const Select = props =>
   <RcSelect
     notFoundContent='Ничего не найдено'
     dropdownMatchSelectWidth={false}
-    className={b.mix(props.mix)()} dropdownClassName='e-select-drop-down' {...props}
+    className={b.mix(props.mix)()}
+    dropdownClassName='e-select-drop-down'
+    {...props}
   >
     {props.children}
   </RcSelect>;
