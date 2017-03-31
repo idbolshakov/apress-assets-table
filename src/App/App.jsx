@@ -13,15 +13,11 @@ import ActionsPanelExample from '../ActionsPanel/example';
 import TreeExample from '../Tree/example';
 import SaveControl from '../SaveControl/SaveControl';
 import FloatPanelExample from '../FloatPanel/example';
-import CheckboxExample from '../Checkbox/example';
-import ActionsExample from '../Actions/example';
-import DropDownExample from '../DropDownMenu/example';
 import * as actionsTable from '../Table/actions';
 import * as actionsTree from '../Tree/actions';
 import * as actionsSave from '../SaveControl/actions';
 import {block} from '../utils';
 
-import '../styles/global.scss';
 import './style.scss';
 
 const b = block('example-wrapper');
@@ -50,8 +46,6 @@ class App extends React.Component {
         <div className={b}>
           <TogglerExample />
         </div>
-        <CheckboxExample />
-        <ActionsExample />
         <div className={b}>
           <PaginationExample />
         </div>
@@ -62,9 +56,6 @@ class App extends React.Component {
           <ScrollerExample />
         </div>
         <ActionsPanelExample />
-        <div className={b}>
-          <DropDownExample />
-        </div>
         <div className={b}>
           <SaveControl
             save={this.props.save}

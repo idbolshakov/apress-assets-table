@@ -76,10 +76,6 @@
     &:after { content: attr(data-charactersLeft); position: absolute; right: 10px; bottom: 10px; font-size: 12px; }
     &[data-charactersLeft='0']:after { color: #dc6263; }
   }
-  &-header-title {
-    padding-right: 20px; position: relative; cursor: pointer; display: inline-block;
-    &:after { @include angle-down-icon(#1f2532); content: ''; position: absolute; right: 0; width: 13px; height: 13px; }
-  }
 }
 
 .loader {
