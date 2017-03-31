@@ -9,7 +9,7 @@ const Actions = props =>
     {props.actions.map(action =>
       <div
         onClick={action.onClick}
-        title='Добавить'
+        title={action.title}
         className={b('action').is({[action.name]: true})}
       />
     )}

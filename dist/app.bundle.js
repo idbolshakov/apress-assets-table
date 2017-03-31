@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "650ee2cbb20b8451d695"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "49c10f9e6d48c8a8a5e8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -22646,7 +22646,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    props.actions.map(function (action) {
 	      return _react2.default.createElement('div', {
 	        onClick: action.onClick,
-	        title: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C',
+	        title: action.title,
 	        className: b('action').is(_defineProperty({}, action.name, true))
 	      });
 	    })
