@@ -1382,6 +1382,7 @@ li.rc-select-dropdown-menu-item-divider {
   border-bottom: 0;
 }
 
+.e-table-body-tr:last-child .e-table-cell-text + .cke,
 .e-table-body-tr:last-child .e-table-cell-text {
   top: auto;
   bottom: 0;
@@ -1391,6 +1392,7 @@ li.rc-select-dropdown-menu-item-divider {
   border-top: 0;
 }
 
+.e-table-body-tr:first-child .e-table-cell .e-table-cell-text + .cke,
 .e-table-body-tr:first-child .e-table-cell .e-table-cell-text {
   top: 0;
   bottom: auto;
@@ -1404,6 +1406,8 @@ li.rc-select-dropdown-menu-item-divider {
 }
 
 .e-table-cell {
+  outline: none;
+  user-select: none;
   font-size: 12px;
   color: #1f2532;
   height: 100px;
@@ -1458,11 +1462,13 @@ li.rc-select-dropdown-menu-item-divider {
   width: 0;
 }
 
+.e-table-cell:last-child .e-table-cell-text.is-edit + .cke,
 .e-table-cell:last-child .e-table-cell-text.is-edit {
   right: 0;
   left: auto;
 }
 
+.e-table-cell:first-child .e-table-cell-text.is-edit + .cke,
 .e-table-cell:first-child .e-table-cell-text.is-edit {
   right: auto;
   left: 0;
@@ -1548,6 +1554,7 @@ li.rc-select-dropdown-menu-item-divider {
   line-height: 12px;
   display: inline-block;
   vertical-align: text-bottom;
+  user-select: text;
 }
 
 .e-table-path-arrow {
@@ -1591,8 +1598,10 @@ li.rc-select-dropdown-menu-item-divider {
   overflow: hidden;
   text-overflow: ellipsis;
   max-height: 50px;
+  user-select: text;
 }
 
+.e-table-cell-text + .cke,
 .e-table-cell-text.is-edit {
   font-size: 14px;
   padding: 20px;
@@ -1609,6 +1618,7 @@ li.rc-select-dropdown-menu-item-divider {
   border: solid 1px #028dd8;
 }
 
+.e-table-cell-text + .cke:after,
 .e-table-cell-text:after {
   content: attr(data-charactersLeft);
   position: absolute;
@@ -1617,8 +1627,25 @@ li.rc-select-dropdown-menu-item-divider {
   font-size: 12px;
 }
 
+.e-table-cell-text + .cke[data-charactersLeft='0']:after,
 .e-table-cell-text[data-charactersLeft='0']:after {
   color: #dc6263;
+}
+
+.e-table-cell-text + .cke {
+  width: 707px;
+  padding: 0;
+  border: 1px solid #b6b6b6;
+  height: auto;
+  max-height: 5000px;
+}
+
+.e-table-cell-text + .cke:after {
+  bottom: 4px;
+}
+
+.e-table-cell-text + .cke .cke_top.cke_reset_all {
+  padding-right: 2px;
 }
 
 .e-table-header-title {

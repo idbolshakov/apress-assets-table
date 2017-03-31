@@ -16,15 +16,18 @@
     &:hover { background-color: #f8f8f8; }
     &:last-child {
       .e-table-cell { border-bottom: 0; }
+      .e-table-cell-text + .cke,
       .e-table-cell-text { top: auto; bottom: 0; }
     }
     &:first-child .e-table-cell {
       border-top: 0;
+      .e-table-cell-text + .cke,
       .e-table-cell-text { top: 0; bottom: auto; }
     }
   }
   &-body { display: block; overflow: auto; width: 100%; height: 100%; }
   &-cell {
+    outline: none; user-select: none;
     &:hover {
       &:before { content: ''; border: solid 1px #e3b61c; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
       &:after { display: none; }
@@ -38,10 +41,12 @@
     &:last-child {
       &:after { width: 0; }
       #{$root} {
+        &-cell-text.is-edit + .cke,
         &-cell-text.is-edit { right: 0; left: auto; }
       }
     }
     &:first-child #{$root} {
+      &-cell-text.is-edit + .cke,
       &-cell-text.is-edit { right: auto; left: 0; }
     }
   }
@@ -59,7 +64,7 @@
     &.is-url { @include cell-width(170px); }
   }
   &-cell-placeholder { color: #b4b5b8; }
-  &-path-text { line-height: 12px; display: inline-block; vertical-align: text-bottom; }
+  &-path-text { line-height: 12px; display: inline-block; vertical-align: text-bottom; user-select: text; }
   &-path-arrow {
     position: relative;;
     &:after { content: ''; position: absolute; @include angle-double-right-icon(); width: 12px; height: 12px; margin: 0 4px; }
@@ -70,10 +75,18 @@
     &:after { @include camera-icon() width: 17px; height: 15px; content: ''; position: absolute; top: 50%; left: 50%; margin: -7.5px 0 0 -8.5px; }
   }
   &-cell-text {
-    overflow: hidden; text-overflow: ellipsis; max-height: 50px;
+    overflow: hidden; text-overflow: ellipsis; max-height: 50px; user-select: text;
+    + .cke,
     &.is-edit { font-size: 14px; padding: 20px; background: #fff; box-sizing: border-box; max-height: 150px; height: 150px; width: 380px; outline: none; z-index: 1; position: absolute; left: 0; top: 0; border: solid 1px #028dd8; }
+    + .cke:after,
     &:after { content: attr(data-charactersLeft); position: absolute; right: 10px; bottom: 10px; font-size: 12px; }
+    + .cke[data-charactersLeft='0']:after,
     &[data-charactersLeft='0']:after { color: #dc6263; }
+    + .cke {
+      width: 707px; padding: 0; border: 1px solid #b6b6b6; height: auto; max-height: 5000px;
+      &:after { bottom: 4px; }
+      .cke_top.cke_reset_all { padding-right: 2px; }
+    }
   }
   &-header-title {
     position: relative; display: inline-block; vertical-align: middle;

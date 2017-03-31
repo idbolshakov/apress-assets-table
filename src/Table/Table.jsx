@@ -8,8 +8,7 @@ import './e-table.scss';
 
 const b = block('e-table');
 
-class Table extends React.Component {
-
+export default class Table extends React.Component {
   static propTypes = {
     table: PropTypes.object,
     config: PropTypes.object,
@@ -38,7 +37,11 @@ class Table extends React.Component {
       <div ref={(node) => { this.$node = node; }} className={b}>
         <table className={b('wrapper')}>
           <thead>
-            <Header table={props.table} />
+            <Header
+              table={props.table}
+              selectFilter={props.selectFilter}
+              selectSort={props.selectSort}
+            />
           </thead>
           <Body
             table={props.table}
@@ -53,5 +56,3 @@ class Table extends React.Component {
     );
   }
 }
-
-export default Table;

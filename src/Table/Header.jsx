@@ -16,7 +16,7 @@ const createCell = (cell, index, selectAllRow, selectFilter, selectSort) => {
     <DropDownMenu
       title={cell.common.title}
       items={mapFilterOptionsToMenu(cell.filter.options)}
-      onSelect={(id) => { selectFilter(id); }}
+      onSelect={id => selectFilter({id, name: cell.name})}
     >
       <div className={b('header-title').is({filter: true})}>{cell.common.title}</div>
     </DropDownMenu>
@@ -27,15 +27,19 @@ const createCell = (cell, index, selectAllRow, selectFilter, selectSort) => {
       title='Сортировать'
       items={[
         {
+          title: 'Все',
+          id: '',
+        },
+        {
           title: 'А - Я',
-          id: 'ASC',
+          id: 'up',
         },
         {
           title: 'Я - А',
-          id: 'DESC',
+          id: 'down',
         },
       ]}
-      onSelect={(id) => { selectSort(id); }}
+      onSelect={id => selectSort({id, name: cell.name})}
     >
       <div className={b('sorter').is({sorted: cell.sorter.direction})} />
     </DropDownMenu>
@@ -60,8 +64,8 @@ const Header = props =>
     {props.table.columns.map((cell, index) =>
       createCell(cell, index,
         () => { console.log('selectAllRow - dispatch'); },
-        () => { console.log('selectFilter - disaptch'); },
-        () => { console.log('selectSort - dispatch'); }
+        props.selectFilter,
+        props.selectSort,
       ))}
   </tr>;
 
