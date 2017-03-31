@@ -1027,7 +1027,7 @@ li.rc-select-dropdown-menu-item-divider {
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0 8px 8px 8px;
+  border-width: 0 8px 8px;
   border-color: transparent transparent #dddde0 transparent;
 }
 
@@ -1039,7 +1039,7 @@ li.rc-select-dropdown-menu-item-divider {
   content: '';
   top: 100%;
   margin-top: 0;
-  border-width: 6px 6px 0 6px;
+  border-width: 6px 6px 0;
   border-color: #fff transparent transparent transparent;
 }
 
@@ -1047,7 +1047,7 @@ li.rc-select-dropdown-menu-item-divider {
   content: '';
   top: 100%;
   margin: 0 0 0 -2px;
-  border-width: 8px 8px 0 8px;
+  border-width: 8px 8px 0;
   border-color: #dddde0 transparent transparent transparent;
 }@keyframes spin {
   from {

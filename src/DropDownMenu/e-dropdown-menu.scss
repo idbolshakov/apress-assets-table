@@ -8,13 +8,13 @@
     &:hover { background: #f2f2f2; }
   }
   &:after { content: ''; position: absolute; top: 0; left: 40px; margin-top: -6px; width: 0; height: 0; border-style: solid; border-width: 0 6px 6px; border-color: transparent transparent #fff; }
-  &:before { content: ''; position: absolute; top: 0; left: 40px; margin: -9px 0 0 -2px; width: 0; height: 0; border-style: solid; border-width: 0 8px 8px 8px; border-color: transparent transparent rgb(221, 221, 224) transparent; }
+  &:before { content: ''; position: absolute; top: 0; left: 40px; margin: -9px 0 0 -2px; width: 0; height: 0; border-style: solid; border-width: 0 8px 8px; border-color: transparent transparent rgb(221, 221, 224) transparent; }
 }
 
 .rc-dropdown-placement-topLeft {
   .e-dropdown-menu {
     margin-top: -10px;
-    &:after { content: ''; top: 100%; margin-top: 0; border-width: 6px 6px 0 6px; border-color: #fff transparent transparent transparent; }
-    &:before { content: ''; top: 100%;  margin: 0 0 0 -2px; border-width: 8px 8px 0 8px; border-color: rgb(221, 221, 224) transparent transparent transparent; }
+    &:after { content: ''; top: 100%; margin-top: 0; border-width: 6px 6px 0; border-color: #fff transparent transparent transparent; }
+    &:before { content: ''; top: 100%;  margin: 0 0 0 -2px; border-width: 8px 8px 0; border-color: rgb(221, 221, 224) transparent transparent transparent; }
   }
 }
