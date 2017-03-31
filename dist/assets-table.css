@@ -968,12 +968,12 @@ li.rc-select-dropdown-menu-item-divider {
 }.e-dropdown-menu {
   box-sizing: border-box;
   padding: 25px 0 21px;
-  margin-top: 10px;
+  top: 10px;
+  left: -20px;
   background: #fff;
   position: relative;
   width: 220px;
   box-shadow: 0 0 9px 0 rgba(59, 61, 77, 0.52);
-  margin-left: -20px;
 }
 
 .e-dropdown-menu * {
@@ -1014,8 +1014,8 @@ li.rc-select-dropdown-menu-item-divider {
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0 6px 6px 6px;
-  border-color: transparent transparent #fff transparent;
+  border-width: 0 6px 6px;
+  border-color: transparent transparent #fff;
 }
 
 .e-dropdown-menu:before {
