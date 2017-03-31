@@ -30,7 +30,7 @@ export default class DropDownMenu extends React.Component {
     this.setState({visible: false});
   }
 
-  handleSelect = (id, e) => {
+  handleSelect = (e, id) => {
     this.props.onSelect(id, e);
     this.close();
   }
@@ -45,7 +45,7 @@ export default class DropDownMenu extends React.Component {
             {props.items.map((item, index) =>
               <div
                 key={index}
-                onClick={(e) => { this.handleSelect(item.id, e); }}
+                onClick={(e) => { this.handleSelect(e, item.id); }}
                 className={b('menu-item').is({selected: item.active})}
               >
                 {item.title}

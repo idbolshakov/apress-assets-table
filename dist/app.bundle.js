@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b48f75d2334e1afcff3b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "650ee2cbb20b8451d695"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -6496,7 +6496,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      visible: false
 	    }, _this.close = function () {
 	      _this.setState({ visible: false });
-	    }, _this.handleSelect = function (id, e) {
+	    }, _this.handleSelect = function (e, id) {
 	      _this.props.onSelect(id, e);
 	      _this.close();
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -6528,7 +6528,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                {
 	                  key: index,
 	                  onClick: function onClick(e) {
-	                    _this2.handleSelect(item.id, e);
+	                    _this2.handleSelect(e, item.id);
 	                  },
 	                  className: b('menu-item').is({ selected: item.active })
 	                },
