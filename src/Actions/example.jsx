@@ -9,9 +9,23 @@ export default class ActionsExample extends React.Component {
     return (
       <div className='example-wrapper'>
         <Actions
-          onAdd={(e) => { console.log('action add', e); }}
-          onCopy={(e) => { console.log('action copy', e); }}
-          onRemove={(e) => { console.log('action remove', e); }}
+          actions={[
+            {
+              name: 'add',
+              title: 'Добавить',
+              onClick: (e) => { console.log('action add', e); }
+            },
+            {
+              name: 'copy',
+              title: 'Копировать',
+              onClick: (e) => { console.log('action copy', e); }
+            },
+            {
+              name: 'delete',
+              title: 'Удалить',
+              onClick: (e) => { console.log('action remove', e); }
+            },
+          ]}
         />
       </div>
     );

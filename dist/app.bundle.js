@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "37d034e1e28265889b0b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b48f75d2334e1afcff3b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -22635,23 +22635,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 	var b = (0, _utils.block)('e-actions');
 
 	var Actions = function Actions(props) {
 	  return _react2.default.createElement(
 	    'div',
 	    { className: b.mix(props.mix)() },
-	    props.onAdd && _react2.default.createElement('div', { onClick: props.onAdd, title: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C', className: b('action').is({ add: 1 }) }),
-	    props.onCopy && _react2.default.createElement('div', { onClick: props.onCopy, title: '\u041A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C', className: b('action').is({ copy: 1 }) }),
-	    props.onRemove && _react2.default.createElement('div', { onClick: props.onRemove, title: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C', className: b('action').is({ delete: 1 }) })
+	    props.actions.map(function (action) {
+	      return _react2.default.createElement('div', {
+	        onClick: action.onClick,
+	        title: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C',
+	        className: b('action').is(_defineProperty({}, action.name, true))
+	      });
+	    })
 	  );
 	};
 
 	Actions.propTypes = {
 	  mix: _react.PropTypes.string,
-	  onAdd: _react.PropTypes.func,
-	  onCopy: _react.PropTypes.func,
-	  onRemove: _react.PropTypes.func
+	  actions: _react.PropTypes.array
 	};
 
 	Actions.defaultProps = {
@@ -22706,15 +22710,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	        'div',
 	        { className: 'example-wrapper' },
 	        _react2.default.createElement(_Actions2.default, {
-	          onAdd: function onAdd(e) {
-	            console.log('action add', e);
-	          },
-	          onCopy: function onCopy(e) {
-	            console.log('action copy', e);
-	          },
-	          onRemove: function onRemove(e) {
-	            console.log('action remove', e);
-	          }
+	          actions: [{
+	            name: 'add',
+	            title: 'Добавить',
+	            onClick: function onClick(e) {
+	              console.log('action add', e);
+	            }
+	          }, {
+	            name: 'copy',
+	            title: 'Копировать',
+	            onClick: function onClick(e) {
+	              console.log('action copy', e);
+	            }
+	          }, {
+	            name: 'delete',
+	            title: 'Удалить',
+	            onClick: function onClick(e) {
+	              console.log('action remove', e);
+	            }
+	          }]
 	        })
 	      );
 	    }
@@ -23640,6 +23654,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 
+	var _utils = __webpack_require__(3);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23648,8 +23664,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-console: 0 */
 
-
-	// import {block} from '../utils';
 
 	var menuItems = {
 	  title: 'Некий заголовок',
@@ -23675,6 +23689,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    active: false
 	  }]
 	};
+
+	var be = (0, _utils.block)('example');
 
 	var DropDownExample = function (_React$Component) {
 	  _inherits(DropDownExample, _React$Component);
@@ -23707,7 +23723,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          },
 	          _react2.default.createElement(
 	            'div',
-	            { style: { display: 'inline-block' } },
+	            { className: be('just-inline-block') },
 	            '\u041A\u0430\u0441\u0442\u043E\u043C\u043D\u044B\u0439 \u0435\u043B\u0435\u043C\u0435\u043D\u0442'
 	          )
 	        ),
@@ -23725,7 +23741,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          },
 	          _react2.default.createElement(
 	            'div',
-	            { style: { display: 'inline-block' } },
+	            { className: be('just-inline-block') },
 	            '\u0411\u0435\u0437 \u0442\u0430\u0439\u0442\u043B\u0430'
 	          )
 	        )

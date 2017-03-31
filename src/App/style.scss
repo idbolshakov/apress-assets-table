@@ -12,4 +12,5 @@ button { outline: none; }
   &-table { width: 1570px; height: 748px; margin: 50px; }
   &-tree { width: 310px; height: 200px; margin: 50px; }
   &-float-panel { width: 310px; height: 200px; margin: 50px; }
+  &-just-inline-block { display: inline-block; vertical-align: middle; }
 }

@@ -6,22 +6,18 @@ const b = block('e-actions');
 
 const Actions = props =>
   <div className={b.mix(props.mix)()}>
-    {props.onAdd &&
-    <div onClick={props.onAdd} title='Добавить' className={b('action').is({add: 1})} />
-    }
-    {props.onCopy &&
-    <div onClick={props.onCopy} title='Копировать' className={b('action').is({copy: 1})} />
-    }
-    {props.onRemove &&
-    <div onClick={props.onRemove} title='Удалить' className={b('action').is({delete: 1})} />
-    }
+    {props.actions.map(action =>
+      <div
+        onClick={action.onClick}
+        title='Добавить'
+        className={b('action').is({[action.name]: true})}
+      />
+    )}
   </div>;
 
 Actions.propTypes = {
   mix: PropTypes.string,
-  onAdd: PropTypes.func,
-  onCopy: PropTypes.func,
-  onRemove: PropTypes.func,
+  actions: PropTypes.array,
 };
 
 Actions.defaultProps = {

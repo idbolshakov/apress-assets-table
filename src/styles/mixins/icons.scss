@@ -95,7 +95,6 @@
   background: url("data:image/svg+xml;base64,#{$svg-string}") 50%/contain no-repeat;
 }
 
-
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 import React from 'react';
 import DropDownMenu from './DropDownMenu';
-// import {block} from '../utils';
+import {block} from '../utils';
 
 const menuItems = {
   title: 'Некий заголовок',
@@ -29,6 +29,7 @@ const menuItems = {
   ]
 };
 
+const be = block('example');
 
 export default class DropDownExample extends React.Component {
 
@@ -41,7 +42,7 @@ export default class DropDownExample extends React.Component {
           title={menuItems.title}
           onSelect={(id, e) => { console.log('selected', id, e); }}
         >
-          <div style={{display: 'inline-block'}}>Кастомный елемент</div>
+          <div className={be('just-inline-block')}>Кастомный елемент</div>
         </DropDownMenu>
         {' '} | {' '}
         <DropDownMenu
@@ -49,7 +50,7 @@ export default class DropDownExample extends React.Component {
           mix={'test-mix-1 test-mix-2'}
           onSelect={(id, e) => { console.log('selected', id, e); }}
         >
-          <div style={{display: 'inline-block'}}>Без тайтла</div>
+          <div className={be('just-inline-block')}>Без тайтла</div>
         </DropDownMenu>
       </div>
     );
