@@ -1,0 +1,22 @@
+@import '../styles/mixins/icons';
+
+.e-actions {
+  width: 27px; box-sizing: border-box;
+  & * { box-sizing: border-box; }
+  &-action {
+    height: 27px; border: 1px solid #c1c1c1; cursor: pointer; margin-bottom: -1px;
+    &:hover { border: 1px solid #028dd8; position: relative; }
+    &.is-add {
+      @include plus-square-icon(#c1c1c1); background-size: 13px;
+      &:hover { @include plus-square-icon(#028dd8); background-size: 13px; }
+    }
+    &.is-copy {
+      @include copy-icon(#c1c1c1); background-size: 13px;
+      &:hover { @include copy-icon(#028dd8); background-size: 13px; }
+    }
+    &.is-delete {
+      @include trash-o-icon(#c1c1c1); background-size: 13px;
+      &:hover { @include trash-o-icon(#dc6263); border-color: #dc6263; background-size: 13px; }
+    }
+  }
+}
