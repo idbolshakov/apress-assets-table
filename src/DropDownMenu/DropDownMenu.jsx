@@ -26,9 +26,7 @@ export default class DropDownMenu extends React.Component {
     visible: false,
   }
 
-  close = () => {
-    this.setState({visible: false});
-  }
+  close = () => { this.setState({visible: false}); }
 
   handleSelect = (e, id) => {
     this.props.onSelect(id, e);
