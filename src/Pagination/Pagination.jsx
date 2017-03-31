@@ -31,6 +31,8 @@ const Pagination = (props) => {
           showSearch={false}
           style={{width: 52}}
           onChange={(val) => { props.onSelect(+val); }}
+          dropdownAlign={{points: ['tc', 'bc']}}
+          dropdownMenuStyle={{width: 85}}
         >
           {options}
         </Select>

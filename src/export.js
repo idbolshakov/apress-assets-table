@@ -19,6 +19,7 @@ import reducerRow from './Table/reducerRow';
 import reducerSaveControl from './SaveControl/reducer';
 
 import './styles/fonts.scss';
+import './styles/global.scss';
 
 export const reducers = {
   reducerTable,

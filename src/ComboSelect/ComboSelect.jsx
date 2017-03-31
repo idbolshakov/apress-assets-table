@@ -9,7 +9,10 @@ const b = block('e-select');
 const Select = props =>
   <RcSelect
     notFoundContent='Ничего не найдено'
-    className={b()} dropdownClassName='e-select-drop-down' {...props}
+    dropdownMatchSelectWidth={false}
+    className={b.mix(props.mix)()}
+    dropdownClassName='e-select-drop-down'
+    {...props}
   >
     {props.children}
   </RcSelect>;
