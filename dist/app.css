@@ -1008,9 +1008,8 @@ li.rc-select-dropdown-menu-item-divider {
 .e-dropdown-menu:after {
   content: '';
   position: absolute;
-  top: 0;
+  top: -6px;
   left: 40px;
-  margin-top: -6px;
   width: 0;
   height: 0;
   border-style: solid;
@@ -1021,34 +1020,31 @@ li.rc-select-dropdown-menu-item-divider {
 .e-dropdown-menu:before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 40px;
-  margin: -9px 0 0 -2px;
+  top: -9px;
+  left: 38px;
   width: 0;
   height: 0;
   border-style: solid;
   border-width: 0 8px 8px;
-  border-color: transparent transparent #dddde0 transparent;
+  border-color: transparent transparent #dddde0;
 }
 
 .rc-dropdown-placement-topLeft .e-dropdown-menu {
-  margin-top: -10px;
+  top: -10px;
 }
 
 .rc-dropdown-placement-topLeft .e-dropdown-menu:after {
   content: '';
   top: 100%;
-  margin-top: 0;
   border-width: 6px 6px 0;
-  border-color: #fff transparent transparent transparent;
+  border-color: #fff transparent transparent;
 }
 
 .rc-dropdown-placement-topLeft .e-dropdown-menu:before {
   content: '';
   top: 100%;
-  margin: 0 0 0 -2px;
   border-width: 8px 8px 0;
-  border-color: #dddde0 transparent transparent transparent;
+  border-color: #dddde0 transparent transparent;
 }@keyframes spin {
   from {
     transform: rotate(0deg);
