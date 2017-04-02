@@ -10,7 +10,6 @@
   &-wrapper { border-collapse: collapse; position: relative; table-layout: fixed; height: 100%; overflow: auto; }
   &-header-cell {
     box-sizing: border-box; padding: 25px 20px; font: 300 13px/1 'OpenSans'; text-align: left; color: #1f2532;
-    &.is-check { display: none; }
   }
   &-tr { display: block; position: relative; background-color: #f8f8f8; border-bottom: 1px solid #e0e0e0; }
   &-body-tr {
@@ -48,7 +47,7 @@
   }
   &-header-cell,
   &-cell {
-    &.is-check { @include cell-width(60px); display: none; }
+    &.is-check { @include cell-width(60px); }
     &.is-description { @include cell-width(270px); }
     &.is-detailed-description {  @include cell-width(280px); }
     &.is-h1 { @include cell-width(180px); }
@@ -77,8 +76,16 @@
     &[data-charactersLeft='0']:after { color: #dc6263; }
   }
   &-header-title {
-    padding-right: 20px; position: relative; cursor: pointer; display: inline-block;
-    &:after { @include angle-down-icon(#1f2532); content: ''; position: absolute; right: 0; width: 13px; height: 13px; }
+    position: relative; display: inline-block; vertical-align: middle;
+    &.is-filter {
+      cursor: pointer; padding-right: 20px;
+      &:after { @include angle-down-icon(#1f2532); content: ''; position: absolute; right: 0; width: 13px; height: 13px; }
+    }
+  }
+  &-sorter {
+    @include sort-amount-desc-icon(#1f2532); background-color: #f8f8f8; background-size: 13px; display: inline-block; vertical-align: middle; margin-left: 19px; width: 35px; height: 30px; border-radius: 3px; border: solid 1px #e0e0e0; cursor: pointer;
+    &:hover { background-color: #ffffff; }
+    &.is-sorted { @include sort-amount-desc-icon(#028dd8); background-size: 13px; border-color: #028dd8; }
   }
 }
 
