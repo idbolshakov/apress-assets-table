@@ -8,6 +8,7 @@ const Actions = props =>
   <div className={b.mix(props.mix)()}>
     {props.actions.map(action =>
       <div
+        key={action.name}
         onClick={action.onClick}
         title={action.title}
         className={b('action').is({[action.name]: true})}

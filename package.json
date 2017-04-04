@@ -59,6 +59,7 @@
     "lodash": "^4.17.4",
     "rc-dropdown": "^1.4.10",
     "rc-select": "^6.7.4",
+    "rc-trigger": "^1.9.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
