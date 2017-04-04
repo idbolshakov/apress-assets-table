@@ -81,11 +81,13 @@ class App extends React.Component {
             Redo
           </button>
         </div>
-        <div className={b('table')}>
-          <TableExample
-            table={this.props.table}
-            actions={this.props.actionsTable}
-          />
+        <div style={{marginLeft: 120}}>
+          <div className={b('table')}>
+            <TableExample
+              table={this.props.table}
+              actions={this.props.actionsTable}
+            />
+          </div>
         </div>
         <div className={b('tree')}>
           <TreeExample tree={this.props.tree.data} actions={this.props.actionsTree} />

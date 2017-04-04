@@ -47,7 +47,7 @@
   }
   &-header-cell,
   &-cell {
-    &.is-check { @include cell-width(60px); }
+    &.is-check { @include cell-width(60px); padding-left: 30px; }
     &.is-description { @include cell-width(270px); }
     &.is-detailed-description {  @include cell-width(280px); }
     &.is-h1 { @include cell-width(180px); }

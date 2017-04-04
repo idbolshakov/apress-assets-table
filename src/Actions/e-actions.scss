@@ -1,7 +1,7 @@
 @import '../styles/mixins/icons';
 
 .e-actions {
-  width: 27px; box-sizing: border-box;
+  width: 27px; box-sizing: border-box; background: #fff;
   & * { box-sizing: border-box; }
   &-action {
     height: 27px; border: 1px solid #c1c1c1; cursor: pointer; margin-bottom: -1px;
