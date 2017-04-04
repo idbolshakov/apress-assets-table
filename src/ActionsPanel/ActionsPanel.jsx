@@ -6,6 +6,11 @@ import './e-actions-panel.scss';
 
 const b = block('e-actions-panel');
 
+const filterTitle = {
+  with: 'заполнено',
+  without: 'не заполнено',
+};
+
 const ActionsPanel = props =>
   <div className={b.mix(props.mix)}>
     <div className={b('container')}>
@@ -32,15 +37,20 @@ const ActionsPanel = props =>
           <span className={b('filter-title')}>Установлены фильтры:</span>
           <div className={b('scroll-box')}>
             <Scroller wrapped >
-              {props.filters.map(filter =>
-                <span key={filter.id} className={b('filter-item')}>
-                  <i
-                    onClick={() => { props.onRemoveFilter(filter.id); }}
-                    className={b('remove')} title='Убрать'
-                  />
-                  <span className={b('filter-item-box')}>{filter.name}</span>
-                </span>
-              )}
+              {props.columns && props.columns
+                .filter(col => col.filter && col.filter.value && col.filter.value !== 'all')
+                .map(col =>
+                  <span key={col.name} className={b('filter-item')}>
+                    <i
+                      onClick={() => props.onRemoveFilter({id: '', name: col.name})}
+                      className={b('remove')} title='Убрать'
+                    />
+                    <span className={b('filter-item-box')}>
+                      {`${col.title} - ${filterTitle[col.filter.value]}`}
+                    </span>
+                  </span>
+                )
+              }
             </Scroller>
           </div>
         </div>

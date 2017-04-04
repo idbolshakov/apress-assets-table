@@ -1,3 +1,6 @@
+import {SAVE_PROGRESS, SAVE_SUCCESS} from './actions';
+import {LOAD_TABLE_DATA_SUCCESS, SET_DATA_TEXT_CELL} from '../Table/actions';
+
 const initialState = {
   isSave: false,
   isError: false,
@@ -7,13 +10,13 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case 'LOAD_TABLE_DATA_SUCCESS':
+    case LOAD_TABLE_DATA_SUCCESS:
       return {
         ...state,
         prevProps: action.payload.rows
       };
 
-    case 'SET_DATA_TEXT_CELL':
+    case SET_DATA_TEXT_CELL:
     case '@@redux-undo/UNDO':
     case '@@redux-undo/REDO':
       return {
@@ -21,7 +24,7 @@ export default function (state = initialState, action) {
         isSave: true
       };
 
-    case 'SAVE_PROGRESS':
+    case SAVE_PROGRESS:
       return {
         ...state,
         isSave: false,
@@ -29,7 +32,7 @@ export default function (state = initialState, action) {
         prevProps: action.payload
       };
 
-    case 'SAVE_SUCCESS':
+    case SAVE_SUCCESS:
       return {
         ...state,
         isProgress: false,

@@ -13,11 +13,13 @@ export default class ActionsPanelExample extends React.Component {
     backHistory: true,
     nextHistory: false,
     filters: [
-      {id: 1, name: 'Без фотографии'},
-      {id: 2, name: 'C рубрикой'},
-      {id: 3, name: 'C котиком'},
-      {id: 4, name: 'С колбасой 40 штук'},
-      {id: 5, name: 'С описанием'},
+      {filter: {value: 'with'}, name: 1, title: 'test'},
+      {filter: {value: 'with'}, name: 2, title: 'test'},
+      {filter: {value: 'with'}, name: 3, title: 'test'},
+      {filter: {value: 'with'}, name: 4, title: 'test'},
+      {filter: {value: 'with'}, name: 5, title: 'test'},
+      {filter: {value: 'with'}, name: 6, title: 'test'},
+      {filter: {value: 'with'}, name: 7, title: 'test'}
     ],
   }
   historyBack = () => {
@@ -47,7 +49,7 @@ export default class ActionsPanelExample extends React.Component {
           onRemoveFilter={this.removeFilter}
           backHistory={state.backHistory}
           nextHistory={state.nextHistory}
-          filters={state.filters}
+          columns={state.filters}
         >
           <Scroller>
             <a className={b('breadcrumb-item')} href=''>Все группы</a>
