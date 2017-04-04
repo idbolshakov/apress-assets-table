@@ -13,13 +13,13 @@ export default class ActionsPanelExample extends React.Component {
     backHistory: true,
     nextHistory: false,
     filters: [
-      {filter: {value: 'with'}, name: 1, title: 'test'},
-      {filter: {value: 'with'}, name: 2, title: 'test'},
-      {filter: {value: 'with'}, name: 3, title: 'test'},
-      {filter: {value: 'with'}, name: 4, title: 'test'},
-      {filter: {value: 'with'}, name: 5, title: 'test'},
-      {filter: {value: 'with'}, name: 6, title: 'test'},
-      {filter: {value: 'with'}, name: 7, title: 'test'}
+      {filter: {value: 'with'}, name: 1, title: 'test1'},
+      {filter: {value: 'with'}, name: 2, title: 'test2'},
+      {filter: {value: 'with'}, name: 3, title: 'test3'},
+      {filter: {value: 'with'}, name: 4, title: 'test4'},
+      {filter: {value: 'with'}, name: 5, title: 'test5'},
+      {filter: {value: 'with'}, name: 6, title: 'test6'},
+      {filter: {value: 'with'}, name: 7, title: 'test7'}
     ],
   }
   historyBack = () => {
@@ -32,7 +32,7 @@ export default class ActionsPanelExample extends React.Component {
   }
   removeFilter = (id) => {
     console.log('remove filter', id);
-    const filters = this.state.filters.filter(filter => filter.id !== id);
+    const filters = this.state.filters.filter(filter => filter.name !== id.name);
     console.log(filters);
     this.setState({
       filters,
