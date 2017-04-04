@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f81007b647d3ae55b903"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "81519c9b8da8492a90fb"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -23123,7 +23123,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ActionsPanelExample.__proto__ || Object.getPrototypeOf(ActionsPanelExample)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 	      backHistory: true,
 	      nextHistory: false,
-	      filters: [{ filter: { value: 'with' }, name: 1, title: 'test' }, { filter: { value: 'with' }, name: 2, title: 'test' }, { filter: { value: 'with' }, name: 3, title: 'test' }, { filter: { value: 'with' }, name: 4, title: 'test' }, { filter: { value: 'with' }, name: 5, title: 'test' }, { filter: { value: 'with' }, name: 6, title: 'test' }, { filter: { value: 'with' }, name: 7, title: 'test' }]
+	      filters: [{ filter: { value: 'with' }, name: 1, title: 'test1' }, { filter: { value: 'with' }, name: 2, title: 'test2' }, { filter: { value: 'with' }, name: 3, title: 'test3' }, { filter: { value: 'with' }, name: 4, title: 'test4' }, { filter: { value: 'with' }, name: 5, title: 'test5' }, { filter: { value: 'with' }, name: 6, title: 'test6' }, { filter: { value: 'with' }, name: 7, title: 'test7' }]
 	    }, _this.historyBack = function () {
 	      console.log('historyBack');
 	      _this.setState({ backHistory: false, nextHistory: true });
@@ -23133,7 +23133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, _this.removeFilter = function (id) {
 	      console.log('remove filter', id);
 	      var filters = _this.state.filters.filter(function (filter) {
-	        return filter.id !== id;
+	        return filter.name !== id.name;
 	      });
 	      console.log(filters);
 	      _this.setState({
