@@ -1,8 +1,8 @@
 import {
-  LOAD_RUBRICATOR_DATA_SUCCESS,
-  UPDATE_RUBRICATOR_DATA_SUCCESS,
-  SET_TREE_NODE,
-  SET_EXPANDED
+  TREE_LOAD_SUCCESS,
+  TREE_UPDATE_SUCCESS,
+  TREE_SET_NODE,
+  TREE_SET_EXPANDED
 } from './actions';
 
 const initialState = {
@@ -39,7 +39,7 @@ const isSelected = (treeState, action) => {
 
 const treeNode = (state, action) => {
   switch (action.type) {
-    case UPDATE_RUBRICATOR_DATA_SUCCESS:
+    case TREE_UPDATE_SUCCESS:
       if (state.id === action.payload.id) {
         return {
           ...state,
@@ -49,7 +49,7 @@ const treeNode = (state, action) => {
 
       return state;
 
-    case SET_TREE_NODE:
+    case TREE_SET_NODE:
       return {
         ...state,
         selected: action.payload ? state.id === action.payload.id : false,
@@ -57,7 +57,7 @@ const treeNode = (state, action) => {
           state.tree_nodes.map(node => treeNode(node, action)) : undefined
       };
 
-    case SET_EXPANDED:
+    case TREE_SET_EXPANDED:
       return {
         ...state,
         expanded: state.id === action.payload.id ? action.payload.expanded : state.expanded,
@@ -72,26 +72,26 @@ const treeNode = (state, action) => {
 
 export default function tree(state = initialState, action) {
   switch (action.type) {
-    case LOAD_RUBRICATOR_DATA_SUCCESS:
+    case TREE_LOAD_SUCCESS:
       return {
         ...state,
         data: action.payload
       };
 
-    case UPDATE_RUBRICATOR_DATA_SUCCESS:
+    case TREE_UPDATE_SUCCESS:
       return {
         ...state,
         data: state.data.map(node => treeNode(node, action))
       };
 
-    case SET_TREE_NODE:
+    case TREE_SET_NODE:
       return {
         ...state,
         data: state.data.map(node => treeNode(node, action)),
         selected: isSelected(state.data, action)
       };
 
-    case SET_EXPANDED:
+    case TREE_SET_EXPANDED:
       return {
         ...state,
         data: state.data.map(node => treeNode(node, action))

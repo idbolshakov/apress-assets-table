@@ -37,12 +37,10 @@
   &-filter-title { margin-right: 20px; }
   &-filter-box { padding-left: 20px; padding-right: 10px; border-left: 1px solid #e0e0e0; display: flex; width: 100%; align-items: center; }
   &-last-actions-box { padding-right: 10px; display: flex; align-items: center; padding-left: 30px; flex: 0 0 0; }
-  &-filter-item { white-space: nowrap; text-overflow: ellipsis; position: relative; display: block; }
-  &-filter-item-box { border-radius: 13px; background-color: #e0e0e0; padding: 0 40px 0 20px; height: 25px; line-height: 25px; transition: border-color 0.3s, background 0.3s; border: 1px solid #e0e0e0; display: block;
-  }
-  &-remove {
-    @include close-icon(#dc6263); content: ''; width: 12px; height: 12px; position: absolute; right: 15px; top: 7px; cursor: pointer;
-    &:hover + .e-actions-panel-filter-item-box { border-color: #dc6263; background: #fff; }
+  &-filter-item {
+    cursor: pointer; border-radius: 13px; background-color: #e0e0e0; padding: 0 40px 0 20px; height: 25px; line-height: 23px; transition: border-color 0.3s, background 0.3s; border: 1px solid #e0e0e0; white-space: nowrap; text-overflow: ellipsis; position: relative; display: block;
+    &:after { @include close-icon(#dc6263); content: ''; width: 12px; height: 12px; position: absolute; right: 15px; top: 6px; cursor: pointer; }
+    &:hover { border-color: #dc6263; background: #fff; }
   }
   &-scroll-box { flex-grow: 333; }
 

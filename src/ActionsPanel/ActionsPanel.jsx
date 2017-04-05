@@ -40,14 +40,13 @@ const ActionsPanel = props =>
               {props.columns && props.columns
                 .filter(col => col.filter && col.filter.value && col.filter.value !== 'all')
                 .map(col =>
-                  <span key={col.name} className={b('filter-item')}>
-                    <i
-                      onClick={() => props.onRemoveFilter({id: '', name: col.name})}
-                      className={b('remove')} title='Убрать'
-                    />
-                    <span className={b('filter-item-box')}>
-                      {`${col.title} - ${filterTitle[col.filter.value]}`}
-                    </span>
+                  <span
+                    key={col.name}
+                    className={b('filter-item')}
+                    onClick={() => props.onRemoveFilter({id: '', name: col.name})}
+                    title='Убрать'
+                  >
+                    {`${col.title} - ${filterTitle[col.filter.value]}`}
                   </span>
                 )
               }

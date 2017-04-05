@@ -18,7 +18,7 @@ export default class TreeItem extends Component {
     this.props.actions.setExpanded({id: this.props.node.id, expanded});
 
     if (!this.props.node.tree_nodes || !this.props.node.tree_nodes.length) {
-      this.props.actions.updateTree({
+      this.props.actions.update({
         id: this.props.node.id,
         url_name: this.props.node.url_name,
         config: this.props.config
@@ -27,7 +27,7 @@ export default class TreeItem extends Component {
   }
 
   hendlerClickSelected() {
-    this.props.actions.setTreeNode({id: this.props.node.id, url_name: this.props.node.url_name});
+    this.props.actions.setNode({id: this.props.node.id, url_name: this.props.node.url_name});
 
     if (this.props.node.expandable) {
       this.clickExpanded(true);

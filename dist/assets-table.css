@@ -1352,6 +1352,7 @@ li.rc-select-dropdown-menu-item-divider {
 }
 
 .e-table-wrapper {
+  min-width: 100%;
   border-collapse: collapse;
   position: relative;
   table-layout: fixed;
@@ -1376,10 +1377,6 @@ li.rc-select-dropdown-menu-item-divider {
 
 .e-table-body-tr:hover {
   background-color: #f8f8f8;
-}
-
-.e-table-body-tr:last-child .e-table-cell {
-  border-bottom: 0;
 }
 
 .e-table-body-tr:last-child .e-table-cell-text + .cke,
@@ -2003,35 +2000,32 @@ li.rc-select-dropdown-menu-item-divider {
 }
 
 .e-actions-panel-filter-item {
+  cursor: pointer;
+  border-radius: 13px;
+  background-color: #e0e0e0;
+  padding: 0 40px 0 20px;
+  height: 25px;
+  line-height: 23px;
+  transition: border-color 0.3s, background 0.3s;
+  border: 1px solid #e0e0e0;
   white-space: nowrap;
   text-overflow: ellipsis;
   position: relative;
   display: block;
 }
 
-.e-actions-panel-filter-item-box {
-  border-radius: 13px;
-  background-color: #e0e0e0;
-  padding: 0 40px 0 20px;
-  height: 25px;
-  line-height: 25px;
-  transition: border-color 0.3s, background 0.3s;
-  border: 1px solid #e0e0e0;
-  display: block;
-}
-
-.e-actions-panel-remove {
+.e-actions-panel-filter-item:after {
   background: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjZGM2MjYzIiB3aWR0aD0iMTc5MiIgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xNDkwIDEzMjJxMCA0MC0yOCA2OGwtMTM2IDEzNnEtMjggMjgtNjggMjh0LTY4LTI4bC0yOTQtMjk0LTI5NCAyOTRxLTI4IDI4LTY4IDI4dC02OC0yOGwtMTM2LTEzNnEtMjgtMjgtMjgtNjh0MjgtNjhsMjk0LTI5NC0yOTQtMjk0cS0yOC0yOC0yOC02OHQyOC02OGwxMzYtMTM2cTI4LTI4IDY4LTI4dDY4IDI4bDI5NCAyOTQgMjk0LTI5NHEyOC0yOCA2OC0yOHQ2OCAyOGwxMzYgMTM2cTI4IDI4IDI4IDY4dC0yOCA2OGwtMjk0IDI5NCAyOTQgMjk0cTI4IDI4IDI4IDY4eiIvPjwvc3ZnPg==") 0%/contain no-repeat;
   content: '';
   width: 12px;
   height: 12px;
   position: absolute;
   right: 15px;
-  top: 7px;
+  top: 6px;
   cursor: pointer;
 }
 
-.e-actions-panel-remove:hover + .e-actions-panel-filter-item-box {
+.e-actions-panel-filter-item:hover {
   border-color: #dc6263;
   background: #fff;
 }
@@ -2241,6 +2235,7 @@ li.rc-select-dropdown-menu-item-divider {
 }
 
 .e-float-panel-wrapper {
+  background: #fff;
   transition: opacity .5s;
   opacity: 1;
   width: 100%;

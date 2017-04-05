@@ -8,15 +8,18 @@ import Button from './Button/Button';
 import SaveControl from './SaveControl/SaveControl';
 import Scroller from './Scroller/Scroller';
 import ActionsPanel from './ActionsPanel/ActionsPanel';
+import Filter from './Filter/Filter';
 
 import * as actionsTree from './Tree/actions';
 import * as actionsTable from './Table/actions';
 import * as actionsSaveControl from './SaveControl/actions';
+import * as actionsFilter from './Filter/actions';
 
 import reducerTree from './Tree/reducer';
 import reducerTable from './Table/reducerTable';
 import reducerRow from './Table/reducerRow';
 import reducerSaveControl from './SaveControl/reducer';
+import reducerFilter from './Filter/reducer';
 
 import './styles/fonts.scss';
 import './styles/global.scss';
@@ -25,12 +28,14 @@ export const reducers = {
   reducerTable,
   reducerRow,
   reducerTree,
-  reducerSaveControl
+  reducerSaveControl,
+  reducerFilter
 };
 export const actions = {
   actionsTree,
   actionsTable,
   actionsSaveControl,
+  actionsFilter
 };
 export const components = {
   Table,
@@ -44,5 +49,6 @@ export const components = {
   FloatPanel,
   SaveControl,
   Scroller,
-  ActionsPanel
+  ActionsPanel,
+  Filter
 };
