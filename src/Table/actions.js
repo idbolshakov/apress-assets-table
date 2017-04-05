@@ -1,18 +1,17 @@
-export const LOAD_TABLE_DATA_START = 'LOAD_TABLE_DATA_START';
-export const LOAD_TABLE_DATA_SUCCESS = 'LOAD_TABLE_DATA_SUCCESS';
-export const SET_DATA_TEXT_CELL = 'SET_DATA_TEXT_CELL';
-
+export const TABLE_EDITOR_LOAD_START = 'TABLE_EDITOR_LOAD_START';
+export const TABLE_EDITOR_LOAD_SUCCESS = 'TABLE_EDITOR_LOAD_SUCCESS';
+export const TABLE_EDITOR_SET_TEXT = 'TABLE_EDITOR_SET_TEXT';
 export const TABLE_EDITOR_ROW_ADD = 'TABLE_EDITOR_ROW_ADD';
 export const TABLE_EDITOR_ROW_REMOVE = 'TABLE_EDITOR_ROW_REMOVE';
 export const TABLE_EDITOR_ROW_COPY = 'TABLE_EDITOR_ROW_COPY';
 
-export const loadDataStart = payload => ({
-  type: LOAD_TABLE_DATA_START,
+export const load = payload => ({
+  type: TABLE_EDITOR_LOAD_START,
   payload
 });
 
-export const setDataTextCell = payload => ({
-  type: SET_DATA_TEXT_CELL,
+export const setText = payload => ({
+  type: TABLE_EDITOR_SET_TEXT,
   payload
 });
 

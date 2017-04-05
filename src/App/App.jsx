@@ -28,8 +28,8 @@ const b = block('example-wrapper');
 
 class App extends React.Component {
   componentWillMount() {
-    this.props.actionsTable.loadDataStart();
-    this.props.actionsTree.loadDataStart();
+    this.props.actionsTable.load();
+    this.props.actionsTree.load();
   }
 
   render() {

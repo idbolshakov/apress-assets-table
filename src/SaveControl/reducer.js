@@ -1,5 +1,5 @@
 import {SAVE_PROGRESS, SAVE_SUCCESS} from './actions';
-import {LOAD_TABLE_DATA_SUCCESS, SET_DATA_TEXT_CELL} from '../Table/actions';
+import {TABLE_EDITOR_LOAD_SUCCESS, TABLE_EDITOR_SET_TEXT} from '../Table/actions';
 
 const initialState = {
   isSave: false,
@@ -10,13 +10,13 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case LOAD_TABLE_DATA_SUCCESS:
+    case TABLE_EDITOR_LOAD_SUCCESS:
       return {
         ...state,
         prevProps: action.payload.rows
       };
 
-    case SET_DATA_TEXT_CELL:
+    case TABLE_EDITOR_SET_TEXT:
     case '@@redux-undo/UNDO':
     case '@@redux-undo/REDO':
       return {

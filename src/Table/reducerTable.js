@@ -1,4 +1,4 @@
-import {LOAD_TABLE_DATA_START, LOAD_TABLE_DATA_SUCCESS} from './actions';
+import {TABLE_EDITOR_LOAD_START, TABLE_EDITOR_LOAD_SUCCESS} from './actions';
 
 const initialState = {
   columns: [],
@@ -7,13 +7,13 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case LOAD_TABLE_DATA_START:
+    case TABLE_EDITOR_LOAD_START:
       return {
         ...state,
         isLoad: false
       };
 
-    case LOAD_TABLE_DATA_SUCCESS:
+    case TABLE_EDITOR_LOAD_SUCCESS:
       return {
         ...state,
         columns: action.payload.columns,

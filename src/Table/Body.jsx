@@ -21,7 +21,7 @@ const Cell = ({row, props}, cell, index) => {
     config: props.config[cellName],
   };
   const componentsCell = {
-    text: <Text key={index} cell={dataRow} setData={props.actions.setDataTextCell} />,
+    text: <Text key={index} cell={dataRow} setData={props.actions.setText} />,
     check: <Check key={index} cell={dataRow} />,
     img: <Image key={index} cell={dataRow} />,
     path: <Path key={index} cell={dataRow} />,
