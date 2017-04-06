@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f9c683dfa78c37eafcbc"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "53d94aa4635808685a97"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -9932,7 +9932,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return selectSort({ id: id, name: cell.name });
 	        }
 	      },
-	      _react2.default.createElement('div', { className: b('sorter').is({ sorted: cell.sorter.direction }) })
+	      _react2.default.createElement('div', {
+	        className: b('sorter').is({
+	          sorted: cell.sorter.direction,
+	          'sorted-down': cell.sorter.direction === 'down'
+	        })
+	      })
 	    );
 	  };
 
@@ -10668,7 +10673,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: b.mix(!this.props.tree.length ? 'loader' : '') },
+	        { className: b },
 	        _react2.default.createElement(
 	          'div',
 	          { className: b('list') },
@@ -10867,7 +10872,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	      }
 
-	      return state;
+	      return _extends({}, state, {
+	        tree_nodes: state.tree_nodes && state.tree_nodes.length ? state.tree_nodes.map(function (node) {
+	          return treeNode(node, action);
+	        }) : undefined
+	      });
 
 	    case _actions.TREE_SET_NODE:
 	      return _extends({}, state, {

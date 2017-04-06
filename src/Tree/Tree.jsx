@@ -26,7 +26,7 @@ export default class Tree extends Component {
 
   render() {
     return (
-      <div className={b.mix(!this.props.tree.length ? 'loader' : '')}>
+      <div className={b}>
         <div className={b('list')}>
           {this.props.children}
           {this.createTree()}

@@ -47,7 +47,11 @@ const treeNode = (state, action) => {
         };
       }
 
-      return state;
+      return {
+        ...state,
+        tree_nodes: state.tree_nodes && state.tree_nodes.length ?
+          state.tree_nodes.map(node => treeNode(node, action)) : undefined
+      };
 
     case TREE_SET_NODE:
       return {

@@ -41,7 +41,12 @@ const createCell = (cell, index, selectAllRow, selectFilter, selectSort) => {
       ]}
       onSelect={id => selectSort({id, name: cell.name})}
     >
-      <div className={b('sorter').is({sorted: cell.sorter.direction})} />
+      <div
+        className={b('sorter').is({
+          sorted: cell.sorter.direction,
+          'sorted-down': cell.sorter.direction === 'down'
+        })}
+      />
     </DropDownMenu>
     );
 
