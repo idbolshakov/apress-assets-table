@@ -31,7 +31,7 @@
   &-sub-nav {
     display: flex;  align-items: center; white-space: nowrap;
     &-lnk,
-    &-lnk:visited { color: #1f2532; text-decoration: none; }
+    &-lnk:visited { color: #1f2532; text-decoration: none; line-height: 32px; }
     &-lnk:hover { color: #028dd8; }
     &-lnk:after { display: inline-block; background: #e0e0e0; content: ''; width: 1px; height: 30px; margin: 0 20px; vertical-align: middle; }
     &-lnk.is-to-site {
