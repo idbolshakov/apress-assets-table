@@ -20,6 +20,7 @@ import reducerTable from './Table/reducerTable';
 import reducerRow from './Table/reducerRow';
 import reducerSaveControl from './SaveControl/reducer';
 import reducerFilter from './Filter/reducer';
+import selected from './Table/reducers/selected';
 
 import './styles/fonts.scss';
 import './styles/global.scss';
@@ -29,7 +30,8 @@ export const reducers = {
   reducerRow,
   reducerTree,
   reducerSaveControl,
-  reducerFilter
+  reducerFilter,
+  selected,
 };
 export const actions = {
   actionsTree,

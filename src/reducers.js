@@ -4,6 +4,7 @@ import table from './Table/reducerTable';
 import rows from './Table/reducerRow';
 import tree from './Tree/reducer';
 import save from './SaveControl/reducer';
+import selected from './Table/reducers/selected';
 
 
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
     filter: distinctState(),
     clearHistoryType: ['CLEAR_HISTORY'],
     initTypes: ['CLEAR_HISTORY']
-  })
+  }),
+  selected,
 });
