@@ -1445,6 +1445,34 @@ li.rc-select-dropdown-menu-item-divider {
   display: none;
 }
 
+.e-table-cell.is-selected:before {
+  content: '';
+  border: solid 1px #028dd8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+}
+
+.e-table-cell.is-selected:after {
+  display: none;
+}
+
+.e-table-cell.is-selected-to:before {
+  content: '';
+  border: dashed 1px #028dd8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+}
+
+.e-table-cell.is-selected-to:after {
+  display: none;
+}
+
 .e-table-cell:after {
   height: 50px;
   width: 1px;
@@ -1692,6 +1720,16 @@ li.rc-select-dropdown-menu-item-divider {
 
 .e-table-sorter.is-sorted-down {
   transform: scale(1, -1);
+}
+
+.e-table-drag-tool {
+  width: 7px;
+  height: 7px;
+  cursor: crosshair;
+  background: #028dd8;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }.e-scroller * {
   box-sizing: border-box;
 }

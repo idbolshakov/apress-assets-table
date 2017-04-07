@@ -1,11 +1,21 @@
 import React, {PropTypes, Component} from 'react';
+import {connect} from 'react-redux';
 import validation from '../utils/validation';
 import toolbarConfig from './ckeditorToolbar';
 import {block} from '../utils';
+import {
+  startSeletion,
+  startDrag,
+  endDrag,
+  endSeletion,
+  selectionAdd,
+  selectionAddTo,
+  selectionRemoveTo,
+  selectionRemove} from './actions';
 
 const b = block('e-table');
 
-export default class TextCell extends Component {
+class TextCell extends Component {
   static propTypes = {
     cell: PropTypes.shape({
       data: PropTypes.shape({
@@ -125,9 +135,43 @@ export default class TextCell extends Component {
     }
   }
 
+  handleSelection = (e) => {
+    e.preventDefault();
+    if (this.props.isSelected && this.props.allow) {
+      !this.props.selected ?
+        this.props.dispatch(selectionAdd({id: this.props.cell.id})) :
+        this.props.dispatch(selectionRemove({id: this.props.cell.id}));
+    }
+    if (this.props.isDragging && !this.props.selected && this.props.allow) {
+      !this.props.selectedTo ?
+        this.props.dispatch(selectionAddTo({id: this.props.cell.id})) :
+        this.props.dispatch(selectionRemoveTo({id: this.props.cell.id}));
+    }
+  }
+
+  handleStartSelection = () => {
+    this.props.dispatch(startSeletion({name: this.props.cell.name, id: this.props.cell.id}));
+  }
+
+  handleMouseUp = () => {
+    this.props.dispatch(endSeletion({name: this.props.cell.name, id: this.props.cell.id}));
+    if (this.props.isDragging) {
+      this.props.dispatch(endDrag({
+        name: this.props.cell.name,
+        id: this.props.cell.id,
+        selectionData: this.props.selectionData
+      }));
+    }
+  }
+
+  handleDrag = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    this.props.dispatch(startDrag({name: this.props.cell.name, id: this.props.cell.id}));
+  }
+
   render() {
     let text = null;
-
     if (this.props.cell.data.common.text || this.state.edit) {
       if (this.state.edit && this.props.cell.config.ckeditor) {
         text = (
@@ -164,14 +208,47 @@ export default class TextCell extends Component {
 
     return (
       <td
-        className={b('cell').mix(`is-${this.props.cell.name}`).is({focus: this.state.focus})}
+        className={b('cell').mix(`is-${this.props.cell.name}`)
+          .is({
+            focus: this.state.focus,
+            selected: this.props.selected,
+            'selected-to': this.props.selectedTo,
+          })
+        }
         tabIndex={0}
         onClick={() => this.handlerFocus(true)}
         onBlur={() => this.handlerFocus(false)}
         onDoubleClick={() => this.handlerEdit(true)}
+        onMouseEnter={this.handleSelection}
+        onMouseDown={() => { this.handleStartSelection(); }}
+        onMouseUp={() => { this.handleMouseUp(); }}
+        onDragStart={e => e.preventDefault}
+        onSelect={e => e.preventDefault}
       >
         {text}
+        {this.props.isLast &&
+          <div onMouseDown={this.handleDrag} className={b('drag-tool')} />
+        }
       </td>
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  const selected = state.selected;
+
+  return {
+    selected: selected.name === ownProps.cell.name &&
+      selected.ids.find(id => ownProps.cell.id === id),
+    selectedTo: selected.name === ownProps.cell.name &&
+      selected.idTo.find(id => ownProps.cell.id === id),
+    isLast: selected.name === ownProps.cell.name &&
+      selected.ids.slice(-1)[0] === ownProps.cell.id,
+    isSelected: selected.isSelected,
+    isDragging: selected.isDragging,
+    selectionData: selected,
+    allow: selected.name === ownProps.cell.name,
+  };
+};
+
+export default connect(mapStateToProps)(TextCell);
