@@ -1,7 +1,14 @@
-import {TABLE_EDITOR_LOAD_START, TABLE_EDITOR_LOAD_SUCCESS} from './actions';
+import {CONFIG_SET_PER_PAGE} from '../Filter/actions';
+import {
+  TABLE_EDITOR_LOAD_START,
+  TABLE_EDITOR_LOAD_SUCCESS,
+  TABLE_EDITOR_SET_CHECK,
+  TABLE_EDITOR_SET_CHECK_ALL
+} from './actions';
 
 const initialState = {
   columns: [],
+  checked: [],
   isLoad: false
 };
 
@@ -19,6 +26,21 @@ export default function (state = initialState, action) {
         columns: action.payload.columns,
         total: action.payload.total,
         isLoad: true
+      };
+
+    case TABLE_EDITOR_SET_CHECK:
+      return {
+        ...state,
+        checked: action.payload.checked ?
+          [...state.checked, action.payload.id] :
+          state.checked.filter(id => id !== action.payload.id)
+      };
+
+    case CONFIG_SET_PER_PAGE:
+    case TABLE_EDITOR_SET_CHECK_ALL:
+      return {
+        ...state,
+        checked: action.payload.checked ? action.payload.id : []
       };
 
     default:

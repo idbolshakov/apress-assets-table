@@ -13,25 +13,29 @@ import Actions from '../Actions/Actions';
 const b = block('e-table');
 
 const Cell = ({row, props}, cell, index) => {
-  const cellName = cell;
-
   const dataRow = {
     id: row.check.common.id,
     data: row[cell],
-    name: cellName,
+    name: cell,
     classMix: cell.replace(/_/g, '-'),
     placeholder: props.placeholder[cell],
-    config: props.config[cellName],
+    config: props.config[cell],
     isFocus: row.check.common.id === props.focused.activeRow && cell === props.focused.activeCell,
   };
+
   const componentsCell = {
     text: <Text key={index} cell={dataRow} setData={props.actions.setText} />,
-    check: <Check key={index} cell={dataRow} />,
+    check: <Check
+      key={index}
+      cell={dataRow}
+      setCheck={props.actions.setCheck}
+      checked={props.table.checked.includes(row.check.common.id)}
+    />,
     img: <Image key={index} cell={dataRow} />,
     path: <Path key={index} cell={dataRow} />,
   };
 
-  return componentsCell[props.config[cellName].type];
+  return componentsCell[props.config[cell].type];
 };
 
 const Row = (props, row) =>

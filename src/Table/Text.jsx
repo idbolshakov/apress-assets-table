@@ -1,5 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
+import RcDropdown from 'rc-dropdown';
 import validation from '../utils/validation';
 import toolbarConfig from './ckeditorToolbar';
 import {block} from '../utils';
@@ -33,6 +34,7 @@ class TextCell extends Component {
 
   state = {
     edit: false,
+    visible: false,
     charactersLeft: ''
   };
 
@@ -209,6 +211,8 @@ class TextCell extends Component {
           />
         );
       } else {
+        const value = this.props.cell.data.common.text ?
+          this.props.cell.data.common.text.replace(/<.*?>/g, '') : this.props.cell.data.common.text;
         text = (
           <div
             data-charactersLeft={this.state.charactersLeft}
@@ -223,7 +227,7 @@ class TextCell extends Component {
             onKeyPress={e => this.handlerValidation(e)}
             onKeyDown={this.handleEditTextKeyDown}
             onPaste={e => this.handlerValidation(e)}
-            dangerouslySetInnerHTML={{__html: this.props.cell.data.common.text}}
+            dangerouslySetInnerHTML={{__html: value}}
           />
         );
       }
@@ -254,6 +258,25 @@ class TextCell extends Component {
         {text}
         {this.props.isLast &&
           <div onMouseDown={this.handleDrag} className={b('drag-tool')} />
+        }
+        {!this.state.edit && this.props.cell.config.ckeditor &&
+          this.props.cell.data.common.text &&
+          <RcDropdown
+            visible={this.state.visible}
+            trigger={['hover']}
+            overlay={
+              <div className={b('preview')}>
+                <div
+                  className={b('preview-body')}
+                  dangerouslySetInnerHTML={{__html: this.props.cell.data.common.text}}
+                />
+              </div>
+            }
+            onVisibleChange={(visible) => { this.setState({visible}); }}
+            closeOnSelect={false}
+          >
+            <div className={b('cell-preview-icon')} />
+          </RcDropdown>
         }
       </td>
     );
