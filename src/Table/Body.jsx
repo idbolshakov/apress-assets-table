@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 import Trigger from 'rc-trigger';
 import 'rc-trigger/assets/index.css';
 import Text from './Text';
@@ -12,13 +13,16 @@ import Actions from '../Actions/Actions';
 const b = block('e-table');
 
 const Cell = ({row, props}, cell, index) => {
-  const cellName = cell.replace(/_/g, '-');
+  const cellName = cell;
+
   const dataRow = {
     id: row.check.common.id,
     data: row[cell],
     name: cellName,
+    classMix: cell.replace(/_/g, '-'),
     placeholder: props.placeholder[cell],
     config: props.config[cellName],
+    isFocus: row.check.common.id === props.focused.activeRow && cell === props.focused.activeCell,
   };
   const componentsCell = {
     text: <Text key={index} cell={dataRow} setData={props.actions.setText} />,
@@ -78,4 +82,7 @@ Body.propTypes = {
   table: PropTypes.object,
 };
 
-export default Body;
+
+const mapStateToProps = state => ({focused: state.focus});
+
+export default connect(mapStateToProps)(Body);

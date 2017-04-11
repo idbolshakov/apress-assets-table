@@ -11,7 +11,10 @@ import {
   selectionAdd,
   selectionAddTo,
   selectionRemoveTo,
-  selectionRemove} from './actions';
+  selectionRemove,
+  startTextEdit,
+  endTextEdit,
+  setFocus} from './actions';
 
 const b = block('e-table');
 
@@ -29,7 +32,6 @@ class TextCell extends Component {
   };
 
   state = {
-    focus: false,
     edit: false,
     charactersLeft: ''
   };
@@ -73,6 +75,7 @@ class TextCell extends Component {
   }
 
   handleClose = (editor) => {
+    this.props.dispatch(endTextEdit());
     this.handlerEdit(false);
     this.handlerSave(editor.getData());
     editor.destroy();
@@ -96,9 +99,8 @@ class TextCell extends Component {
       });
     });
 
-  handlerFocus = focus => this.setState({focus});
-
   handlerEdit = (edit) => {
+    edit ? this.props.dispatch(startTextEdit()) : this.props.dispatch(endTextEdit());
     const text = this.props.cell.data.common.text;
     this.setState({
       edit,
@@ -111,7 +113,7 @@ class TextCell extends Component {
     if (text !== this.props.cell.data.common.text) {
       this.props.setData({
         id: this.props.cell.id,
-        name: this.props.cell.name.replace(/-/g, '_'),
+        name: this.props.cell.name,
         field: 'text',
         text,
       });
@@ -170,6 +172,28 @@ class TextCell extends Component {
     this.props.dispatch(startDrag({name: this.props.cell.name, id: this.props.cell.id}));
   }
 
+  handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      setTimeout(() => { this.handlerEdit(true); }, 100);
+    }
+    if (e.keyCode === 27) {
+      this.handlerEdit(false);
+    }
+  }
+
+  handleCellClick = () => {
+    this.props.dispatch(setFocus({name: this.props.cell.name, id: this.props.cell.id}));
+  }
+
+  handleEditTextKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.handlerEdit(false);
+      this.handlerSave(e.target.innerText);
+    }
+  }
+
   render() {
     let text = null;
     if (this.props.cell.data.common.text || this.state.edit) {
@@ -197,6 +221,7 @@ class TextCell extends Component {
             }}
             onKeyUp={e => this.handlerSetCharactersLeft(e)}
             onKeyPress={e => this.handlerValidation(e)}
+            onKeyDown={this.handleEditTextKeyDown}
             onPaste={e => this.handlerValidation(e)}
             dangerouslySetInnerHTML={{__html: this.props.cell.data.common.text}}
           />
@@ -208,17 +233,18 @@ class TextCell extends Component {
 
     return (
       <td
-        className={b('cell').mix(`is-${this.props.cell.name}`)
+        ref={($td) => { $td && this.props.cell.isFocus && !this.state.edit && $td.focus(); }}
+        className={b('cell').mix(`is-${this.props.cell.classMix}`)
           .is({
-            focus: this.state.focus,
+            focus: this.props.cell.isFocus,
             selected: this.props.selected,
             'selected-to': this.props.selectedTo,
           })
         }
-        tabIndex={0}
-        onClick={() => this.handlerFocus(true)}
-        onBlur={() => this.handlerFocus(false)}
+        tabIndex={-1}
+        onClick={this.handleCellClick}
         onDoubleClick={() => this.handlerEdit(true)}
+        onKeyDown={this.handleKeyPress}
         onMouseEnter={this.handleSelection}
         onMouseDown={() => { this.handleStartSelection(); }}
         onMouseUp={() => { this.handleMouseUp(); }}
@@ -236,7 +262,7 @@ class TextCell extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const selected = state.selected;
-
+  const focus = state.focus;
   return {
     selected: selected.name === ownProps.cell.name &&
       selected.ids.find(id => ownProps.cell.id === id),
@@ -248,6 +274,7 @@ const mapStateToProps = (state, ownProps) => {
     isDragging: selected.isDragging,
     selectionData: selected,
     allow: selected.name === ownProps.cell.name,
+    focus: focus.activeRow === ownProps.cell.name && focus.activeCell === ownProps.cell.id
   };
 };
 

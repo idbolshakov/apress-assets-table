@@ -1435,10 +1435,10 @@ li.rc-select-dropdown-menu-item-divider {
   content: '';
   border: solid 1px #028dd8;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: -2px;
 }
 
 .e-table-cell.is-focus:after {
@@ -1449,9 +1449,9 @@ li.rc-select-dropdown-menu-item-divider {
   content: '';
   border: solid 1px #028dd8;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0px;
+  left: 0px;
+  right: 0px;
   bottom: -2px;
 }
 
@@ -1463,9 +1463,9 @@ li.rc-select-dropdown-menu-item-divider {
   content: '';
   border: dashed 1px #028dd8;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0px;
+  left: 0px;
+  right: 0px;
   bottom: -2px;
 }
 
@@ -1728,7 +1728,7 @@ li.rc-select-dropdown-menu-item-divider {
   cursor: crosshair;
   background: #028dd8;
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   right: 0;
 }.e-scroller * {
   box-sizing: border-box;
@@ -2351,7 +2351,7 @@ button {
 
 .example-wrapper-table {
   width: 1570px;
-  height: 748px;
+  height: 448px;
 }
 
 .example-test-box {

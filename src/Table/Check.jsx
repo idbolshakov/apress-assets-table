@@ -1,19 +1,38 @@
+/* eslint react/no-unused-prop-types: 0 */
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {setFocus} from './actions';
 import Checkbox from '../Checkbox/Checkbox';
 import {block} from '../utils';
 
 const b = block('e-table');
 
-const CheckCell = props =>
-  <td className={b('cell').mix(`is-${props.cell.name}`)}>
-    <Checkbox
-      onChange={() => {}}
-      checked
-    />
-  </td>;
+class CheckCell extends React.Component {
+  static propTypes = {cell: PropTypes.object};
 
-CheckCell.propTypes = {
-  cell: PropTypes.object,
-};
+  handleCellClick = () => {
+    this.props.dispatch(setFocus({name: this.props.cell.name, id: this.props.cell.id}));
+  }
 
-export default CheckCell;
+  render() {
+    const props = this.props;
+    return (
+      <td
+        tabIndex={-1}
+        ref={($td) => { $td && props.cell.isFocus && $td.focus(); }}
+        className={b('cell').mix(`is-${props.cell.classMix}`).is({focus: props.cell.isFocus})}
+        onClick={this.handleCellClick}
+      >
+        <Checkbox
+          onChange={() => {}}
+          checked
+        />
+      </td>
+    );
+  }
+
+}
+
+const mapStateToProps = () => ({});
+
+export default connect(mapStateToProps)(CheckCell);
