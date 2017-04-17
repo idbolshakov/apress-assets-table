@@ -1,9 +1,12 @@
 import React, {PropTypes, Component} from 'react';
+import {connect} from 'react-redux';
+import {setFocus} from './actions';
 import {block} from '../utils';
+
 
 const b = block('e-table');
 
-export default class ImageCell extends Component {
+class ImageCell extends Component {
   static propTypes = {
     cell: PropTypes.shape({
       data: PropTypes.shape({
@@ -16,12 +19,27 @@ export default class ImageCell extends Component {
     })
   };
 
+  handleCellClick = () => {
+    this.props.dispatch(setFocus({name: this.props.cell.name, id: this.props.cell.id}));
+  }
+
   render() {
     const src = this.props.cell.data.common.src;
     const img = src ?
       <img src={src} alt='' className={b('img')} /> :
       <div className={b('img-empty')} />;
 
-    return <td className={b('cell').mix(`is-${this.props.cell.name}`)}>{img}</td>;
+    return (
+      <td
+        tabIndex={-1}
+        onClick={this.handleCellClick}
+        ref={($td) => { $td && this.props.cell.isFocus && $td.focus(); }}
+        className={b('cell').is({[this.props.cell.classMix]: true, focus: this.props.cell.isFocus})}
+      >
+        {img}
+      </td>
+    );
   }
 }
+
+export default connect()(ImageCell);

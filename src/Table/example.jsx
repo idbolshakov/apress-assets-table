@@ -11,7 +11,7 @@ export default class App extends React.Component {
         type: 'text',
         maxLen: 255
       },
-      'detailed-description': {
+      detailed_description: {
         type: 'text',
         maxLen: 255
       },
@@ -23,17 +23,17 @@ export default class App extends React.Component {
         type: 'text',
         maxLen: 75
       },
-      'page-description': {
+      page_description: {
         type: 'text',
         maxLen: 255
       },
       photo: {
         type: 'img'
       },
-      'product-group': {
+      product_group: {
         type: 'path'
       },
-      'tag-title': {
+      tag_title: {
         type: 'text',
         maxLen: 255
       },

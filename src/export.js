@@ -21,6 +21,7 @@ import reducerRow from './Table/reducerRow';
 import reducerSaveControl from './SaveControl/reducer';
 import reducerFilter from './Filter/reducer';
 import selected from './Table/reducers/selected';
+import focus from './Table/reducers/focus';
 
 import './styles/fonts.scss';
 import './styles/global.scss';
@@ -32,6 +33,7 @@ export const reducers = {
   reducerSaveControl,
   reducerFilter,
   selected,
+  focus,
 };
 export const actions = {
   actionsTree,
