@@ -61,6 +61,7 @@ export default class App extends React.Component {
         actions={this.props.actions}
         selectFilter={() => { console.log('selectFilter - disaptch'); }}
         selectSort={() => { console.log('selectSort - disaptch'); }}
+        countRow={16}
       />
     );
   }

@@ -1,4 +1,5 @@
 import React, {PropTypes, Component} from 'react';
+import RcDropdown from 'rc-dropdown';
 import {connect} from 'react-redux';
 import {setFocus} from './actions';
 import {block} from '../utils';
@@ -19,28 +20,52 @@ class PathCell extends Component {
     })
   };
 
+  state = {
+    visible: false,
+  }
+
   handleCellClick = () => {
     this.props.dispatch(setFocus({name: this.props.cell.name, id: this.props.cell.id}));
   }
 
   render() {
-    const ancestorsLength = this.props.cell.data.common.ancestors.length;
+    const originalAncestorsLength = this.props.cell.data.common.ancestors.length;
     let path = null;
+    let fullPath = null;
 
-    if (this.props.cell.data.common.ancestors.length) {
-      path = this.props.cell.data.common.ancestors.map((ancestor, index) => {
-        if (index + 1 !== ancestorsLength) {
-          return (
-            <span key={index} className={b('path-text').mix(b('path-arrow'))}>
-              {ancestor.name}
-            </span>
-          );
-        }
+    if (originalAncestorsLength > 3) {
+      const ancestors = this.props.cell.data.common.ancestors.slice(0, 3);
+      const ancestorsLength = ancestors.length;
+      path = ancestors.map((ancestor, index) =>
+        <span
+          key={index}
+          className={b('path-text').is({
+            'path-arrow': true,
+            last: index + 1 === ancestorsLength && originalAncestorsLength > 3
+          })}
+        >
+          {ancestor.name}
+        </span>);
 
-        return <span key={index} className={b('path-text')}>{ancestor.name}</span>;
-      });
+      fullPath = this.props.cell.data.common.ancestors.map((ancestor, index) =>
+        <span className={b('path-text')}>
+          {ancestor.name}
+          <span
+            className={b('path-text').is({'path-arrow': index + 1 !== originalAncestorsLength})}
+          />
+        </span>);
+    } else if (originalAncestorsLength) {
+      const ancestors = this.props.cell.data.common.ancestors;
+      const ancestorsLength = ancestors.length;
+      path = ancestors.map((ancestor, index) =>
+        <span
+          key={index}
+          className={b('path-text').is({'path-arrow': index + 1 !== ancestorsLength})}
+        >
+          {ancestor.name}
+        </span>);
     } else {
-      path = <span className={b('path-text')}>{this.props.cell.data.common.name}</span>;
+      path = <span className={b('path-text')}>Все группы</span>;
     }
 
     return (
@@ -52,10 +77,22 @@ class PathCell extends Component {
           .is({focus: this.props.cell.isFocus})}
       >
         <div className={b('path-cell')}>{path}</div>
+        {fullPath && <RcDropdown
+          visible={this.state.visible}
+          trigger={['hover']}
+          overlay={
+            <div className={b('preview')}>
+              <div className={b('preview-body')}>{fullPath}</div>
+            </div>
+          }
+          onVisibleChange={(visible) => { this.setState({visible}); }}
+          closeOnSelect={false}
+        >
+          <div className={b('cell-preview-icon')} />
+        </RcDropdown>}
       </td>
     );
   }
 }
-
 
 export default connect()(PathCell);

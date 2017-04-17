@@ -6,7 +6,8 @@ import {
   CONFIG_SET_PER_PAGE,
   CONFIG_NO_CHANGE,
   CONFIG_SET_FILTER,
-  CONFIG_SET_SORT
+  CONFIG_SET_SORT,
+  CONFIG_RESET
 } from './actions';
 
 const initialState = {
@@ -192,6 +193,31 @@ export default function app(state = initialState, action) {
         isChange: !action.payload.onLoad,
         prioritySort,
         params
+      };
+    }
+
+    case CONFIG_RESET: {
+      return {
+        ...state,
+        config: {
+          ...state.config,
+          columns: state.config.columns.map((col) => {
+            const filter = col.filter ? {...col.filter, value: null} : null;
+            const sorter = col.sorter ?
+              {...col.sorter, direction: null, priority: null} : null;
+
+            return {
+              ...col,
+              filter,
+              sorter
+            };
+          }),
+          product_group: null,
+          page: 1
+        },
+        isChange: true,
+        prioritySort: 0,
+        params: {}
       };
     }
 

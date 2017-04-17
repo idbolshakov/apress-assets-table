@@ -72,6 +72,8 @@ class Table extends React.Component {
               table={props.table}
               selectFilter={props.selectFilter}
               selectSort={props.selectSort}
+              setCheckAll={props.actions.setCheckAll}
+              countRow={props.countRow}
             />
           </thead>
           <Body

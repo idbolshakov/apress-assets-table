@@ -29,7 +29,9 @@ export default class SaveControl extends Component {
       prevStateObj[prevRow.check.common.id] = {...prevRow};
       if (!curStateObj[prevRow.check.common.id]) {
         curStateObj[prevRow.check.common.id] = {
-          delete: true
+          check: {
+            delete: true
+          }
         };
       }
     });

@@ -24,7 +24,6 @@ const isSelected = (treeState, action) => {
 
           if (childSelected.length) {
             selected = [...selected, state];
-            console.log(selected);
             return true;
           }
         }

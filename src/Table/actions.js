@@ -6,6 +6,8 @@ export const TABLE_EDITOR_SET_COPY_CHANGE = 'TABLE_EDITOR_SET_COPY_CHANGE';
 export const TABLE_EDITOR_ROW_ADD = 'TABLE_EDITOR_ROW_ADD';
 export const TABLE_EDITOR_ROW_REMOVE = 'TABLE_EDITOR_ROW_REMOVE';
 export const TABLE_EDITOR_ROW_COPY = 'TABLE_EDITOR_ROW_COPY';
+export const TABLE_EDITOR_SET_CHECK = 'TABLE_EDITOR_SET_CHECK';
+export const TABLE_EDITOR_SET_CHECK_ALL = 'TABLE_EDITOR_SET_CHECK_ALL';
 
 export const TABLE_EDITOR_CELL_SELECT_START = 'TABLE_EDITOR_CELL_SELECT_START';
 export const TABLE_EDITOR_CELL_SELECT_END = 'TABLE_EDITOR_CELL_SELECT_END';
@@ -176,3 +178,13 @@ export const endTextEdit = payload =>
       }
     });
   };
+
+export const setCheck = payload => ({
+  type: TABLE_EDITOR_SET_CHECK,
+  payload
+});
+
+export const setCheckAll = payload => ({
+  type: TABLE_EDITOR_SET_CHECK_ALL,
+  payload
+});
