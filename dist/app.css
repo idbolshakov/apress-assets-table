@@ -15,10 +15,11 @@
   font-style: inherit;
   font-size: 12px;
   text-align: center;
+  transition: opacity .3s;
 }
 
 .e-button:hover {
-  background-color: #00a6ff;
+  opacity: 0.85;
 }
 
 .e-button:disabled {
@@ -28,6 +29,10 @@
 
 .e-button:disabled:hover {
   background-color: #028dd8;
+}
+
+.e-button.is-good {
+  background-color: #9fc54d;
 }.e-toggler {
   width: 80px;
   height: 30px;
@@ -2471,6 +2476,226 @@ li.rc-select-dropdown-menu-item-divider {
 .e-float-panel.is-hide .e-float-panel-toggler:before,
 .e-float-panel.is-hide .e-float-panel-toggler:after {
   transform: rotate(0);
+}@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rc-dialog {
+  box-sizing: border-box;
+  position: relative;
+  width: auto;
+  margin: 10px;
+  font-family: OpenSans;
+}
+
+.rc-dialog * {
+  box-sizing: border-box;
+}
+
+.rc-dialog-wrap {
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+}
+
+.rc-dialog-content {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 9px 0 rgba(59, 61, 77, 0.52);
+  background-clip: padding-box;
+  outline: 0;
+}
+
+.rc-dialog-header {
+  padding: 60px;
+  padding-top: 40px;
+  padding-bottom: 25px;
+}
+
+.rc-dialog-close {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  line-height: 1;
+  text-decoration: none;
+  text-indent: -9999999px;
+  overflow: hidden;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #9c9da1;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 0;
+}
+
+.rc-dialog-close-x:after {
+  background: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjOWM5ZGExIiB3aWR0aD0iMTc5MiIgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xNDkwIDEzMjJxMCA0MC0yOCA2OGwtMTM2IDEzNnEtMjggMjgtNjggMjh0LTY4LTI4bC0yOTQtMjk0LTI5NCAyOTRxLTI4IDI4LTY4IDI4dC02OC0yOGwtMTM2LTEzNnEtMjgtMjgtMjgtNjh0MjgtNjhsMjk0LTI5NC0yOTQtMjk0cS0yOC0yOC0yOC02OHQyOC02OGwxMzYtMTM2cTI4LTI4IDY4LTI4dDY4IDI4bDI5NCAyOTQgMjk0LTI5NHEyOC0yOCA2OC0yOHQ2OCAyOGwxMzYgMTM2cTI4IDI4IDI4IDY4dC0yOCA2OGwtMjk0IDI5NCAyOTQgMjk0cTI4IDI4IDI4IDY4eiIvPjwvc3ZnPg==") 0%/contain no-repeat;
+  content: '';
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+.rc-dialog-close:hover {
+  border-color: #dc6263;
+}
+
+.rc-dialog-close:hover .rc-dialog-close-x:after {
+  background: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjZGM2MjYzIiB3aWR0aD0iMTc5MiIgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xNDkwIDEzMjJxMCA0MC0yOCA2OGwtMTM2IDEzNnEtMjggMjgtNjggMjh0LTY4LTI4bC0yOTQtMjk0LTI5NCAyOTRxLTI4IDI4LTY4IDI4dC02OC0yOGwtMTM2LTEzNnEtMjgtMjgtMjgtNjh0MjgtNjhsMjk0LTI5NC0yOTQtMjk0cS0yOC0yOC0yOC02OHQyOC02OGwxMzYtMTM2cTI4LTI4IDY4LTI4dDY4IDI4bDI5NCAyOTQgMjk0LTI5NHEyOC0yOCA2OC0yOHQ2OCAyOGwxMzYgMTM2cTI4IDI4IDI4IDY4dC0yOCA2OGwtMjk0IDI5NCAyOTQgMjk0cTI4IDI4IDI4IDY4eiIvPjwvc3ZnPg==") 0%/contain no-repeat;
+}
+
+.rc-dialog-title {
+  margin: 0;
+  line-height: 1.42857143;
+  font-family: OpenSans;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.rc-dialog-body {
+  padding: 0px 60px;
+}
+
+.rc-dialog-footer {
+  padding: 40px 60px;
+}
+
+.rc-dialog-button {
+  margin-right: 15px;
+}
+
+.rc-dialog-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(55, 55, 55, 0.6);
+  height: 100%;
+  z-index: 1050;
+}
+
+.rc-dialog-mask-hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .rc-dialog {
+    width: 600px;
+    margin: 30px auto;
+  }
+
+  .rc-dialog-content {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.rc-dialog-slide-fade-enter,
+.rc-dialog-slide-fade-appear {
+  transform: translate(0, -25%);
+}
+
+.rc-dialog-slide-fade-enter,
+.rc-dialog-slide-fade-appear,
+.rc-dialog-slide-fade-leave {
+  animation-duration: .3s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-play-state: paused;
+}
+
+.rc-dialog-slide-fade-enter.rc-dialog-slide-fade-enter-active,
+.rc-dialog-slide-fade-appear.rc-dialog-slide-fade-appear-active {
+  animation-name: rcDialogSlideFadeIn;
+  animation-play-state: running;
+}
+
+.rc-dialog-slide-fade-leave.rc-dialog-slide-fade-leave-active {
+  animation-name: rcDialogSlideFadeOut;
+  animation-play-state: running;
+}
+
+.rc-dialog-fade-enter,
+.rc-dialog-fade-appear {
+  opacity: 0;
+  animation-duration: .3s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+  animation-play-state: paused;
+}
+
+.rc-dialog-fade-leave {
+  animation-duration: .3s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+  animation-play-state: paused;
+}
+
+.rc-dialog-fade-enter.rc-dialog-fade-enter-active,
+.rc-dialog-fade-appear.rc-dialog-fade-appear-active {
+  animation-name: rcDialogFadeIn;
+  animation-play-state: running;
+}
+
+.rc-dialog-fade-leave.rc-dialog-fade-leave-active {
+  animation-name: rcDialogFadeOut;
+  animation-play-state: running;
+}
+
+@keyframes rcDialogSlideFadeIn {
+  0% {
+    transform: translate(0, -25%);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes rcDialogSlideFadeOut {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(0, -25%);
+  }
+}
+
+@keyframes rcDialogFadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes rcDialogFadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }.rc-dropdown {
   position: absolute;
   left: -9999px;

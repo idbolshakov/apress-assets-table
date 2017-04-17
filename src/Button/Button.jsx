@@ -6,6 +6,7 @@ const b = block('e-button');
 
 const Button = props =>
   <button
+    type='button'
     disabled={props.disabled}
     onClick={(e) => { e.preventDefault(); props.onClick(); }}
     className={b.mix(props.mix)}
