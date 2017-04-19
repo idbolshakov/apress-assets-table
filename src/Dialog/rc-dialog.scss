@@ -1,0 +1,63 @@
+@import '../styles/mixins/icons';
+
+.rc-dialog {
+  $root: &;
+  box-sizing: border-box; position: relative; width: auto; margin: 10px; font-family: OpenSans;
+  & * { box-sizing: border-box; }
+  &-wrap { position: fixed; overflow: auto; top: 0; right: 0; bottom: 0; left: 0; z-index: 1050; -webkit-overflow-scrolling: touch; outline: 0; }
+  &-content { background-color: #fff; border-radius: 5px; box-shadow: 0 0 9px 0 rgba(59, 61, 77, .52); background-clip: padding-box; outline: 0; }
+  &-header { padding: 60px; padding-top: 40px; padding-bottom: 25px; }
+  &-close {
+    cursor: pointer; position: absolute; right: 20px; top: 20px; line-height: 1; text-decoration: none; text-indent: -9999999px; overflow: hidden; width: 24px; height: 24px; border: 2px solid #9c9da1; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #fff; padding: 0;
+    &-x:after { @include close-icon(#9c9da1); content: ''; display: block; width: 12px; height: 12px; }
+    &:hover { border-color: #dc6263; }
+    &:hover &-x:after { @include close-icon(#dc6263); }
+  }
+  &-title { margin: 0; line-height: 1.42857143; font-family: OpenSans; font-size: 24px; font-weight: 600; }
+  &-body { padding: 0px 60px; }
+  &-footer { padding: 40px 60px; }
+  &-button { margin-right: 15px; }
+  &-mask {
+    position: fixed; top: 0; right: 0; left: 0; bottom: 0; background-color: rgba(55, 55, 55, .6); height: 100%; z-index: 1050;
+    &-hidden { display: none; }
+  }
+  @media (min-width: 768px) {
+    & { width: 600px; margin: 30px auto; }
+    &-content { box-shadow: 0 5px 15px rgba(0, 0, 0, .5); }
+  }
+  &-slide-fade-enter,
+  &-slide-fade-appear { transform: translate(0, -25%); }
+  &-slide-fade-enter,
+  &-slide-fade-appear,
+  &-slide-fade-leave { animation-duration: .3s; animation-fill-mode: both; animation-timing-function: ease-out; animation-play-state: paused; }
+  &-slide-fade-enter#{&}-slide-fade-enter-active,
+  &-slide-fade-appear#{&}-slide-fade-appear-active { animation-name: rcDialogSlideFadeIn; animation-play-state: running; }
+  &-slide-fade-leave#{&}-slide-fade-leave-active { animation-name: rcDialogSlideFadeOut; animation-play-state: running; }
+
+  &-fade-enter,
+  &-fade-appear { opacity: 0; animation-duration: .3s; animation-fill-mode: both; animation-timing-function: cubic-bezier(.55, 0, .55, .2); animation-play-state: paused; }
+  &-fade-leave { animation-duration: .3s; animation-fill-mode: both; animation-timing-function: cubic-bezier(.55, 0, .55, .2); animation-play-state: paused; }
+  &-fade-enter#{&}-fade-enter-active,
+  &-fade-appear#{&}-fade-appear-active { animation-name: rcDialogFadeIn; animation-play-state: running; }
+  &-fade-leave#{&}-fade-leave-active { animation-name: rcDialogFadeOut; animation-play-state: running; }
+}
+
+@keyframes rcDialogSlideFadeIn {
+  0% { transform: translate(0, -25%); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes rcDialogSlideFadeOut {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(0, -25%); }
+}
+
+@keyframes rcDialogFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes rcDialogFadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}

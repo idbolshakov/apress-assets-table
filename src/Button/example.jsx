@@ -10,9 +10,7 @@ export default class ButtonExample extends React.Component {
       <div>
         <h3>Button:</h3>
         <Button onClick={() => { alert('button 1 clicked'); }}>ДОБАВИТЬ ГРУППУ</Button> {' '}
-        <Button mix='test-mix'>
-          <i>Рыба кот</i>
-        </Button> {' '}
+        <Button>Отмена</Button> <Button mix='is-good'>Сохранить и продолжить</Button> {' '}
         <Button disabled onClick={() => { alert('button 2 clicked'); }} mix='test-mix'>
           disabled
         </Button>

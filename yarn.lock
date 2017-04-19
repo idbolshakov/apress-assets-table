@@ -3164,7 +3164,7 @@ oauth-sign@~0.8.1:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
 
-object-assign@4.x, object-assign@^4.0.1, object-assign@^4.1.0:
+object-assign@4.x, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@~4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
@@ -3701,6 +3701,15 @@ rc-animate@2.x:
   dependencies:
     css-animation "^1.3.0"
 
+rc-dialog@^6.5.8:
+  version "6.5.8"
+  resolved "https://registry.yarnpkg.com/rc-dialog/-/rc-dialog-6.5.8.tgz#9aec022122c0220a53591f2dd2e2774584df8397"
+  dependencies:
+    babel-runtime "6.x"
+    object-assign "~4.1.0"
+    rc-animate "2.x"
+    rc-util "^4.0.2"
+
 rc-dropdown@^1.4.10:
   version "1.4.10"
   resolved "https://registry.yarnpkg.com/rc-dropdown/-/rc-dropdown-1.4.10.tgz#77d1beff082a5dba0929906c8722fc53f84a69f4"
@@ -3748,7 +3757,7 @@ rc-util@3.x:
     classnames "2.x"
     shallowequal "0.2.x"
 
-rc-util@4.x:
+rc-util@4.x, rc-util@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-4.0.2.tgz#5804f8b141a13c8c14d7c265a7d21d298195af46"
   dependencies:

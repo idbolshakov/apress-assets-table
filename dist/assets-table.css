@@ -15,10 +15,11 @@
   font-style: inherit;
   font-size: 12px;
   text-align: center;
+  transition: opacity .3s;
 }
 
 .e-button:hover {
-  background-color: #00a6ff;
+  opacity: 0.85;
 }
 
 .e-button:disabled {
@@ -28,6 +29,10 @@
 
 .e-button:disabled:hover {
   background-color: #028dd8;
+}
+
+.e-button.is-good {
+  background-color: #9fc54d;
 }.e-toggler {
   width: 80px;
   height: 30px;

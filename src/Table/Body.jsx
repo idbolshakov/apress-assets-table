@@ -40,9 +40,10 @@ const Cell = ({row, props}, cell, index) => {
 
 const Row = (props, row) =>
   <Trigger
+    key={row.check.common.id}
     action={['hover']}
     popup={<Actions
-      mix={b('actions')}
+      mix={b('actions')()}
       actions={[
         {
           name: 'add',
