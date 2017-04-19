@@ -1,5 +1,34 @@
-import {TABLE_EDITOR_LOAD_SUCCESS, TABLE_EDITOR_SET_TEXT,
-   TABLE_EDITOR_CELL_END_DRAG} from './actions';
+import {
+  TABLE_EDITOR_LOAD_SUCCESS,
+  TABLE_EDITOR_SET_TEXT,
+  TABLE_EDITOR_CELL_END_DRAG,
+  TABLE_EDITOR_ROW_ADD
+} from './actions';
+
+let newId = -1;
+
+const createNewRow = (parent) => {
+  const row = {};
+
+  Object.keys(parent).forEach((key) => {
+    row[key] = {
+      common: {}
+    };
+
+    Object.keys(parent[key].common).forEach((commonKey) => {
+      if (key === 'check' && commonKey === 'id') {
+        row[key].common[commonKey] = newId;
+        newId -= 1;
+      } else if (key === 'product_group' && commonKey === 'ancestors') {
+        row[key].common[commonKey] = [];
+      } else {
+        row[key].common[commonKey] = null;
+      }
+    });
+  });
+
+  return row;
+};
 
 export default function rows(state = [], action) {
   switch (action.type) {
@@ -60,6 +89,18 @@ export default function rows(state = [], action) {
         return row;
       });
     }
+
+    case TABLE_EDITOR_ROW_ADD: {
+      const target = (action.payload && action.payload.target) ?
+        state.indexOf(action.payload.target) : 0;
+      const newstate = [...state];
+      const newRow = createNewRow(state[0]);
+
+      newstate.splice(target, 0, newRow);
+
+      return newstate;
+    }
+
     default:
       return state;
   }

@@ -110,6 +110,23 @@
   background: url("data:image/svg+xml;base64,#{$svg-string}") 50%/contain no-repeat;
 }
 
+@mixin info-circle-icon($fonColor: #a3bd49, $color: #fff) {
+  $svg-string: encode-base64('<svg fill="#{$color}" width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1152 1376v-160q0-14-9-23t-23-9h-96v-512q0-14-9-23t-23-9h-320q-14 0-23 9t-9 23v160q0 14 9 23t23 9h96v320h-96q-14 0-23 9t-9 23v160q0 14 9 23t23 9h448q14 0 23-9t9-23zm-128-896v-160q0-14-9-23t-23-9h-192q-14 0-23 9t-9 23v160q0 14 9 23t23 9h192q14 0 23-9t9-23zm640 416q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/></svg>');
+  background: $fonColor url("data:image/svg+xml;base64,#{$svg-string}") 50%/contain no-repeat;
+}
+
+@mixin search-icon($fonColor: #f6f6f6, $color: #c1c1c1) {
+  $svg-string: encode-base64('<svg fill="#{$color}" width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg>');
+  background: $fonColor url("data:image/svg+xml;base64,#{$svg-string}") no-repeat 8px 50% / 16px;
+}
+
+@mixin help-mask() {
+  $svg-string: encode-base64('<svg width="22" height="80" xmlns="http://www.w3.org/2000/svg"><g><path d="m20.000003,646l0,-563.79c-0.014,-2.2 -0.028,-4.587 -0.043,-7.21q0,-0.24 -0.022,-0.471c-0.523,-5.672 -9.935,-7.529 -9.935,-7.529a10,10 0 0 1 -10,-10l0,-34a9.992,9.992 0 0 1 10,-10s8.192,-1.5 9.792,-6.288a6.6,6.6 0 0 0 0.208,-1.12l0,-86.592l13,0l0,727l-13,0z" class="cls-1" id="Rounded_Rectangle_1367"/></g></svg>');
+  mask-border: url("data:image/svg+xml;base64,#{$svg-string}") 0 0 0 0;
+  -webkit-mask-box-image: url("data:image/svg+xml;base64,#{$svg-string}") 0 0 0 0;
+}
+
+
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
