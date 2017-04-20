@@ -1,4 +1,5 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
+import * as imageEditorSagas from '../ImageEditor/sagas';
 
 const getTableData = () =>
   fetch('/_mock/table.json')
@@ -48,4 +49,5 @@ export default function* subscribeForLoadTableData() {
   yield takeLatest('TREE_LOAD_START', loadRubricatorData);
   yield takeLatest('HELP_LOAD_START', loadHelp);
   yield takeLatest('SAVE_START', save);
+  yield takeLatest('IMAGE_EDITOR_UPDATE_IMAGES', imageEditorSagas.updateImages);
 }

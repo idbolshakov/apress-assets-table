@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import '../_app.mock';
 import ButtonExample from '../Button/example';
 import TogglerExample from '../Toggler/example';
 import HeaderExample from '../Header/example';
@@ -17,6 +18,7 @@ import ActionsExample from '../Actions/example';
 import DropDownExample from '../DropDownMenu/example';
 import DialogExample from '../Dialog/example';
 import HelpExample from '../Help/example';
+import ContainerDialog from '../dialogs/ContainerDialog';
 import ErrorExample from '../Error/example';
 import * as actionsTable from '../Table/actions';
 import * as actionsTree from '../Tree/actions';
@@ -108,6 +110,9 @@ class App extends React.Component {
         </div>
         <div className={b('help')}>
           <HelpExample />
+        </div>
+        <div>
+          <ContainerDialog />
         </div>
         <div className={b}>
           <ErrorExample />

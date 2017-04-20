@@ -3,7 +3,8 @@ import {
   TABLE_EDITOR_SET_TEXT,
   TABLE_EDITOR_CELL_END_DRAG,
   TABLE_EDITOR_ROW_ADD,
-  TABLE_EDITOR_ROW_ADD_ID
+  TABLE_EDITOR_ROW_ADD_ID,
+  TABLE_EDITOR_SET_IMAGES,
 } from './actions';
 
 let newId = -1;
@@ -30,6 +31,25 @@ export default function rows(state = [], action) {
           };
         }
 
+        return row;
+      });
+
+    case TABLE_EDITOR_SET_IMAGES:
+      return state.map((row) => {
+        if (row.check.common.id === action.payload.id) {
+          const cell = row[action.payload.name];
+
+          return {
+            ...row,
+            [action.payload.name]: {
+              ...cell,
+              common: {
+                ...cell.common,
+                images: [...action.payload.images]
+              }
+            }
+          };
+        }
         return row;
       });
 

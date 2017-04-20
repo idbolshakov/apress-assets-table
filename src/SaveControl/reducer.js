@@ -9,7 +9,8 @@ import {
   TABLE_EDITOR_SET_TEXT,
   TABLE_EDITOR_CELL_END_DRAG,
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
-  TABLE_EDITOR_ROW_ADD_ID
+  TABLE_EDITOR_ROW_ADD_ID,
+  TABLE_EDITOR_SET_IMAGES,
 } from '../Table/actions';
 
 const initialState = {
@@ -182,6 +183,7 @@ export default function (state = initialState, action) {
     case SAVE_REPEAT:
     case TABLE_EDITOR_CELL_END_DRAG:
     case TABLE_EDITOR_SET_TEXT:
+    case TABLE_EDITOR_SET_IMAGES:
     case 'HISTORY_PREV':
     case 'HISTORY_NEXT':
       return {

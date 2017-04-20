@@ -1,6 +1,7 @@
 import React from 'react';
 import Dialog from './Dialog';
 import Button from '../Button/Button';
+import ExampleConfirmation from './exampleConfirmation';
 
 export default class DialogExample extends React.Component {
 
@@ -100,6 +101,7 @@ export default class DialogExample extends React.Component {
           </button>
         </p>
         {dialog}
+        <ExampleConfirmation />
       </div>
     );
   }

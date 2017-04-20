@@ -6,8 +6,9 @@ import {
   TABLE_EDITOR_ROW_ADD,
   TABLE_EDITOR_ROW_ADD_ID,
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
+  TABLE_EDITOR_SET_IMAGES,
   HISTORY_NEXT,
-  HISTORY_PREV
+  HISTORY_PREV,
 } from '../actions';
 
 const initialState = {
@@ -29,6 +30,7 @@ export default function history(state = initialState, action) {
     case TABLE_EDITOR_SET_TEXT:
     case TABLE_EDITOR_CELL_END_DRAG:
     case TABLE_EDITOR_ROW_ADD:
+    case TABLE_EDITOR_SET_IMAGES:
       return {
         ...state,
         prev: [state.current, ...state.prev],

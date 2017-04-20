@@ -7,6 +7,8 @@ import focus from './Table/reducers/focus';
 import history from './Table/reducers/history';
 import help from './Help/reducer';
 import error from './Error/reducer';
+import dialogs from './dialogs/reducers';
+import imageEditor from './ImageEditor/reducer';
 
 
 export default combineReducers({
@@ -17,5 +19,7 @@ export default combineReducers({
   selected,
   focus,
   help,
-  error
+  error,
+  dialogs,
+  imageEditor,
 });

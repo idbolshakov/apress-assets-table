@@ -18,6 +18,17 @@ const app = express();
   app.use(express.static(__dirname + '/'));
 })();
 
+app.post('/upload-images', (req, res) => {
+  console.log('---------------------------');
+  setTimeout(() => {
+    res.json(
+      {
+        ids: [Math.random() * 100],
+      }
+    );
+  }, 5003);
+});
+
 app.get(/.*/, function root(req, res) {
   res.sendFile(__dirname + '/index.html');
 });

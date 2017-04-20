@@ -9,6 +9,13 @@
   }
   &:after { content: ''; position: absolute; top: -6px; left: 32px; width: 0; height: 0; border-style: solid; border-width: 0 6px 6px; border-color: transparent transparent #fff; }
   &:before { content: ''; position: absolute; top: -9px; left: 30px; width: 0; height: 0; border-style: solid; border-width: 0 8px 8px; border-color: transparent transparent rgb(221, 221, 224); }
+  &.is-settings {
+    width: 166px; top: 5px; padding: 10px 0;
+    &:after { left: 22px; }
+    &:before { left: 20px; }
+  }
+  &.is-settings { width: 230px; }
+  &.is-settings &-menu { text-transform: none; }
 }
 
 .rc-dropdown-placement-topLeft {

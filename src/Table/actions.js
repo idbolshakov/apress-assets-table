@@ -35,6 +35,8 @@ export const TABLE_EDITOR_END_TEXT_EDIT = 'TABLE_EDITOR_END_TEXT_EDIT';
 export const HISTORY_NEXT = 'HISTORY_NEXT';
 export const HISTORY_PREV = 'HISTORY_PREV';
 
+export const TABLE_EDITOR_SET_IMAGES = 'TABLE_EDITOR_SET_IMAGES';
+
 export const load = payload => ({
   type: TABLE_EDITOR_LOAD_START,
   payload
@@ -203,3 +205,12 @@ export const endTextEdit = payload =>
       }
     });
   };
+
+export const editImages = payload => ({
+  type: TABLE_EDITOR_SET_IMAGES,
+  payload: {
+    images: payload.images,
+    name: payload.activeCell,
+    id: payload.activeRow,
+  }
+});

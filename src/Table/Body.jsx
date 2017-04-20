@@ -8,6 +8,7 @@ import Image from './Image';
 import Path from './Path';
 import {block} from '../utils';
 import Actions from '../Actions/Actions';
+import {showRemoveConfirmation} from '../dialogs/actions';
 
 
 const b = block('e-table');
@@ -61,7 +62,7 @@ const Row = (props, row) =>
         {
           name: 'delete',
           title: 'Удалить',
-          onClick: () => { props.actions.removeRow({id: row.check.common.id}); }
+          onClick: () => { props.dispatch(showRemoveConfirmation({id: row.check.common.id})); }
         },
       ]}
     />}
