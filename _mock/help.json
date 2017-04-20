@@ -1,0 +1,46 @@
+{
+  "hints": [
+    {
+      "id": 79,
+      "title": "ЕТИ_Массовое изменение цен",
+      "description": "",
+      "content": "<h2>\r\n\tМассовое изменение цен - новый инструмент!</h2>\r\n<p align=\"justify\">\r\n\t<span style=\"font-size:12px;\">Для оперативного реагирования на изменения курса валют, используйте <strong>инструмент массового изменения цен</strong>, с помощью которого вы можете <strong>увеличивать</strong> или <strong>снижать цены</strong> на товары.</span></p>\r\n<p align=\"center\">\r\n\t<span style=\"font-size:12px;\"><img alt=\"\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXEAAAAnCAIAAAB2Re+tAAAEGElEQVR4nO2dy5msIBBGSYl8CIcUbhDEYm8nDVPgLqR5ozSggPznc2G/oHjUsXQWQyQAALSD9A4AAPAq4BQgpZTk3x+OJkfvlewPnAKkhFPglHbAKUBKOAVOaYdxygcsTPdUfM3RMZmldW3oGYM++3w+O1iV7qn4mqNPGo8RhgpGn8EpK+PtyN7hzETHZB5NbSoqfQanrAycUszzyTxsuaTC02dwysrAKcU8lszj34KpOPUZnLIycEoxdyfzRI91VMD6DE5ZGTilmJuSuUwlvQ44BfjAKcW0dUp3O9RrBU4B+w6nVNDEKd2NAKeAxsApxdQ4pbsI4BRwF3BKMQVO6Z7/gzll45S4UL7dvGzgbkqcsnFqLf3G6Zo7Id8p3dN+YKfYW8d7Ceak1inHlWbJnXDplO7ZPq1TTP3CxPdDwdxaxrz+vulVPcdPzZuUb0cXjAWt+43bgQlGKN+i3aX3vRWL7ld9WTBCCBNhg/vGqQ7p6DVox206HoaXn8kpNREw9tvozql0imCE8eOlu3gbp/aq+uPy51mdVy7lxWRmdBq2kz11awrlDqcIZm8dlQLfr56UNpFzwXQK6cUm1uY1/biNm6YEs9I52d0JRwjfL1sBxRrRH/vfs97xgsxySjiltr+uJvNHqpziTpfz6cYppWo4+iRc32R6Fy1l5qaCU4Z2il8G6yTLcIp73Q+e1zDh/PzbZti4UQDlIq0tp+lgaN6V0Ck2UltN7Vezbb129iDIMAxv1NEpjW7x/NGdUuGUjVMmnEiOosK8KTillKlFia5vYuyFSxn1RU6n4aJUO2UdrTzilEgFkVhy+4cXl4ukStSJYGqfX17cvKu+XQ05gzL1QnwGlE2+SgnbsaJOTtf5ZTPfKanRXVHsFJPy4SqbmAXThUxOjVa/lD/VIPmVS4xLpywilyfufbaT3Xa2M05zOCx9bKcQ/8Yoo7tIL0oLTsvWAKIbVJczYTt2V/lOqbz3ecgpNHkzkjGu5BDaLeVvnd7slHfLpblT7FqUiT14HGvfQSQrWDsXU0VpunF7Y51tvkhEB7pVylgs8/3HRKlJ8dsRjIQVkBdGNGBvSt34I8Gcju6cQqeEqvUivBhX7C5PNVKxlM5HsV2U7DS9KNlTl+OUV8qlwimZuA8s81YnQfjjho03Qd/aTEuJU2bh5v1R45Q3yeV+pzSkvzMuCP/gMx1vdsrNNHHKC+QylVPA/cApxbR1yqRycSKHU8AOp1Rwk1Mq5dI8jB8C1mdwysrAKcU8lsxwCpgJOKWY55MZTgETAKcU0zGZ4RQwLnBKMSMk87hOAcvi7cje4czEOMksR/vfpmBlyv64gGOoAmEQ4BQgJZwCp7QDTgFSwilwSjvgFCAlnAKntANOAVLCKXBKO+AUAEBL/gPA2faH0EMoSgAAAABJRU5ErkJggg==\" style=\"float: left;\" /></span></p>\r\n"
+    },
+    {
+      "id": 78,
+      "title": "ЕТИ_Начало",
+      "description": "",
+      "content": "<h2>\r\n\tС чего начать работу в редакторе товаров и услуг?</h2>\r\n<p>\r\n\t<span style=\"font-size:12px;\"><strong>Для удобства работы организуйте рабочее пространство, для этого: </strong></span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">1. Настройте вывод только нужных колонок при помощи кнопки &quot;Настроить колонки&quot;.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">2. Скройте каталог с рубриками или группами в левой части по клику на двойную стрелку.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">3. Настройте нужное количество товарных позиций на странице: 20, 50, 100, 200.</span></p>\r\n"
+    },
+    {
+      "id": 78,
+      "title": "ЕТИ_Начало",
+      "description": "",
+      "content": "<h2>\r\n\tС чего начать работу в редакторе товаров и услуг?</h2>\r\n<p>\r\n\t<span style=\"font-size:12px;\"><strong>Для удобства работы организуйте рабочее пространство, для этого: </strong></span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">1. Настройте вывод только нужных колонок при помощи кнопки &quot;Настроить колонки&quot;.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">2. Скройте каталог с рубриками или группами в левой части по клику на двойную стрелку.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">3. Настройте нужное количество товарных позиций на странице: 20, 50, 100, 200.</span></p>\r\n"
+    },
+    {
+      "id": 78,
+      "title": "ЕТИ_Начало",
+      "description": "",
+      "content": "<h2>\r\n\tС чего начать работу в редакторе товаров и услуг?</h2>\r\n<p>\r\n\t<span style=\"font-size:12px;\"><strong>Для удобства работы организуйте рабочее пространство, для этого: </strong></span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">1. Настройте вывод только нужных колонок при помощи кнопки &quot;Настроить колонки&quot;.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">2. Скройте каталог с рубриками или группами в левой части по клику на двойную стрелку.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">3. Настройте нужное количество товарных позиций на странице: 20, 50, 100, 200.</span></p>\r\n"
+    },
+    {
+      "id": 78,
+      "title": "ЕТИ_Начало",
+      "description": "",
+      "content": "<h2>\r\n\tС чего начать работу в редакторе товаров и услуг?</h2>\r\n<p>\r\n\t<span style=\"font-size:12px;\"><strong>Для удобства работы организуйте рабочее пространство, для этого: </strong></span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">1. Настройте вывод только нужных колонок при помощи кнопки &quot;Настроить колонки&quot;.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">2. Скройте каталог с рубриками или группами в левой части по клику на двойную стрелку.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">3. Настройте нужное количество товарных позиций на странице: 20, 50, 100, 200.</span></p>\r\n"
+    },
+    {
+      "id": 78,
+      "title": "ЕТИ_Начало",
+      "description": "",
+      "content": "<h2>\r\n\tС чего начать работу в редакторе товаров и услуг?</h2>\r\n<p>\r\n\t<span style=\"font-size:12px;\"><strong>Для удобства работы организуйте рабочее пространство, для этого: </strong></span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">1. Настройте вывод только нужных колонок при помощи кнопки &quot;Настроить колонки&quot;.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">2. Скройте каталог с рубриками или группами в левой части по клику на двойную стрелку.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">3. Настройте нужное количество товарных позиций на странице: 20, 50, 100, 200.</span></p>\r\n"
+    },
+    {
+      "id": 78,
+      "title": "ЕТИ_Начало",
+      "description": "",
+      "content": "<h2>\r\n\tС чего начать работу в редакторе товаров и услуг?</h2>\r\n<p>\r\n\t<span style=\"font-size:12px;\"><strong>Для удобства работы организуйте рабочее пространство, для этого: </strong></span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">1. Настройте вывод только нужных колонок при помощи кнопки &quot;Настроить колонки&quot;.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">2. Скройте каталог с рубриками или группами в левой части по клику на двойную стрелку.</span></p>\r\n<p>\r\n\t<span style=\"font-size:12px;\">3. Настройте нужное количество товарных позиций на странице: 20, 50, 100, 200.</span></p>\r\n"
+    }
+  ]
+}

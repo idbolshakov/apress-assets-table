@@ -11,7 +11,8 @@ const config = {
   devtool: NODE_ENV === 'development' ? 'source-map' : '',
   entry: {
     app: ['babel-polyfill', path.resolve(__dirname, './src/index')],
-    ['assets-table']: [path.resolve(__dirname, './src/export')]
+    ['assets-table']: [path.resolve(__dirname, './src/export')],
+    ['assets-help']: [path.resolve(__dirname, './src/exportHelp')]
   },
   output: {
     library: 'Assets-table',

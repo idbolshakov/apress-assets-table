@@ -17,6 +17,7 @@ import CheckboxExample from '../Checkbox/example';
 import ActionsExample from '../Actions/example';
 import DropDownExample from '../DropDownMenu/example';
 import DialogExample from '../Dialog/example';
+import HelpExample from '../Help/example';
 import * as actionsTable from '../Table/actions';
 import * as actionsTree from '../Tree/actions';
 import * as actionsSave from '../SaveControl/actions';
@@ -98,6 +99,9 @@ class App extends React.Component {
         </div>
         <div className={b('float-panel')}>
           <FloatPanelExample />
+        </div>
+        <div className={b('help')}>
+          <HelpExample />
         </div>
       </div>
     );

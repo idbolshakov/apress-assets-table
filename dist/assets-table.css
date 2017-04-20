@@ -1401,6 +1401,14 @@ li.rc-select-dropdown-menu-item-divider {
   bottom: auto;
 }
 
+.e-table-body-tr.is-checked .e-table-cell {
+  background-color: rgba(163, 189, 73, 0.11);
+}
+
+.e-table-body-tr.is-new .e-table-cell {
+  background-color: #f3fbff;
+}
+
 .e-table-body {
   display: block;
   overflow: auto;
@@ -1488,6 +1496,10 @@ li.rc-select-dropdown-menu-item-divider {
   right: -1px;
   top: 50%;
   margin-top: -25px;
+}
+
+.e-table-cell:before {
+  z-index: 1;
 }
 
 .e-table-cell:last-child:after {
@@ -1837,7 +1849,7 @@ li.rc-select-dropdown-menu-item-divider {
 .e-table-preview-body {
   overflow: auto;
   max-width: 100%;
-  max-height: 500px;
+  max-height: 400px;
   padding: 25px 30px;
   max-width: 560px;
   box-sizing: border-box;
@@ -2403,6 +2415,7 @@ li.rc-select-dropdown-menu-item-divider {
 }
 
 .e-float-panel {
+  box-sizing: border-box;
   background: #fff;
   position: relative;
   display: inline-block;

@@ -37,14 +37,16 @@ export default class SaveControl extends Component {
     });
 
     Object.keys(curStateObj).forEach((key) => {
-      if (prevStateObj[key]) {
-        cellDiff = this.getDiffCell(curStateObj[key], prevStateObj[key]);
+      if (this.validation(curStateObj[key])) {
+        if (prevStateObj[key]) {
+          cellDiff = this.getDiffCell(curStateObj[key], prevStateObj[key]);
 
-        if (cellDiff) {
-          diff[key] = cellDiff;
+          if (cellDiff) {
+            diff[key] = cellDiff;
+          }
+        } else {
+          diff[key] = curStateObj[key];
         }
-      } else {
-        diff[key] = curStateObj[key];
       }
     });
 
@@ -67,6 +69,8 @@ export default class SaveControl extends Component {
 
     return Object.keys(diff).length ? diff : null;
   };
+
+  validation = row => !!row.name.common.text;
 
   render() {
     let message = this.props.message.success;

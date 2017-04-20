@@ -1,0 +1,6 @@
+@import '../styles/mixins/icons';
+
+.e-search {
+  @include search-icon(); width: 100%; height: 100%; box-sizing: border-box; border: solid 1px #e0e0e0; padding: 4px 8px 4px 32px; font-size: 14px; font-family: 'OpenSans';
+  &:focus { outline: none; }
+}

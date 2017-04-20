@@ -48,7 +48,9 @@ const Row = (props, row) =>
         {
           name: 'add',
           title: 'Добавить',
-          onClick: () => { props.actions.addNewRow({id: row.check.common.id}); }
+          onClick: () => props.actions.addNewRow({
+            target: row,
+          })
         },
         {
           name: 'copy',
@@ -72,7 +74,13 @@ const Row = (props, row) =>
       },
     }}
   >
-    <tr key={row.check.common.id} className={b('body-tr')}>
+    <tr
+      key={row.check.common.id}
+      className={b('body-tr').is({
+        checked: props.table.checked.includes(row.check.common.id),
+        new: String(row.check.common.id).includes('-')
+      })}
+    >
       {Object.keys(row).map(Cell.bind({}, {row, props}))}
     </tr>
   </Trigger>

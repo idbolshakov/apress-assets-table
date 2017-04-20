@@ -6,6 +6,7 @@ import tree from './Tree/reducer';
 import save from './SaveControl/reducer';
 import selected from './Table/reducers/selected';
 import focus from './Table/reducers/focus';
+import help from './Help/reducer';
 
 
 export default combineReducers({
@@ -19,4 +20,5 @@ export default combineReducers({
   }),
   selected,
   focus,
+  help
 });
