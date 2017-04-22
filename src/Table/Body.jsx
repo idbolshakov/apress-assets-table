@@ -50,6 +50,7 @@ const Row = (props, row) =>
           title: 'Добавить',
           onClick: () => props.actions.addNewRow({
             target: row,
+            new_row: props.table.new_row
           })
         },
         {

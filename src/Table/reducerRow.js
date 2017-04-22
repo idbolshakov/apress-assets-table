@@ -2,33 +2,11 @@ import {
   TABLE_EDITOR_LOAD_SUCCESS,
   TABLE_EDITOR_SET_TEXT,
   TABLE_EDITOR_CELL_END_DRAG,
-  TABLE_EDITOR_ROW_ADD
+  TABLE_EDITOR_ROW_ADD,
+  TABLE_EDITOR_ROW_ADD_ID
 } from './actions';
 
 let newId = -1;
-
-const createNewRow = (parent) => {
-  const row = {};
-
-  Object.keys(parent).forEach((key) => {
-    row[key] = {
-      common: {}
-    };
-
-    Object.keys(parent[key].common).forEach((commonKey) => {
-      if (key === 'check' && commonKey === 'id') {
-        row[key].common[commonKey] = newId;
-        newId -= 1;
-      } else if (key === 'product_group' && commonKey === 'ancestors') {
-        row[key].common[commonKey] = [];
-      } else {
-        row[key].common[commonKey] = null;
-      }
-    });
-  });
-
-  return row;
-};
 
 export default function rows(state = [], action) {
   switch (action.type) {
@@ -94,12 +72,44 @@ export default function rows(state = [], action) {
       const target = (action.payload && action.payload.target) ?
         state.indexOf(action.payload.target) : 0;
       const newstate = [...state];
-      const newRow = createNewRow(state[0]);
+      const newRow = {
+        ...action.payload.new_row,
+        check: {
+          ...action.payload.new_row.check,
+          common: {
+            ...action.payload.new_row.check.common,
+            id: newId
+          }
+        }
+      };
+
+      newId -= 1;
 
       newstate.splice(target, 0, newRow);
 
       return newstate;
     }
+
+    case TABLE_EDITOR_ROW_ADD_ID:
+      return state.map((row) => {
+        const payloadItem = action.payload.find(payloadRow =>
+          row.check.common.id === payloadRow.id);
+
+        if (payloadItem) {
+          return {
+            ...row,
+            check: {
+              ...row.check,
+              common: {
+                ...row.check.common,
+                id: payloadItem.record_id
+              }
+            }
+          };
+        }
+
+        return row;
+      });
 
     default:
       return state;

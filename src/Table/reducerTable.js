@@ -24,6 +24,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         columns: action.payload.columns,
+        new_row: action.payload.new_row,
         total: action.payload.total,
         isLoad: true
       };
