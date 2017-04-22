@@ -27,7 +27,7 @@ class Help extends React.Component {
       .map(item => <HelpItem title={item.title} content={item.content} />);
     list = list.length ? list : (
       <div className={b('container')}>
-        <p className={b('empty')}>Нечего не найдено</p>
+        <p className={b('empty')}>Ничего не найдено</p>
       </div>);
 
     return (
