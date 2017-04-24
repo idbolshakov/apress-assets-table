@@ -13,6 +13,13 @@ export default class SaveControl extends Component {
         prevState: nextProps.save.prevState
       });
     }
+
+    if (!nextProps.save.isProgress && nextProps.save.waitingState.length) {
+      nextProps.actions.saveStart({
+        curState: nextProps.rows,
+        prevState: nextProps.save.prevState
+      });
+    }
   }
 
   render() {
