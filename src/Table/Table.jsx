@@ -2,12 +2,18 @@
 import React, {PropTypes} from 'react';
 import _throttle from 'lodash/throttle';
 import {connect} from 'react-redux';
-import {ActionCreators as UndoActionCreators} from 'redux-undo';
 import Header from './Header';
 import Body from './Body';
 import {block} from '../utils';
 import './e-table.scss';
-import {focusNext, focusPrev, focusDown, focusUp} from './actions';
+import {
+  focusNext,
+  focusPrev,
+  focusDown,
+  focusUp,
+  historyNext,
+  historyPrev
+} from './actions';
 
 const b = block('e-table');
 
@@ -37,12 +43,16 @@ class Table extends React.Component {
   handleKeyDown = (e) => {
     if (!this.props.edit) {
       if (e.keyCode === 90 && (e.ctrlKey || e.metaKey)) {
-        console.log('ctr key was pressed during the click');
-        this.props.dispatch(UndoActionCreators.undo());
+        if (this.props.history.prev.length) {
+          console.log('ctr key was pressed during the click');
+          this.props.dispatch(historyPrev());
+        }
       }
       if (e.keyCode === 89 && (e.ctrlKey || e.metaKey)) {
-        console.log('ctr key was pressed during the click');
-        this.props.dispatch(UndoActionCreators.redo());
+        if (this.props.history.next.length) {
+          console.log('ctr key was pressed during the click');
+          this.props.dispatch(historyNext());
+        }
       }
       e.preventDefault();
       if (e.keyCode === 38) {
@@ -90,6 +100,9 @@ class Table extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({edit: state.focus.edit});
+const mapStateToProps = state => ({
+  edit: state.focus.edit,
+  history: state.history,
+});
 
 export default connect(mapStateToProps)(Table);

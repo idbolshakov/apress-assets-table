@@ -24,12 +24,28 @@ export function* loadRubricatorData() {
 }
 
 export function* loadHelp() {
-  const help = yield call(getHelp);
-  yield put({type: 'HELP_LOAD_SUCCESS', payload: help.hints});
+  try {
+    const help = yield call(getHelp);
+    yield put({type: 'HELP_LOAD_SUCCESS', payload: help.hints});
+  } catch (err) {
+    yield put({
+      type: 'ERROR_ADD',
+      payload: {
+        type: 'server',
+        title: 'Не удалось загрузить справку',
+        action: 'HELP_LOAD_START'
+      }
+    });
+  }
+}
+
+export function* save({payload}) {
+  yield put({type: 'SAVE_CREATE_DIFF', payload});
 }
 
 export default function* subscribeForLoadTableData() {
   yield takeLatest('TABLE_EDITOR_LOAD_START', loadTableData);
   yield takeLatest('TREE_LOAD_START', loadRubricatorData);
   yield takeLatest('HELP_LOAD_START', loadHelp);
+  yield takeLatest('SAVE_START', save);
 }

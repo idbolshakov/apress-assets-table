@@ -6,71 +6,14 @@ import './e-save-control.scss';
 const b = block('e-save-control');
 
 export default class SaveControl extends Component {
-  componentDidUpdate() {
-    if (this.props.save.isSave && !this.props.save.isProgress) {
-      this.props.actions.saveProgress(this.props.rows);
-      this.props.actions.saveStart(
-        this.getDiffRows(this.props.rows, this.props.save.prevProps)
-      );
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.save.isSave) {
+      nextProps.actions.saveStart({
+        curState: nextProps.rows,
+        prevState: nextProps.save.prevState
+      });
     }
   }
-
-  getDiffRows(curState, prevState) {
-    const diff = {};
-    const prevStateObj = {};
-    const curStateObj = {};
-    let cellDiff;
-
-    curState.forEach((curRow) => {
-      curStateObj[curRow.check.common.id] = {...curRow};
-    });
-
-    prevState.forEach((prevRow) => {
-      prevStateObj[prevRow.check.common.id] = {...prevRow};
-      if (!curStateObj[prevRow.check.common.id]) {
-        curStateObj[prevRow.check.common.id] = {
-          check: {
-            delete: true
-          }
-        };
-      }
-    });
-
-    Object.keys(curStateObj).forEach((key) => {
-      if (this.validation(curStateObj[key])) {
-        if (prevStateObj[key]) {
-          cellDiff = this.getDiffCell(curStateObj[key], prevStateObj[key]);
-
-          if (cellDiff) {
-            diff[key] = cellDiff;
-          }
-        } else {
-          diff[key] = curStateObj[key];
-        }
-      }
-    });
-
-    return diff;
-  }
-
-  getDiffCell = (curRow, prevRow) => {
-    const diff = {};
-
-    Object.keys(prevRow).forEach((cellKey) => {
-      Object.keys(prevRow[cellKey].common).forEach((key) => {
-        if (prevRow[cellKey].common[key] !== curRow[cellKey].common[key]) {
-          diff[cellKey] = {
-            ...diff[cellKey],
-            [key]: curRow[cellKey].common[key]
-          };
-        }
-      });
-    });
-
-    return Object.keys(diff).length ? diff : null;
-  };
-
-  validation = row => !!row.name.common.text;
 
   render() {
     let message = this.props.message.success;

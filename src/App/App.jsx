@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {ActionCreators as UndoActionCreators} from 'redux-undo';
 import {bindActionCreators} from 'redux';
 import ButtonExample from '../Button/example';
 import TogglerExample from '../Toggler/example';
@@ -18,6 +17,7 @@ import ActionsExample from '../Actions/example';
 import DropDownExample from '../DropDownMenu/example';
 import DialogExample from '../Dialog/example';
 import HelpExample from '../Help/example';
+import ErrorExample from '../Error/example';
 import * as actionsTable from '../Table/actions';
 import * as actionsTree from '../Tree/actions';
 import * as actionsSave from '../SaveControl/actions';
@@ -79,10 +79,16 @@ class App extends React.Component {
           />
         </div>
         <div className={b}>
-          <button onClick={this.props.onUndo} disabled={!this.props.canUndo}>
+          <button
+            onClick={() => this.props.actionsTable.historyPrev()}
+            disabled={!this.props.history.prev.length}
+          >
             Undo
           </button>
-          <button onClick={this.props.onRedo} disabled={!this.props.canRedo}>
+          <button
+            onClick={() => this.props.actionsTable.historyNext()}
+            disabled={!this.props.history.next.length}
+          >
             Redo
           </button>
         </div>
@@ -103,6 +109,9 @@ class App extends React.Component {
         <div className={b('help')}>
           <HelpExample />
         </div>
+        <div className={b}>
+          <ErrorExample />
+        </div>
       </div>
     );
   }
@@ -111,20 +120,17 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   table: {
     ...state.table,
-    rows: state.rows.present
+    rows: state.history.current
   },
+  history: state.history,
   tree: state.tree,
-  save: state.save,
-  canUndo: state.rows.past.length > 0,
-  canRedo: state.rows.future.length > 0
+  save: state.save
 });
 
 const mapDispatchToProps = dispatch => ({
   actionsTable: bindActionCreators(actionsTable, dispatch),
   actionsTree: bindActionCreators(actionsTree, dispatch),
-  actionsSave: bindActionCreators(actionsSave, dispatch),
-  onUndo: () => dispatch(UndoActionCreators.undo()),
-  onRedo: () => dispatch(UndoActionCreators.redo())
+  actionsSave: bindActionCreators(actionsSave, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
