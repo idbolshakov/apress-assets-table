@@ -1,5 +1,4 @@
 import {
-  SAVE_START,
   SAVE_SUCCESS,
   SAVE_REPEAT,
   SAVE_CREATE_DIFF,
@@ -190,13 +189,6 @@ export default function (state = initialState, action) {
         isSave: true
       };
 
-    case SAVE_START:
-      return {
-        ...state,
-        isSave: false,
-        isError: false
-      };
-
     case SAVE_CREATE_DIFF: {
       const diff = createDiff(action.payload.curState, action.payload.prevState);
       let waitingState = state.waitingState;
@@ -228,6 +220,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         waitingState,
+        isSave: false,
         prevState: action.payload.curState
       };
     }
@@ -237,6 +230,7 @@ export default function (state = initialState, action) {
         ...state,
         saveState: state.waitingState,
         isProgress: true,
+        isError: false,
         waitingState: []
       };
 

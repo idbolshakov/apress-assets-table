@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ba593d9907d68a62db6a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "07b5e2197725a23949d7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -9397,6 +9397,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	          prevState: nextProps.save.prevState
 	        });
 	      }
+
+	      if (!nextProps.save.isProgress && nextProps.save.waitingState.length) {
+	        nextProps.actions.saveStart({
+	          curState: nextProps.rows,
+	          prevState: nextProps.save.prevState
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -9463,12 +9470,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        isSave: true
 	      });
 
-	    case _actions.SAVE_START:
-	      return _extends({}, state, {
-	        isSave: false,
-	        isError: false
-	      });
-
 	    case _actions.SAVE_CREATE_DIFF:
 	      {
 	        var diff = createDiff(action.payload.curState, action.payload.prevState);
@@ -9502,6 +9503,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        return _extends({}, state, {
 	          waitingState: waitingState,
+	          isSave: false,
 	          prevState: action.payload.curState
 	        });
 	      }
@@ -9510,6 +9512,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _extends({}, state, {
 	        saveState: state.waitingState,
 	        isProgress: true,
+	        isError: false,
 	        waitingState: []
 	      });
 
