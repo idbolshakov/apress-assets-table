@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "07b5e2197725a23949d7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c85944fcfdf79239f51c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8864,7 +8864,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _utils = __webpack_require__(3);
 
-	__webpack_require__(304);
+	__webpack_require__(305);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11133,7 +11133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _Scroller2 = _interopRequireDefault(_Scroller);
 
-	__webpack_require__(305);
+	__webpack_require__(304);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11752,7 +11752,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _react2.default.createElement(
 	          'p',
 	          { className: b('empty') },
-	          '\u041D\u0435\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E'
+	          '\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E'
 	        )
 	      );
 
@@ -24458,81 +24458,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Actions = __webpack_require__(172);
-
-	var _Actions2 = _interopRequireDefault(_Actions);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-console: 0 */
-	/* eslint no-alert: 0 */
-
-
-	var ActionsExample = function (_React$Component) {
-	  _inherits(ActionsExample, _React$Component);
-
-	  function ActionsExample() {
-	    _classCallCheck(this, ActionsExample);
-
-	    return _possibleConstructorReturn(this, (ActionsExample.__proto__ || Object.getPrototypeOf(ActionsExample)).apply(this, arguments));
-	  }
-
-	  _createClass(ActionsExample, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'example-wrapper' },
-	        _react2.default.createElement(_Actions2.default, {
-	          actions: [{
-	            name: 'add',
-	            title: 'Добавить',
-	            onClick: function onClick(e) {
-	              console.log('action add', e);
-	            }
-	          }, {
-	            name: 'copy',
-	            title: 'Копировать',
-	            onClick: function onClick(e) {
-	              console.log('action copy', e);
-	            }
-	          }, {
-	            name: 'delete',
-	            title: 'Удалить',
-	            onClick: function onClick(e) {
-	              console.log('action remove', e);
-	            }
-	          }]
-	        })
-	      );
-	    }
-	  }]);
-
-	  return ActionsExample;
-	}(_react2.default.Component);
-
-	exports.default = ActionsExample;
-
-/***/ },
-/* 386 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
 	var _ActionsPanel = __webpack_require__(197);
 
 	var _ActionsPanel2 = _interopRequireDefault(_ActionsPanel);
@@ -24648,6 +24573,81 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = ActionsPanelExample;
 
 /***/ },
+/* 386 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Actions = __webpack_require__(172);
+
+	var _Actions2 = _interopRequireDefault(_Actions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-console: 0 */
+	/* eslint no-alert: 0 */
+
+
+	var ActionsExample = function (_React$Component) {
+	  _inherits(ActionsExample, _React$Component);
+
+	  function ActionsExample() {
+	    _classCallCheck(this, ActionsExample);
+
+	    return _possibleConstructorReturn(this, (ActionsExample.__proto__ || Object.getPrototypeOf(ActionsExample)).apply(this, arguments));
+	  }
+
+	  _createClass(ActionsExample, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'example-wrapper' },
+	        _react2.default.createElement(_Actions2.default, {
+	          actions: [{
+	            name: 'add',
+	            title: 'Добавить',
+	            onClick: function onClick(e) {
+	              console.log('action add', e);
+	            }
+	          }, {
+	            name: 'copy',
+	            title: 'Копировать',
+	            onClick: function onClick(e) {
+	              console.log('action copy', e);
+	            }
+	          }, {
+	            name: 'delete',
+	            title: 'Удалить',
+	            onClick: function onClick(e) {
+	              console.log('action remove', e);
+	            }
+	          }]
+	        })
+	      );
+	    }
+	  }]);
+
+	  return ActionsExample;
+	}(_react2.default.Component);
+
+	exports.default = ActionsExample;
+
+/***/ },
 /* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -24697,7 +24697,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _example14 = _interopRequireDefault(_example13);
 
-	var _example15 = __webpack_require__(386);
+	var _example15 = __webpack_require__(385);
 
 	var _example16 = _interopRequireDefault(_example15);
 
@@ -24717,7 +24717,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _example22 = _interopRequireDefault(_example21);
 
-	var _example23 = __webpack_require__(385);
+	var _example23 = __webpack_require__(386);
 
 	var _example24 = _interopRequireDefault(_example23);
 
