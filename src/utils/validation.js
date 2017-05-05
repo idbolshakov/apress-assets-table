@@ -11,7 +11,7 @@ const getSelectionText = (win = window) => {
 
 const maxLength = (options) => {
   const curentLength = options.string.length;
-  const pasteLength = (options.paste && options.paste.length) - 41 || 0;
+  const pasteLength = (options.paste && options.paste.length) - (options.win ? 41 : 1) || 0;
   const selectionLength = getSelectionText(options.win).length;
 
   return ((options.maxLen + selectionLength) - (curentLength + pasteLength)) > 0;

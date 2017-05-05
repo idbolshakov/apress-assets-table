@@ -69,7 +69,7 @@ class PathCell extends Component {
     }
 
     return (
-      <td
+      <div
         onClick={this.handleCellClick}
         tabIndex={-1}
         ref={($td) => { $td && this.props.cell.isFocus && $td.focus(); }}
@@ -90,7 +90,7 @@ class PathCell extends Component {
         >
           <div className={b('cell-preview-icon')} />
         </RcDropdown>}
-      </td>
+      </div>
     );
   }
 }

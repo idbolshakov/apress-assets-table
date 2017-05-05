@@ -49,7 +49,7 @@ class ImageCell extends Component {
       <div className={b('img-empty')} />;
 
     return (
-      <td
+      <div
         tabIndex={-1}
         onKeyDown={this.handleKeyPress}
         onClick={this.handleCellClick}
@@ -58,7 +58,7 @@ class ImageCell extends Component {
         className={b('cell').is({[this.props.cell.classMix]: true, focus: this.props.cell.isFocus})}
       >
         {img}
-      </td>
+      </div>
     );
   }
 }

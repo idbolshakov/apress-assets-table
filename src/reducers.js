@@ -22,4 +22,5 @@ export default combineReducers({
   error,
   dialogs,
   imageEditor,
+  config: () => ({})
 });

@@ -27,7 +27,7 @@ class CheckCell extends React.Component {
   render() {
     const props = this.props;
     return (
-      <td
+      <div
         tabIndex={-1}
         ref={($td) => { $td && props.cell.isFocus && $td.focus(); }}
         className={b('cell').mix(`is-${props.cell.classMix}`).is({focus: props.cell.isFocus})}
@@ -38,7 +38,7 @@ class CheckCell extends React.Component {
           onChange={this.handleChecked}
           checked={this.props.checked}
         />
-      </td>
+      </div>
     );
   }
 }

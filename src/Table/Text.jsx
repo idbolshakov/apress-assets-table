@@ -236,7 +236,7 @@ class TextCell extends Component {
     }
 
     return (
-      <td
+      <div
         ref={($td) => { $td && this.props.cell.isFocus && !this.state.edit && $td.focus(); }}
         className={b('cell').mix(`is-${this.props.cell.classMix}`)
           .is({
@@ -278,7 +278,7 @@ class TextCell extends Component {
             <div className={b('cell-preview-icon')} />
           </RcDropdown>
         }
-      </td>
+      </div>
     );
   }
 }

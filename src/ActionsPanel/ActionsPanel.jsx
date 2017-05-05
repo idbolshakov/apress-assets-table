@@ -43,7 +43,7 @@ const ActionsPanel = props =>
                   <span
                     key={col.name}
                     className={b('filter-item')}
-                    onClick={() => props.onRemoveFilter({id: '', name: col.name})}
+                    onClick={() => props.onRemoveFilter({id: 'all', name: col.name})}
                     title='Убрать'
                   >
                     {`${col.title} - ${filterTitle[col.filter.value]}`}

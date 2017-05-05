@@ -74,27 +74,30 @@ class Table extends React.Component {
         tabIndex={-1}
         onKeyDown={this.handleKeyDown}
         ref={(node) => { this.$node = node; }}
-        className={b}
+        className={b.mix(`is-columns-${props.table.columns.length}`)}
       >
-        <table className={b('wrapper')}>
-          <thead>
-            <Header
+        {props.table.isLoaded ?
+          <div className={b('wrapper')}>
+            <div className={b('header')}>
+              <Header
+                table={props.table}
+                selectFilter={props.selectFilter}
+                selectSort={props.selectSort}
+                setCheckAll={props.actions.setCheckAll}
+                countRow={props.countRow}
+              />
+            </div>
+            <Body
               table={props.table}
-              selectFilter={props.selectFilter}
-              selectSort={props.selectSort}
-              setCheckAll={props.actions.setCheckAll}
-              countRow={props.countRow}
+              config={props.config}
+              placeholder={props.placeholder}
+              actions={props.actions}
+              $rootNode={this.$node}
+              scrollLeft={this.state.scrollLeft}
             />
-          </thead>
-          <Body
-            table={props.table}
-            config={props.config}
-            placeholder={props.placeholder}
-            actions={props.actions}
-            $rootNode={this.$node}
-            scrollLeft={this.state.scrollLeft}
-          />
-        </table>
+          </div> :
+          <div className='e-spinner' />
+        }
       </div>
     );
   }

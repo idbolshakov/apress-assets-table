@@ -7,18 +7,17 @@ const b = block('e-save-control');
 
 export default class SaveControl extends Component {
   componentWillReceiveProps(nextProps) {
-    if (nextProps.save.isSave) {
-      nextProps.actions.saveStart({
+    if (nextProps.save.isSave && !nextProps.save.fetchDiff) {
+      nextProps.actions.saveCreateDiff({
         curState: nextProps.rows,
         prevState: nextProps.save.prevState
       });
     }
 
-    if (!nextProps.save.isProgress && nextProps.save.waitingState.length) {
-      nextProps.actions.saveStart({
-        curState: nextProps.rows,
-        prevState: nextProps.save.prevState
-      });
+    if (!nextProps.save.isProgress &&
+      !nextProps.save.fetchDiff &&
+      nextProps.save.waitingState.length) {
+      nextProps.actions.saveStart();
     }
   }
 

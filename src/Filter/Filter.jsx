@@ -1,27 +1,37 @@
-import React, {Component} from 'react';
-import {browserHistory} from 'react-router';
+import {
+  connect,
+  Component,
+  browserHistory,
+  actionsTable,
+  actionsFilter,
+} from './import';
 
-export default class Filter extends Component {
+class Filter extends Component {
   componentDidUpdate() {
-    if (this.props.config.isChange) {
-      const query = {};
+    const query = {};
 
+    if (this.props.config.isChange) {
       Object.keys(this.props.config.params)
         .forEach((key) => { query[key] = JSON.stringify(this.props.config.params[key]); });
 
-      this.props.updateTable();
-      this.props.updateTree();
+      this.props.dispatch(actionsTable.load());
 
       browserHistory.push({
         pathname: browserHistory.getCurrentLocation().pathname,
         query
       });
 
-      this.props.noChange();
+      this.props.dispatch(actionsFilter.noChange());
     }
   }
 
   render() {
-    return <div style={{display: 'none'}} />;
+    return null;
   }
 }
+
+const mapStateToProps = state => ({
+  config: state.config
+});
+
+export default connect(mapStateToProps)(Filter);

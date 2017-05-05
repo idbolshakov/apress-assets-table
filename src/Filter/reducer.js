@@ -1,6 +1,7 @@
-import {TREE_SET_NODE} from '../Tree/actions';
+import {actionsTree, actionsFilter} from './import';
 
-import {
+const {TREE_SET_NODE} = actionsTree;
+const {
   CONFIG_LOAD_SUCCESS,
   CONFIG_SET_PAGE,
   CONFIG_SET_PER_PAGE,
@@ -8,7 +9,7 @@ import {
   CONFIG_SET_FILTER,
   CONFIG_SET_SORT,
   CONFIG_RESET
-} from './actions';
+} = actionsFilter;
 
 const initialState = {
   config: {},
@@ -82,8 +83,8 @@ export default function app(state = initialState, action) {
 
       if (action.payload) {
         group = {
-          url_name: action.payload.url_name,
-          without: (action.payload.url_name === 'k-unbinded')
+          url_name: action.payload.urlName,
+          without: (action.payload.urlName === 'k-unbinded')
         };
 
         params = {
