@@ -1,9 +1,12 @@
 import React, {PropTypes, Component} from 'react';
+import {connect} from 'react-redux';
+import DropDownMenu from '../DropDownMenu/DropDownMenu';
 import {block} from '../utils';
+import {showRemoveConfirmation} from '../dialogs/actions';
 
 const b = block('e-tree');
 
-export default class TreeItem extends Component {
+class TreeItem extends Component {
   static propTypes = {
     node: PropTypes.shape({
       name: PropTypes.string,
@@ -61,9 +64,42 @@ export default class TreeItem extends Component {
           >
             {node.name}
           </span>
+          <DropDownMenu
+            mix='is-settings'
+            trigger={['hover']}
+            items={[
+              {
+                title: 'Редактировать',
+                id: 'edit',
+              },
+              {
+                title: 'Изменить порядок товаров',
+                id: 'reorderGoods',
+              },
+              {
+                title: <span className={b('remove')}>Удалить</span>,
+                id: 'remove',
+              },
+            ]}
+            onSelect={(action) => {
+              if (action === 'edit') {
+                console.log('Todo: добавить вызов редактирования');
+              }
+              if (action === 'remove') {
+                this.props.dispatch(showRemoveConfirmation(this.props.node.id));
+              }
+              if (action === 'reorderGoods') {
+                window.open(node.order_url);
+              }
+            }}
+          >
+            <span className={b('settings')} />
+          </DropDownMenu>
         </div>
         {this.props.children}
       </div>
     );
   }
 }
+
+export default connect()(TreeItem);

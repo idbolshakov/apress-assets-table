@@ -90,6 +90,7 @@ const config = {
       commonjs: 'react-redux',
       amd: 'react-redux'
     },
+    'app': 'app',
   },
   plugins: [
     new webpack.DefinePlugin({

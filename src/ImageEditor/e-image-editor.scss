@@ -1,0 +1,34 @@
+@import '../styles/mixins/icons';
+
+.e-image-editor {
+  & img { max-width: 100%; max-height: 100%; }
+  box-sizing: border-box;
+  $root: &;
+  & * { box-sizing: border-box; }
+  &-drop-zone {
+     height: 200px; background-color: #fff; border: dashed 2px #c1c1c1; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 10px;
+     &:hover { border-color: #028dd8; }
+     &.is-disabled {
+       opacity: .4; cursor: not-allowed;
+       &:hover { border-color: #c1c1c1; }
+     }
+  }
+  &-message {
+    font-weight: 600; font-size: 14px; width: 200px; text-align: center; margin-top: 20px; line-height: 1.1;
+    &-link { color: #028dd8; text-decoration: underline; }
+    &:before { @include cloud-upload-icon(#61656f); content: ''; display: block; width: 42px; height: 36px; margin: 20px auto; }
+  }
+  &-remove {
+    position: absolute; width: 100%; height: 100%; background: rgba(31,37,50, .73); display: flex; justify-content: center; align-items: center; visibility: hidden; cursor: pointer;
+    &:after {
+      @include trash-o-icon(#fff); width: 36px; height: 36px; background-size: 16px; background-color: #1f2532; border-radius: 100px; content: '';
+    }
+  }
+  &-preview-box { display: flex; }
+  &-preview {
+    width: 115px; height: 80px; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; margin-right: 9px;
+    &:hover #{$root}-remove { visibility: visible; }
+  }
+  &-error { color: #dc6263; }
+  &-preloader.e-preloader { height: 140px; }
+}

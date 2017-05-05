@@ -1,9 +1,13 @@
 /* eslint no-console: 0 */
 import React from 'react';
+import {connect} from 'react-redux';
 import Header from './Header';
+import {
+  showRemoveEmptyRowsConfirmation,
+  showMassRemoveConfirmation,
+} from '../dialogs/actions';
 
-export default class HeaderExample extends React.Component {
-
+class HeaderExample extends React.Component {
   state = {togglerActive: false};
 
   switchToggler = () => {
@@ -22,8 +26,12 @@ export default class HeaderExample extends React.Component {
           onToggle={this.switchToggler}
           selectedGroupsCount={33}
           onCallProductsAndGroups={() => { console.log('вызов модальника'); }}
-          onDeleteSelectedGroup={() => { console.log('Удалить выбранную группу'); }}
-          onDeleteEmptyGroup={() => { console.log('Удалить пустые группы'); }}
+          onDeleteSelectedGroup={() => {
+            this.props.dispatch(showMassRemoveConfirmation());
+          }}
+          onDeleteEmptyGroup={() => {
+            this.props.dispatch(showRemoveEmptyRowsConfirmation());
+          }}
         />
         <Header
           instructionHref='/about/questions/editor'
@@ -34,3 +42,6 @@ export default class HeaderExample extends React.Component {
     );
   }
 }
+
+
+export default connect()(HeaderExample);

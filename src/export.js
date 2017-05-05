@@ -16,6 +16,7 @@ import * as actionsTable from './Table/actions';
 import * as actionsSaveControl from './SaveControl/actions';
 import * as actionsFilter from './Filter/actions';
 import * as actionsError from './Error/actions';
+import * as actionsDialog from './dialogs/actions';
 
 import reducerTree from './Tree/reducer';
 import reducerTable from './Table/reducerTable';
@@ -26,6 +27,11 @@ import selected from './Table/reducers/selected';
 import focus from './Table/reducers/focus';
 import history from './Table/reducers/history';
 import error from './Error/reducer';
+import dialogs from './dialogs/reducers';
+import ContainerDialog from './dialogs/ContainerDialog';
+
+import imageEditor from './ImageEditor/reducer';
+import * as imageEditorSagas from './ImageEditor/sagas';
 
 import './styles/fonts.scss';
 import './styles/global.scss';
@@ -39,14 +45,17 @@ export const reducers = {
   selected,
   focus,
   error,
-  history
+  history,
+  dialogs,
+  imageEditor,
 };
 export const actions = {
   actionsTree,
   actionsTable,
   actionsSaveControl,
   actionsFilter,
-  actionsError
+  actionsError,
+  actionsDialog,
 };
 export const components = {
   Table,
@@ -62,5 +71,9 @@ export const components = {
   Scroller,
   ActionsPanel,
   Filter,
-  Error: ComponentError
+  Error: ComponentError,
+  ContainerDialog,
+};
+export const sagas = {
+  imageEditorSagas,
 };

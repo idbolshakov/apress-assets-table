@@ -20,9 +20,16 @@
       &:before { left: 100px; }
     }
   }
-  &-item { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; cursor: pointer; box-sizing: border-box; border-bottom: solid 1px #e0e0e0; font-size: 12px; line-height: 34px; font-weight: bold; padding: 0 70px 0 30px;
-    &:hover { background: #f8f8f8; }
-    &.is-active { background: #e0e0e0; }
+  &-item {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; cursor: pointer; box-sizing: border-box; border-bottom: solid 1px #e0e0e0; font-size: 12px; line-height: 34px; font-weight: bold; padding: 0 70px 0 30px;
+    &:hover {
+      background: #f8f8f8;
+      .e-tree-settings { visibility: visible; }
+    }
+    &.is-active {
+       background: #e0e0e0;
+       .e-tree-settings { visibility: visible; }
+    }
     &.is-open {
       .e-tree-arrow { transform: rotate(90deg); }
       + .e-tree-list { display: block; }
@@ -35,4 +42,6 @@
     position: absolute; left: 0; top: 0; width: 30px; height: 34px;
     &:after { @include angle-right-icon(); content: ''; position: absolute; width: 14px; height: 14px; top: 10px; left: 8px; }
   }
+  &-settings { @include gear-icon(#c1c1c1); width: 13px; height: 13px; position: absolute; top: 11px; right: 10px; visibility: hidden; }
+  &-remove { color: #dc6263; }
 }

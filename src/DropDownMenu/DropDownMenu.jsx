@@ -12,6 +12,7 @@ export default class DropDownMenu extends React.Component {
     mix: PropTypes.string,
     title: PropTypes.string,
     items: PropTypes.array,
+    trigger: PropTypes.array,
     onSelect: PropTypes.func,
   }
 
@@ -19,6 +20,7 @@ export default class DropDownMenu extends React.Component {
     title: '',
     mix: '',
     items: [],
+    trigger: ['click'],
     onSelect: () => {},
   }
 
@@ -56,7 +58,7 @@ export default class DropDownMenu extends React.Component {
     return (
       <RcDropdown
         visible={this.state.visible}
-        trigger={['click']}
+        trigger={this.props.trigger}
         overlay={menu}
         onVisibleChange={(visible) => { this.setState({visible}); }}
         closeOnSelect={false}
