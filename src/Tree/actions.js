@@ -5,6 +5,7 @@ export const TREE_UPDATE_SUCCESS = 'TREE_UPDATE_SUCCESS';
 export const TREE_SET_NODE = 'TREE_SET_NODE';
 export const TREE_SET_EXPANDED = 'TREE_SET_EXPANDED';
 export const TREE_MOVE_NODE = 'TREE_MOVE_NODE';
+export const REMOVE_NODE = 'REMOVE_NODE';
 
 export const setExpanded = payload => ({
   type: TREE_SET_EXPANDED,
@@ -28,5 +29,10 @@ export const setNode = payload => ({
 
 export const moveNode = payload => ({
   type: TREE_MOVE_NODE,
+  payload
+});
+
+export const removeNode = payload => ({
+  type: REMOVE_NODE,
   payload
 });

@@ -3,10 +3,12 @@ import {
   TABLE_EDITOR_LOAD_SUCCESS,
   TABLE_EDITOR_SET_TEXT,
   TABLE_EDITOR_CELL_END_DRAG,
+  TABLE_EDITOR_CELL_END_DRAG_IMAGES,
   TABLE_EDITOR_ROW_ADD,
   TABLE_EDITOR_ROW_ADD_ID,
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   TABLE_EDITOR_SET_IMAGES,
+  TABLE_EDITOR_ROW_REMOVE,
   HISTORY_NEXT,
   HISTORY_PREV,
 } from '../actions';
@@ -31,6 +33,8 @@ export default function history(state = initialState, action) {
     case TABLE_EDITOR_CELL_END_DRAG:
     case TABLE_EDITOR_ROW_ADD:
     case TABLE_EDITOR_SET_IMAGES:
+    case TABLE_EDITOR_CELL_END_DRAG_IMAGES:
+    case TABLE_EDITOR_ROW_REMOVE:
       return {
         ...state,
         prev: [state.current, ...state.prev],

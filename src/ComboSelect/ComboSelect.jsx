@@ -9,6 +9,7 @@ const b = block('e-select');
 const Select = props =>
   <RcSelect
     notFoundContent='Ничего не найдено'
+    disabled={React.Children.count(props.children) <= 1}
     dropdownMatchSelectWidth={false}
     className={b.mix(props.mix)()}
     dropdownClassName='e-select-drop-down'

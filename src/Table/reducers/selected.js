@@ -48,6 +48,7 @@ export default (state = initialState, action) => {
       return {...state, isSelected: false};
 
     case types.TABLE_EDITOR_CELL_END_DRAG:
+    case types.TABLE_EDITOR_CELL_END_DRAG_IMAGES:
       return initialState;
 
     default:

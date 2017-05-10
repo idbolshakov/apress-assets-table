@@ -24,11 +24,13 @@ const ActionsPanel = props =>
           <span className={b('last-actions-label')}>Последние действия:</span>
           <button
             type='button'
+            title='Отменить'
             onClick={(e) => { props.backHistory && props.onActionBack(e); }}
             className={b('button').is({back: true, active: props.backHistory})}
           />
           <button
             type='button'
+            title='Вернуть'
             onClick={(e) => { props.nextHistory && props.onActionNext(e); }}
             className={b('button').is({next: true, active: props.nextHistory})}
           />

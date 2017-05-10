@@ -26,7 +26,7 @@ app.post('/upload-images', (req, res) => {
         ids: [Math.random() * 100],
       }
     );
-  }, 5003);
+  }, 500);
 });
 
 app.get('/', function root(req, res) {

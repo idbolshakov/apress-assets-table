@@ -58,20 +58,15 @@ class Body extends React.Component {
         actions={[
           {
             name: 'add',
-            title: 'Добавить',
+            title: 'Добавить группу',
             onClick: () => props.actions.addNewRow({
               target: row,
               new_row: props.table.new_row
             })
           },
           {
-            name: 'copy',
-            title: 'Копировать',
-            onClick: () => { props.actions.copyRow({id: row.check.common.id}); }
-          },
-          {
             name: 'delete',
-            title: 'Удалить',
+            title: 'Удалить группу',
             onClick: () => { props.dispatch(showRemoveConfirmation({id: row.check.common.id})); }
           },
         ]}

@@ -101,9 +101,9 @@ const config = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin('[name].css', {allChunks: true}),
-    new webpack.BannerPlugin('eslint-disable'),
-    new webpack.BannerPlugin('jshint ignore: start'),
-    new webpack.BannerPlugin('scss-lint:disable all'),
+    new webpack.BannerPlugin('eslint-disable', {entryOnly: false}),
+    new webpack.BannerPlugin('jshint ignore: start', {entryOnly: false}),
+    new webpack.BannerPlugin('scss-lint:disable all', {entryOnly: false}),
     new CleanWebpackPlugin([
       path.resolve(__dirname, './dist'),
       path.resolve(__dirname, './dist'),

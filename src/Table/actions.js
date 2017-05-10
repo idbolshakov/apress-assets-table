@@ -22,6 +22,7 @@ export const TABLE_EDITOR_CELL_SELECT_ADD_TO = 'TABLE_EDITOR_CELL_SELECT_ADD_TO'
 
 export const TABLE_EDITOR_CELL_START_DRAG = 'TABLE_EDITOR_CELL_START_DRAG';
 export const TABLE_EDITOR_CELL_END_DRAG = 'TABLE_EDITOR_CELL_END_DRAG';
+export const TABLE_EDITOR_CELL_END_DRAG_IMAGES = 'TABLE_EDITOR_CELL_END_DRAG_IMAGES';
 
 export const TABLE_EDITOR_CELL_FOCUS_NEXT = 'TABLE_EDITOR_CELL_FOCUS_NEXT';
 export const TABLE_EDITOR_CELL_FOCUS_PREV = 'TABLE_EDITOR_CELL_FOCUS_PREV';
@@ -36,6 +37,7 @@ export const HISTORY_NEXT = 'HISTORY_NEXT';
 export const HISTORY_PREV = 'HISTORY_PREV';
 
 export const TABLE_EDITOR_SET_IMAGES = 'TABLE_EDITOR_SET_IMAGES';
+export const TABLE_EDITOR_IMAGES_ASSIGN_ID = 'TABLE_EDITOR_IMAGES_ASSIGN_ID';
 
 export const load = payload => ({
   type: TABLE_EDITOR_LOAD_START,
@@ -100,6 +102,23 @@ export const startDrag = payload => ({
 export const endDrag = payload => ({
   type: TABLE_EDITOR_CELL_END_DRAG,
   payload
+});
+
+export const endDragImages = payload => ({
+  type: TABLE_EDITOR_CELL_END_DRAG_IMAGES,
+  payload
+});
+
+export const imagesAssign = payload => ({
+  // mock
+  // copied_images : [
+  //   {
+  //     id: 11111,
+  //     fake_id: -1
+  //   },
+  // ]
+  type: TABLE_EDITOR_IMAGES_ASSIGN_ID,
+  payload,
 });
 
 export const setCheck = payload => ({

@@ -5,11 +5,16 @@ import './e-toggler.scss';
 const b = block('e-toggler');
 
 const Toggler = props =>
-  <div onClick={props.onToggle} className={b.mix(props.mix).is({on: props.on})} />;
+  <div
+    onClick={props.onToggle}
+    className={b.mix(props.mix).is({on: props.on})}
+    title={props.title}
+  />;
 
 Toggler.propTypes = {
   onToggle: PropTypes.func.isRequired,
   mix: PropTypes.string,
+  title: PropTypes.string,
 };
 
 Toggler.defaultProps = {
