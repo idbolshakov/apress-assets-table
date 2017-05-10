@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "49d51ce31a644bb1b4fb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "cc56b96cc80e9b59bce8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -2568,61 +2568,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _utils = __webpack_require__(3);
-
-	__webpack_require__(318);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var b = (0, _utils.block)('e-button');
-
-	var Button = function Button(props) {
-	  return _react2.default.createElement(
-	    'button',
-	    {
-	      type: 'button',
-	      disabled: props.disabled,
-	      onClick: function onClick(e) {
-	        e.preventDefault();props.onClick();
-	      },
-	      className: b.mix(props.mix)
-	    },
-	    props.children
-	  );
-	};
-
-	Button.propTypes = {
-	  onClick: _react.PropTypes.func,
-	  mix: _react.PropTypes.string,
-	  disabled: _react.PropTypes.bool
-	};
-
-	Button.defaultProps = {
-	  disabled: false,
-	  onClick: function onClick() {},
-	  mix: ''
-	};
-
-	exports.default = Button;
-
-/***/ },
-/* 52 */
+/* 48 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2682,6 +2628,60 @@ return /******/ (function(modules) { // webpackBootstrap
 	var cleanEditor = exports.cleanEditor = function cleanEditor() {
 	  return { type: IMAGE_EDITOR_CLEAN };
 	};
+
+/***/ },
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _utils = __webpack_require__(3);
+
+	__webpack_require__(318);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var b = (0, _utils.block)('e-button');
+
+	var Button = function Button(props) {
+	  return _react2.default.createElement(
+	    'button',
+	    {
+	      type: 'button',
+	      disabled: props.disabled,
+	      onClick: function onClick(e) {
+	        e.preventDefault();props.onClick();
+	      },
+	      className: b.mix(props.mix)
+	    },
+	    props.children
+	  );
+	};
+
+	Button.propTypes = {
+	  onClick: _react.PropTypes.func,
+	  mix: _react.PropTypes.string,
+	  disabled: _react.PropTypes.bool
+	};
+
+	Button.defaultProps = {
+	  disabled: false,
+	  onClick: function onClick() {},
+	  mix: ''
+	};
+
+	exports.default = Button;
 
 /***/ },
 /* 53 */
@@ -10700,9 +10700,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _actions = __webpack_require__(16);
 
-	var _actions2 = __webpack_require__(52);
+	var _actions2 = __webpack_require__(48);
 
-	var _Button = __webpack_require__(51);
+	var _Button = __webpack_require__(52);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
@@ -10976,7 +10976,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _actions = __webpack_require__(52);
+	var _actions = __webpack_require__(48);
 
 	var types = _interopRequireWildcard(_actions);
 
@@ -11043,7 +11043,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var dialogsActions = _interopRequireWildcard(_actions2);
 
-	var _actions3 = __webpack_require__(52);
+	var _actions3 = __webpack_require__(48);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -12099,7 +12099,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _actions = __webpack_require__(16);
 
-	var _actions2 = __webpack_require__(52);
+	var _actions2 = __webpack_require__(48);
 
 	var _actions3 = __webpack_require__(9);
 
@@ -13636,7 +13636,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
-	var _Button = __webpack_require__(51);
+	var _Button = __webpack_require__(52);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
@@ -23216,7 +23216,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _FloatPanel2 = _interopRequireDefault(_FloatPanel);
 
-	var _Button = __webpack_require__(51);
+	var _Button = __webpack_require__(52);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
@@ -23312,6 +23312,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reducer10 = _interopRequireDefault(_reducer9);
 
+	var _actions7 = __webpack_require__(48);
+
+	var imageEditorActions = _interopRequireWildcard(_actions7);
+
 	var _sagas = __webpack_require__(214);
 
 	var imageEditorSagas = _interopRequireWildcard(_sagas);
@@ -23343,7 +23347,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  actionsSaveControl: actionsSaveControl,
 	  actionsFilter: actionsFilter,
 	  actionsError: actionsError,
-	  actionsDialog: actionsDialog
+	  actionsDialog: actionsDialog,
+	  imageEditorActions: imageEditorActions
 	};
 	var components = exports.components = {
 	  Table: _Table2.default,
