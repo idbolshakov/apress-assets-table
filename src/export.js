@@ -31,6 +31,7 @@ import dialogs from './dialogs/reducers';
 import ContainerDialog from './dialogs/ContainerDialog';
 
 import imageEditor from './ImageEditor/reducer';
+import * as imageEditorActions from './ImageEditor/actions';
 import * as imageEditorSagas from './ImageEditor/sagas';
 
 import './styles/fonts.scss';
@@ -56,6 +57,7 @@ export const actions = {
   actionsFilter,
   actionsError,
   actionsDialog,
+  imageEditorActions,
 };
 export const components = {
   Table,
