@@ -59,7 +59,7 @@ export default class Header extends React.Component {
     );
 
     return (
-      <th key={index} className={b('header-cell').mix(`is-${cell.name.replace(/_/g, '-')}`)}>
+      <div key={index} className={b('header-cell').mix(`is-${cell.name.replace(/_/g, '-')}`)}>
         {cell.name === 'check' &&
           <Checkbox
             checked={this.props.countRow === this.props.table.checked.length}
@@ -67,7 +67,7 @@ export default class Header extends React.Component {
           />}
         {cell.filter ? renderFilterTitle() : renderSimpleTitle()}
         {cell.sorter && renderSorting()}
-      </th>
+      </div>
     );
   };
 
@@ -77,13 +77,13 @@ export default class Header extends React.Component {
 
   render() {
     return (
-      <tr className={b('tr')}>
+      <div className={b('tr')}>
         {this.props.table.columns.map((cell, index) =>
           this.createCell(cell, index,
             this.props.selectFilter,
             this.props.selectSort,
           ))}
-      </tr>
+      </div>
     );
   }
 }

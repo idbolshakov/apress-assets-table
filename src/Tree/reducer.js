@@ -1,13 +1,19 @@
-import {
+import {actions} from './import';
+import {CONFIG_RESET} from '../Filter/actions';
+
+const {
+  TREE_LOAD_START,
   TREE_LOAD_SUCCESS,
   TREE_UPDATE_SUCCESS,
   TREE_SET_NODE,
-  TREE_SET_EXPANDED
-} from './actions';
+  TREE_SET_EXPANDED,
+  TREE_MOVE_NODE
+} = actions;
 
 const initialState = {
   data: [],
-  selected: []
+  selected: [],
+  isLoaded: false
 };
 
 const isSelected = (treeState, action) => {
@@ -36,6 +42,110 @@ const isSelected = (treeState, action) => {
   return selected.reverse();
 };
 
+
+const deleteNode = (state, id) => {
+  let newState = [];
+  let moveNode = null;
+
+  state.forEach((node) => {
+    if (node.id === id) {
+      moveNode = node;
+    } else {
+      let newNode = {...node};
+
+      if (node.tree_nodes && node.tree_nodes.length) {
+        const childNode = deleteNode(node.tree_nodes, id);
+        newNode = {
+          ...node,
+          tree_nodes: childNode.newState
+        };
+
+        if (childNode.moveNode) {
+          moveNode = childNode.moveNode;
+
+          newNode = {
+            ...newNode,
+            expandable: !!newNode['tree_nodes'].length,
+            items_count: newNode['items_count'] - moveNode['items_count'],
+          };
+        }
+      }
+
+      newState = [...newState, newNode];
+    }
+  });
+
+  return {
+    newState,
+    moveNode
+  };
+};
+
+const addNode = (state, hover, currentNode) => {
+  let newState = [];
+  let isAdd = false;
+
+  state.forEach((node) => {
+    let newNode = {...node};
+
+    if (node.id === hover.id) {
+      isAdd = true;
+      if (hover.target === 'center') {
+        if (Array.isArray(node.tree_nodes)) {
+          newNode = {
+            ...node,
+            expanded: true,
+            expandable: true,
+            items_count: newNode['items_count'] + currentNode['items_count'],
+            tree_nodes: [...node.tree_nodes, currentNode]
+          };
+        } else {
+          newNode = {
+            ...node,
+            expanded: true,
+            expandable: true,
+            items_count: newNode['items_count'] + currentNode['items_count'],
+            tree_nodes: [currentNode]
+          };
+        }
+      } else if (hover.target === 'top') {
+        newState = [...newState, currentNode];
+      } else {
+        newNode = [newNode, currentNode];
+      }
+    }
+
+    if (!isAdd && (node.tree_nodes && node.tree_nodes.length)) {
+      const child = addNode(node.tree_nodes, hover, currentNode);
+
+      newNode = {
+        ...node,
+        tree_nodes: child.newState
+      };
+
+      if (child.isAdd) {
+        isAdd = child.isAdd;
+
+        newNode = {
+          ...newNode,
+          items_count: newNode['items_count'] + currentNode['items_count'],
+        };
+      }
+    }
+
+    if (Array.isArray(newNode)) {
+      newState = [...newState, ...newNode];
+    } else {
+      newState = [...newState, newNode];
+    }
+  });
+
+  return {
+    newState,
+    isAdd
+  };
+};
+
 const treeNode = (state, action) => {
   switch (action.type) {
     case TREE_UPDATE_SUCCESS:
@@ -60,6 +170,14 @@ const treeNode = (state, action) => {
           state.tree_nodes.map(node => treeNode(node, action)) : undefined
       };
 
+    case CONFIG_RESET:
+      return {
+        ...state,
+        selected: false,
+        tree_nodes: state.tree_nodes && state.tree_nodes.length ?
+          state.tree_nodes.map(node => treeNode(node, action)) : undefined
+      };
+
     case TREE_SET_EXPANDED:
       return {
         ...state,
@@ -75,10 +193,17 @@ const treeNode = (state, action) => {
 
 export default function tree(state = initialState, action) {
   switch (action.type) {
+    case TREE_LOAD_START:
+      return {
+        ...state,
+        isLoaded: false
+      };
+
     case TREE_LOAD_SUCCESS:
       return {
         ...state,
-        data: action.payload
+        data: action.payload,
+        isLoaded: true
       };
 
     case TREE_UPDATE_SUCCESS:
@@ -98,6 +223,27 @@ export default function tree(state = initialState, action) {
       return {
         ...state,
         data: state.data.map(node => treeNode(node, action))
+      };
+
+    case TREE_MOVE_NODE: {
+      const deleteData = deleteNode(state.data, action.payload.id);
+      const addData = addNode(
+        deleteData.newState,
+        action.payload.hover,
+        deleteData.moveNode
+      );
+
+      return {
+        ...state,
+        data: [...addData.newState]
+      };
+    }
+
+    case CONFIG_RESET:
+      return {
+        ...state,
+        data: state.data.map(node => treeNode(node, action)),
+        selected: []
       };
 
     default:

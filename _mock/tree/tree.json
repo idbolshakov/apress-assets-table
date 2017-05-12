@@ -1,0 +1,114 @@
+{
+  "tree_nodes":[
+    {
+      "expandable": false,
+      "expanded": false,
+      "selected": false,
+      "id": 10000,
+      "items_count": 2,
+      "name": "тестовая группа 1",
+      "order_url": "http://test-eti.kupov-pulscen.son4.railsc.ru/catalog/order/k-45494-test-group-1",
+      "url": "http://test-eti.kupov-pulscen.son4.railsc.ru/predl/binds?product_group=k-45494-k-45494-test-group-1",
+      "url_name": "k-45494-k-45494-test-group-1"
+    },
+    {
+      "expandable": false,
+      "expanded": false,
+      "selected": false,
+      "id": 10001,
+      "items_count": 2,
+      "name": "тестовая группа 2",
+      "order_url": "http://test-eti.kupov-pulscen.son4.railsc.ru/catalog/order/k-45494-test-group-1",
+      "url": "http://test-eti.kupov-pulscen.son4.railsc.ru/predl/binds?product_group=k-45494-k-45494-test-group-1",
+      "url_name": "k-45494-k-45494-test-group-1"
+    },
+    {
+      "expandable": false,
+      "expanded": false,
+      "selected": false,
+      "id": 10002,
+      "items_count": 2,
+      "name": "тестовая группа 3",
+      "order_url": "http://test-eti.kupov-pulscen.son4.railsc.ru/catalog/order/k-45494-test-group-1",
+      "url": "http://test-eti.kupov-pulscen.son4.railsc.ru/predl/binds?product_group=k-45494-k-45494-test-group-1",
+      "url_name": "k-45494-k-45494-test-group-1"
+    },
+    {
+      "expandable": false,
+      "expanded": false,
+      "selected": false,
+      "id": 10003,
+      "items_count": 2,
+      "name": "тестовая группа 4",
+      "order_url": "http://test-eti.kupov-pulscen.son4.railsc.ru/catalog/order/k-45494-test-group-1",
+      "url": "http://test-eti.kupov-pulscen.son4.railsc.ru/predl/binds?product_group=k-45494-k-45494-test-group-1",
+      "url_name": "k-45494-k-45494-test-group-1"
+    },
+    {
+      "expandable": false,
+      "expanded": false,
+      "selected": false,
+      "id": 10004,
+      "items_count": 2,
+      "name": "тестовая группа 5",
+      "order_url": "http://test-eti.kupov-pulscen.son4.railsc.ru/catalog/order/k-45494-test-group-1",
+      "url": "http://test-eti.kupov-pulscen.son4.railsc.ru/predl/binds?product_group=k-45494-k-45494-test-group-1",
+      "url_name": "k-45494-k-45494-test-group-1"
+    },
+    {
+      "expandable": false,
+      "expanded": false,
+      "selected": false,
+      "id": 10005,
+      "items_count": 2,
+      "name": "тестовая группа 6",
+      "order_url": "http://test-eti.kupov-pulscen.son4.railsc.ru/catalog/order/k-45494-test-group-1",
+      "url": "http://test-eti.kupov-pulscen.son4.railsc.ru/predl/binds?product_group=k-45494-k-45494-test-group-1",
+      "url_name": "k-45494-k-45494-test-group-1"
+    },
+    {
+      "expandable": false,
+      "expanded": false,
+      "selected": false,
+      "id": 10006,
+      "items_count": 2,
+      "name": "тестовая группа 7",
+      "order_url": "http://test-eti.kupov-pulscen.son4.railsc.ru/catalog/order/k-45494-test-group-1",
+      "url": "http://test-eti.kupov-pulscen.son4.railsc.ru/predl/binds?product_group=k-45494-k-45494-test-group-1",
+      "url_name": "k-45494-k-45494-test-group-1"
+    },
+    {
+      "expandable": false,
+      "expanded": false,
+      "selected": false,
+      "id": 10007,
+      "items_count": 2,
+      "name": "тестовая группа 8",
+      "order_url": "http://test-eti.kupov-pulscen.son4.railsc.ru/catalog/order/k-45494-test-group-1",
+      "url": "http://test-eti.kupov-pulscen.son4.railsc.ru/predl/binds?product_group=k-45494-k-45494-test-group-1",
+      "url_name": "k-45494-k-45494-test-group-1"
+    },
+    {
+      "expandable": false,
+      "expanded": false,
+      "selected": false,
+      "id": 10008,
+      "items_count": 2,
+      "name": "тестовая группа 9",
+      "order_url": "http://test-eti.kupov-pulscen.son4.railsc.ru/catalog/order/k-45494-test-group-1",
+      "url": "http://test-eti.kupov-pulscen.son4.railsc.ru/predl/binds?product_group=k-45494-k-45494-test-group-1",
+      "url_name": "k-45494-k-45494-test-group-1"
+    },
+    {
+      "expandable": false,
+      "expanded": false,
+      "selected": false,
+      "id": 10009,
+      "items_count": 2,
+      "name": "тестовая группа 10",
+      "order_url": "http://test-eti.kupov-pulscen.son4.railsc.ru/catalog/order/k-45494-test-group-1",
+      "url": "http://test-eti.kupov-pulscen.son4.railsc.ru/predl/binds?product_group=k-45494-k-45494-test-group-1",
+      "url_name": "k-45494-k-45494-test-group-1"
+    }
+  ]
+}

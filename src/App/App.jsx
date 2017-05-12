@@ -10,7 +10,7 @@ import ComboSelectExample from '../ComboSelect/example';
 import TableExample from '../Table/example';
 import ScrollerExample from '../Scroller/example';
 import ActionsPanelExample from '../ActionsPanel/example';
-import TreeExample from '../Tree/example';
+import TreeExample from '../Tree/ContainerTree';
 import SaveControl from '../SaveControl/SaveControl';
 import FloatPanelExample from '../FloatPanel/example';
 import CheckboxExample from '../Checkbox/example';
@@ -103,7 +103,7 @@ class App extends React.Component {
           </div>
         </div>
         <div className={b('tree')}>
-          <TreeExample tree={this.props.tree.data} actions={this.props.actionsTree} />
+          <TreeExample />
         </div>
         <div className={b('float-panel')}>
           <FloatPanelExample />

@@ -76,7 +76,7 @@ const Row = (props, row) =>
       },
     }}
   >
-    <tr
+    <div
       key={row.check.common.id}
       className={b('body-tr').is({
         checked: props.table.checked.includes(row.check.common.id),
@@ -84,14 +84,14 @@ const Row = (props, row) =>
       })}
     >
       {Object.keys(row).map(Cell.bind({}, {row, props}))}
-    </tr>
+    </div>
   </Trigger>
   ;
 
 const Body = props =>
-  <tbody className={b('body')}>
+  <div className={b('body')}>
     {props.table.rows.map(Row.bind({}, props))}
-  </tbody>;
+  </div>;
 
 Body.propTypes = {
   table: PropTypes.object,

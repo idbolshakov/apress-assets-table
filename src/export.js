@@ -2,7 +2,7 @@ import Header from './Header/Header';
 import Table from './Table/Table';
 import ComboSelect from './ComboSelect/ComboSelect';
 import Pagination from './Pagination/Pagination';
-import Tree from './Tree/Tree';
+import Tree from './Tree/ContainerTree';
 import FloatPanel from './FloatPanel/FloatPanel';
 import Button from './Button/Button';
 import SaveControl from './SaveControl/SaveControl';
@@ -34,8 +34,21 @@ import imageEditor from './ImageEditor/reducer';
 import * as imageEditorActions from './ImageEditor/actions';
 import * as imageEditorSagas from './ImageEditor/sagas';
 
+import * as treeSagas from './Tree/sagas';
+import filterSagas from './Filter/sagas';
+import tableSagas from './Table/sagas';
+import * as saveSagas from './SaveControl/sagas';
+
 import './styles/fonts.scss';
 import './styles/global.scss';
+
+export const sagas = {
+  treeSagas,
+  imageEditorSagas,
+  filterSagas,
+  tableSagas,
+  saveSagas
+};
 
 export const reducers = {
   reducerTable,
@@ -50,6 +63,7 @@ export const reducers = {
   dialogs,
   imageEditor,
 };
+
 export const actions = {
   actionsTree,
   actionsTable,
@@ -59,6 +73,7 @@ export const actions = {
   actionsDialog,
   imageEditorActions,
 };
+
 export const components = {
   Table,
   Header,
@@ -75,7 +90,4 @@ export const components = {
   Filter,
   Error: ComponentError,
   ContainerDialog,
-};
-export const sagas = {
-  imageEditorSagas,
 };

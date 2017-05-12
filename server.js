@@ -29,8 +29,38 @@ app.post('/upload-images', (req, res) => {
   }, 5003);
 });
 
-app.get(/.*/, function root(req, res) {
+app.get('/', function root(req, res) {
   res.sendFile(__dirname + '/index.html');
+});
+
+app.post('/tree', (req, res) => {
+  setTimeout(() => {
+    res.sendFile(__dirname + '/_mock/tree/tree.json');
+  }, 500);
+});
+
+app.put('/tree/update', (req, res) => {
+  setTimeout(() => {
+    res.json({ok: 200});
+  }, 500);
+});
+
+app.post('/table/data', (req, res) => {
+  setTimeout(() => {
+    res.sendFile(__dirname + '/_mock/table/data.json');
+  }, 500);
+});
+
+app.put('/table/save', (req, res) => {
+  setTimeout(() => {
+    res.json({ok: 200, job_id: 123});
+  }, 500);
+});
+
+app.get('/table/save/123', (req, res) => {
+  setTimeout(() => {
+    res.json({succeeded: true, payload: [{id: 45572, record_id: 45572}]});
+  }, 500);
 });
 
 const server = http.createServer(app);

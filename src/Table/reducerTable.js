@@ -9,7 +9,7 @@ import {
 const initialState = {
   columns: [],
   checked: [],
-  isLoad: false
+  isLoaded: false
 };
 
 export default function (state = initialState, action) {
@@ -17,7 +17,7 @@ export default function (state = initialState, action) {
     case TABLE_EDITOR_LOAD_START:
       return {
         ...state,
-        isLoad: false
+        isLoaded: false
       };
 
     case TABLE_EDITOR_LOAD_SUCCESS:
@@ -26,7 +26,7 @@ export default function (state = initialState, action) {
         columns: action.payload.columns,
         new_row: action.payload.new_row,
         total: action.payload.total,
-        isLoad: true
+        isLoaded: true
       };
 
     case TABLE_EDITOR_SET_CHECK:
