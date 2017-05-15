@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import _isEqual from 'lodash/isEqual';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
 import Checkbox from '../Checkbox/Checkbox';
 import {block} from '../utils';
@@ -9,6 +10,10 @@ export default class Header extends React.Component {
   static propTypes = {
     table: PropTypes.object,
   };
+
+  shouldComponentUpdate(nextProps) {
+    return !_isEqual(this.props, nextProps);
+  }
 
   mapFilterOptionsToMenu = options => options.map(option => ({
     title: option.title,

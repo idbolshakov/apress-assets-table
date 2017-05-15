@@ -7,6 +7,7 @@ import {
   findDOMNode,
   DragSource,
   DropTarget,
+  _debounce,
   b,
   constants,
   _isEqual,
@@ -53,6 +54,7 @@ class TreeItem extends Component {
 
     isDragging: PropTypes.bool.isRequired,
     hasDragNode: PropTypes.bool.isRequired,
+    hasSettingsNode: PropTypes.bool.isRequired,
     config: PropTypes.object,
     hoverNode: PropTypes.shape({
       id: PropTypes.number,
@@ -103,16 +105,57 @@ class TreeItem extends Component {
     setExpanded(this.props, expanded);
   }
 
-  render() {
+  renderSettingsMenu = () => {
     const {
       id,
       orderUrl,
+      actionShowRemoveConfirmation,
+    } = this.props;
+
+    return (
+      <DropDownMenu
+        mix='is-settings'
+        trigger={['hover']}
+        items={[
+          {
+            title: 'Редактировать',
+            id: 'edit',
+          },
+          {
+            title: 'Изменить порядок товаров',
+            id: 'reorderGoods',
+          },
+          {
+            title: <span className={b('remove')}>Удалить</span>,
+            id: 'remove',
+          },
+        ]}
+        onSelect={(action) => {
+          if (action === 'edit') {
+            console.log('Todo: добавить вызов редактирования');
+          }
+          if (action === 'remove') {
+            actionShowRemoveConfirmation(id);
+          }
+          if (action === 'reorderGoods') {
+            window.open(orderUrl);
+          }
+        }}
+      >
+        <span className={b('settings')} />
+      </DropDownMenu>
+    );
+  }
+
+  render() {
+    const {
       count,
       expandable,
       name,
       connectDragSource,
       connectDropTarget,
-      actionShowRemoveConfirmation
+      hasSettingsNode,
+      hover,
     } = this.props;
 
     return connectDragSource(connectDropTarget(
@@ -126,37 +169,7 @@ class TreeItem extends Component {
           onClick={e => this.hendlerClickExpanded(e)}
         />
         <span className={b('item-title')}>{name}</span>
-        <DropDownMenu
-          mix='is-settings'
-          trigger={['hover']}
-          items={[
-            {
-              title: 'Редактировать',
-              id: 'edit',
-            },
-            {
-              title: 'Изменить порядок товаров',
-              id: 'reorderGoods',
-            },
-            {
-              title: <span className={b('remove')}>Удалить</span>,
-              id: 'remove',
-            },
-          ]}
-          onSelect={(action) => {
-            if (action === 'edit') {
-              console.log('Todo: добавить вызов редактирования');
-            }
-            if (action === 'remove') {
-              actionShowRemoveConfirmation(id);
-            }
-            if (action === 'reorderGoods') {
-              window.open(orderUrl);
-            }
-          }}
-        >
-          <span className={b('settings')} />
-        </DropDownMenu>
+        {hasSettingsNode && (hover && !hover.id) && this.renderSettingsMenu()}
         <span className={b('drag')} />
       </div>
     ));
@@ -184,21 +197,23 @@ const nodeTarget = {
     return false;
   },
 
-  hover(props, monitor, component) {
-    const {id} = monitor.getItem();
+  hover: _debounce((props, monitor, component) => {
+    const id = monitor.getItem() && monitor.getItem().id;
 
     if (props.id !== id) {
       const elemPosition = findDOMNode(component).getBoundingClientRect();
       const cursorPosition = monitor.getClientOffset();
+
       let target = 'center';
 
       if (props.expandable && !props.expanded) { setExpanded(props, true); }
-      if ((cursorPosition.y - elemPosition.top) < 10) { target = 'top'; }
-      if ((cursorPosition.y - elemPosition.top) > 25) { target = 'bottom'; }
+
+      if (cursorPosition && (cursorPosition.y - elemPosition.top) < 10) { target = 'top'; }
+      if (cursorPosition && (cursorPosition.y - elemPosition.top) > 25) { target = 'bottom'; }
 
       props.moveStep(props.id, props.index, target);
     }
-  }
+  }, 50)
 };
 
 export default DropTarget(

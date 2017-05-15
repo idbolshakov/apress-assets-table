@@ -1,6 +1,7 @@
 /* eslint react/no-unused-prop-types: 0 */
 import React, {PropTypes} from 'react';
 import RcDropdown from 'rc-dropdown';
+import _isEqual from 'lodash/isEqual';
 import './e-dropdown-menu.scss';
 import {block} from '../utils';
 
@@ -26,6 +27,10 @@ export default class DropDownMenu extends React.Component {
 
   state = {
     visible: false,
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
   }
 
   close = () => { this.setState({visible: false}); }

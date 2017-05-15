@@ -1,6 +1,7 @@
 /* eslint react/no-unused-prop-types: 0 */
 import React, {PropTypes} from 'react';
 import _throttle from 'lodash/throttle';
+import _isEqual from 'lodash/isEqual';
 import {block} from '../utils';
 import './e-scroller.scss';
 
@@ -34,6 +35,10 @@ class Scroller extends React.Component {
 
   componentWillReceiveProps() {
     this.init();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
   }
 
   componentWillUnmount() {

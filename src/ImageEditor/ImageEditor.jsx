@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
+import _isEqual from 'lodash/isEqual';
 import {hideImageEditor} from '../dialogs/actions';
 import {updateImages} from './actions';
 import Button from '../Button/Button';
@@ -34,6 +35,10 @@ class ImageEditor extends React.Component {
     this.setState({
       existedImages: nextProps.cellOwnedImages,
     });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
   }
 
   getTotalCount = () => this.state.existedImages.length + this.state.files.length;

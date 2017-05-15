@@ -1,6 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import RcDropdown from 'rc-dropdown';
 import {connect} from 'react-redux';
+import _isEqual from 'lodash/isEqual';
 import {setFocus} from './actions';
 import {block} from '../utils';
 
@@ -22,6 +23,10 @@ class PathCell extends Component {
 
   state = {
     visible: false,
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
   }
 
   handleCellClick = () => {

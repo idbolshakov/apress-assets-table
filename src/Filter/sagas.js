@@ -53,7 +53,7 @@ export default function* loadConfig(data) {
         payload: {
           name: key,
           onLoad: true,
-          url_name: params.url_name
+          urlName: params.url_name
         }
       });
     }

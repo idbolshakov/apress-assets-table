@@ -1,6 +1,7 @@
 /* eslint react/no-unused-prop-types: 0 */
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import _isEqual from 'lodash/isEqual';
 import {setFocus} from './actions';
 import Checkbox from '../Checkbox/Checkbox';
 import {block} from '../utils';
@@ -9,6 +10,10 @@ const b = block('e-table');
 
 class CheckCell extends React.Component {
   static propTypes = {cell: PropTypes.object};
+
+  shouldComponentUpdate(nextProps) {
+    return !_isEqual(this.props, nextProps);
+  }
 
   handleCellClick = () => {
     this.props.dispatch(setFocus({name: this.props.cell.name, id: this.props.cell.id}));

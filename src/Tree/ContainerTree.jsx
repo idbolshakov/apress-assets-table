@@ -1,13 +1,9 @@
-import Tree from './Tree';
-import TreeLayer from './TreeLayer';
+import TreeDndContext from './TreeDndContext';
 import {
   React,
   PropTypes,
   Component,
-  b,
-  DragDropContext,
   showRemoveConfirmation,
-  HTML5Backend,
   connect,
   _isEqual,
   actions
@@ -34,24 +30,21 @@ class ContainerTree extends Component {
 
   render() {
     const hasDragNode = true;
+    const hasSettingsNode = true;
 
     if (this.props.isLoaded) {
       return (
-        <div className={b}>
-          <Tree
-            tree={this.props.tree}
-            config={this.props.config}
-            actionMoveNode={this.actionMoveNode}
-            actionSetExpanded={this.actionSetExpanded}
-            actionUpdate={this.actionUpdate}
-            actionSetNode={this.actionSetNode}
-            hasDragNode={hasDragNode}
-            actionShowRemoveConfirmation={this.actionShowRemoveConfirmation}
-          >
-            {this.props.children}
-          </Tree>
-          <TreeLayer />
-        </div>
+        <TreeDndContext
+          tree={this.props.tree}
+          config={this.props.config}
+          actionMoveNode={this.actionMoveNode}
+          actionSetExpanded={this.actionSetExpanded}
+          actionUpdate={this.actionUpdate}
+          actionSetNode={this.actionSetNode}
+          hasDragNode={hasDragNode}
+          hasSettingsNode={hasSettingsNode}
+          actionShowRemoveConfirmation={this.actionShowRemoveConfirmation}
+        />
       );
     }
 
@@ -65,10 +58,4 @@ const mapStateToProps = state => ({
   config: state.config
 });
 
-export default DragDropContext(
-  HTML5Backend
-)(
-  connect(
-    mapStateToProps
-  )(ContainerTree)
-);
+export default connect(mapStateToProps)(ContainerTree);

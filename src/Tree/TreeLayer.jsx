@@ -1,6 +1,5 @@
 /* eslint react/no-unused-prop-types: 0 */
 /* eslint react/no-find-dom-node: 0 */
-import TreeItem from './TreeItem';
 import {
   React,
   PropTypes,
@@ -72,14 +71,21 @@ class TreeLayer extends Component {
 
   renderItem(type = this.props.itemType, item = this.props.item) {
     switch (type) {
-      case constants.TREE:
+      case constants.TREE: {
+        const {count, expandable, name} = item;
         return (
-          <TreeItem
-            key={'preview'}
-            id={'preview'}
-            {...item}
-          />
+          <div
+            className={b('item')}
+            data-count={`(${count})`}
+          >
+            <span
+              className={expandable ? b('arrow') : ''}
+            />
+            <span className={b('item-title')}>{name}</span>
+          </div>
         );
+      }
+
       default:
         return null;
     }

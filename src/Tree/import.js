@@ -5,6 +5,7 @@ import {call, put, select} from 'redux-saga/effects';
 import {DropTarget, DragSource, DragDropContext, DragLayer} from 'react-dnd';
 import HTML5Backend, {getEmptyImage} from 'react-dnd-html5-backend';
 import _throttle from 'lodash/throttle';
+import _debounce from 'lodash/debounce';
 import _isEqual from 'lodash/isEqual';
 import {api, block} from '../utils';
 import * as actions from './actions';
@@ -36,6 +37,7 @@ export {
   DragLayer,
 
   _throttle,
+  _debounce,
   _isEqual,
   constants,
   api,

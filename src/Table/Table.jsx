@@ -2,6 +2,7 @@
 import React, {PropTypes} from 'react';
 import _throttle from 'lodash/throttle';
 import {connect} from 'react-redux';
+import _isEqual from 'lodash/isEqual';
 import Header from './Header';
 import Body from './Body';
 import {block} from '../utils';
@@ -30,6 +31,10 @@ class Table extends React.Component {
 
   componentDidMount() {
     this.$node.addEventListener('scroll', this.handleTableScroll, false);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
   }
 
   componentWillUnmount() {

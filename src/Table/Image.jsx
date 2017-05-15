@@ -1,5 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
+import _isEqual from 'lodash/isEqual';
 import {showImageEditor} from '../dialogs/actions';
 import {editImages} from '../ImageEditor/actions';
 import {setFocus} from './actions';
@@ -20,6 +21,10 @@ class ImageCell extends Component {
       name: PropTypes.string
     })
   };
+
+  shouldComponentUpdate(nextProps) {
+    return !_isEqual(this.props, nextProps);
+  }
 
   handleCellClick = () => {
     this.props.dispatch(setFocus({name: this.props.cell.name, id: this.props.cell.id}));

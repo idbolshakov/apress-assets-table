@@ -1,4 +1,5 @@
 import React from 'react';
+import _isEqual from 'lodash/isEqual';
 import {block} from '../utils';
 
 const b = block('e-help');
@@ -6,6 +7,10 @@ const b = block('e-help');
 export default class HelpItem extends React.Component {
   state = {
     open: false
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
   }
 
   handlerClick = () => this.setState({open: !this.state.open})
