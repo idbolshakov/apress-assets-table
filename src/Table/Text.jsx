@@ -1,6 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import RcDropdown from 'rc-dropdown';
+import _isEqual from 'lodash/isEqual';
 import validation from '../utils/validation';
 import toolbarConfig from './ckeditorToolbar';
 import {block} from '../utils';
@@ -37,6 +38,10 @@ class TextCell extends Component {
     visible: false,
     charactersLeft: ''
   };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
+  }
 
   componentDidUpdate() {
     if (this.state.edit && this.props.cell.config.ckeditor) {
@@ -216,7 +221,7 @@ class TextCell extends Component {
         text = (
           <div
             data-charactersLeft={this.state.charactersLeft}
-            ref={elem => elem && elem.focus()}
+            ref={elem => elem && this.state.edit && elem.focus()}
             className={b('cell-text').is({edit: this.state.edit})}
             contentEditable={this.state.edit}
             onBlur={(e) => {

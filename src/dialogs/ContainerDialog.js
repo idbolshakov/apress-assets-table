@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import _isEqual from 'lodash/isEqual';
 import ImageEditor from '../ImageEditor/ImageEditor';
 import Dialog from '../Dialog/Dialog';
 import Button from '../Button/Button';
@@ -12,6 +13,9 @@ import {
 // TODo: Запилить сюда экшены удалений
 
 class ContainerDialog extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return !_isEqual(this.props, nextProps);
+  }
 
   removeRowConfirmCancel = () => {
     this.props.dispatch(hideRemoveConfirmation());

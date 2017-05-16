@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import _isEqual from 'lodash/isEqual';
 import {block} from '../utils';
 import HelpItem from './HelpItem';
 import Search from '../Search/Search';
@@ -17,6 +18,10 @@ class Help extends React.Component {
 
   componentWillMount() {
     this.props.actions.helpLoadStart();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
   }
 
   handlerClick = () => this.setState({open: !this.state.open})

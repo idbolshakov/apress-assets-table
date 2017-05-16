@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import _isEqual from 'lodash/isEqual';
 import {remove} from './actions';
 import {block} from '../utils';
 
@@ -7,7 +8,10 @@ import './e-error.scss';
 
 const b = block('e-error');
 
-class componentError extends React.Component {
+class ComponentError extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return !_isEqual(this.props, nextProps);
+  }
 
   createServerError = error =>
     <div className={b}>
@@ -60,4 +64,4 @@ const mapStateToProps = state => ({
   errors: state.error,
 });
 
-export default connect(mapStateToProps)(componentError);
+export default connect(mapStateToProps)(ComponentError);

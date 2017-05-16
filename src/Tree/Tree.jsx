@@ -35,7 +35,7 @@ class Tree extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !_isEqual(this.props, nextProps) || _isEqual(this.state, nextState);
+    return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
   }
 
   setHoverNode = (id, index, target) => this.setState({hover: {id, index, target}});
@@ -80,6 +80,7 @@ class Tree extends Component {
           config={this.props.config}
           hoverNode={this.state.hover}
           hasDragNode={this.props.hasDragNode}
+          hasSettingsNode={this.props.hasSettingsNode}
         />
         {Array.isArray(node['tree_nodes']) &&
           <div className={b('list')}>
