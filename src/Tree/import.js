@@ -12,6 +12,7 @@ import * as actions from './actions';
 import * as actionsError from '../Error/actions';
 import * as actionsTable from '../Table/actions';
 import {showRemoveConfirmation} from '../dialogs/actions';
+import {configSetId} from '../Filter/actions';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
 import './e-tree.scss';
 
@@ -47,6 +48,7 @@ export {
   actionsError,
   actionsTable,
   showRemoveConfirmation,
+  configSetId,
   DropDownMenu,
 
   call,

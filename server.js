@@ -63,6 +63,10 @@ app.get('/table/save/123', (req, res) => {
   }, 500);
 });
 
+app.get('/help', function root(req, res) {
+  res.sendFile(__dirname + '/_mock/help.json');
+})
+
 const server = http.createServer(app);
 server.listen(process.env.PORT || 8080, function onListen() {
   const address = server.address();

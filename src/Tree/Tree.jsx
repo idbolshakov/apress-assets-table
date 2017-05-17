@@ -18,7 +18,8 @@ class Tree extends Component {
     actionSetExpanded: PropTypes.func.isRequired,
     actionUpdate: PropTypes.func.isRequired,
     actionSetNode: PropTypes.func.isRequired,
-    actionShowRemoveConfirmation: PropTypes.func.isRequired,
+    actionShowRemoveConfirmation: PropTypes.func,
+    actionConfigSetId: PropTypes.func,
 
     tree: PropTypes.array.isRequired,
     config: PropTypes.object.isRequired,
@@ -72,6 +73,7 @@ class Tree extends Component {
           actionUpdate={this.props.actionUpdate}
           actionSetNode={this.props.actionSetNode}
           actionShowRemoveConfirmation={this.props.actionShowRemoveConfirmation}
+          actionConfigSetId={this.props.actionConfigSetId}
 
           moveStart={this.moveStart}
           moveStep={this.moveStep}

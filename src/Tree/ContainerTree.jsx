@@ -6,7 +6,8 @@ import {
   showRemoveConfirmation,
   connect,
   _isEqual,
-  actions
+  actions,
+  configSetId
 } from './import';
 
 class ContainerTree extends Component {
@@ -28,6 +29,8 @@ class ContainerTree extends Component {
 
   actionShowRemoveConfirmation = (...args) => this.props.dispatch(showRemoveConfirmation(...args))
 
+  actionConfigSetId = (...args) => this.props.dispatch(configSetId(...args))
+
   render() {
     const hasDragNode = true;
     const hasSettingsNode = true;
@@ -44,6 +47,7 @@ class ContainerTree extends Component {
           hasDragNode={hasDragNode}
           hasSettingsNode={hasSettingsNode}
           actionShowRemoveConfirmation={this.actionShowRemoveConfirmation}
+          actionConfigSetId={this.actionConfigSetId}
         />
       );
     }
