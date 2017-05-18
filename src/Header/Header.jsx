@@ -15,7 +15,10 @@ const Header = props =>
             onClick={() => { props.toggler && props.onToggle(); }}
             className={b('swich-view-to-rocket')}
           />
-          <Toggler on={props.toggler} onToggle={props.onToggle} />
+          <Toggler
+            title='Перейти в Редактор товаров и услу'
+            on={props.toggler} onToggle={props.onToggle}
+          />
           <div
             onClick={() => { !props.toggler && props.onToggle(); }}
             className={b('swich-view-to-book')}
@@ -28,7 +31,7 @@ const Header = props =>
     </section>
     <section className={b('box-3')}>
       <nav className={b('nav')}>
-        {props.onCallProductsAndGroups &&
+        {false && props.onCallProductsAndGroups &&
           <div className={b('nav-box')}>
             <div className={b('nav-item')}>
               <a

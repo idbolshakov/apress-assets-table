@@ -14,6 +14,7 @@ class HeaderExample extends React.Component {
     this.setState({
       togglerActive: !this.state.togglerActive,
     });
+    location.href = app.config.productsEditorUrl;
   }
 
   render() {

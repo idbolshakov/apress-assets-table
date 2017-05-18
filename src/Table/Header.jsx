@@ -51,6 +51,7 @@ export default class Header extends React.Component {
         onSelect={id => selectSort({id, name: cell.name})}
       >
         <div
+          title={cell.sorter.direction === 'down' ? 'от А до Я' : 'от Я до А'}
           className={b('sorter').is({
             sorted: cell.sorter.direction,
             'sorted-down': cell.sorter.direction === 'down'
@@ -67,6 +68,7 @@ export default class Header extends React.Component {
       <div key={index} className={b('header-cell').mix(`is-${cell.name.replace(/_/g, '-')}`)}>
         {cell.name === 'check' &&
           <Checkbox
+            title='Выбрать все на странице'
             checked={this.props.countRow === this.props.table.checked.length}
             onChange={this.ckeckedAll}
           />}

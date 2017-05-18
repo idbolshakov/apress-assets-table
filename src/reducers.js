@@ -13,6 +13,7 @@ import imageEditor from './ImageEditor/reducer';
 
 export default combineReducers({
   table,
+  imageEditor,
   tree,
   save,
   history,
@@ -21,6 +22,6 @@ export default combineReducers({
   help,
   error,
   dialogs,
-  imageEditor,
+
   config: () => ({})
 });

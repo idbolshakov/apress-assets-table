@@ -1,6 +1,8 @@
 const app = {
   config: {
-    imagesTigerUploadUrl: '/upload-images',
+    imageUploadUrl: '/upload-images',
+    imageModelName: 'imageModelName',
+    productsEditorUrl: 'predl/groups',
     rubricatorUrl: '/tree',
     rubricatorUpdate: '/tree/update',
     dataUrl: '/table/data',

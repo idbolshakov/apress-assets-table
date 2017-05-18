@@ -5,20 +5,17 @@ import ImageEditor from '../ImageEditor/ImageEditor';
 import Dialog from '../Dialog/Dialog';
 import Button from '../Button/Button';
 import {
-  hideRemoveConfirmation,
   hideMassRemoveConfirmation,
   hideRemoveEmptyRowsConfirmation,
 } from './actions';
+
+import RemoveConfirmationDialog from '../RemoveConfirmationDialog/RemoveConfirmationDialog';
 
 // TODo: Запилить сюда экшены удалений
 
 class ContainerDialog extends React.Component {
   shouldComponentUpdate(nextProps) {
     return !_isEqual(this.props, nextProps);
-  }
-
-  removeRowConfirmCancel = () => {
-    this.props.dispatch(hideRemoveConfirmation());
   }
 
   removeRowsConfirmCancel = () => {
@@ -32,27 +29,7 @@ class ContainerDialog extends React.Component {
   render() {
     return (
       <div>
-        <Dialog
-          className='is-confirmation'
-          visible={this.props.removeRowConfirmOpen}
-          onClose={this.removeRowConfirmCancel}
-          title='Удалить выбранную группу ?'
-        >
-          <div>
-            <Button
-              onClick={() => { console.log('dispatch remove'); }}
-              mix='rc-dialog-button is-good is-big-size'
-            >
-              Да
-            </Button>
-            <Button
-              onClick={this.removeRowConfirmCancel}
-              mix='rc-dialog-button is-cancel is-big-size'
-            >
-              Не удалять
-            </Button>
-          </div>
-        </Dialog>
+        {this.props.removeRowConfirmOpen && <RemoveConfirmationDialog /> }
         <Dialog
           className='is-confirmation'
           visible={this.props.removeRowsConfirmOpen}
@@ -105,9 +82,10 @@ class ContainerDialog extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  removeRowConfirmOpen: state.dialogs.removeRowConfirmOpen,
   removeRowsConfirmOpen: state.dialogs.removeRowsConfirmOpen,
   removeEmptyRowConfirmOpen: state.dialogs.removeEmptyRowConfirmOpen,
   selectedRow: state.dialogs.selectedIds,
+  removeRowConfirmOpen: state.dialogs.removeRowConfirmOpen,
 });
+
 export default connect(mapStateToProps)(ContainerDialog);

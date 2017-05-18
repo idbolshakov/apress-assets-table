@@ -43,7 +43,7 @@ export default class DropDownMenu extends React.Component {
   render() {
     const props = this.props;
     const menu = (
-      <div className={b.mix(props.mix)()}>
+      <div title={this.props.title} className={b.mix(props.mix)()}>
         <div>
           {props.title && <div className={b('title')}>{props.title}</div>}
           <div className={b('menu')}>
@@ -67,6 +67,7 @@ export default class DropDownMenu extends React.Component {
         overlay={menu}
         onVisibleChange={(visible) => { this.setState({visible}); }}
         closeOnSelect={false}
+        animation='slide-up'
       >
         {this.props.children}
       </RcDropdown>

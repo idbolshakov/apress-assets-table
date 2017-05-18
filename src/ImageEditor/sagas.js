@@ -5,7 +5,8 @@ import * as tableActions from '../Table/actions';
 import * as dialogsActions from '../dialogs/actions';
 import {saveStart, saveSuccess, saveFail} from './actions';
 
-const UPLOAD_URL = app.config.imagesTigerUploadUrl;
+const UPLOAD_URL = app.config.imageUploadUrl;
+const MODEL_NAME = app.config.imageModelName;
 
 export function* updateImages(action) {
   // ToDo: тут еще все изменится, бек не приняли
@@ -17,8 +18,10 @@ export function* updateImages(action) {
   if (files.length) {
     const formData = new FormData();
 
-    files.forEach((file, index) => {
-      formData.append(`images[${index}]`, file);
+    formData.append('model', MODEL_NAME);
+
+    files.forEach((file) => {
+      formData.append('images[]', file);
     });
 
     try {

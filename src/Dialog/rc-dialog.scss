@@ -17,10 +17,13 @@
   &-body { padding: 0px 60px; margin-bottom: 40px; font-size: 12px; color: #61656f; }
   &-footer { padding: 40px 60px; }
   &-button { margin-right: 20px; }
+  &-button-container { text-align: center; }
   &-mask {
     position: fixed; top: 0; right: 0; left: 0; bottom: 0; background-color: rgba(55, 55, 55, .6); height: 100%; z-index: 1050;
     &-hidden { display: none; }
   }
+  &-attention { background: #dc6263; font-size: 14px; padding: 15px 60px; color: #fff; margin: 0 -60px 20px; }
+  &-full-width { width: 100%; }
   @media (min-width: 768px) {
     & { width: 550px; margin: 30px auto; }
     &-content { box-shadow: 0 5px 15px rgba(0, 0, 0, .5); }
@@ -42,7 +45,7 @@
   &-fade-leave#{&}-fade-leave-active { animation-name: rcDialogFadeOut; animation-play-state: running; }
   &.is-confirmation {
     text-align: center;
-    & #{$root}-body { height: 60px; display: flex; align-items: flex-end; justify-content: center;}
+    & #{$root}-body { min-height: 60px; display: flex; align-items: flex-end; justify-content: center;}
   }
   &.is-image-editor {
     & #{$root}-body { background: #f4f4f4; margin-bottom: 0; padding-top: 20px; }

@@ -1,5 +1,6 @@
 import {put, call, select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
+import _isEqual from 'lodash/isEqual';
 import {api} from '../utils';
 import {TREE_LOAD_START} from '../Tree/actions';
 import {TABLE_EDITOR_ROW_ADD_ID, TABLE_EDITOR_ROW_ADD_DEFAULT_ID} from '../Table/actions';
@@ -35,7 +36,18 @@ const transformForServer = records =>
     Object.keys(record).forEach((key) => {
       if (key !== 'check') {
         if (record[key].common) {
-          newObj.columns[key] = record[key].common;
+          // кастомное сохранение для поля с фотографиями
+          if (record[key].common.images) {
+            // привязка массива с фото
+            if (record[key].common.images[0].src === '') {
+              newObj.columns[key] = {images: []};
+            } else {
+              newObj.columns[key] =
+                {images: record[key].common.images.map(image => ({id: image.id}))};
+            }
+          } else {
+            newObj.columns[key] = record[key].common;
+          }
         } else {
           newObj[key] = record[key];
         }
@@ -114,6 +126,15 @@ const getNewItems = (cur, prev) => {
 };
 
 const getDiff = (cur, prev) => {
+  if (Array.isArray(prev) && ((cur.length && cur[0].src) || (prev.length && prev[0].src))) {
+    if (!(_isEqual(cur, prev))) {
+      if (!cur.length) {
+        return [{src: ''}];
+      }
+      return cur;
+    }
+  }
+
   if (Array.isArray(prev) && prev.length) {
     const tmpDiff = [];
     prev.forEach((prevChild) => {
@@ -172,7 +193,6 @@ export function* saveCreateDiff(action) {
     const diff = createDiff(action.payload.curState, action.payload.prevState);
     const state = yield select(getSave);
     let waitingState = state.waitingState;
-
     if (waitingState.length) {
       diff.forEach((record) => {
         const waitingItem = waitingState.find(item => item.id === record.id);

@@ -1,22 +1,22 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import RcDropdown from 'rc-dropdown';
 import _isEqual from 'lodash/isEqual';
 import validation from '../utils/validation';
 import toolbarConfig from './ckeditorToolbar';
 import {block} from '../utils';
 import {
-  startSeletion,
-  startDrag,
-  endDrag,
-  endSeletion,
-  selectionAdd,
-  selectionAddTo,
-  selectionRemoveTo,
-  selectionRemove,
   startTextEdit,
   endTextEdit,
-  setFocus} from './actions';
+  setFocus,
+} from './actions';
+import {
+  handleSelection,
+  handleDrag,
+  mapSelectionProps,
+  mapFocusProps,
+  selectCellActions} from './utils';
 
 const b = block('e-table');
 
@@ -82,7 +82,7 @@ class TextCell extends Component {
   }
 
   handleClose = (editor) => {
-    this.props.dispatch(endTextEdit());
+    this.props.endTextEdit();
     this.handlerEdit(false);
     this.handlerSave(editor.getData());
     editor.destroy();
@@ -107,7 +107,7 @@ class TextCell extends Component {
     });
 
   handlerEdit = (edit) => {
-    edit ? this.props.dispatch(startTextEdit()) : this.props.dispatch(endTextEdit());
+    edit ? this.props.startTextEdit() : this.props.endTextEdit();
     const text = this.props.cell.data.common.text;
     this.setState({
       edit,
@@ -144,40 +144,24 @@ class TextCell extends Component {
     }
   }
 
-  handleSelection = (e) => {
-    e.preventDefault();
-    if (this.props.isSelected && this.props.allow) {
-      !this.props.selected ?
-        this.props.dispatch(selectionAdd({id: this.props.cell.id})) :
-        this.props.dispatch(selectionRemove({id: this.props.cell.id}));
-    }
-    if (this.props.isDragging && !this.props.selected && this.props.allow) {
-      !this.props.selectedTo ?
-        this.props.dispatch(selectionAddTo({id: this.props.cell.id})) :
-        this.props.dispatch(selectionRemoveTo({id: this.props.cell.id}));
-    }
-  }
+  handleSelection = handleSelection.bind(this)
 
   handleStartSelection = () => {
-    this.props.dispatch(startSeletion({name: this.props.cell.name, id: this.props.cell.id}));
+    this.props.startSeletion({name: this.props.cell.name, id: this.props.cell.id});
   }
 
   handleMouseUp = () => {
-    this.props.dispatch(endSeletion({name: this.props.cell.name, id: this.props.cell.id}));
+    this.props.endSeletion({name: this.props.cell.name, id: this.props.cell.id});
     if (this.props.isDragging) {
-      this.props.dispatch(endDrag({
+      this.props.endDrag({
         name: this.props.cell.name,
         id: this.props.cell.id,
         selectionData: this.props.selectionData
-      }));
+      });
     }
   }
 
-  handleDrag = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    this.props.dispatch(startDrag({name: this.props.cell.name, id: this.props.cell.id}));
-  }
+  handleDrag = handleDrag.bind(this)
 
   handleKeyPress = (e) => {
     if (e.keyCode === 13) {
@@ -189,7 +173,7 @@ class TextCell extends Component {
   }
 
   handleCellClick = () => {
-    this.props.dispatch(setFocus({name: this.props.cell.name, id: this.props.cell.id}));
+    this.props.setFocus({name: this.props.cell.name, id: this.props.cell.id});
   }
 
   handleEditTextKeyDown = (e) => {
@@ -292,18 +276,16 @@ const mapStateToProps = (state, ownProps) => {
   const selected = state.selected;
   const focus = state.focus;
   return {
-    selected: selected.name === ownProps.cell.name &&
-      selected.ids.find(id => ownProps.cell.id === id),
-    selectedTo: selected.name === ownProps.cell.name &&
-      selected.idTo.find(id => ownProps.cell.id === id),
-    isLast: selected.name === ownProps.cell.name &&
-      selected.ids.slice(-1)[0] === ownProps.cell.id,
-    isSelected: selected.isSelected,
-    isDragging: selected.isDragging,
-    selectionData: selected,
-    allow: selected.name === ownProps.cell.name,
-    focus: focus.activeRow === ownProps.cell.name && focus.activeCell === ownProps.cell.id
+    ...mapSelectionProps(selected, ownProps),
+    ...mapFocusProps(focus, ownProps),
   };
 };
 
-export default connect(mapStateToProps)(TextCell);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  ...selectCellActions,
+  setFocus,
+  startTextEdit,
+  endTextEdit,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(TextCell);
