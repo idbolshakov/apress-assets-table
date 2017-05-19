@@ -8,7 +8,8 @@ const {
   CONFIG_NO_CHANGE,
   CONFIG_SET_FILTER,
   CONFIG_SET_SORT,
-  CONFIG_RESET
+  CONFIG_RESET,
+  CONFIG_SET_ID
 } = actionsFilter;
 
 const initialState = {
@@ -29,6 +30,30 @@ const setPrioritySort = (prioritySort, sorter, payload) => {
 
   return prioritySort;
 };
+
+const reset = state => ({
+  ...state,
+  config: {
+    ...state.config,
+    columns: state.config.columns.map((col) => {
+      const filter = col.filter ? {...col.filter, value: null} : null;
+      const sorter = col.sorter ?
+        {...col.sorter, direction: null, priority: null} : null;
+
+      return {
+        ...col,
+        filter,
+        sorter
+      };
+    }),
+    product_group: null,
+    page: 1,
+    id: null
+  },
+  isChange: true,
+  prioritySort: 0,
+  params: {}
+});
 
 export default function app(state = initialState, action) {
   switch (action.type) {
@@ -76,6 +101,19 @@ export default function app(state = initialState, action) {
       };
     }
 
+    case CONFIG_SET_ID: {
+      const newState = reset(state);
+
+      return {
+        ...newState,
+        config: {
+          ...newState.config,
+          id: action.payload
+        },
+        isChange: true
+      };
+    }
+
     case TREE_SET_NODE: {
       let group = null;
       let params = {...state.params};
@@ -101,7 +139,8 @@ export default function app(state = initialState, action) {
         ...state,
         config: {
           ...state.config,
-          product_group: group
+          product_group: group,
+          id: null
         },
         isChange: change,
         params
@@ -141,7 +180,8 @@ export default function app(state = initialState, action) {
             }
 
             return col;
-          })
+          }),
+          id: null
         },
         isChange: !action.payload.onLoad,
         params
@@ -198,28 +238,7 @@ export default function app(state = initialState, action) {
     }
 
     case CONFIG_RESET: {
-      return {
-        ...state,
-        config: {
-          ...state.config,
-          columns: state.config.columns.map((col) => {
-            const filter = col.filter ? {...col.filter, value: null} : null;
-            const sorter = col.sorter ?
-              {...col.sorter, direction: null, priority: null} : null;
-
-            return {
-              ...col,
-              filter,
-              sorter
-            };
-          }),
-          product_group: null,
-          page: 1
-        },
-        isChange: true,
-        prioritySort: 0,
-        params: {}
-      };
+      return reset(state);
     }
 
     default:

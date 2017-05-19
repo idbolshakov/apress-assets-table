@@ -9,6 +9,11 @@ const app = {
     urlSaveTiger: '/table/save',
     urlJob: '/table/save',
 
+    help: {
+      url: '/help',
+      data: {}
+    },
+
     scenarios: {
       current: {
         slug: ''

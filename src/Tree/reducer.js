@@ -1,5 +1,5 @@
 import {actions} from './import';
-import {CONFIG_RESET} from '../Filter/actions';
+import {CONFIG_RESET, CONFIG_SET_ID} from '../Filter/actions';
 
 const {
   TREE_LOAD_START,
@@ -239,6 +239,7 @@ export default function tree(state = initialState, action) {
       };
     }
 
+    case CONFIG_SET_ID:
     case CONFIG_RESET:
       return {
         ...state,

@@ -110,6 +110,7 @@ class TreeItem extends Component {
       id,
       orderUrl,
       actionShowRemoveConfirmation,
+      actionConfigSetId
     } = this.props;
 
     return (
@@ -132,7 +133,7 @@ class TreeItem extends Component {
         ]}
         onSelect={(action) => {
           if (action === 'edit') {
-            console.log('Todo: добавить вызов редактирования');
+            actionConfigSetId(id);
           }
           if (action === 'remove') {
             actionShowRemoveConfirmation(id);
@@ -169,7 +170,7 @@ class TreeItem extends Component {
           onClick={e => this.hendlerClickExpanded(e)}
         />
         <span className={b('item-title')}>{name}</span>
-        {hasSettingsNode && (hover && !hover.id) && this.renderSettingsMenu()}
+        {hasSettingsNode && (!hover || (hover && !hover.id)) && this.renderSettingsMenu()}
         <span className={b('drag')} />
       </div>
     ));

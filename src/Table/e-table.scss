@@ -11,7 +11,7 @@
   &-header-cell {
     box-sizing: border-box; padding: 0 20px; font: 300 13px/1 'OpenSans'; text-align: left; color: #1f2532;
   }
-  &-tr { border-bottom: 1px solid #e0e0e0; display: flex; position: relative; background-color: #f8f8f8; border-bottom: 1px solid #e0e0e0; align-items: center; height: 60px; box-sizing: border-box; }
+  &-tr { display: flex; position: relative; background-color: #f8f8f8; border-bottom: 1px solid #e0e0e0; align-items: center; height: 40px; box-sizing: border-box; }
   &-body-tr {
     display: flex; border-bottom: 1px solid #e0e0e0; transition: background .5s; background: #fff;
     &:hover { background: #f8f8f8; }
@@ -27,9 +27,9 @@
     &.is-checked { background: rgba(163, 189, 73, .11); }
     &.is-new { background: #f3fbff; }
   }
-  &-body { display: block; overflow-y: auto; overflow-x: hidden; width: 100%; height: calc(100% - 60px); }
+  &-body { display: block; overflow-y: auto; overflow-x: hidden; width: 100%; height: calc(100% - 40px); }
   &-cell {
-    cursor: pointer; outline: none; user-select: none; font-size: 12px; color: #1f2532; height: 100px; box-sizing: border-box; padding: 20px; text-align: left; position: relative; display: flex; align-items: center;
+    cursor: pointer; outline: none; user-select: none; font-size: 12px; color: #1f2532; height: 80px; box-sizing: border-box; padding: 10px 20px; text-align: left; position: relative; display: flex; align-items: center;
     &:before { border: 1px solid rgba(255, 255, 255, 0); content: ''; transition: border .5s; z-index: 1; position: absolute; top: 0px; left: 0px; right: 0px; bottom: -2px; }
     &:hover {
       &:before { pointer-events: none; content: ''; border: solid 1px #e3b61c; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
@@ -62,7 +62,7 @@
   }
   &-header-cell,
   &-cell {
-    &.is-check { @include cell-width(60px); padding: 20px 14px 20px 30px; cursor: default; }
+    &.is-check { @include cell-width(60px); padding: 10px 14px 10px 30px; cursor: default; }
     &.is-description { @include cell-width(270px); }
     &.is-detailed-description {  @include cell-width(280px); }
     &.is-h1 { @include cell-width(180px); }
@@ -200,4 +200,15 @@
 @keyframes preview-show-top-right {
   from { opacity: 0; transform: translateX(10px) translateY(-10px); }
   to { opacity: 1; transform: translateX(0) translateY(4px);}
+}
+
+@media (min-height: 768px) {
+  .e-table {
+    &-tr { height: 60px; }
+    &-cell {
+      padding: 20px; height: 100px;
+      &.is-check { padding: 20px 14px 20px 30px; }
+    }
+    &-body { height: calc(100% - 60px); }
+  }
 }

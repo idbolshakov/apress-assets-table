@@ -36,9 +36,9 @@ const putRubricatorData = (url, config) =>
   api.put(`${app.config.rubricatorUrl}/${url}`, {config}).then(response => response.data);
 
 const updateRubricatorPosition = payload =>
-  api.post(
+  api.put(
     app.config.rubricatorUpdate.replace('_group_', payload.id),
-    getDataPositionRubricator(payload)
+    {product_group: getDataPositionRubricator(payload)}
   ).then(response => response.data);
 
 const getConfig = props => props.config.config;

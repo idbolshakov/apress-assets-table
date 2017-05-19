@@ -27,6 +27,10 @@ class Help extends React.Component {
   handlerClick = () => this.setState({open: !this.state.open})
 
   render() {
+    if (!this.props.help || (this.props.help && !this.props.help.length)) {
+      return null;
+    }
+
     const regexp = new RegExp(this.state.filter, 'i');
     let list = this.props.help.filter(item => regexp.test(item.title))
       .map(item => <HelpItem title={item.title} content={item.content} />);

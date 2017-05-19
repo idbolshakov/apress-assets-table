@@ -1522,13 +1522,12 @@ li.rc-select-dropdown-menu-item-divider {
 }
 
 .e-table-tr {
-  border-bottom: 1px solid #e0e0e0;
   display: flex;
   position: relative;
   background-color: #f8f8f8;
   border-bottom: 1px solid #e0e0e0;
   align-items: center;
-  height: 60px;
+  height: 40px;
   box-sizing: border-box;
 }
 
@@ -1572,7 +1571,7 @@ li.rc-select-dropdown-menu-item-divider {
   overflow-y: auto;
   overflow-x: hidden;
   width: 100%;
-  height: calc(100% - 60px);
+  height: calc(100% - 40px);
 }
 
 .e-table-cell {
@@ -1581,9 +1580,9 @@ li.rc-select-dropdown-menu-item-divider {
   user-select: none;
   font-size: 12px;
   color: #1f2532;
-  height: 100px;
+  height: 80px;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 10px 20px;
   text-align: left;
   position: relative;
   display: flex;
@@ -1691,7 +1690,7 @@ li.rc-select-dropdown-menu-item-divider {
   max-width: 60px;
   min-width: 60px;
   width: 60px;
-  padding: 20px 14px 20px 30px;
+  padding: 10px 14px 10px 30px;
   cursor: default;
 }
 
@@ -2171,6 +2170,25 @@ li.rc-select-dropdown-menu-item-divider {
     opacity: 1;
     transform: translateX(0) translateY(4px);
   }
+}
+
+@media (min-height: 768px) {
+  .e-table-tr {
+    height: 60px;
+  }
+
+  .e-table-cell {
+    padding: 20px;
+    height: 100px;
+  }
+
+  .e-table-cell.is-check {
+    padding: 20px 14px 20px 30px;
+  }
+
+  .e-table-body {
+    height: calc(100% - 60px);
+  }
 }.e-scroller * {
   box-sizing: border-box;
 }
@@ -2327,12 +2345,8 @@ li.rc-select-dropdown-menu-item-divider {
   box-sizing: border-box;
 }
 
-.e-actions-panel-section-1,
-.e-actions-panel-section-2 {
-  display: flex;
-}
-
 .e-actions-panel-section-1 {
+  display: none;
   border-bottom: 1px solid #e0e0e0;
   padding: 0 10px 0 30px;
   align-items: center;
@@ -2340,7 +2354,8 @@ li.rc-select-dropdown-menu-item-divider {
 }
 
 .e-actions-panel-section-2 {
-  height: 56px;
+  display: flex;
+  height: 36px;
 }
 
 .e-actions-panel-breadcrumb-item {
@@ -2500,6 +2515,16 @@ li.rc-select-dropdown-menu-item-divider {
 
   .e-actions-panel-filter-title {
     display: none;
+  }
+}
+
+@media (min-height: 768px) {
+  .e-actions-panel-section-1 {
+    display: flex;
+  }
+
+  .e-actions-panel-section-2 {
+    height: 56px;
   }
 }@keyframes spin {
   from {

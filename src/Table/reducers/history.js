@@ -37,7 +37,9 @@ export default function history(state = initialState, action) {
     case TABLE_EDITOR_ROW_REMOVE:
       return {
         ...state,
-        prev: [state.current, ...state.prev],
+        prev: state.prev.length > 99 ?
+          [state.current, ...state.prev].slice(0, 100) :
+          [state.current, ...state.prev],
         current: rows(state.current, action),
         next: []
       };

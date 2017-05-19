@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: 0 */
 import React, {Component} from 'react';
 import {block} from '../utils';
 
@@ -18,6 +19,20 @@ export default class SaveControl extends Component {
       !nextProps.save.fetchDiff &&
       nextProps.save.waitingState.length) {
       nextProps.actions.saveStart();
+    }
+
+    if (nextProps.save.isProgress ||
+      nextProps.save.waitingState.length ||
+      nextProps.save.fetchDiff) {
+      window.onbeforeunload = (e) => {
+        const message = 'Возможно внесенные изменения не сохранятся';
+
+        if (e) { e.returnValue = message; }
+
+        return message;
+      };
+    } else {
+      window.onbeforeunload = null;
     }
   }
 
