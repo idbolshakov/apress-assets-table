@@ -38,6 +38,9 @@ import * as treeSagas from './Tree/sagas';
 import filterSagas from './Filter/sagas';
 import tableSagas from './Table/sagas';
 import * as saveSagas from './SaveControl/sagas';
+import * as removeAction from './remove/actions';
+import * as removeSagas from './remove/sagas';
+import removeReducer from './remove/reducer';
 
 import './styles/fonts.scss';
 import './styles/global.scss';
@@ -47,7 +50,8 @@ export const sagas = {
   imageEditorSagas,
   filterSagas,
   tableSagas,
-  saveSagas
+  saveSagas,
+  removeSagas,
 };
 
 export const reducers = {
@@ -62,6 +66,7 @@ export const reducers = {
   history,
   dialogs,
   imageEditor,
+  removeReducer,
 };
 
 export const actions = {
@@ -72,6 +77,7 @@ export const actions = {
   actionsError,
   actionsDialog,
   imageEditorActions,
+  removeAction,
 };
 
 export const components = {

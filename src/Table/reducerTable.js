@@ -3,7 +3,8 @@ import {
   TABLE_EDITOR_LOAD_START,
   TABLE_EDITOR_LOAD_SUCCESS,
   TABLE_EDITOR_SET_CHECK,
-  TABLE_EDITOR_SET_CHECK_ALL
+  TABLE_EDITOR_SET_CHECK_ALL,
+  TABLE_EDITOR_SET_CHECK_ALL_RESET,
 } from './actions';
 
 const initialState = {
@@ -35,6 +36,12 @@ export default function (state = initialState, action) {
         checked: action.payload.checked ?
           [...state.checked, action.payload.id] :
           state.checked.filter(id => id !== action.payload.id)
+      };
+
+    case TABLE_EDITOR_SET_CHECK_ALL_RESET:
+      return {
+        ...state,
+        checked: initialState.checked,
       };
 
     case CONFIG_SET_PER_PAGE:

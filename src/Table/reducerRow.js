@@ -178,17 +178,7 @@ export default function rows(state = [], action) {
       });
 
     case TABLE_EDITOR_ROW_REMOVE: {
-      return (
-        state.map((row) => {
-          const newRow = _cloneDeep(row);
-
-          if (row.check.common.id === action.payload.id) {
-            newRow.check.common.destroy = action.payload.destroy;
-          }
-
-          return newRow;
-        })
-      );
+      return state.filter(row => row.check.common.id !== action.payload.id);
     }
 
     default:

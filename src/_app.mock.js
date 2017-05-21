@@ -8,6 +8,8 @@ const app = {
     dataUrl: '/table/data',
     urlSaveTiger: '/table/save',
     urlJob: '/table/save',
+    productGroupSpecificationsUrl: 'get-group-children',
+    deleteEmptyProductGroupsUrl: '/api/v1/companies/32/empty_product_groups',
 
     help: {
       url: '/help',

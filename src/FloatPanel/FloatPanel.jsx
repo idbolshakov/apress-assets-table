@@ -19,10 +19,13 @@ export default class FloatPanel extends Component {
   render() {
     return (
       <div
-        title={this.state.togglerVisible ? 'Свернуть' : 'Развернуть'}
         className={b.mix(this.props.mix).is({hide: !this.state.togglerVisible})}
       >
-        <div className={b('toggler')} onClick={() => this.switchToggler()} />
+        <div
+          title={this.state.togglerVisible ? 'Свернуть' : 'Развернуть'}
+          className={b('toggler')}
+          onClick={() => this.switchToggler()}
+        />
         <div className={b('wrapper')}>{this.props.children}</div>
       </div>
     );

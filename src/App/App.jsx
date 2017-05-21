@@ -45,9 +45,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <div className={b}>
-          <HeaderExample />
-        </div>
+
         <div className={b}>
           <DialogExample />
         </div>
@@ -93,6 +91,9 @@ class App extends React.Component {
           >
             Redo
           </button>
+        </div>
+        <div className={b}>
+          <HeaderExample />
         </div>
         <div style={{marginLeft: 120}}>
           <div className={b('table')}>
