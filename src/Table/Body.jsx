@@ -60,6 +60,7 @@ class Body extends React.Component {
             title: 'Добавить группу',
             onClick: () => props.actions.addNewRow({
               target: row,
+              parent: row,
               new_row: props.table.new_row
             })
           },

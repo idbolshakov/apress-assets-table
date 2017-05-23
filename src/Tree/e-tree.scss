@@ -35,7 +35,7 @@
       .e-tree-arrow { transform: rotate(90deg); }
       + .e-tree-list { max-height: 2500px; }
     }
-    &:after { content: attr(data-count); padding: 0 0 0 2px; vertical-align: top; }
+    &:after { content: attr(data-count); padding: 0 0 0 2px; vertical-align: top; position: absolute; }
     &.is-center > .e-tree-drag:before,
     &.is-bottom > .e-tree-drag:before,
     &.is-top > .e-tree-drag:before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;  border-top: solid 2px #000; }

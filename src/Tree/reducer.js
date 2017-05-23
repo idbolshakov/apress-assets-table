@@ -14,7 +14,8 @@ const {
 const initialState = {
   data: [],
   selected: [],
-  isLoaded: false
+  isLoaded: false,
+  tmpSelectedNode: null,
 };
 
 const isSelected = (treeState, action) => {
@@ -22,12 +23,12 @@ const isSelected = (treeState, action) => {
 
   if (action.payload) {
     treeState.forEach(nodeState =>
-      (function _isSelected(state, id) {
-        if (state.id === id) {
+      (function _isSelected(state, id, urlName) {
+        if (state.id === id || state.url_name === urlName) {
           selected.push(state);
           return true;
         } else if (state.tree_nodes && state.tree_nodes.length) {
-          const childSelected = state.tree_nodes.filter(node => _isSelected(node, id));
+          const childSelected = state.tree_nodes.filter(node => _isSelected(node, id, urlName));
 
           if (childSelected.length) {
             selected = [...selected, state];
@@ -36,7 +37,7 @@ const isSelected = (treeState, action) => {
         }
 
         return null;
-      }(nodeState, action.payload.id))
+      }(nodeState, action.payload.id, action.payload.urlName))
     );
   }
 
@@ -205,12 +206,25 @@ export default function tree(state = initialState, action) {
         isLoaded: false
       };
 
-    case TREE_LOAD_SUCCESS:
+    case TREE_LOAD_SUCCESS: {
+      if (state.tmpSelectedNode) {
+        return {
+          ...state,
+          data: action.payload,
+          isLoaded: true,
+          selected: isSelected(action.payload, {
+            payload: state.tmpSelectedNode,
+          }),
+          tmpSelectedNode: null
+        };
+      }
+
       return {
         ...state,
         data: action.payload,
-        isLoaded: true
+        isLoaded: true,
       };
+    }
 
     case TREE_UPDATE_SUCCESS:
       return {
@@ -218,12 +232,21 @@ export default function tree(state = initialState, action) {
         data: state.data.map(node => treeNode(node, action))
       };
 
-    case TREE_SET_NODE:
+    case TREE_SET_NODE: {
+      if (state.data.length) {
+        return {
+          ...state,
+          data: state.data.map(node => treeNode(node, action)),
+          selected: isSelected(state.data, action)
+        };
+      }
+
       return {
         ...state,
         data: state.data.map(node => treeNode(node, action)),
-        selected: isSelected(state.data, action)
+        tmpSelectedNode: action.payload
       };
+    }
 
     case TREE_SET_EXPANDED:
       return {

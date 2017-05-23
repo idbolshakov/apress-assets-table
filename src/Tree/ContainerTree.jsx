@@ -52,7 +52,9 @@ class ContainerTree extends Component {
           hasSettingsNode={hasSettingsNode}
           actionShowRemoveConfirmation={this.actionShowRemoveConfirmation}
           actionConfigSetId={this.actionConfigSetId}
-        />
+        >
+          {this.props.children}
+        </TreeDndContext>
       );
     }
 

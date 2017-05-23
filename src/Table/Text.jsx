@@ -232,6 +232,9 @@ class TextCell extends Component {
             focus: this.props.cell.isFocus,
             selected: this.props.selected,
             'selected-to': this.props.selectedTo,
+            required: this.props.cell.config.required &&
+              !this.props.cell.data.common.text &&
+              !this.state.edit
           })
         }
         tabIndex={-1}

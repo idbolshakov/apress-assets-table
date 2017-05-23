@@ -21,7 +21,8 @@ export default class App extends React.Component {
       },
       name: {
         type: 'text',
-        maxLen: 75
+        maxLen: 75,
+        required: true
       },
       page_description: {
         type: 'text',

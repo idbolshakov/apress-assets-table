@@ -12,7 +12,8 @@ import {
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   TABLE_EDITOR_ROW_ADD_ID,
   TABLE_EDITOR_SET_IMAGES,
-  TABLE_EDITOR_CELL_END_DRAG_IMAGES
+  TABLE_EDITOR_CELL_END_DRAG_IMAGES,
+  TABLE_EDITOR_ROW_ADD,
 } from '../Table/actions';
 
 const initialState = {
@@ -38,6 +39,7 @@ export default function (state = initialState, action) {
     case TABLE_EDITOR_CELL_END_DRAG_IMAGES:
     case TABLE_EDITOR_SET_TEXT:
     case TABLE_EDITOR_SET_IMAGES:
+    case TABLE_EDITOR_ROW_ADD:
     case 'HISTORY_PREV':
     case 'HISTORY_NEXT':
       return {
@@ -131,7 +133,6 @@ export default function (state = initialState, action) {
           }
 
           Object.keys(record).forEach((key) => {
-            console.log(saveItem, record, key);
             if (typeof record[key] === 'object' && record[key] !== null) {
               saveItem[key] = {...saveItem[key], ...record[key]};
             } else {
