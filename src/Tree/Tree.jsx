@@ -36,6 +36,10 @@ class Tree extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.moveNode) {
+      this.props.actionMoveNodeRequest({...nextProps.moveNode});
+    }
+
     return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
   }
 

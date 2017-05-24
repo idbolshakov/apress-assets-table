@@ -12,12 +12,14 @@ import {
 
 class ContainerTree extends Component {
   static propTypes = {
-    tree: PropTypes.array,
+    tree: PropTypes.object,
   };
 
   shouldComponentUpdate(nextProps) {
     return !_isEqual(this.props, nextProps);
   }
+
+  actionMoveNodeRequest = (...args) => this.props.dispatch(actions.moveNodeRequest(...args))
 
   actionMoveNode = (...args) => this.props.dispatch(actions.moveNode(...args))
 
@@ -38,8 +40,10 @@ class ContainerTree extends Component {
     if (this.props.isLoaded) {
       return (
         <TreeDndContext
-          tree={this.props.tree}
+          tree={this.props.tree.data}
+          moveNode={this.props.tree.moveNode}
           config={this.props.config}
+          actionMoveNodeRequest={this.actionMoveNodeRequest}
           actionMoveNode={this.actionMoveNode}
           actionSetExpanded={this.actionSetExpanded}
           actionUpdate={this.actionUpdate}
@@ -57,7 +61,7 @@ class ContainerTree extends Component {
 }
 
 const mapStateToProps = state => ({
-  tree: state.tree.data,
+  tree: state.tree,
   isLoaded: state.tree.isLoaded,
   config: state.config
 });
