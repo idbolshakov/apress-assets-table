@@ -65,7 +65,7 @@ const deleteNode = (state, id) => {
 
           newNode = {
             ...newNode,
-            expandable: !!newNode['tree_nodes'].length,
+            expandable: !!newNode.tree_nodes.length,
             items_count: newNode['items_count'] - moveNode['items_count'],
           };
         }

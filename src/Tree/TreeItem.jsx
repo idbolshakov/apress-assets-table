@@ -18,7 +18,7 @@ import {
 const setExpanded = (props, expanded) => {
   props.actionSetExpanded({id: props.id, expanded});
 
-  if (!Array.isArray(props.treeNodes)) {
+  if (!Array.isArray(props.tree_nodes)) {
     props.actionUpdate({
       id: props.id,
       urlName: props.urlName,
@@ -50,7 +50,7 @@ class TreeItem extends Component {
     selected: PropTypes.bool,
     expanded: PropTypes.bool,
     urlName: PropTypes.string.isRequired,
-    treeNodes: PropTypes.array,
+    tree_nodes: PropTypes.array,
 
     isDragging: PropTypes.bool.isRequired,
     hasDragNode: PropTypes.bool.isRequired,
@@ -185,7 +185,7 @@ const nodeSource = {
   },
 
   endDrag(props) {
-    props.moveEnd(props.id);
+    props.moveEnd({id: props.id, tree_nodes: props.tree_nodes});
   },
 
   canDrag(props) {
@@ -212,7 +212,7 @@ const nodeTarget = {
       if (cursorPosition && (cursorPosition.y - elemPosition.top) < 10) { target = 'top'; }
       if (cursorPosition && (cursorPosition.y - elemPosition.top) > 25) { target = 'bottom'; }
 
-      props.moveStep(props.id, props.index, target);
+      props.moveStep(props.id, props.index, target, props.parentId);
     }
   }, 50)
 };

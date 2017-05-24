@@ -13,7 +13,7 @@ const getDataPositionRubricator = (payload) => {
     case 'top':
       return {
         position: payload.hover.index,
-        parent_id: payload.hover.id
+        parent_id: payload.hover.parentId
       };
 
     case 'center':
@@ -24,7 +24,7 @@ const getDataPositionRubricator = (payload) => {
     default:
       return {
         position: payload.hover.index + 1,
-        parent_id: payload.hover.id
+        parent_id: payload.hover.parentId
       };
   }
 };
