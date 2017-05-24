@@ -39,7 +39,8 @@ class Tree extends Component {
     return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
   }
 
-  setHoverNode = (id, index, target) => this.setState({hover: {id, index, target}});
+  setHoverNode = (id, index, target, parentId) =>
+    this.setState({hover: {id, index, target, parentId}});
 
   moveStart = isMove => this.setState({isMove});
 
@@ -47,17 +48,37 @@ class Tree extends Component {
     if (this.state.isMove) { this.setHoverNode(...args); }
   }, 50);
 
-
-  moveEnd = (id) => {
-    if (this.state.hover && this.state.hover.id && this.state.hover.id !== id) {
-      this.props.actionMoveNode({id, hover: this.state.hover});
+  moveEnd = (node) => {
+    if (this.state.hover &&
+      this.state.hover.id &&
+      this.state.hover.id !== node.id &&
+      !this.hasChildrenById(node, this.state.hover.id)) {
+      this.props.actionMoveNode({id: node.id, hover: this.state.hover});
     }
 
     this.moveStart(false);
-    this.setHoverNode(null, null, null);
+    this.setHoverNode(null, null, null, null);
   }
 
-  createTree(tree = this.props.tree) {
+  hasChildrenById = (parent, childId) => {
+    let isChild = false;
+
+    if (Array.isArray(parent.tree_nodes)) {
+      parent.tree_nodes.forEach((node) => {
+        if (node.id === childId) {
+          isChild = true;
+        }
+
+        if (!isChild && Array.isArray(node.tree_nodes)) {
+          isChild = this.hasChildrenById(node, childId);
+        }
+      });
+    }
+
+    return isChild;
+  }
+
+  createTree(tree = this.props.tree, parentId = null) {
     return tree.map((node, index) => node.id &&
       <div key={node.id} className={b('item-wrapper')}>
         <TreeItem
@@ -69,7 +90,7 @@ class Tree extends Component {
           expanded={node.expanded}
           selected={node.selected}
           urlName={node['url_name']}
-          treeNodes={node['tree_nodes']}
+          tree_nodes={node.tree_nodes}
           orderUrl={node['order_url']}
 
           actionSetExpanded={this.props.actionSetExpanded}
@@ -86,10 +107,11 @@ class Tree extends Component {
           hoverNode={this.state.hover}
           hasDragNode={this.props.hasDragNode}
           hasSettingsNode={this.props.hasSettingsNode}
+          parentId={parentId}
         />
-        {Array.isArray(node['tree_nodes']) &&
+        {Array.isArray(node.tree_nodes) &&
           <div className={b('list')}>
-            {this.createTree(node['tree_nodes'])}
+            {this.createTree(node.tree_nodes, node.id)}
           </div>
         }
       </div>

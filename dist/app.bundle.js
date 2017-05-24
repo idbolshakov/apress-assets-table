@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c5bcbfc89b15526dcb3f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "73e861535a7cc1cb3714"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -24299,6 +24299,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _this2 = this;
 
 	      var tree = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props.tree;
+	      var parentId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
 	      return tree.map(function (node, index) {
 	        return node.id && _import.React.createElement(
@@ -24313,7 +24314,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            expanded: node.expanded,
 	            selected: node.selected,
 	            urlName: node['url_name'],
-	            treeNodes: node['tree_nodes'],
+	            tree_nodes: node.tree_nodes,
 	            orderUrl: node['order_url'],
 
 	            actionSetExpanded: _this2.props.actionSetExpanded,
@@ -24329,12 +24330,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            config: _this2.props.config,
 	            hoverNode: _this2.state.hover,
 	            hasDragNode: _this2.props.hasDragNode,
-	            hasSettingsNode: _this2.props.hasSettingsNode
+	            hasSettingsNode: _this2.props.hasSettingsNode,
+	            parentId: parentId
 	          }),
-	          Array.isArray(node['tree_nodes']) && _import.React.createElement(
+	          Array.isArray(node.tree_nodes) && _import.React.createElement(
 	            'div',
 	            { className: (0, _import.b)('list') },
-	            _this2.createTree(node['tree_nodes'])
+	            _this2.createTree(node.tree_nodes, node.id)
 	          )
 	        );
 	      });
@@ -24385,8 +24387,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  };
 
-	  this.setHoverNode = function (id, index, target) {
-	    return _this3.setState({ hover: { id: id, index: index, target: target } });
+	  this.setHoverNode = function (id, index, target, parentId) {
+	    return _this3.setState({ hover: { id: id, index: index, target: target, parentId: parentId } });
 	  };
 
 	  this.moveStart = function (isMove) {
@@ -24399,13 +24401,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, 50);
 
-	  this.moveEnd = function (id) {
-	    if (_this3.state.hover && _this3.state.hover.id && _this3.state.hover.id !== id) {
-	      _this3.props.actionMoveNode({ id: id, hover: _this3.state.hover });
+	  this.moveEnd = function (node) {
+	    if (_this3.state.hover && _this3.state.hover.id && _this3.state.hover.id !== node.id && !_this3.hasChildrenById(node, _this3.state.hover.id)) {
+	      _this3.props.actionMoveNode({ id: node.id, hover: _this3.state.hover });
 	    }
 
 	    _this3.moveStart(false);
-	    _this3.setHoverNode(null, null, null);
+	    _this3.setHoverNode(null, null, null, null);
+	  };
+
+	  this.hasChildrenById = function (parent, childId) {
+	    var isChild = false;
+
+	    if (Array.isArray(parent.tree_nodes)) {
+	      parent.tree_nodes.forEach(function (node) {
+	        if (node.id === childId) {
+	          isChild = true;
+	        }
+
+	        if (!isChild && Array.isArray(node.tree_nodes)) {
+	          isChild = _this3.hasChildrenById(node, childId);
+	        }
+	      });
+	    }
+
+	    return isChild;
 	  };
 	};
 
@@ -24456,7 +24476,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var setExpanded = function setExpanded(props, expanded) {
 	  props.actionSetExpanded({ id: props.id, expanded: expanded });
 
-	  if (!Array.isArray(props.treeNodes)) {
+	  if (!Array.isArray(props.tree_nodes)) {
 	    props.actionUpdate({
 	      id: props.id,
 	      urlName: props.urlName,
@@ -24644,7 +24664,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  selected: _import.PropTypes.bool,
 	  expanded: _import.PropTypes.bool,
 	  urlName: _import.PropTypes.string.isRequired,
-	  treeNodes: _import.PropTypes.array,
+	  tree_nodes: _import.PropTypes.array,
 
 	  isDragging: _import.PropTypes.bool.isRequired,
 	  hasDragNode: _import.PropTypes.bool.isRequired,
@@ -24665,7 +24685,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return props;
 	  },
 	  endDrag: function endDrag(props) {
-	    props.moveEnd(props.id);
+	    props.moveEnd({ id: props.id, tree_nodes: props.tree_nodes });
 	  },
 	  canDrag: function canDrag(props) {
 	    return props.hasDragNode;
@@ -24698,7 +24718,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        target = 'bottom';
 	      }
 
-	      props.moveStep(props.id, props.index, target);
+	      props.moveStep(props.id, props.index, target, props.parentId);
 	    }
 	  }, 50)
 	};
@@ -24982,7 +25002,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          moveNode = childNode.moveNode;
 
 	          newNode = (0, _extends3.default)({}, newNode, {
-	            expandable: !!newNode['tree_nodes'].length,
+	            expandable: !!newNode.tree_nodes.length,
 	            items_count: newNode['items_count'] - moveNode['items_count']
 	          });
 	        }
@@ -25202,7 +25222,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    case 'top':
 	      return {
 	        position: payload.hover.index,
-	        parent_id: payload.hover.id
+	        parent_id: payload.hover.parentId
 	      };
 
 	    case 'center':
@@ -25213,7 +25233,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    default:
 	      return {
 	        position: payload.hover.index + 1,
-	        parent_id: payload.hover.id
+	        parent_id: payload.hover.parentId
 	      };
 	  }
 	};
