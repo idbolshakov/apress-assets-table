@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e2a523789b25597b543a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6c1fed40a9eebc91f6d6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -24400,9 +24400,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, 50);
 
 	  this.moveEnd = function (id) {
-	    _this3.moveStart(false);
-	    _this3.props.actionMoveNode({ id: id, hover: _this3.state.hover });
-	    _this3.setHoverNode(null, null, null);
+	    if (_this3.state.hover && _this3.state.hover.id && _this3.state.hover.id !== id) {
+	      _this3.moveStart(false);
+	      _this3.props.actionMoveNode({ id: id, hover: _this3.state.hover });
+	      _this3.setHoverNode(null, null, null);
+	    }
 	  };
 	};
 

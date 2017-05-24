@@ -49,9 +49,11 @@ class Tree extends Component {
 
 
   moveEnd = (id) => {
-    this.moveStart(false);
-    this.props.actionMoveNode({id, hover: this.state.hover});
-    this.setHoverNode(null, null, null);
+    if (this.state.hover && this.state.hover.id && this.state.hover.id !== id) {
+      this.moveStart(false);
+      this.props.actionMoveNode({id, hover: this.state.hover});
+      this.setHoverNode(null, null, null);
+    }
   }
 
   createTree(tree = this.props.tree) {
