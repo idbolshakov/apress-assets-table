@@ -7,7 +7,8 @@ const {
   TREE_UPDATE_SUCCESS,
   TREE_SET_NODE,
   TREE_SET_EXPANDED,
-  TREE_MOVE_NODE
+  TREE_MOVE_NODE,
+  TREE_MOVE_NODE_REQUEST
 } = actions;
 
 const initialState = {
@@ -84,11 +85,13 @@ const deleteNode = (state, id) => {
 const addNode = (state, hover, currentNode) => {
   let newState = [];
   let isAdd = false;
+  let position;
 
-  state.forEach((node) => {
+  state.forEach((node, index) => {
     let newNode = {...node};
 
     if (node.id === hover.id) {
+      position = index;
       isAdd = true;
       if (hover.target === 'center') {
         if (Array.isArray(node.tree_nodes)) {
@@ -112,6 +115,7 @@ const addNode = (state, hover, currentNode) => {
         newState = [...newState, currentNode];
       } else {
         newNode = [newNode, currentNode];
+        position += 1;
       }
     }
 
@@ -125,6 +129,7 @@ const addNode = (state, hover, currentNode) => {
 
       if (child.isAdd) {
         isAdd = child.isAdd;
+        position = child.position;
 
         newNode = {
           ...newNode,
@@ -142,6 +147,7 @@ const addNode = (state, hover, currentNode) => {
 
   return {
     newState,
+    position,
     isAdd
   };
 };
@@ -235,9 +241,23 @@ export default function tree(state = initialState, action) {
 
       return {
         ...state,
-        data: [...addData.newState]
+        data: [...addData.newState],
+        moveNode: {
+          id: action.payload.id,
+          product_group: {
+            position: addData.position + 1,
+            parent_id: action.payload.hover.target === 'center' ?
+              action.payload.hover.id : action.payload.hover.parentId
+          }
+        }
       };
     }
+
+    case TREE_MOVE_NODE_REQUEST:
+      return {
+        ...state,
+        moveNode: null
+      };
 
     case CONFIG_SET_ID:
     case CONFIG_RESET:

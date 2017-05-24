@@ -8,27 +8,6 @@ const {
   TREE_LOAD_START
 } = actions;
 
-const getDataPositionRubricator = (payload) => {
-  switch (payload.hover.target) {
-    case 'top':
-      return {
-        position: payload.hover.index,
-        parent_id: payload.hover.parentId
-      };
-
-    case 'center':
-      return {
-        parent_id: payload.hover.id
-      };
-
-    default:
-      return {
-        position: payload.hover.index + 1,
-        parent_id: payload.hover.parentId
-      };
-  }
-};
-
 const getRubricatorData = config =>
   api.post(app.config.rubricatorUrl, {config}).then(response => response.data);
 
@@ -38,14 +17,13 @@ const putRubricatorData = (url, config) =>
 const updateRubricatorPosition = payload =>
   api.put(
     app.config.rubricatorUpdate.replace('_group_', payload.id),
-    {product_group: getDataPositionRubricator(payload)}
+    {product_group: payload.product_group}
   ).then(response => response.data);
 
 const getConfig = props => props.config.config;
 
 export function* loadRubricatorData() {
   try {
-    console.log(app.config.rubricatorUrl);
     yield put({type: ERROR_REMOVE, payload: {target: 'tree'}});
     const config = yield select(getConfig);
     const rubricatorData = yield call(getRubricatorData.bind({}, config));
