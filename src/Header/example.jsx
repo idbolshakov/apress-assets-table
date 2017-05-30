@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import Header from './Header';
 import {
   showRemoveEmptyRowsConfirmation,
-  showMassRemoveConfirmation,
 } from '../dialogs/actions';
+import * as remove from '../remove/actions';
 
 class HeaderExample extends React.Component {
   state = {togglerActive: false};
@@ -28,7 +28,7 @@ class HeaderExample extends React.Component {
           selectedGroupsCount={33}
           onCallProductsAndGroups={() => { console.log('вызов модальника'); }}
           onDeleteSelectedGroup={() => {
-            this.props.dispatch(showMassRemoveConfirmation());
+            this.props.dispatch(remove.removeGroups());
           }}
           onDeleteEmptyGroup={() => {
             this.props.dispatch(showRemoveEmptyRowsConfirmation());

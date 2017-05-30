@@ -3,12 +3,12 @@ import {
   React,
   PropTypes,
   Component,
-  showRemoveConfirmation,
   connect,
   _isEqual,
   actions,
   configSetId
 } from './import';
+import {removeGroup} from '../remove/actions';
 
 class ContainerTree extends Component {
   static propTypes = {
@@ -29,7 +29,7 @@ class ContainerTree extends Component {
 
   actionSetNode = (...args) => this.props.dispatch(actions.setNode(...args))
 
-  actionShowRemoveConfirmation = (...args) => this.props.dispatch(showRemoveConfirmation(...args))
+  actionShowRemoveConfirmation = (...args) => this.props.dispatch(removeGroup(...args))
 
   actionConfigSetId = (...args) => this.props.dispatch(configSetId(...args))
 

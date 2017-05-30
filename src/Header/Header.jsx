@@ -12,14 +12,16 @@ const Header = props =>
       <section className={b('box-1')}>
         <div className={b('swich-view')}>
           <div
+            title='Редактор товарных групп'
             onClick={() => { props.toggler && props.onToggle(); }}
             className={b('swich-view-to-rocket')}
           />
           <Toggler
-            title='Перейти в Редактор товаров и услу'
+            title='Перейти в Редактор товаров и услуг'
             on={props.toggler} onToggle={props.onToggle}
           />
           <div
+            title='Редактор товаров и услуг'
             onClick={() => { !props.toggler && props.onToggle(); }}
             className={b('swich-view-to-book')}
           />
