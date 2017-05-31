@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "033bb99e77d4a7ee0030"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bdce4035ba994f9ccbb4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -21673,7 +21673,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          className: 'is-remove-confirmation',
 	          closable: !props.removeInProgrees,
 	          visible: props.removeRowConfirmOpen,
-	          onClose: !props.removeInProgrees && this.removeRowConfirmCancel,
+	          onClose: this.cancel,
 	          title: !props.removeInProgrees ? 'Удалить выбранную группу ?' : 'Удаляем группу, пожалуйста ожидайте ...'
 	        },
 	        props.removeInProgrees ? this.renderRemoveInProgress() : this.renderConfirmation()
@@ -21698,7 +21698,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  };
 
-	  this.removeRowConfirmCancel = function () {
+	  this.cancel = function () {
+	    if (_this3.props.removeInProgrees) {
+	      return;
+	    }
 	    _this3.props.dispatch((0, _actions.hideRemoveConfirmation)());
 	  };
 
@@ -21791,7 +21794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2.default.createElement(
 	            _Button2.default,
 	            {
-	              onClick: _this3.removeRowConfirmCancel,
+	              onClick: _this3.cancel,
 	              mix: 'rc-dialog-button is-cancel is-big-size'
 	            },
 	            '\u041D\u0435 \u0443\u0434\u0430\u043B\u044F\u0442\u044C'
@@ -21910,6 +21913,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = RemoveEmptyGroupsDialog.__proto__ || (0, _getPrototypeOf2.default)(RemoveEmptyGroupsDialog)).call.apply(_ref, [this].concat(args))), _this), _this.cancel = function () {
+	      if (_this.props.removeInProgrees) {
+	        return;
+	      }
 	      _this.props.dispatch((0, _actions2.hideRemoveEmptyRowsConfirmation)());
 	    }, _this.handleRemove = function () {
 	      _this.props.dispatch(remove.removeEmptyGroups());
@@ -21944,9 +21950,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _Dialog2.default,
 	        {
 	          closable: !props.removeInProgrees,
-	          className: 'is-confirmation',
+	          className: 'is-remove-confirmation',
 	          visible: props.removeEmptyRowConfirmOpen,
-	          onClose: props.cancel,
+	          onClose: this.cancel,
 	          title: !props.removeInProgrees ? 'Удалить группы без товаров?' : 'Удаляем пустые группы...'
 	        },
 	        props.error && _react2.default.createElement(
@@ -21956,22 +21962,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ),
 	        !props.removeInProgrees ? _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'rc-dialog-full-width' },
 	          _react2.default.createElement(
-	            _Button2.default,
-	            {
-	              onClick: this.handleRemove,
-	              mix: 'rc-dialog-button is-good is-big-size'
-	            },
-	            '\u0414\u0430'
-	          ),
-	          _react2.default.createElement(
-	            _Button2.default,
-	            {
-	              onClick: this.cancel,
-	              mix: 'rc-dialog-button is-cancel is-big-size'
-	            },
-	            '\u041D\u0435 \u0443\u0434\u0430\u043B\u044F\u0442\u044C'
+	            'section',
+	            { className: 'rc-dialog-button-container' },
+	            _react2.default.createElement(
+	              _Button2.default,
+	              {
+	                onClick: this.handleRemove,
+	                mix: 'rc-dialog-button is-good is-big-size'
+	              },
+	              '\u0414\u0430'
+	            ),
+	            _react2.default.createElement(
+	              _Button2.default,
+	              {
+	                onClick: this.cancel,
+	                mix: 'rc-dialog-button is-cancel is-big-size'
+	              },
+	              '\u041D\u0435 \u0443\u0434\u0430\u043B\u044F\u0442\u044C'
+	            )
 	          )
 	        ) : _react2.default.createElement('div', { className: 'e-preloader' })
 	      );
@@ -26627,40 +26637,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function deleteGroup(action) {
-	  var _action$payload2, id, destroy, massRemove, save, selectedRows, createDeleteJob, reqData, jobResponse, selectedRowsInTree;
+	  var _this = this;
 
-	  return _regenerator2.default.wrap(function deleteGroup$(_context3) {
+	  var _action$payload2, id, destroy, massRemove, save, selectedRows, createDeleteJob, reqData, jobResponse;
+
+	  return _regenerator2.default.wrap(function deleteGroup$(_context4) {
 	    while (1) {
-	      switch (_context3.prev = _context3.next) {
+	      switch (_context4.prev = _context4.next) {
 	        case 0:
 	          _action$payload2 = action.payload, id = _action$payload2.id, destroy = _action$payload2.destroy, massRemove = _action$payload2.massRemove;
-	          _context3.next = 3;
+	          _context4.next = 3;
 	          return (0, _effects.select)(function (state) {
 	            return state.save;
 	          });
 
 	        case 3:
-	          save = _context3.sent;
+	          save = _context4.sent;
 	          selectedRows = void 0;
 	          createDeleteJob = void 0;
-	          _context3.next = 8;
+	          _context4.next = 8;
 	          return (0, _effects.put)(removeAction.deleteGroupStart());
 
 	        case 8:
-	          _context3.prev = 8;
+	          _context4.prev = 8;
 
 	        case 9:
 	          if (false) {
-	            _context3.next = 66;
+	            _context4.next = 49;
 	            break;
 	          }
 
-	          _context3.next = 12;
+	          _context4.next = 12;
 	          return (0, _effects.call)(_reduxSaga.delay, 1000);
 
 	        case 12:
 	          if (!(!save.waitingState.length && !save.isProgress)) {
-	            _context3.next = 64;
+	            _context4.next = 47;
 	            break;
 	          }
 
@@ -26668,20 +26680,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	          reqData = void 0;
 
 	          if (createDeleteJob) {
-	            _context3.next = 34;
+	            _context4.next = 34;
 	            break;
 	          }
 
-	          _context3.next = 17;
+	          _context4.next = 17;
 	          return (0, _effects.select)(function (state) {
 	            return state.table.checked;
 	          });
 
 	        case 17:
-	          selectedRows = _context3.sent;
+	          selectedRows = _context4.sent;
 
 	          if (!massRemove) {
-	            _context3.next = 22;
+	            _context4.next = 22;
 	            break;
 	          }
 
@@ -26695,28 +26707,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }).filter(function (row) {
 	              return row.id > 0;
 	            }) };
-	          _context3.next = 31;
+	          _context4.next = 31;
 	          break;
 
 	        case 22:
 	          if (!(id < 0)) {
-	            _context3.next = 30;
+	            _context4.next = 30;
 	            break;
 	          }
 
-	          _context3.next = 25;
+	          _context4.next = 25;
 	          return (0, _effects.put)(tableActions.removeRow({ id: id }));
 
 	        case 25:
-	          _context3.next = 27;
+	          _context4.next = 27;
 	          return (0, _effects.put)(removeAction.progressUpdate({ percent: 99 }));
 
 	        case 27:
-	          _context3.next = 29;
+	          _context4.next = 29;
 	          return (0, _effects.put)(dialogsActions.hideRemoveConfirmation());
 
 	        case 29:
-	          return _context3.abrupt('break', 66);
+	          return _context4.abrupt('break', 49);
 
 	        case 30:
 	          reqData = {
@@ -26728,212 +26740,248 @@ return /******/ (function(modules) { // webpackBootstrap
 	          };
 
 	        case 31:
-	          _context3.next = 33;
+	          _context4.next = 33;
 	          return _utils.api.put(SAVE_URL, reqData);
 
 	        case 33:
-	          createDeleteJob = _context3.sent;
+	          createDeleteJob = _context4.sent;
 
 	        case 34:
-	          _context3.next = 36;
+	          _context4.next = 36;
 	          return _utils.api.get(JOB_URL + '/' + createDeleteJob.data.job_id);
 
 	        case 36:
-	          jobResponse = _context3.sent;
+	          jobResponse = _context4.sent;
 
 	          if (!jobResponse.data.progress) {
-	            _context3.next = 40;
+	            _context4.next = 40;
 	            break;
 	          }
 
-	          _context3.next = 40;
+	          _context4.next = 40;
 	          return (0, _effects.put)(removeAction.progressUpdate({
 	            percent: Math.round(jobResponse.data.progress.percent)
 	          }));
 
 	        case 40:
 	          if (!jobResponse.data.succeeded) {
-	            _context3.next = 60;
+	            _context4.next = 42;
 	            break;
 	          }
 
-	          _context3.next = 43;
-	          return (0, _effects.put)(dialogsActions.hideRemoveConfirmation());
+	          return _context4.delegateYield(_regenerator2.default.mark(function _callee() {
+	            var selectedRowsInTree, shouldRedirect;
+	            return _regenerator2.default.wrap(function _callee$(_context3) {
+	              while (1) {
+	                switch (_context3.prev = _context3.next) {
+	                  case 0:
+	                    _context3.next = 2;
+	                    return (0, _effects.put)(dialogsActions.hideRemoveConfirmation());
 
-	        case 43:
-	          _context3.next = 45;
-	          return (0, _effects.put)(dialogsActions.hideMassRemoveConfirmation());
+	                  case 2:
+	                    _context3.next = 4;
+	                    return (0, _effects.put)(dialogsActions.hideMassRemoveConfirmation());
+
+	                  case 4:
+	                    _context3.next = 6;
+	                    return (0, _effects.select)(function (state) {
+	                      return state.tree.selected;
+	                    });
+
+	                  case 6:
+	                    selectedRowsInTree = _context3.sent;
+	                    _context3.next = 9;
+	                    return (0, _effects.select)(function (state) {
+	                      return state.table.checked;
+	                    });
+
+	                  case 9:
+	                    selectedRows = _context3.sent;
+	                    shouldRedirect = false;
+
+
+	                    if (massRemove) {
+	                      selectedRows.forEach(function (selectedRow) {
+	                        if (selectedRowsInTree.find(function (row) {
+	                          return row.id === selectedRow;
+	                        })) {
+	                          shouldRedirect = true;
+	                        }
+	                      });
+	                    }
+
+	                    if (!(selectedRowsInTree.find(function (row) {
+	                      return row.id === id;
+	                    }) || shouldRedirect)) {
+	                      _context3.next = 15;
+	                      break;
+	                    }
+
+	                    _context3.next = 15;
+	                    return (0, _effects.put)(treeActions.setNode());
+
+	                  case 15:
+	                    _context3.next = 17;
+	                    return (0, _effects.put)(tableActions.load());
+
+	                  case 17:
+	                    _context3.next = 19;
+	                    return (0, _effects.put)(treeActions.load());
+
+	                  case 19:
+	                    if (!massRemove) {
+	                      _context3.next = 22;
+	                      break;
+	                    }
+
+	                    _context3.next = 22;
+	                    return (0, _effects.put)(tableActions.setCheckAllReset());
+
+	                  case 22:
+	                  case 'end':
+	                    return _context3.stop();
+	                }
+	              }
+	            }, _callee, _this);
+	          })(), 't0', 42);
+
+	        case 42:
+	          if (!jobResponse.data.failed) {
+	            _context4.next = 45;
+	            break;
+	          }
+
+	          _context4.next = 45;
+	          return (0, _effects.put)(removeAction.groupRemoveFail({ error: ERROR_MESSAGE }));
 
 	        case 45:
-	          _context3.next = 47;
-	          return (0, _effects.put)(tableActions.setCheckAllReset());
+	          if (!(jobResponse.data.succeeded || jobResponse.data.failed)) {
+	            _context4.next = 47;
+	            break;
+	          }
+
+	          return _context4.abrupt('break', 49);
 
 	        case 47:
-	          _context3.next = 49;
-	          return (0, _effects.select)(function (state) {
-	            return state.tree.selected;
-	          });
+	          _context4.next = 9;
+	          break;
 
 	        case 49:
-	          selectedRowsInTree = _context3.sent;
-	          _context3.next = 52;
-	          return (0, _effects.select)(function (state) {
-	            return state.table.checked;
-	          });
-
-	        case 52:
-	          selectedRows = _context3.sent;
-
-	          if (!selectedRowsInTree.find(function (row) {
-	            return row.id === id;
-	          })) {
-	            _context3.next = 56;
-	            break;
-	          }
-
-	          _context3.next = 56;
-	          return (0, _effects.put)(treeActions.setNode());
-
-	        case 56:
-	          _context3.next = 58;
-	          return (0, _effects.put)(tableActions.load());
-
-	        case 58:
-	          _context3.next = 60;
-	          return (0, _effects.put)(treeActions.load());
-
-	        case 60:
-	          if (!(jobResponse.data.succeeded || jobResponse.data.failed)) {
-	            _context3.next = 64;
-	            break;
-	          }
-
-	          _context3.next = 63;
-	          return (0, _effects.put)(removeAction.groupRemoveFail({ error: ERROR_MESSAGE }));
-
-	        case 63:
-	          return _context3.abrupt('break', 66);
-
-	        case 64:
-	          _context3.next = 9;
+	          _context4.next = 55;
 	          break;
 
-	        case 66:
-	          _context3.next = 72;
-	          break;
-
-	        case 68:
-	          _context3.prev = 68;
-	          _context3.t0 = _context3['catch'](8);
-	          _context3.next = 72;
+	        case 51:
+	          _context4.prev = 51;
+	          _context4.t1 = _context4['catch'](8);
+	          _context4.next = 55;
 	          return (0, _effects.put)(removeAction.groupRemoveFail({ error: ERROR_MESSAGE }));
 
-	        case 72:
+	        case 55:
 	        case 'end':
-	          return _context3.stop();
+	          return _context4.stop();
 	      }
 	    }
-	  }, _marked[2], this, [[8, 68]]);
+	  }, _marked[2], this, [[8, 51]]);
 	}
 
 	function deleteEmptyGroups() {
 	  var save, apiResponse, jobResponse;
-	  return _regenerator2.default.wrap(function deleteEmptyGroups$(_context4) {
+	  return _regenerator2.default.wrap(function deleteEmptyGroups$(_context5) {
 	    while (1) {
-	      switch (_context4.prev = _context4.next) {
+	      switch (_context5.prev = _context5.next) {
 	        case 0:
-	          _context4.next = 2;
+	          _context5.next = 2;
 	          return (0, _effects.put)(removeAction.removeEmptyGroupsStart());
 
 	        case 2:
-	          _context4.next = 4;
+	          _context5.next = 4;
 	          return (0, _effects.select)(function (state) {
 	            return state.save;
 	          });
 
 	        case 4:
-	          save = _context4.sent;
-	          _context4.next = 7;
+	          save = _context5.sent;
+	          _context5.next = 7;
 	          return _utils.api.delete(REMOVE_EMPTY_URL);
 
 	        case 7:
-	          apiResponse = _context4.sent;
-	          _context4.prev = 8;
+	          apiResponse = _context5.sent;
+	          _context5.prev = 8;
 
 	        case 9:
 	          if (false) {
-	            _context4.next = 32;
+	            _context5.next = 32;
 	            break;
 	          }
 
 	          if (!(!save.waitingState.length && !save.isProgress)) {
-	            _context4.next = 30;
+	            _context5.next = 30;
 	            break;
 	          }
 
-	          _context4.next = 13;
+	          _context5.next = 13;
 	          return _utils.api.get(JOB_URL + '/' + apiResponse.data.meta_id);
 
 	        case 13:
-	          jobResponse = _context4.sent;
-	          _context4.next = 16;
+	          jobResponse = _context5.sent;
+	          _context5.next = 16;
 	          return (0, _effects.call)(_reduxSaga.delay, 1000);
 
 	        case 16:
 	          if (!jobResponse.data.succeeded) {
-	            _context4.next = 25;
+	            _context5.next = 25;
 	            break;
 	          }
 
-	          _context4.next = 19;
+	          _context5.next = 19;
 	          return (0, _effects.put)(tableActions.load());
 
 	        case 19:
-	          _context4.next = 21;
+	          _context5.next = 21;
 	          return (0, _effects.put)(treeActions.load());
 
 	        case 21:
-	          _context4.next = 23;
+	          _context5.next = 23;
 	          return (0, _effects.put)(removeAction.removeEmptyGroupsDone());
 
 	        case 23:
-	          _context4.next = 25;
+	          _context5.next = 25;
 	          return (0, _effects.put)(dialogsActions.hideRemoveEmptyRowsConfirmation());
 
 	        case 25:
 	          if (!jobResponse.data.failed) {
-	            _context4.next = 28;
+	            _context5.next = 28;
 	            break;
 	          }
 
-	          _context4.next = 28;
+	          _context5.next = 28;
 	          return (0, _effects.put)(removeAction.groupRemoveFail({ error: ERROR_MESSAGE }));
 
 	        case 28:
 	          if (!(jobResponse.data.failed || jobResponse.data.succeeded)) {
-	            _context4.next = 30;
+	            _context5.next = 30;
 	            break;
 	          }
 
-	          return _context4.abrupt('break', 32);
+	          return _context5.abrupt('break', 32);
 
 	        case 30:
-	          _context4.next = 9;
+	          _context5.next = 9;
 	          break;
 
 	        case 32:
-	          _context4.next = 38;
+	          _context5.next = 38;
 	          break;
 
 	        case 34:
-	          _context4.prev = 34;
-	          _context4.t0 = _context4['catch'](8);
-	          _context4.next = 38;
+	          _context5.prev = 34;
+	          _context5.t0 = _context5['catch'](8);
+	          _context5.next = 38;
 	          return (0, _effects.put)(removeAction.groupRemoveFail({ error: ERROR_MESSAGE }));
 
 	        case 38:
 	        case 'end':
-	          return _context4.stop();
+	          return _context5.stop();
 	      }
 	    }
 	  }, _marked[3], this, [[8, 34]]);

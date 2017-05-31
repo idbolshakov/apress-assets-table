@@ -9,6 +9,9 @@ import {hideRemoveEmptyRowsConfirmation} from '../dialogs/actions';
 class RemoveEmptyGroupsDialog extends React.Component {
 
   cancel = () => {
+    if (this.props.removeInProgrees) {
+      return;
+    }
     this.props.dispatch(hideRemoveEmptyRowsConfirmation());
   }
 
@@ -34,26 +37,28 @@ class RemoveEmptyGroupsDialog extends React.Component {
     return (
       <Dialog
         closable={!props.removeInProgrees}
-        className='is-confirmation'
+        className='is-remove-confirmation'
         visible={props.removeEmptyRowConfirmOpen}
-        onClose={props.cancel}
+        onClose={this.cancel}
         title={!props.removeInProgrees ? 'Удалить группы без товаров?' : 'Удаляем пустые группы...'}
       >
         {props.error && <p className='e-simple-error'>{props.error}</p>}
         {!props.removeInProgrees ?
-          <div>
-            <Button
-              onClick={this.handleRemove}
-              mix='rc-dialog-button is-good is-big-size'
-            >
+          <div className='rc-dialog-full-width'>
+            <section className='rc-dialog-button-container'>
+              <Button
+                onClick={this.handleRemove}
+                mix='rc-dialog-button is-good is-big-size'
+              >
               Да
             </Button>
-            <Button
-              onClick={this.cancel}
-              mix='rc-dialog-button is-cancel is-big-size'
-            >
+              <Button
+                onClick={this.cancel}
+                mix='rc-dialog-button is-cancel is-big-size'
+              >
               Не удалять
             </Button>
+            </section>
           </div> :
           <div className='e-preloader' />
         }

@@ -104,20 +104,36 @@ export function* deleteGroup(action) {
         if (jobResponse.data.succeeded) {
           yield put(dialogsActions.hideRemoveConfirmation());
           yield put(dialogsActions.hideMassRemoveConfirmation());
-          yield put(tableActions.setCheckAllReset());
           const selectedRowsInTree = yield select(state => state.tree.selected);
           selectedRows = yield select(state => state.table.checked);
 
-          if (selectedRowsInTree.find(row => row.id === id)) {
+          let shouldRedirect = false;
+
+          if (massRemove) {
+            selectedRows.forEach((selectedRow) => {
+              if (selectedRowsInTree.find(row => row.id === selectedRow)) {
+                shouldRedirect = true;
+              }
+            });
+          }
+
+          if (selectedRowsInTree.find(row => row.id === id) || shouldRedirect) {
             yield put(treeActions.setNode());
           }
 
           yield put(tableActions.load());
           yield put(treeActions.load());
+
+          if (massRemove) {
+            yield put(tableActions.setCheckAllReset());
+          }
+        }
+
+        if (jobResponse.data.failed) {
+          yield put(removeAction.groupRemoveFail({error: ERROR_MESSAGE}));
         }
 
         if (jobResponse.data.succeeded || jobResponse.data.failed) {
-          yield put(removeAction.groupRemoveFail({error: ERROR_MESSAGE}));
           break;
         }
       }
