@@ -136,7 +136,27 @@ export default function rows(state = [], action) {
 
     case TABLE_EDITOR_ROW_ADD: {
       const target = (action.payload && action.payload.target) ?
-        state.indexOf(action.payload.target) : 0;
+        state.indexOf(action.payload.target) + 1 : 0;
+      let productGroup = {...action.payload.new_row.product_group};
+
+      if (action.payload && action.payload.parent) {
+        const ancentors = [...action.payload.parent.product_group.common.ancestors];
+        const ancentorsLastId = ancentors.length ? ancentors[ancentors.length - 1].id : null;
+
+        productGroup = {
+          ...productGroup,
+          common: {
+            ...productGroup.common,
+            ancestors: [...ancentors, {
+              id: action.payload.parent.check.common.id,
+              parent_id: ancentorsLastId,
+              name: action.payload.parent.name.common.text
+            }],
+            parent_id: action.payload.parent.check.common.id
+          }
+        };
+      }
+
       const newstate = [...state];
       const newRow = {
         ...action.payload.new_row,
@@ -146,7 +166,8 @@ export default function rows(state = [], action) {
             ...action.payload.new_row.check.common,
             id: newId
           }
-        }
+        },
+        product_group: productGroup
       };
 
       newId -= 1;

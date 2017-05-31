@@ -47,6 +47,10 @@
       &:before { content: ''; border: dashed 1px #028dd8; position: absolute; top: 0px; left: 0px; right: 0px; bottom: -2px; }
       &:after { display: none; }
     }
+    &.is-required {
+      &:before { content: ''; border: solid 1px #dc6263; position: absolute; top: 0px; left: 0px; right: 0px; bottom: -2px; }
+      &:after { display: none; }
+    }
     &:after { height: 50px; width: 1px; background-color: #e0e0e0; position: absolute; content: ''; right: -1px; top: 50%; margin-top: -25px; }
     &:last-child {
       &:after { width: 0; }
