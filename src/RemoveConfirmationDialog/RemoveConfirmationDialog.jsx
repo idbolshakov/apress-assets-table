@@ -26,7 +26,10 @@ class RemoveConfirmationDialog extends React.Component {
     });
   }
 
-  removeRowConfirmCancel = () => {
+  cancel = () => {
+    if (this.props.removeInProgrees) {
+      return;
+    }
     this.props.dispatch(hideRemoveConfirmation());
   }
 
@@ -163,7 +166,7 @@ class RemoveConfirmationDialog extends React.Component {
                 Да
               </Button>
               <Button
-                onClick={this.removeRowConfirmCancel}
+                onClick={this.cancel}
                 mix='rc-dialog-button is-cancel is-big-size'
               >
                 Не удалять
@@ -183,7 +186,7 @@ class RemoveConfirmationDialog extends React.Component {
         className='is-remove-confirmation'
         closable={!props.removeInProgrees}
         visible={props.removeRowConfirmOpen}
-        onClose={!props.removeInProgrees && this.removeRowConfirmCancel}
+        onClose={this.cancel}
         title={!props.removeInProgrees ?
           'Удалить выбранную группу ?' : 'Удаляем группу, пожалуйста ожидайте ...'}
       >
