@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b20a0cb004ce0e438177"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9f50f6153e2d5d87bf13"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -26900,7 +26900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          }
 
 	          if (!(!save.waitingState.length && !save.isProgress)) {
-	            _context5.next = 30;
+	            _context5.next = 28;
 	            break;
 	          }
 
@@ -26909,46 +26909,47 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        case 13:
 	          jobResponse = _context5.sent;
-	          _context5.next = 16;
-	          return (0, _effects.call)(_reduxSaga.delay, 1000);
 
-	        case 16:
 	          if (!jobResponse.data.succeeded) {
-	            _context5.next = 25;
+	            _context5.next = 23;
 	            break;
 	          }
 
-	          _context5.next = 19;
+	          _context5.next = 17;
 	          return (0, _effects.put)(tableActions.load());
+
+	        case 17:
+	          _context5.next = 19;
+	          return (0, _effects.put)(treeActions.load());
 
 	        case 19:
 	          _context5.next = 21;
-	          return (0, _effects.put)(treeActions.load());
+	          return (0, _effects.put)(removeAction.removeEmptyGroupsDone());
 
 	        case 21:
 	          _context5.next = 23;
-	          return (0, _effects.put)(removeAction.removeEmptyGroupsDone());
-
-	        case 23:
-	          _context5.next = 25;
 	          return (0, _effects.put)(dialogsActions.hideRemoveEmptyRowsConfirmation());
 
-	        case 25:
+	        case 23:
 	          if (!jobResponse.data.failed) {
+	            _context5.next = 26;
+	            break;
+	          }
+
+	          _context5.next = 26;
+	          return (0, _effects.put)(removeAction.groupRemoveFail({ error: ERROR_MESSAGE }));
+
+	        case 26:
+	          if (!(jobResponse.data.failed || jobResponse.data.succeeded)) {
 	            _context5.next = 28;
 	            break;
 	          }
 
-	          _context5.next = 28;
-	          return (0, _effects.put)(removeAction.groupRemoveFail({ error: ERROR_MESSAGE }));
+	          return _context5.abrupt('break', 32);
 
 	        case 28:
-	          if (!(jobResponse.data.failed || jobResponse.data.succeeded)) {
-	            _context5.next = 30;
-	            break;
-	          }
-
-	          return _context5.abrupt('break', 32);
+	          _context5.next = 30;
+	          return (0, _effects.call)(_reduxSaga.delay, 1000);
 
 	        case 30:
 	          _context5.next = 9;
