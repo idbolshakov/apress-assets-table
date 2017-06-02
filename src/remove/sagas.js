@@ -153,8 +153,6 @@ export function* deleteEmptyGroups() {
       if (!save.waitingState.length && !save.isProgress) {
         const jobResponse = yield api.get(`${JOB_URL}/${apiResponse.data.meta_id}`);
 
-        yield call(delay, 1000);
-
         if (jobResponse.data.succeeded) {
           yield put(tableActions.load());
           yield put(treeActions.load());
@@ -169,6 +167,7 @@ export function* deleteEmptyGroups() {
           break;
         }
       }
+      yield call(delay, 1000);
     }
   } catch (err) {
     yield put(removeAction.groupRemoveFail({error: ERROR_MESSAGE}));
