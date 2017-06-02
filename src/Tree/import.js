@@ -13,6 +13,7 @@ import * as actionsError from '../Error/actions';
 import * as actionsTable from '../Table/actions';
 import {configSetId} from '../Filter/actions';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
+import Search from '../Search/Search';
 import './e-tree.scss';
 
 const b = block('e-tree');
@@ -51,5 +52,7 @@ export {
 
   call,
   put,
-  select
+  select,
+
+  Search
 };
