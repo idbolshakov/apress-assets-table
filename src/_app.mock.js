@@ -18,6 +18,9 @@ const app = {
       current: {
         slug: ''
       }
+    },
+    ckeditor: {
+      toolbarTiger: []
     }
   }
 };
