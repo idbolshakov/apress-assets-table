@@ -110,7 +110,8 @@ class TreeItem extends Component {
       id,
       orderUrl,
       actionShowRemoveConfirmation,
-      actionConfigSetId
+      actionConfigSetId,
+      name,
     } = this.props;
 
     return (
@@ -136,7 +137,7 @@ class TreeItem extends Component {
             actionConfigSetId(id);
           }
           if (action === 'remove') {
-            actionShowRemoveConfirmation(id);
+            actionShowRemoveConfirmation({id, name});
           }
           if (action === 'reorderGoods') {
             window.open(orderUrl);

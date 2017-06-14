@@ -9,8 +9,7 @@ import Image from './Image';
 import Path from './Path';
 import {block} from '../utils';
 import Actions from '../Actions/Actions';
-import {showRemoveConfirmation} from '../dialogs/actions';
-
+import * as remove from '../remove/actions';
 
 const b = block('e-table');
 
@@ -61,13 +60,19 @@ class Body extends React.Component {
             title: 'Добавить группу',
             onClick: () => props.actions.addNewRow({
               target: row,
+              parent: row,
               new_row: props.table.new_row
             })
           },
           {
             name: 'delete',
             title: 'Удалить группу',
-            onClick: () => { props.dispatch(showRemoveConfirmation({id: row.check.common.id})); }
+            onClick: () => {
+              props.dispatch(remove.removeGroup({
+                id: row.check.common.id,
+                name: row.name.common.text,
+              }));
+            }
           },
         ]}
       />}

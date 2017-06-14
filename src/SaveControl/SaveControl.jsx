@@ -1,12 +1,13 @@
 /* eslint no-param-reassign: 0 */
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {block} from '../utils';
 
 import './e-save-control.scss';
 
 const b = block('e-save-control');
 
-export default class SaveControl extends Component {
+class SaveControl extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.save.isSave && !nextProps.save.fetchDiff) {
       nextProps.actions.saveCreateDiff({
@@ -23,7 +24,7 @@ export default class SaveControl extends Component {
 
     if (nextProps.save.isProgress ||
       nextProps.save.waitingState.length ||
-      nextProps.save.fetchDiff) {
+      nextProps.save.fetchDiff || this.props.removeInProgrees) {
       window.onbeforeunload = (e) => {
         const message = 'Возможно внесенные изменения не сохранятся';
 
@@ -52,7 +53,7 @@ export default class SaveControl extends Component {
         className={b.is({
           success: !this.props.save.isError && !this.props.save.isProgress,
           error: this.props.save.isError,
-          progress: this.props.save.isProgress
+          progress: this.props.save.isProgress || this.props.removeInProgrees
         })}
       >
         {message}
@@ -60,3 +61,9 @@ export default class SaveControl extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  removeInProgrees: state.remove.removeInProgrees,
+});
+
+export default connect(mapStateToProps)(SaveControl);

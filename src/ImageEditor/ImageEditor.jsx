@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
 import _isEqual from 'lodash/isEqual';
+import pluralize from 'pluralize-ru';
 import {hideImageEditor} from '../dialogs/actions';
 import {updateImages} from './actions';
 import Button from '../Button/Button';
@@ -133,6 +134,7 @@ class ImageEditor extends React.Component {
 
   render() {
     const props = this.props;
+    const count = this.getTotalCount();
     return (
       <Dialog
         className='is-image-editor e-image-editor'
@@ -142,9 +144,12 @@ class ImageEditor extends React.Component {
         title={
           <div>
             <h3>Загрузка фотографий</h3>
-            {this.getTotalCount() ?
-              <p>Вы выбрали {this.getTotalCount()} фотографии из {props.maxLenght}</p> :
-              <p>Выбирайте фотографию, которая подходит данной группе товаров больше всего.</p>
+            {count ?
+              <p>Вы выбрали {count}{' '}
+                {pluralize(count, 'ни одной', 'фотографию', 'фотографии', 'фотографии')} из {' '}
+                {props.maxLenght}
+              </p> :
+              <p>Выберите фотографию, которая подходит данной группе товаров больше всего.</p>
             }
             {!props.isFetching && this.renderImages()}
           </div>
@@ -167,6 +172,7 @@ class ImageEditor extends React.Component {
             <div>
               <p>Загрузите картинку</p>
               <Dropzone
+                disableClick={this.getTotalCount() >= props.maxLenght}
                 maxSize={this.props.maxSize}
                 className={b('drop-zone').is({disabled: this.getTotalCount() >= props.maxLenght})()}
                 onDrop={this.handleDrop}

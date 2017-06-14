@@ -6,9 +6,9 @@ import {
   TABLE_EDITOR_CELL_END_DRAG_IMAGES,
   TABLE_EDITOR_ROW_ADD,
   TABLE_EDITOR_ROW_ADD_ID,
-  TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   TABLE_EDITOR_SET_IMAGES,
   TABLE_EDITOR_ROW_REMOVE,
+  TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   HISTORY_NEXT,
   HISTORY_PREV,
 } from '../actions';
@@ -16,17 +16,18 @@ import {
 const initialState = {
   prev: [],
   next: [],
-  current: []
+  current: [],
 };
 
 export default function history(state = initialState, action) {
   switch (action.type) {
     case TABLE_EDITOR_LOAD_SUCCESS:
+    case TABLE_EDITOR_ROW_REMOVE:
       return {
         ...state,
         current: rows(state.current, action),
         next: [],
-        prev: []
+        prev: [],
       };
 
     case TABLE_EDITOR_SET_TEXT:
@@ -34,14 +35,13 @@ export default function history(state = initialState, action) {
     case TABLE_EDITOR_ROW_ADD:
     case TABLE_EDITOR_SET_IMAGES:
     case TABLE_EDITOR_CELL_END_DRAG_IMAGES:
-    case TABLE_EDITOR_ROW_REMOVE:
       return {
         ...state,
         prev: state.prev.length > 99 ?
           [state.current, ...state.prev].slice(0, 100) :
           [state.current, ...state.prev],
         current: rows(state.current, action),
-        next: []
+        next: [],
       };
 
     case TABLE_EDITOR_ROW_ADD_ID: {
