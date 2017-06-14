@@ -11,9 +11,9 @@ import {api, block} from '../utils';
 import * as actions from './actions';
 import * as actionsError from '../Error/actions';
 import * as actionsTable from '../Table/actions';
-import {showRemoveConfirmation} from '../dialogs/actions';
 import {configSetId} from '../Filter/actions';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
+import Search from '../Search/Search';
 import './e-tree.scss';
 
 const b = block('e-tree');
@@ -47,11 +47,12 @@ export {
   actions,
   actionsError,
   actionsTable,
-  showRemoveConfirmation,
   configSetId,
   DropDownMenu,
 
   call,
   put,
-  select
+  select,
+
+  Search
 };

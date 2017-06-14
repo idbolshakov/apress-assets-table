@@ -1,5 +1,7 @@
 @import '../styles/mixins/icons';
 
+body { font-family: 'OpenSans'; }
+
 .rc-dropdown {
   position: absolute; left: -9999px; top: -9999px; z-index: 1070; display: block; font-family: 'OpenSans'; font-size: 12px; font-weight: normal; line-height: 1.5;
   &-hidden { display: none; }
@@ -7,6 +9,7 @@
 
 .e-preloader { @include spin-loader-icon(); width: 50px; height: 50px; margin: 0 auto; }
 
+.is-spinner,
 .e-spinner {
   position: relative; width: 100%; height: 100%; overflow: hidden;
   &:after { @include spin-loader-icon(); width: 50px; height: 50px; margin: auto; position: absolute; content: ''; top: 0; left: 0; right: 0; bottom: 0; }
@@ -15,9 +18,11 @@
 .e-products-actions {
   text-align: left; margin-bottom: 25px;
   &-radio-title { color: #1f2532; font-size: 12px; margin-bottom: 18px; }
-  &-radio-set { margin-bottom: 15px; }
+  &-radio-set { margin-bottom: 15px; display: flex; }
   &-radio { margin-right: 15px; }
-  &-tree-box { max-height: 300px; overflow-y: auto; }
+  & .e-tree { max-height: 250px; }
 }
 
 .e-label { vertical-align: middle; }
+
+.e-simple-error { color: #dc6263; margin-bottom: 20px; }

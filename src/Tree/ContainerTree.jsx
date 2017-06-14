@@ -3,20 +3,26 @@ import {
   React,
   PropTypes,
   Component,
-  showRemoveConfirmation,
   connect,
   _isEqual,
   actions,
-  configSetId
+  configSetId,
+  Search,
+  b
 } from './import';
+import {removeGroup} from '../remove/actions';
 
 class ContainerTree extends Component {
   static propTypes = {
     tree: PropTypes.object,
   };
 
-  shouldComponentUpdate(nextProps) {
-    return !_isEqual(this.props, nextProps);
+  state = {
+    filter: ''
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState);
   }
 
   actionMoveNodeRequest = (...args) => this.props.dispatch(actions.moveNodeRequest(...args))
@@ -29,34 +35,83 @@ class ContainerTree extends Component {
 
   actionSetNode = (...args) => this.props.dispatch(actions.setNode(...args))
 
-  actionShowRemoveConfirmation = (...args) => this.props.dispatch(showRemoveConfirmation(...args))
+  actionShowRemoveConfirmation = (...args) => this.props.dispatch(removeGroup(...args))
 
   actionConfigSetId = (...args) => this.props.dispatch(configSetId(...args))
+
+  filterTree = (nodes, regexp) => {
+    const filteredTreeData = [];
+
+    nodes.forEach((node) => {
+      if (regexp.test(node.name)) {
+        if (node.tree_nodes && node.tree_nodes.length) {
+          filteredTreeData.push({
+            ...node,
+            tree_nodes: this.filterTree(node.tree_nodes, regexp)
+          });
+        } else {
+          filteredTreeData.push(node);
+        }
+      } else if (node.tree_nodes && node.tree_nodes.length) {
+        const childNodes = this.filterTree(node.tree_nodes, regexp);
+
+        if (childNodes.length) {
+          filteredTreeData.push({
+            ...node,
+            tree_nodes: childNodes
+          });
+        }
+      }
+    });
+
+    return filteredTreeData;
+  }
+
+  renderEmpty = (treeData) => {
+    if (!treeData.length && this.state.filter) {
+      return (
+        <p className={b('empty')}>Ничего не найдено</p>
+      );
+    }
+
+    return null;
+  }
 
   render() {
     const hasDragNode = true;
     const hasSettingsNode = true;
+    const treeData = this.state.filter ?
+      this.filterTree(this.props.tree.data, new RegExp(this.state.filter, 'i')) :
+      this.props.tree.data;
 
-    if (this.props.isLoaded) {
-      return (
-        <TreeDndContext
-          tree={this.props.tree.data}
-          moveNode={this.props.tree.moveNode}
-          config={this.props.config}
-          actionMoveNodeRequest={this.actionMoveNodeRequest}
-          actionMoveNode={this.actionMoveNode}
-          actionSetExpanded={this.actionSetExpanded}
-          actionUpdate={this.actionUpdate}
-          actionSetNode={this.actionSetNode}
-          hasDragNode={hasDragNode}
-          hasSettingsNode={hasSettingsNode}
-          actionShowRemoveConfirmation={this.actionShowRemoveConfirmation}
-          actionConfigSetId={this.actionConfigSetId}
-        />
-      );
-    }
+    return (
+      <div className={b('conteiner').is({spinner: !this.props.isLoaded})}>
+        <div className={b('search')}>
+          <Search onChange={value => this.setState({filter: value})} />
+        </div>
 
-    return <div className='e-spinner' />;
+        <div className={b('wrapper')}>
+          <TreeDndContext
+            tree={treeData}
+            moveNode={this.props.tree.moveNode}
+            config={this.props.config}
+            actionMoveNodeRequest={this.actionMoveNodeRequest}
+            actionMoveNode={this.actionMoveNode}
+            actionSetExpanded={this.actionSetExpanded}
+            actionUpdate={this.actionUpdate}
+            actionSetNode={this.actionSetNode}
+            hasDragNode={hasDragNode}
+            hasSettingsNode={hasSettingsNode}
+            actionShowRemoveConfirmation={this.actionShowRemoveConfirmation}
+            actionConfigSetId={this.actionConfigSetId}
+          >
+            {this.props.children}
+
+            {this.renderEmpty(treeData)}
+          </TreeDndContext>
+        </div>
+      </div>
+    );
   }
 }
 

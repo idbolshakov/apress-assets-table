@@ -9,24 +9,22 @@ import {SAVE_SUCCESS, SAVE_DIFF} from './actions';
 
 let newId = -100000;
 
-const putSave = rows =>
+export const putSave = rows =>
   api.put(app.config.urlSaveTiger, {rows})
     .then(response => response.data);
 
-const pollingJob = jobId =>
+export const pollingJob = jobId =>
   api.get(`${app.config.urlJob}/${jobId}`)
     .then(response => response.data);
 
-const getSave = props => props.save;
-
-const getFieldId = () => 'check';
+export const getSave = props => props.save;
 
 const find = (secondRow, row) =>
   (row.id && secondRow.id && row.id === secondRow.id) ||
   (row.check && secondRow.check &&
   row.check.common.id === secondRow.check.common.id);
 
-const transformForServer = records =>
+export const transformForServer = records =>
   records.map((record) => {
     const newObj = {
       id: record.check.common.id,
@@ -36,18 +34,7 @@ const transformForServer = records =>
     Object.keys(record).forEach((key) => {
       if (key !== 'check') {
         if (record[key].common) {
-          // кастомное сохранение для поля с фотографиями
-          if (record[key].common.images) {
-            // привязка массива с фото
-            if (record[key].common.images[0].src === '') {
-              newObj.columns[key] = {images: []};
-            } else {
-              newObj.columns[key] =
-                {images: record[key].common.images.map(image => ({id: image.id}))};
-            }
-          } else {
-            newObj.columns[key] = record[key].common;
-          }
+          newObj.columns[key] = record[key].common;
         } else {
           newObj[key] = record[key];
         }
@@ -57,42 +44,7 @@ const transformForServer = records =>
     return newObj;
   });
 
-const validate = (column, row) => {
-  if (row[column] && typeof row[column] === 'object' && row[column] !== null) {
-    switch (column) {
-      case 'name':
-        return !!row.name.common.text;
-
-      default:
-        return true;
-    }
-  }
-
-  return true;
-};
-
-const clearEmptyFields = (obj) => {
-  if (typeof obj === 'object' && obj !== null) {
-    const newObj = {};
-    Object.keys(obj).forEach((key) => {
-      const childField = clearEmptyFields(obj[key]);
-
-      if (childField && Object.keys(childField).length) {
-        newObj[key] = childField;
-      }
-
-      if (childField && typeof childField !== 'object') {
-        newObj[key] = childField;
-      }
-    });
-
-    return newObj;
-  }
-
-  return obj;
-};
-
-const getDeletedItems = (cur, prev) => {
+export const getDeletedItems = (cur, prev) => {
   const deletedItems = [];
   prev.forEach((prevChild) => {
     const curChild = cur.find(find.bind({}, prevChild));
@@ -112,136 +64,242 @@ const getDeletedItems = (cur, prev) => {
   return deletedItems;
 };
 
-const getNewItems = (cur, prev) => {
-  const newItems = [];
-  cur.forEach((curChild) => {
-    const prevChild = prev.find(find.bind({}, curChild));
+export const getCheckDifference = currentState => ({
+  check: {
+    common: {
+      id: currentState.check.common.id
+    }
+  }
+});
 
-    if (!prevChild && validate('name', curChild)) {
-      newItems.push(clearEmptyFields(curChild));
+export const getProductGroupDifference = (currentState, previousState) => {
+  const currentParentId = currentState.product_group.common.parent_id;
+  const previousParentId = previousState.product_group.common.parent_id;
+
+  if (currentParentId !== previousParentId ||
+    String(currentState.check.common.id).includes('-')) {
+    return {
+      product_group: {
+        common: {
+          parent_id: currentParentId || null
+        }
+      }
+    };
+  }
+
+  return null;
+};
+
+export const getTextCellDifference = (currentState, previousState, currentCellKey) => {
+  const currentText = currentState[currentCellKey].common.text;
+  const previousText = previousState[currentCellKey].common.text;
+
+  if (currentText !== previousText) {
+    return {
+      [currentCellKey]: {
+        common: {
+          text: currentText
+        }
+      }
+    };
+  }
+
+  return null;
+};
+
+export const getPhotoDifference = (currentState, previousState) => {
+  const currentImages = currentState.photo.common.images;
+  const previousImages = previousState.photo.common.images;
+
+  if (!_isEqual(currentImages, previousImages)) {
+    return {
+      photo: {
+        common: {
+          images: currentImages.map(image => ({id: image.id}))
+        }
+      }
+    };
+  }
+
+  return null;
+};
+
+export const getRowDifference = (currentState, previousState) => {
+  let differenceRow = {};
+
+  Object.keys(currentState).forEach((currentCellKey) => {
+    switch (currentCellKey) {
+      case 'check':
+        differenceRow = {
+          ...differenceRow,
+          ...getCheckDifference(currentState)
+        };
+        break;
+
+      case 'product_group':
+        differenceRow = {
+          ...differenceRow,
+          ...getProductGroupDifference(currentState, previousState)
+        };
+        break;
+
+      case 'photo':
+        differenceRow = {
+          ...differenceRow,
+          ...getPhotoDifference(currentState, previousState)
+        };
+        break;
+
+      case 'description':
+      case 'detailed_description':
+      case 'h1':
+      case 'name':
+      case 'page_description':
+      case 'tag_title':
+      case 'url':
+        differenceRow = {
+          ...differenceRow,
+          ...getTextCellDifference(currentState, previousState, currentCellKey)
+        };
+        break;
+
+      default:
+        break;
     }
   });
 
-  return newItems;
+  return differenceRow;
 };
 
-const getDiff = (cur, prev) => {
-  if (Array.isArray(prev) && ((cur.length && cur[0].src) || (prev.length && prev[0].src))) {
-    if (!(_isEqual(cur, prev))) {
-      if (!cur.length) {
-        return [{src: ''}];
+export const getRowsDifference = (currentState, previousState) => {
+  const differenceState = currentState.map((currentRow) => {
+    let differenceRow = {};
+    const previousRow = previousState
+      .find(row => row.check.common.id === currentRow.check.common.id);
+
+    if (currentRow.name.common.text) {
+      if (previousRow) {
+        differenceRow = getRowDifference(currentRow, previousRow);
+      } else {
+        differenceRow = currentRow;
       }
-      return cur;
-    }
-  }
-
-  if (Array.isArray(prev) && prev.length) {
-    const tmpDiff = [];
-    prev.forEach((prevChild) => {
-      const curChild = cur.find(find.bind({}, prevChild));
-      if (curChild) {
-        const childDiff = getDiff(curChild, prevChild);
-
-        if (childDiff && typeof childDiff === 'object' && Object.keys(childDiff).length) {
-          if (Object.keys(prevChild).includes(getFieldId())) {
-            childDiff[getFieldId()] = prevChild[getFieldId()];
-          }
-
-          tmpDiff.push(childDiff);
-        }
-
-        if (childDiff && typeof childDiff !== 'object') {
-          tmpDiff.push(childDiff);
-        }
-      }
-    });
-    return tmpDiff;
-  }
-
-  if (typeof prev === 'object' && prev !== null) {
-    const objDiff = {};
-    Object.keys(prev).forEach((childKey) => {
-      if (validate(childKey, cur)) {
-        const childDiff = getDiff(cur[childKey], prev[childKey]);
-
-        if (childDiff && Object.keys(childDiff).length) {
-          objDiff[childKey] = childDiff;
-        }
-
-        if ((childDiff && typeof childDiff !== 'object') || childDiff === null) {
-          objDiff[childKey] = childDiff;
-        }
-      }
-    });
-
-    return objDiff;
-  }
-
-  return cur !== prev ? (cur || null) : undefined;
-};
-
-const createDiff = (curState, prevState) => {
-  const diff = getDiff(curState, prevState);
-  const deletedItems = getDeletedItems(curState, prevState);
-  const newItems = getNewItems(curState, prevState);
-
-  return transformForServer([...diff, ...deletedItems, ...newItems]);
-};
-
-export function* saveCreateDiff(action) {
-  try {
-    const diff = createDiff(action.payload.curState, action.payload.prevState);
-    const state = yield select(getSave);
-    let waitingState = state.waitingState;
-    if (waitingState.length) {
-      diff.forEach((record) => {
-        const waitingItem = waitingState.find(item => item.id === record.id);
-
-        if (waitingItem) {
-          if (waitingItem.destroy && !record.destroy) {
-            delete waitingItem.destroy;
-          }
-
-          Object.keys(record).forEach((key) => {
-            if (typeof record[key] === 'object' && record[key] !== null) {
-              waitingItem[key] = {...waitingItem[key], ...record[key]};
-            } else {
-              waitingItem[key] = record[key];
-            }
-          });
-        } else {
-          waitingState.push(record);
-        }
-      });
     } else {
-      waitingState = diff;
+      differenceRow = {
+        id: currentRow.check.common.id,
+        invalid: true
+      };
     }
 
-    yield put({
-      type: SAVE_DIFF,
-      payload: {
-        waitingState,
-        prevState: action.payload.curState
+    return differenceRow;
+  });
+
+  return differenceState.filter(differenceRow => Object.keys(differenceRow).length > 1);
+};
+
+export const getDifferenceState = (currentState, previousState) => {
+  const differenceState = [
+    ...getRowsDifference(currentState, previousState),
+    ...getDeletedItems(currentState, previousState)
+  ];
+  const invalidDifferenceState = differenceState.filter(differenceRow => differenceRow.invalid);
+  const validDifferenceState = differenceState.filter(differenceRow => !differenceRow.invalid);
+
+  return {
+    validDifferenceState: transformForServer(validDifferenceState),
+    invalidDifferenceState
+  };
+};
+
+export const mergeDifference = (difference, waitingState = []) => {
+  if (waitingState.length) {
+    difference.forEach((differenceRow) => {
+      const waitingRow = waitingState.find(_waitingRow => _waitingRow.id === differenceRow.id);
+
+      if (waitingRow) {
+        if (waitingRow.destroy && !differenceRow.destroy) {
+          delete waitingRow.destroy;
+        }
+
+        Object.keys(differenceRow).forEach((differenceRowKey) => {
+          if (typeof differenceRow[differenceRowKey] === 'object' &&
+            differenceRow[differenceRowKey] !== null) {
+            waitingRow[differenceRowKey] = {
+              ...waitingRow[differenceRowKey],
+              ...differenceRow[differenceRowKey]
+            };
+          } else {
+            waitingRow[differenceRowKey] = differenceRow[differenceRowKey];
+          }
+        });
+      } else {
+        waitingState.push(differenceRow);
       }
     });
-  } catch (err) {
-    console.log(err);
+  } else {
+    return difference;
   }
+
+  return waitingState;
+};
+
+export const setInvalidDifferenceForCurrentState = (currentState, previousState, difference) => {
+  if (difference.length) {
+    return currentState.map((currentRow) => {
+      const differenceRow = difference
+        .find(_differenceRow => currentRow.check.common.id === _differenceRow.id);
+
+      if (differenceRow) {
+        const previousRow = previousState
+          .find(_previousRow => differenceRow.id === _previousRow.check.common.id);
+
+        if (previousRow) {
+          return previousRow;
+        }
+
+        return currentRow;
+      }
+
+      return currentRow;
+    });
+  }
+
+  return currentState;
+};
+export function* saveCreateDiff(action) {
+  const {
+    validDifferenceState,
+    invalidDifferenceState
+  } = yield getDifferenceState(action.payload.curState, action.payload.prevState);
+  const saveSate = yield select(getSave);
+  const waitingState = yield mergeDifference(validDifferenceState, saveSate.waitingState);
+  const currentState = yield setInvalidDifferenceForCurrentState(
+    [...action.payload.curState],
+    action.payload.prevState,
+    invalidDifferenceState
+  );
+
+  yield put({
+    type: SAVE_DIFF,
+    payload: {
+      waitingState,
+      prevState: currentState
+    }
+  });
 }
+window.saveCreateDiff = saveCreateDiff;
 
 export function* save() {
   try {
     yield put({type: ERROR_REMOVE, payload: {target: 'save'}});
 
     const saveProps = yield select(getSave);
-
     if (saveProps.saveState.length) {
-      const job = yield call(putSave.bind({}, saveProps.saveState));
+      const job = yield call(putSave, saveProps.saveState);
       let response = {};
 
       while (true) {
         yield call(delay, 1000);
-        response = yield call(pollingJob.bind({}, job.job_id));
+        response = yield call(pollingJob, job.job_id);
 
         if (response.failed || response.succeeded) {
           break;
