@@ -48,7 +48,7 @@ app.get('/', function root(req, res) {
 
 app.post('/tree', (req, res) => {
   setTimeout(() => {
-    res.sendFile(__dirname + '/_mock/tree/tree2.json');
+    res.sendFile(__dirname + '/_mock/tree/tree.json');
   }, 500);
 });
 
