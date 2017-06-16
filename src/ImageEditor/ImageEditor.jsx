@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
 import _isEqual from 'lodash/isEqual';
+import accepts from 'attr-accept';
 import pluralize from 'pluralize-ru';
 import {hideImageEditor} from '../dialogs/actions';
 import {updateImages} from './actions';
@@ -23,11 +24,13 @@ class ImageEditor extends React.Component {
   static defaultProps = {
     maxSize: 2e+6,
     maxLenght: 3,
+    accept: 'image/jpeg, image/png, image/gif',
   }
 
   static propTypes: {
     count: PropTypes.number,
     maxLenght: PropTypes.number,
+    accept: PropTypes.string,
   }
 
   state = initialState
@@ -94,8 +97,13 @@ class ImageEditor extends React.Component {
 
     return (
       <div>
-        {state.rejectedFiles.map(file =>
-          <p className={b('error')}>{file.name} - Превышен допустимый размер</p>
+        {state.rejectedFiles.map(file => (
+          accepts(file, props.accept) ?
+            <p className={b('error')}>{file.name} - Превышен допустимый размер</p> :
+            <p className={b('error')}>
+              Невозможно прикрепить файл. Содержание файла, не поддерживает формат изображения.
+            </p>
+          )
         )}
         {this.getTotalCount() >= props.maxLenght &&
           <p className={b('error')}>
@@ -176,7 +184,7 @@ class ImageEditor extends React.Component {
                 maxSize={this.props.maxSize}
                 className={b('drop-zone').is({disabled: this.getTotalCount() >= props.maxLenght})()}
                 onDrop={this.handleDrop}
-                accept='image/jpeg, image/png, image/gif'
+                accept={props.accept}
               >
                 <div className={b('message')}>
                   Перетащите картинку в эту область или{' '}
