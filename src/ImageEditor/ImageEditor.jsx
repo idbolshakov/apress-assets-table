@@ -99,21 +99,21 @@ class ImageEditor extends React.Component {
       <div>
         {state.rejectedFiles.map(file => (
           accepts(file, props.accept) ?
-            <p className={b('error')}>{file.name} - Превышен допустимый размер</p> :
-            <p className={b('error')}>
+            <div className={b('error')}>{file.name} - Превышен допустимый размер</div> :
+            <div className={b('error')}>
               Невозможно прикрепить файл. Содержание файла, не поддерживает формат изображения.
-            </p>
+            </div>
           )
         )}
         {this.getTotalCount() >= props.maxLenght &&
-          <p className={b('error')}>
+          <div className={b('error')}>
             Вы выбрали максимум фотографий!
-          </p>
+          </div>
         }
         {props.error &&
-          <p className={b('error')}>
+          <div className={b('error')}>
             Не удалось загрузить фотографии, повторите попытку.
-          </p>
+          </div>
         }
       </div>
     );
@@ -151,13 +151,13 @@ class ImageEditor extends React.Component {
         closable={!this.props.isFetching}
         title={
           <div>
-            <h3>Загрузка фотографий</h3>
+            <h3 className={b('title')}>Загрузка фотографий</h3>
             {count ?
-              <p>Вы выбрали {count}{' '}
+              <div className={b('choose')}>Вы выбрали {count}{' '}
                 {pluralize(count, 'ни одной', 'фотографию', 'фотографии', 'фотографии')} из {' '}
                 {props.maxLenght}
-              </p> :
-              <p>Выберите фотографию, которая подходит данной группе товаров больше всего.</p>
+              </div> :
+              <div>Выберите фотографию, которая подходит данной группе товаров больше всего.</div>
             }
             {!props.isFetching && this.renderImages()}
           </div>
@@ -178,7 +178,9 @@ class ImageEditor extends React.Component {
           <section>
             {this.renderErrors()}
             <div>
-              <p>Загрузите картинку</p>
+              {!(count >= props.maxLenght) &&
+                <div className={b('upload-title')}>Загрузите картинку</div>
+              }
               <Dropzone
                 disableClick={this.getTotalCount() >= props.maxLenght}
                 maxSize={this.props.maxSize}
