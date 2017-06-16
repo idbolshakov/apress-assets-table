@@ -5,6 +5,8 @@
   box-sizing: border-box;
   $root: &;
   & * { box-sizing: border-box; }
+  &-upload-title { margin-bottom: 15px; font-size: 12px; }
+  &-choose { margin-bottom: 18px; }
   &-drop-zone {
      height: 200px; background-color: #fff; border: dashed 2px #c1c1c1; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 10px;
      &:hover { border-color: #028dd8; }
@@ -29,7 +31,7 @@
     width: 115px; height: 80px; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; margin-right: 9px;
     &:hover #{$root}-remove { visibility: visible; }
   }
-  &-error { color: #dc6263; }
+  &-error { color: #dc6263; margin-bottom: 20px; }
   &-preloader.e-preloader { height: 140px; }
   @media (max-height: 768px) {
     &-drop-zone { height: 100px; }

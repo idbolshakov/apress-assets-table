@@ -3155,11 +3155,15 @@ li.rc-select-dropdown-menu-item-divider {
 }
 
 .rc-dialog.is-image-editor h3 {
-  margin: 0;
+  margin: 0 0 18px;
   line-height: 1.42;
   font-family: OpenSans;
   font-size: 24px;
   font-weight: 600;
+}
+
+.rc-dialog.is-image-editor .rc-dialog-header {
+  padding-bottom: 17px;
 }
 
 @keyframes rcDialogSlideFadeIn {
@@ -3348,6 +3352,15 @@ li.rc-select-dropdown-menu-item-divider {
   box-sizing: border-box;
 }
 
+.e-image-editor-upload-title {
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+
+.e-image-editor-choose {
+  margin-bottom: 18px;
+}
+
 .e-image-editor-drop-zone {
   height: 200px;
   background-color: #fff;
@@ -3440,6 +3453,7 @@ li.rc-select-dropdown-menu-item-divider {
 
 .e-image-editor-error {
   color: #dc6263;
+  margin-bottom: 20px;
 }
 
 .e-image-editor-preloader.e-preloader {
