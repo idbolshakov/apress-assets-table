@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ca10d5535c5ed8020bfa"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "379525c547353f5d2579"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -22345,7 +22345,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            focus: this.props.cell.isFocus,
 	            selected: this.props.selected,
 	            'selected-to': this.props.selectedTo,
-	            required: this.props.cell.config.required && !this.props.cell.data.common.text && !this.state.edit
+	            required: this.props.cell.config.required && !this.props.cell.data.common.text && !this.state.edit && !this.props.selectedTo
 	          }),
 	          tabIndex: -1,
 	          onClick: this.handleCellClick,
@@ -22546,8 +22546,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  switch (action.type) {
 	    case types.TABLE_EDITOR_START_TEXT_EDIT:
 	      return (0, _extends3.default)({}, state, { edit: true });
+
 	    case types.TABLE_EDITOR_END_TEXT_EDIT:
 	      return (0, _extends3.default)({}, state, { edit: false });
+
 	    case types.TABLE_EDITOR_CELL_FOCUS_NEXT:
 	      {
 	        var rows = action.payload.rows;
@@ -22559,6 +22561,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        return (0, _extends3.default)({}, state, { activeCell: activeCell || state.activeCell });
 	      }
+
 	    case types.TABLE_EDITOR_CELL_FOCUS_PREV:
 	      {
 	        var _rows = action.payload.rows;
@@ -22570,6 +22573,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        return (0, _extends3.default)({}, state, { activeCell: _activeCell || state.activeCell });
 	      }
+
 	    case types.TABLE_EDITOR_CELL_FOCUS_DOWN:
 	      {
 	        var _rows2 = action.payload.rows;
@@ -22580,6 +22584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        return (0, _extends3.default)({}, state, { activeRow: activeRow ? activeRow.check.common.id : state.activeRow });
 	      }
+
 	    case types.TABLE_EDITOR_CELL_FOCUS_UP:
 	      {
 	        var _rows3 = action.payload.rows;
@@ -22590,10 +22595,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        return (0, _extends3.default)({}, state, { activeRow: _activeRow ? _activeRow.check.common.id : state.activeRow });
 	      }
+
 	    case types.TABLE_EDITOR_CELL_FOCUS_SET:
 	      {
 	        return (0, _extends3.default)({}, state, { activeRow: action.payload.id, activeCell: action.payload.name });
 	      }
+
+	    case types.TABLE_EDITOR_ROW_ADD_ID:
+	      {
+	        var payloadItem = action.payload.find(function (row) {
+	          return row.id === state.activeRow;
+	        });
+
+	        return (0, _extends3.default)({}, state, {
+	          activeRow: payloadItem ? payloadItem.record_id : state.activeRow
+	        });
+	      }
+
 	    default:
 	      return state;
 	  }
@@ -22808,6 +22826,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    case types.TABLE_EDITOR_CELL_END_DRAG:
 	    case types.TABLE_EDITOR_CELL_END_DRAG_IMAGES:
 	      return initialState;
+
+	    case types.TABLE_EDITOR_ROW_ADD_ID:
+	      {
+	        return (0, _extends3.default)({}, state, {
+	          ids: state.ids.map(function (id) {
+	            var payloadItem = action.payload.find(function (row) {
+	              return row.id === id;
+	            });
+
+	            if (payloadItem) {
+	              return payloadItem.record_id;
+	            }
+
+	            return id;
+	          })
+	        });
+	      }
 
 	    default:
 	      return state;
