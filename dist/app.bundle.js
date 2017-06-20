@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "379525c547353f5d2579"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4768a145682bce55229b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -46560,6 +46560,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	var app = {
 	  config: {
 	    imageUploadUrl: '/upload-images',
@@ -46587,6 +46590,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	window.app = app;
+
+	exports.default = app;
 
 /***/ }),
 /* 698 */,
