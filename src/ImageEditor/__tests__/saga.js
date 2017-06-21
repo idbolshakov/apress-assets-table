@@ -13,15 +13,15 @@ describe('updateImages saga', () => {
     expect(testValue).toEqual(put(actions.saveStart()));
   });
 
-  it('should sucсess save', () => {
-    generator.next(
-      nock('http://example.com/')
-      .post('/test')
-      .reply(200, {ids:[82]})
-    ).value;
+  // it('should sucсess save', () => {
+  //   generator.next(
+  //     nock('http://example.com/')
+  //     .post('/test')
+  //     .reply(200, {ids:[82]})
+  //   ).value;
 
-    const testValue = generator.next({activeCell: 0, activeRow: 0, images: []}).value;
+  //   const testValue = generator.next({activeCell: 0, activeRow: 0, images: []}).value;
 
-    expect(testValue).toEqual(put(actions.saveSuccess()));
-  });
+  //   expect(testValue).toEqual(put(actions.saveSuccess()));
+  // });
 });

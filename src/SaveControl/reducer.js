@@ -31,7 +31,7 @@ export default function (state = initialState, action) {
     case TABLE_EDITOR_LOAD_SUCCESS:
       return {
         ...state,
-        prevState: action.payload.rows
+        prevState: [...action.payload.rows]
       };
 
     case SAVE_REPEAT:

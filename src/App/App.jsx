@@ -11,7 +11,7 @@ import TableExample from '../Table/example';
 import ScrollerExample from '../Scroller/example';
 import ActionsPanelExample from '../ActionsPanel/example';
 import TreeExample from '../Tree/ContainerTree';
-import SaveControl from '../SaveControl/SaveControl';
+import SaveControl from '../SaveControl/SaveControlContainer';
 import FloatPanelExample from '../FloatPanel/example';
 import CheckboxExample from '../Checkbox/example';
 import ActionsExample from '../Actions/example';
