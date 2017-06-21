@@ -42,6 +42,12 @@ import * as removeAction from './remove/actions';
 import * as removeSagas from './remove/sagas';
 import removeReducer from './remove/reducer';
 
+import SwitchCategory from './SwitchCategory/SwitchCategory';
+import * as switchCategorySaga from './SwitchCategory/sagas';
+import switchCategoryReducer from './SwitchCategory/reducer';
+import * as switchCategoryAction from './SwitchCategory/actions';
+
+
 import './styles/fonts.scss';
 import './styles/global.scss';
 
@@ -52,6 +58,7 @@ export const sagas = {
   tableSagas,
   saveSagas,
   removeSagas,
+  switchCategorySaga,
 };
 
 export const reducers = {
@@ -67,6 +74,7 @@ export const reducers = {
   dialogs,
   imageEditor,
   removeReducer,
+  switchCategoryReducer,
 };
 
 export const actions = {
@@ -78,6 +86,7 @@ export const actions = {
   actionsDialog,
   imageEditorActions,
   removeAction,
+  switchCategoryAction,
 };
 
 export const components = {
@@ -96,4 +105,5 @@ export const components = {
   Filter,
   Error: ComponentError,
   ContainerDialog,
+  SwitchCategory,
 };
