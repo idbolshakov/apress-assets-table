@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4768a145682bce55229b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "cb7cf6dad4091c509ab3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -41133,6 +41133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return (0, _extends5.default)({}, state, {
 	          config: (0, _extends5.default)({}, state.config, {
 	            product_group: group,
+	            page: 1,
 	            id: null
 	          }),
 	          isChange: change,
