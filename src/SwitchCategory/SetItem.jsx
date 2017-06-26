@@ -7,11 +7,11 @@ const bm = block('e-switch-cat-menu');
 const SetItem = props =>
   <div
     onClick={props.onSelect}
-    className={bm('type').mix(props.mix)}
+    className={bm('type').mix(props.mix)()}
   >
-    <div className={bm('radio-set')}>
+    <div className={bm('radio-set')()}>
       <Checkbox
-        mix={bm('radio').mix('is-radio')}
+        mix={bm('radio').mix('is-radio')()}
         checked={props.checked}
         onChange={() => {}}
       />
@@ -21,7 +21,7 @@ const SetItem = props =>
       className='e-label'
       htmlFor
     >
-      <div className={bm('description')}>
+      <div className={bm('description')()}>
         {props.children}
       </div>
     </label>
