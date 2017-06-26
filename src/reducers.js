@@ -10,6 +10,7 @@ import error from './Error/reducer';
 import dialogs from './dialogs/reducers';
 import imageEditor from './ImageEditor/reducer';
 import remove from './remove/reducer';
+import switchCategoryView from './SwitchCategory/reducer';
 
 
 export default combineReducers({
@@ -24,6 +25,7 @@ export default combineReducers({
   error,
   dialogs,
   remove,
+  switchCategoryView,
 
   config: () => ({})
 });

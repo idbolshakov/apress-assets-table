@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+/* eslint react/no-unused-prop-types: 0 */
+import React, {Component, PropTypes} from 'react';
 import _isEqual from 'lodash/isEqual';
 import {block} from '../utils';
 import './e-float-panel.scss';
@@ -6,6 +7,10 @@ import './e-float-panel.scss';
 const b = block('e-float-panel');
 
 export default class FloatPanel extends Component {
+  propTypes = {
+    onSlide: PropTypes.func,
+  }
+
   state = {togglerVisible: true};
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -14,6 +19,7 @@ export default class FloatPanel extends Component {
 
   switchToggler = () => {
     this.setState({togglerVisible: !this.state.togglerVisible});
+    this.props.onSlide(this.state.togglerVisible);
   }
 
   render() {
