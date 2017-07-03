@@ -2792,7 +2792,7 @@ li.rc-select-dropdown-menu-item-divider {
 }
 
 .e-tree-wrapper {
-  height: calc(100% - 61px);
+  height: calc(100% - 120px);
 }
 
 .e-tree-conteiner {
