@@ -5,7 +5,7 @@ import Pagination from './Pagination/Pagination';
 import Tree from './Tree/ContainerTree';
 import FloatPanel from './FloatPanel/FloatPanel';
 import Button from './Button/Button';
-import SaveControl from './SaveControl/SaveControl';
+import SaveControl from './SaveControl/SaveControlContainer';
 import Scroller from './Scroller/Scroller';
 import ActionsPanel from './ActionsPanel/ActionsPanel';
 import Filter from './Filter/Filter';

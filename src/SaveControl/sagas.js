@@ -211,11 +211,11 @@ export const getDifferenceState = (currentState, previousState) => {
 };
 
 export const mergeDifference = (difference, waitingState = []) => {
-  if (waitingState.length) {
-    difference.forEach((differenceRow) => {
-      const waitingRow = waitingState.find(_waitingRow => _waitingRow.id === differenceRow.id);
+  difference.forEach((differenceRow) => {
+    let waitingRow = waitingState.find(_waitingRow => _waitingRow.id === differenceRow.id);
 
-      if (waitingRow) {
+    if (waitingRow) {
+      if (!(differenceRow.id < 0 && differenceRow.destroy)) {
         if (waitingRow.destroy && !differenceRow.destroy) {
           delete waitingRow.destroy;
         }
@@ -232,14 +232,14 @@ export const mergeDifference = (difference, waitingState = []) => {
           }
         });
       } else {
-        waitingState.push(differenceRow);
+        waitingRow = undefined;
       }
-    });
-  } else {
-    return difference;
-  }
+    } else if (!(differenceRow.id < 0 && differenceRow.destroy)) {
+      waitingState.push(differenceRow);
+    }
+  });
 
-  return waitingState;
+  return waitingState.filter(row => !!row);
 };
 
 export const setInvalidDifferenceForCurrentState = (currentState, previousState, difference) => {
