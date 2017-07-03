@@ -3,10 +3,13 @@ import {connect} from 'react-redux';
 import SaveControl from './SaveControl';
 
 class SaveControlContainer extends Component {
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.hendlerBeforeunload);
+  }
+
   componentWillReceiveProps(nextProps) {
     const {isSave, fetchDiff, isProgress, waitingState, prevState} = nextProps.save;
     const {rows: curState} = nextProps;
-    const {removeInProgrees} = this.props;
 
     if (isSave && !fetchDiff) {
       nextProps.actions.saveCreateDiff({curState, prevState});
@@ -15,20 +18,24 @@ class SaveControlContainer extends Component {
     if (!isProgress && !fetchDiff && waitingState.length) {
       nextProps.actions.saveStart();
     }
+  }
 
-    if (isProgress || waitingState.length || fetchDiff || removeInProgrees) {
-      window.addEventListener('beforeunload', this.hendlerBeforeunload);
-    } else {
-      window.removeEventListener('beforeunload', this.hendlerBeforeunload);
-    }
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.hendlerBeforeunload);
   }
 
   hendlerBeforeunload = (e) => {
-    const message = 'Возможно внесенные изменения не сохранятся';
+    const {fetchDiff, isProgress, waitingState} = this.props.save;
+    const {removeInProgrees} = this.props;
 
-    if (e) { e.returnValue = message; }
+    if (isProgress || waitingState.length || fetchDiff || removeInProgrees) {
+      const message = 'Возможно внесенные изменения не сохранятся';
 
-    return message;
+      if (e) { e.returnValue = message; }
+
+      return message;
+    }
+    return false;
   }
 
   render() {
