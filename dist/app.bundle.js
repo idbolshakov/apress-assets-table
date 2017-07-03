@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "98485252a98192da7883"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ab302a324f507af8599c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -23304,13 +23304,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    'div',
 	    {
 	      onClick: props.onSelect,
-	      className: bm('type').mix(props.mix)
+	      className: bm('type').mix(props.mix)()
 	    },
 	    _react2.default.createElement(
 	      'div',
-	      { className: bm('radio-set') },
+	      { className: bm('radio-set')() },
 	      _react2.default.createElement(_Checkbox2.default, {
-	        mix: bm('radio').mix('is-radio'),
+	        mix: bm('radio').mix('is-radio')(),
 	        checked: props.checked,
 	        onChange: function onChange() {}
 	      }),
@@ -23328,7 +23328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      },
 	      _react2.default.createElement(
 	        'div',
-	        { className: bm('description') },
+	        { className: bm('description')() },
 	        props.children
 	      )
 	    )

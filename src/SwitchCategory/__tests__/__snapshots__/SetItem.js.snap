@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component SetItem Должен рендриться 1`] = `
+<div
+  className="e-switch-cat-menu-type"
+  onClick={[Function]}
+>
+  <div
+    className="e-switch-cat-menu-radio-set"
+  >
+    <Checkbox
+      checked={false}
+      mix="e-switch-cat-menu-radio is-radio"
+      onChange={[Function]}
+    />
+    <div>
+      Заголовок
+    </div>
+  </div>
+  <label
+    className="e-label"
+    htmlFor={true}
+  >
+    <div
+      className="e-switch-cat-menu-description"
+    >
+      description
+    </div>
+  </label>
+</div>
+`;
