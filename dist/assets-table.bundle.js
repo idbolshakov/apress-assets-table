@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e3da60cddb3f6557ad9f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fa874ceead03d242392f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20658,17 +20658,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = SaveControlContainer.__proto__ || (0, _getPrototypeOf2.default)(SaveControlContainer)).call.apply(_ref, [this].concat(args))), _this), _this.hendlerBeforeunload = function (e) {
-	      var message = 'Возможно внесенные изменения не сохранятся';
+	      var _this$props$save = _this.props.save,
+	          fetchDiff = _this$props$save.fetchDiff,
+	          isProgress = _this$props$save.isProgress,
+	          waitingState = _this$props$save.waitingState;
+	      var removeInProgrees = _this.props.removeInProgrees;
 
-	      if (e) {
-	        e.returnValue = message;
+
+	      if (isProgress || waitingState.length || fetchDiff || removeInProgrees) {
+	        var message = 'Возможно внесенные изменения не сохранятся';
+
+	        if (e) {
+	          e.returnValue = message;
+	        }
+
+	        return message;
 	      }
-
-	      return message;
+	      return false;
 	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
 	  }
 
 	  (0, _createClass3.default)(SaveControlContainer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      window.addEventListener('beforeunload', this.hendlerBeforeunload);
+	    }
+	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      var _nextProps$save = nextProps.save,
@@ -20678,7 +20693,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          waitingState = _nextProps$save.waitingState,
 	          prevState = _nextProps$save.prevState;
 	      var curState = nextProps.rows;
-	      var removeInProgrees = this.props.removeInProgrees;
 
 
 	      if (isSave && !fetchDiff) {
@@ -20688,12 +20702,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (!isProgress && !fetchDiff && waitingState.length) {
 	        nextProps.actions.saveStart();
 	      }
-
-	      if (isProgress || waitingState.length || fetchDiff || removeInProgrees) {
-	        window.addEventListener('beforeunload', this.hendlerBeforeunload);
-	      } else {
-	        window.removeEventListener('beforeunload', this.hendlerBeforeunload);
-	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      window.removeEventListener('beforeunload', this.hendlerBeforeunload);
 	    }
 	  }, {
 	    key: 'render',

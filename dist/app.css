@@ -2792,7 +2792,7 @@ li.rc-select-dropdown-menu-item-divider {
 }
 
 .e-tree-wrapper {
-  height: calc(100% - 61px);
+  height: calc(100% - 120px);
 }
 
 .e-tree-conteiner {
@@ -3690,7 +3690,7 @@ li.rc-select-dropdown-menu-item-divider {
   background: #ffffcc;
   position: relative;
   margin-top: -5px;
-  padding: 20px;
+  padding: 26px 20px;
   width: 308px;
   border-left: 3px solid #e2e288;
   border-top: 1px solid #e0e0e0;
