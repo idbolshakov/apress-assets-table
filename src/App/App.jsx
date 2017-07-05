@@ -11,7 +11,7 @@ import TableExample from '../Table/example';
 import ScrollerExample from '../Scroller/example';
 import ActionsPanelExample from '../ActionsPanel/example';
 import TreeExample from '../Tree/ContainerTree';
-import SaveControl from '../SaveControl/SaveControl';
+import SaveControl from '../SaveControl/SaveControlContainer';
 import FloatPanelExample from '../FloatPanel/example';
 import CheckboxExample from '../Checkbox/example';
 import ActionsExample from '../Actions/example';
@@ -20,10 +20,12 @@ import DialogExample from '../Dialog/example';
 import HelpExample from '../Help/example';
 import ContainerDialog from '../dialogs/ContainerDialog';
 import ErrorExample from '../Error/example';
+import SwitchCategoryExample from '../SwitchCategory/example';
 import * as actionsTable from '../Table/actions';
 import * as actionsTree from '../Tree/actions';
 import * as actionsSave from '../SaveControl/actions';
 import {block} from '../utils';
+
 
 import '../styles/global.scss';
 import './style.scss';
@@ -118,6 +120,7 @@ class App extends React.Component {
         <div className={b}>
           <ErrorExample />
         </div>
+        <SwitchCategoryExample />
       </div>
     );
   }

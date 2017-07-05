@@ -51,8 +51,8 @@
     & #{$root}-body { background: #f4f4f4; margin-bottom: 0; padding-top: 20px; }
     & #{$root}-footer { background: #f4f4f4; }
     & #{$root}-title { font-weight: normal; font-size: 12px; line-height: 1.67; color: #1f2532; }
-    & h3 { margin: 0; line-height: 1.42; font-family: OpenSans; font-size: 24px; font-weight: 600;}
-
+    & h3 { margin: 0 0 18px; line-height: 1.42; font-family: OpenSans; font-size: 24px; font-weight: 600;}
+    & #{$root}-header { padding-bottom: 17px; }
   }
 }
 

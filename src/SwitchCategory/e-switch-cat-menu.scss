@@ -1,0 +1,13 @@
+.e-switch-cat-menu {
+  box-sizing: border-box; position: relative; width: 270px; margin: 10px 0 0 -155px; box-shadow: 0 0 9px 0 rgba(59, 61, 77, 0.52); background: white; font-family: 'OpenSans'; color: #1f2532;
+  &:after { content: ''; position: absolute; top: -6px; left: 172px; width: 0; height: 0; border-style: solid; border-width: 0 6px 6px; border-color: transparent transparent #fff; }
+  &:before { content: ''; position: absolute; top: -9px; left: 170px; width: 0; height: 0; border-style: solid; border-width: 0 8px 8px; border-color: transparent transparent rgb(221, 221, 224); }
+  &-title { font-size: 13px; line-height: 1; padding: 20px; border-bottom: 1px solid #e0e0e0; }
+  &-type {
+    padding: 20px; border-bottom: 1px solid #e0e0e0; cursor: pointer;
+    &:hover { background: #f6f6f6; }
+  }
+  &-radio-set { display: flex; margin-bottom: 10px; color: #1f2532; }
+  &-radio { margin-right: 12px; font-size: 13px; }
+  &-description { font-size: 13px; line-height: 1.38; color: #61656f; }
+}

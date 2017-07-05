@@ -1,3 +1,4 @@
+/* eslint-disable */
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -48,7 +49,7 @@ app.get('/', function root(req, res) {
 
 app.post('/tree', (req, res) => {
   setTimeout(() => {
-    res.sendFile(__dirname + '/_mock/tree/tree2.json');
+    res.sendFile(__dirname + '/_mock/tree/tree.json');
   }, 500);
 });
 
@@ -91,15 +92,28 @@ app.get('/table/save/:jobId', (req, res) => {
   }
 });
 
-app.delete('/api/v1/companies/:id/empty_product_groups', (req,res) => {
+app.delete('/api/v1/companies/:id/empty_product_groups', (req, res) => {
   q = 0;
   console.log('Удалить пустые группы ------', req.params.id);
   res.json({"meta_id":"ff6cd2bf87ad8b908e2b38f2e40f5d4c0bc8c96c"});
 });
 
+// Смена вида групп
+app.get('/api/v1/companies/:company_id/company_settings/show_product_groups', (req, res) => {
+  console.log('вид групп get', req.params.company_id);
+  res.json({ "show_product_groups": false });
+});
+
+app.put('/api/v1/companies/:company_id/company_settings/show_product_groups', (req, res) => {
+  console.log('вид групп put', req.params.company_id);
+  res.json({"show_product_groups": req.body.show_product_groups});
+});
+
+// ------------------------
+
 app.get('/help', function root(req, res) {
   res.sendFile(__dirname + '/_mock/help.json');
-})
+});
 
 const server = http.createServer(app);
 server.listen(process.env.PORT || 8080, function onListen() {

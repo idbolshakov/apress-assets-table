@@ -51,6 +51,21 @@ export default (state = initialState, action) => {
     case types.TABLE_EDITOR_CELL_END_DRAG_IMAGES:
       return initialState;
 
+    case types.TABLE_EDITOR_ROW_ADD_ID: {
+      return {
+        ...state,
+        ids: state.ids.map((id) => {
+          const payloadItem = action.payload.find(row => row.id === id);
+
+          if (payloadItem) {
+            return payloadItem.record_id;
+          }
+
+          return id;
+        })
+      };
+    }
+
     default:
       return state;
   }

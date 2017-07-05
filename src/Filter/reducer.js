@@ -140,6 +140,7 @@ export default function app(state = initialState, action) {
         config: {
           ...state.config,
           product_group: group,
+          page: 1,
           id: null
         },
         isChange: change,

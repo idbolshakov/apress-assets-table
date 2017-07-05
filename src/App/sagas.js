@@ -6,6 +6,8 @@ import {loadRubricatorData, setRubricatorPosition} from '../Tree/sagas';
 import {saveCreateDiff, save} from '../SaveControl/sagas';
 import * as remove from '../remove/sagas';
 import * as removeAction from '../remove/actions';
+import * as switchCategoryAction from '../SwitchCategory/actions';
+import * as switchCategorySaga from '../SwitchCategory/sagas';
 
 
 export default function* subscribeForLoadTableData() {
@@ -20,4 +22,9 @@ export default function* subscribeForLoadTableData() {
   yield takeLatest(removeAction.DELETE_GROUP, remove.deleteGroup);
   yield takeLatest(removeAction.REMOVE_EMPTY_GROUPS, remove.deleteEmptyGroups);
   yield takeLatest(removeAction.REMOVE_GROUPS, remove.removeGroups);
+  yield takeLatest(
+    switchCategoryAction.SWITCH_CATEGORY_UPDATE,
+    switchCategorySaga.changeCategoryView
+  );
+  yield takeLatest(switchCategoryAction.SWITCH_CATEGORY_INIT, switchCategorySaga.init);
 }
