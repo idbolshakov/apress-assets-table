@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fa874ceead03d242392f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b2357f154e55d41ffc86"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -41937,7 +41937,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    CONFIG_SET_SORT = _import.actionsFilter.CONFIG_SET_SORT,
 	    CONFIG_SET_FILTER = _import.actionsFilter.CONFIG_SET_FILTER;
 	function loadConfig(data) {
-	  var config;
+	  var config, actions;
 	  return _regenerator2.default.wrap(function loadConfig$(_context) {
 	    while (1) {
 	      switch (_context.prev = _context.next) {
@@ -41947,15 +41947,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return (0, _import.put)({ type: CONFIG_LOAD_SUCCESS, payload: config });
 
 	        case 3:
-	          _context.next = 5;
-	          return (0, _keys2.default)(data.payload.query).map(function (key) {
-	            var params = JSON.parse(data.payload.query[key]);
-	            var otherActions = {
-	              page: CONFIG_SET_PAGE
-	            };
+	          actions = [];
+
+
+	          (0, _keys2.default)(data.payload.query).forEach(function (key) {
+	            var params = void 0;
+	            try {
+	              params = JSON.parse(data.payload.query[key]);
+	            } catch (e) {
+	              params = data.payload.query[key];
+	            }
 
 	            if (params.sort) {
-	              return (0, _import.put)({
+	              actions.push((0, _import.put)({
 	                type: CONFIG_SET_SORT,
 	                payload: {
 	                  name: key,
@@ -41963,50 +41967,51 @@ return /******/ (function(modules) { // webpackBootstrap
 	                  id: params.sort.direction,
 	                  priority: params.sort.priority
 	                }
-	              });
+	              }));
 	            }
 
 	            if (params.filter) {
-	              return (0, _import.put)({
+	              actions.push((0, _import.put)({
 	                type: CONFIG_SET_FILTER,
 	                payload: {
 	                  name: key,
 	                  onLoad: true,
 	                  id: params.filter
 	                }
-	              });
+	              }));
 	            }
 
 	            if (key === 'group') {
-	              return (0, _import.put)({
+	              actions.push((0, _import.put)({
 	                type: TREE_SET_NODE,
 	                payload: {
 	                  name: key,
 	                  onLoad: true,
 	                  urlName: params.url_name
 	                }
-	              });
+	              }));
 	            }
 
-	            if (otherActions[key]) {
-	              return (0, _import.put)({
-	                type: otherActions[key],
+	            if (key === 'page') {
+	              actions.push((0, _import.put)({
+	                type: CONFIG_SET_PAGE,
 	                payload: params
-	              });
+	              }));
 	            }
-
-	            return false;
 	          });
 
-	        case 5:
 	          _context.next = 7;
-	          return (0, _import.put)({ type: TABLE_EDITOR_LOAD_START, payload: null });
+	          return actions;
 
 	        case 7:
 	          _context.next = 9;
-	          return (0, _import.put)({ type: TREE_LOAD_START, payload: null });
+	          return (0, _import.put)({ type: TABLE_EDITOR_LOAD_START, payload: null });
 
 	        case 9:
+	          _context.next = 11;
+	          return (0, _import.put)({ type: TREE_LOAD_START, payload: null });
+
+	        case 11:
 	        case 'end':
 	          return _context.stop();
 	      }
