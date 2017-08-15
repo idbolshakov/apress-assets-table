@@ -21,8 +21,8 @@ import * as actionsDialog from './dialogs/actions';
 import * as actionsCable from './Cable/actions';
 
 import reducerTree from './Tree/reducer';
-import reducerTable from './Table/reducerTable';
-import reducerRow from './Table/reducerRow';
+import tableReducer from './Table/tableReducer';
+import rowReducer from './Table/rowReducer';
 import reducerSaveControl from './SaveControl/reducer';
 import reducerFilter from './Filter/reducer';
 import selected from './Table/reducers/selected';
@@ -67,8 +67,8 @@ export const sagas = {
 };
 
 export const reducers = {
-  reducerTable,
-  reducerRow,
+  tableReducer,
+  rowReducer,
   reducerTree,
   reducerSaveControl,
   reducerFilter,

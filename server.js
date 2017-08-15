@@ -9,7 +9,7 @@ let q = 0;
 
 (function initWebpack() {
   const webpack = require('webpack');
-  const webpackConfig = require('./webpack.config');
+  const webpackConfig = require('./webpack.dev.config');
   const compiler = webpack(webpackConfig);
 
   app.use(require('webpack-dev-middleware')(compiler, {

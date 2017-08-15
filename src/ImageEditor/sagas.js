@@ -9,9 +9,8 @@ const UPLOAD_URL = app.config.imageUploadUrl;
 const MODEL_NAME = app.config.imageModelName;
 
 export function* updateImages(action) {
-  // ToDo: тут еще все изменится, бек не приняли
   const {images, files} = action.payload;
-  const {activeRow, activeCell} = yield select(state => state.focus);
+  const {activeRow, activeCell} = yield select(state => state.table.focus);
 
   yield put(saveStart());
 

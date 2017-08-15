@@ -1,10 +1,11 @@
 import * as types from '../actions';
 
 const initialState = {
-  ids: [],
-  idTo: [],
-  isSelected: false,
+  isSelecting: false,
   isDragging: false,
+  cellFrom: {},
+  cellTo: {},
+  cellDragged: {}
 };
 
 export default (state = initialState, action) => {
@@ -12,59 +13,58 @@ export default (state = initialState, action) => {
     case types.TABLE_EDITOR_CELL_SELECT_START:
       return {
         ...state,
-        ids: [action.payload.id],
-        idTo: [],
-        name: action.payload.name,
-        isSelected: true
+        cellFrom: {
+          row: action.payload.row,
+          column: action.payload.column
+        },
+        cellTo: {
+          row: action.payload.row,
+          column: action.payload.column
+        },
+        isSelecting: true,
       };
+
+    case types.TABLE_EDITOR_CELL_SELECT_END:
+      return {
+        ...state,
+        isSelecting: false,
+        isDragging: false,
+      };
+
+    case types.TABLE_EDITOR_CELL_SELECT_CONTINUE:
+      if (state.isSelecting) {
+        return {
+          ...state,
+          cellTo: {
+            row: action.payload.row,
+            column: state.cellFrom.column
+          },
+        };
+      }
+      if (state.isDragging) {
+        return {
+          ...state,
+          cellDragged: {
+            row: action.payload.row,
+            column: state.cellFrom.column
+          },
+        };
+      }
+      return state;
 
     case types.TABLE_EDITOR_CELL_START_DRAG:
       return {
         ...state,
-        isSelected: false,
+        isSelecting: false,
         isDragging: true,
+        cellDragged: {
+          row: action.payload.row,
+          column: state.cellFrom.column
+        }
       };
 
-    case types.TABLE_EDITOR_CELL_SELECT_ADD:
-      return {...state, ids: [...state.ids, action.payload.id]};
-
-    case types.TABLE_EDITOR_CELL_SELECT_ADD_TO:
-      return {...state, idTo: [...state.idTo, action.payload.id]};
-
-    case types.TABLE_EDITOR_CELL_SELECT_REMOVE:
-      return {
-        ...state,
-        ids: state.ids.filter((id, index) =>
-          (id !== action.payload.id && state.ids.length - 1 !== index)),
-      };
-    case types.TABLE_EDITOR_CELL_SELECT_REMOVE_TO:
-      return {
-        ...state,
-        idTo: state.idTo.filter((id, index) =>
-          (id !== action.payload.id && state.idTo.length - 1 !== index)),
-      };
-
-    case types.TABLE_EDITOR_CELL_SELECT_END:
-      return {...state, isSelected: false};
-
-    case types.TABLE_EDITOR_CELL_END_DRAG:
-    case types.TABLE_EDITOR_CELL_END_DRAG_IMAGES:
+    case types.TABLE_EDITOR_CELL_SELECT_RESET:
       return initialState;
-
-    case types.TABLE_EDITOR_ROW_ADD_ID: {
-      return {
-        ...state,
-        ids: state.ids.map((id) => {
-          const payloadItem = action.payload.find(row => row.id === id);
-
-          if (payloadItem) {
-            return payloadItem.record_id;
-          }
-
-          return id;
-        })
-      };
-    }
 
     default:
       return state;

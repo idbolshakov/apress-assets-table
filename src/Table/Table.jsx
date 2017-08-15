@@ -1,5 +1,6 @@
 /* eslint react/no-unused-prop-types: 0 */
-import React, {PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import _throttle from 'lodash/throttle';
 import {connect} from 'react-redux';
 import _isEqual from 'lodash/isEqual';
@@ -18,16 +19,30 @@ import {
 
 const b = block('e-table');
 
-class Table extends React.Component {
+class Table extends Component {
+
   static propTypes = {
-    table: PropTypes.object,
-    config: PropTypes.object,
-    placeholder: PropTypes.object
-  }
+    actions: PropTypes.objectOf(PropTypes.func),
+    config: PropTypes.objectOf(PropTypes.object),
+    countRow: PropTypes.number,
+    dispatch: PropTypes.func,
+    edit: PropTypes.bool,
+    history: PropTypes.shape({
+      current: PropTypes.arrayOf(PropTypes.object),
+      prev: PropTypes.array
+    }),
+    placeholder: PropTypes.object,
+    selectFilter: PropTypes.func,
+    selectSort: PropTypes.func,
+    table: PropTypes.shape({
+      columns: PropTypes.arrayOf(PropTypes.object),
+      isLoaded: PropTypes.bool
+    })
+  };
 
   state = {
     scrollLeft: 0,
-  }
+  };
 
   componentDidMount() {
     this.$node.addEventListener('scroll', this.handleTableScroll, false);
@@ -45,61 +60,67 @@ class Table extends React.Component {
 
   handleTableScroll = _throttle(() => { this.tableScroll(); }, 500);
 
-  handleKeyDown = (e) => {
-    if (!this.props.edit) {
-      if (e.keyCode === 90 && (e.ctrlKey || e.metaKey)) {
-        if (this.props.history.prev.length) {
-          console.log('ctr key was pressed during the click');
-          this.props.dispatch(historyPrev());
+  handleKeyDown = (event) => {
+    const {edit, history, dispatch} = this.props;
+    if (!edit) {
+      if (event.keyCode === 90 && (event.ctrlKey || event.metaKey)) {
+        if (history.prev.length) {
+          dispatch(historyPrev());
         }
       }
-      if (e.keyCode === 89 && (e.ctrlKey || e.metaKey)) {
-        if (this.props.history.next.length) {
-          console.log('ctr key was pressed during the click');
-          this.props.dispatch(historyNext());
+      if (event.keyCode === 89 && (event.ctrlKey || event.metaKey)) {
+        if (history.next.length) {
+          dispatch(historyNext());
         }
       }
-      e.preventDefault();
-      if (e.keyCode === 38) {
-        this.props.dispatch(focusUp());
-      } else if (e.keyCode === 40) {
-        this.props.dispatch(focusDown());
-      } else if (e.keyCode === 37) {
-        this.props.dispatch(focusPrev());
-      } else if (e.keyCode === 39) {
-        this.props.dispatch(focusNext());
+      event.preventDefault();
+      if (event.keyCode === 38) {
+        dispatch(focusUp({rows: history.current}));
+      } else {
+        if (event.keyCode === 40) {
+          dispatch(focusDown({rows: history.current}));
+        } else {
+          if (event.keyCode === 37) {
+            dispatch(focusPrev({rows: history.current}));
+          } else {
+            if (event.keyCode === 39) {
+              dispatch(focusNext({rows: history.current}));
+            }
+          }
+        }
       }
     }
-  }
+  };
 
   render() {
-    const props = this.props;
+    const {table, selectFilter, selectSort, actions, countRow, config, placeholder, readonly} = this.props;
+
     return (
       <div
         tabIndex={-1}
         onKeyDown={this.handleKeyDown}
         ref={(node) => { this.$node = node; }}
-        className={b.mix(`is-columns-${props.table.columns.length}`)}
+        className={b.mix(`is-columns-${table.columns.length}`)}
       >
-        {props.table.isLoaded ?
+        {table.isLoaded ?
           <div className={b('wrapper')}>
             <div className={b('header')}>
               <Header
-                table={props.table}
-                selectFilter={props.selectFilter}
-                selectSort={props.selectSort}
-                setCheckAll={props.actions.setCheckAll}
-                countRow={props.countRow}
+                table={table}
+                selectFilter={selectFilter}
+                selectSort={selectSort}
+                setCheckAll={actions.setCheckAll}
+                countRow={countRow}
               />
             </div>
             <Body
-              table={props.table}
-              config={props.config}
-              placeholder={props.placeholder}
-              actions={props.actions}
+              table={table}
+              config={config}
+              placeholder={placeholder}
+              actions={actions}
               $rootNode={this.$node}
               scrollLeft={this.state.scrollLeft}
-              readonly={props.readonly}
+              readonly={readonly}
             />
           </div> :
           <div className='e-spinner' />
@@ -110,8 +131,8 @@ class Table extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  edit: state.focus.edit,
-  history: state.history,
+  edit: state.table.focus.edit,
+  history: state.table.history,
 });
 
 export default connect(mapStateToProps)(Table);

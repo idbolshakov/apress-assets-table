@@ -270,8 +270,8 @@ export function* saveCreateDiff(action) {
     validDifferenceState,
     invalidDifferenceState
   } = yield getDifferenceState(action.payload.curState, action.payload.prevState);
-  const saveSate = yield select(getSave);
-  const waitingState = yield mergeDifference(validDifferenceState, saveSate.waitingState);
+  const saveState = yield select(getSave);
+  const waitingState = yield mergeDifference(validDifferenceState, saveState.waitingState);
   const currentState = yield setInvalidDifferenceForCurrentState(
     [...action.payload.curState],
     action.payload.prevState,

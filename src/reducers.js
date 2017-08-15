@@ -1,10 +1,7 @@
 import {combineReducers} from 'redux';
-import table from './Table/reducerTable';
+import table from './Table/tableReducer';
 import tree from './Tree/reducer';
 import save from './SaveControl/reducer';
-import selected from './Table/reducers/selected';
-import focus from './Table/reducers/focus';
-import history from './Table/reducers/history';
 import help from './Help/reducer';
 import error from './Error/reducer';
 import dialogs from './dialogs/reducers';
@@ -18,9 +15,6 @@ export default combineReducers({
   imageEditor,
   tree,
   save,
-  history,
-  selected,
-  focus,
   help,
   error,
   dialogs,
