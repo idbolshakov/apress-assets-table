@@ -84,11 +84,15 @@ class ContainerTree extends Component {
       this.filterTree(this.props.tree.data, new RegExp(this.state.filter, 'i')) :
       this.props.tree.data;
 
+    const searchHtml = (
+      <div className={b('search')}>
+        <Search onChange={value => this.setState({filter: value})} />
+      </div>
+    );
+
     return (
       <div className={b('conteiner').is({spinner: !this.props.isLoaded})}>
-        <div className={b('search')}>
-          <Search onChange={value => this.setState({filter: value})} />
-        </div>
+        {!this.props.withoutSearch && searchHtml}
 
         <div className={b('wrapper')}>
           <TreeDndContext

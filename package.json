@@ -6,7 +6,8 @@
   "style": "./dist/assets-table.css",
   "scripts": {
     "dev": "node bin/server.js",
-    "prod": "NODE_ENV=production webpack --config webpack.config.js",
+    "prod": "set NODE_ENV=production && ./node_modules/.bin/webpack --config webpack.config.js",
+    "watch": "set NODE_ENV=production && ./node_modules/.bin/webpack --config webpack.config.js --watch",
     "test": "jest --silent",
     "test:watch": "npm test -- --watch --silent",
     "test:coverage": "jest --coverage"
@@ -53,7 +54,7 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.0",
     "express": "^4.15.2",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^20.0.4",
@@ -70,7 +71,7 @@
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.2",
     "url-loader": "^0.5.8",
-    "webpack": "^1.14.0",
+    "webpack": "^2.7.0",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.17.1"
   },

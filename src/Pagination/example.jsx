@@ -8,10 +8,10 @@ export default class PaginationExample extends React.Component {
     activePage: 3
   };
 
-  handleSelect = (number) => {
-    console.log(`change page - ${number}`);
+  handleSelect = ({page}) => {
+    console.log(`change page - ${page}`);
     this.setState({
-      activePage: number
+      activePage: page
     });
   }
 

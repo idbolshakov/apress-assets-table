@@ -99,6 +99,7 @@ class Table extends React.Component {
               actions={props.actions}
               $rootNode={this.$node}
               scrollLeft={this.state.scrollLeft}
+              readonly={props.readonly}
             />
           </div> :
           <div className='e-spinner' />

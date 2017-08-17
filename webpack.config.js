@@ -21,43 +21,51 @@ const config = {
     path: path.resolve(__dirname, './dist'),
   },
   module: {
-    preLoaders: [{
-      test: /\.js|jsx$/,
-      loaders: ['eslint'],
-      exclude: /node_modules/,
-    }],
-    loaders: [{
+    rules: [{
+      enforce: 'pre',
       test: /\.js|jsx$/,
       exclude: /node_modules/,
-      loaders: ['babel-loader'],
+      use: ['eslint-loader'],
+    },
+    {
+      test: /\.js|jsx$/,
+      exclude: /node_modules/,
+      use: ['babel-loader'],
     },
     {
       test: /\.scss|.sass$/,
-      loader: ExtractTextPlugin.extract('style', 'css!resolve-url!sass'),
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [{
+          loader: 'css-loader'
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            functions: {
+              'encode-base64($string)': ($string) => {
+                const buffer = new Buffer($string.getValue());
+                return nodeSass.types.String(buffer.toString('base64'));
+              }
+            },
+          },
+        }]
+      }),
     },
     {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract('style', 'css'),
-    },
-    {
-      test: /\.json$/,
-      loader: 'json-loader'
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: 'css-loader',
+      }),
     },
     {
       test: /\.woff$/,
-      loader: 'url?limit=65000000&mimetype=application/font-woff2&name=public/fonts/[name].[ext]'
+      use: 'url-loader?limit=65000000&mimetype=application/font-woff2&name=public/fonts/[name].[ext]'
     }]
   },
-  sassLoader: {
-    functions: {
-      'encode-base64($string)': ($string) => {
-        const buffer = new Buffer($string.getValue());
-        return nodeSass.types.String(buffer.toString('base64'));
-      },
-    },
-  },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css', '.scss'],
+    extensions: ['.js', '.jsx', '.css', '.scss'],
   },
   externals: {
     react: {
@@ -90,20 +98,17 @@ const config = {
       commonjs: 'react-redux',
       amd: 'react-redux'
     },
-    'app': 'app',
+    'app': 'app'
   },
   plugins: [
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(NODE_ENV),
      'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('[name].css', {allChunks: true}),
-    new webpack.BannerPlugin('eslint-disable', {entryOnly: false}),
-    new webpack.BannerPlugin('jshint ignore: start', {entryOnly: false}),
-    new webpack.BannerPlugin('scss-lint:disable all', {entryOnly: false}),
+    new ExtractTextPlugin({filename: '[name].css', allChunks: true}),
+    new webpack.BannerPlugin({banner: 'eslint-disable', entryOnly: false}),
+    new webpack.BannerPlugin({banner: 'jshint ignore: start', entryOnly: false}),
+    new webpack.BannerPlugin({banner: 'scss-lint:disable all', entryOnly: false}),
     new CleanWebpackPlugin([
       path.resolve(__dirname, './dist'),
       path.resolve(__dirname, './dist'),
@@ -114,9 +119,27 @@ const config = {
 if (NODE_ENV === 'development') {
   config.entry.app.unshift('webpack-hot-middleware/client');
   config.output.publicPath = '/static/';
-  config.module.loaders[0].loaders.unshift('react-hot');
-  config.module.loaders[1].loader = "style-loader!css-loader?sourceMap!sass-loader?sourceMap";
-  config.module.loaders[2].loader = "style-loader!css-loader?sourceMap!";
+  config.module.rules[1].use.unshift('react-hot-loader');
+  config.module.rules[2].use = [
+    {
+      loader: 'style-loader'
+    },
+    {
+      loader: 'css-loader?sourceMap'
+    },
+    {
+      loader: 'sass-loader?sourceMap',
+      options: {
+        functions: {
+          'encode-base64($string)': ($string) => {
+            const buffer = new Buffer($string.getValue());
+            return nodeSass.types.String(buffer.toString('base64'));
+          }
+        },
+      }
+    }
+  ];
+  config.module.rules[3].use = ['style-loader', 'css-loader?sourceMap'];
   config.externals = {};
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
 }

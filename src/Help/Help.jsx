@@ -33,7 +33,7 @@ class Help extends React.Component {
 
     const regexp = new RegExp(this.state.filter, 'i');
     let list = this.props.help.filter(item => regexp.test(item.title))
-      .map(item => <HelpItem title={item.title} content={item.content} />);
+      .map(item => <HelpItem key={item.id} title={item.title} content={item.content} />);
     list = list.length ? list : (
       <div className={b('container')}>
         <p className={b('empty')}>Ничего не найдено</p>

@@ -94,9 +94,9 @@ class ImageCell extends Component {
             'selected-to': props.selectedTo,
           })
         }
-        onKeyDown={this.handleKeyPress}
-        onClick={this.handleCellClick}
-        onDoubleClick={this.handeDoubleClick}
+        onKeyDown={props.cell.data.binder && this.handleKeyPress}
+        onClick={props.cell.data.binder && this.handleCellClick}
+        onDoubleClick={props.cell.data.binder && this.handeDoubleClick}
         ref={($td) => { $td && props.cell.isFocus && $td.focus(); }}
         // ToDo: нужен бек
         // onMouseEnter={this.handleSelection}
