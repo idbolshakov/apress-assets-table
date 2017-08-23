@@ -9,7 +9,8 @@ const {
   CONFIG_SET_FILTER,
   CONFIG_SET_SORT,
   CONFIG_RESET,
-  CONFIG_SET_ID
+  CONFIG_SET_ID,
+  CONFIG_SET_SCENARIO
 } = actionsFilter;
 
 const initialState = {
@@ -72,10 +73,10 @@ export default function app(state = initialState, action) {
     case CONFIG_SET_PAGE: {
       const params = {
         ...state.params,
-        page: action.payload
+        page: action.payload.page
       };
 
-      if (!action.payload || action.payload === 1) {
+      if (!action.payload.page || action.payload.page === 1) {
         delete params.page;
       }
 
@@ -83,7 +84,7 @@ export default function app(state = initialState, action) {
         ...state,
         config: {
           ...state.config,
-          page: action.payload
+          page: action.payload.page
         },
         isChange: !action.payload.onLoad,
         params
@@ -240,6 +241,13 @@ export default function app(state = initialState, action) {
 
     case CONFIG_RESET: {
       return reset(state);
+    }
+
+    case CONFIG_SET_SCENARIO: {
+      return {
+        ...state,
+        scenario: action.payload
+      };
     }
 
     default:

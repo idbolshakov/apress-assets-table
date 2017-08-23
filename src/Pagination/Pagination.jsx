@@ -10,8 +10,8 @@ const b = block('e-pagination');
 const Pagination = (props) => {
   const nextIsDisabled = props.activePage >= props.items;
   const prevIsDisabled = props.activePage === 1;
-  const handleDicrement = (e) => { !prevIsDisabled && props.onSelect(props.activePage - 1, e); };
-  const handleIncrement = (e) => { !nextIsDisabled && props.onSelect(props.activePage + 1, e); };
+  const handleDicrement = (e) => { !prevIsDisabled && props.onSelect({page: props.activePage - 1}, e); };
+  const handleIncrement = (e) => { !nextIsDisabled && props.onSelect({page: props.activePage + 1}, e); };
   const options = [];
   for (let page = 1; page <= props.items; ++page) {
     options.push(<Option key={page} text={page}>{page}</Option>);
@@ -30,7 +30,7 @@ const Pagination = (props) => {
           value={`${props.activePage}`}
           showSearch={false}
           style={{width: 52}}
-          onChange={(val) => { props.onSelect(+val); }}
+          onChange={(val) => { props.onSelect({page: Number(val)}); }}
           dropdownAlign={{points: ['tc', 'bc']}}
           dropdownMenuStyle={{width: 85}}
         >

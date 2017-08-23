@@ -3,6 +3,7 @@ import {
   actionsTree,
   actionsTable,
   actionsFilter,
+  _toInteger,
 } from './import';
 
 const {TREE_LOAD_START, TREE_SET_NODE} = actionsTree;
@@ -14,17 +15,18 @@ const {
   CONFIG_SET_FILTER
 } = actionsFilter;
 
-export default function* loadConfig(data) {
-  const config = app.config.scenarios.current.config;
+export default function* loadConfig(action) {
+  const config = action.payload.config || app.config.scenarios.current.config;
   yield put({type: CONFIG_LOAD_SUCCESS, payload: config});
   const actions = [];
 
-  Object.keys(data.payload.query).forEach((key) => {
+
+  Object.keys(action.payload.location.query).forEach((key) => {
     let params;
     try {
-      params = JSON.parse(data.payload.query[key]);
+      params = JSON.parse(action.payload.location.query[key]);
     } catch (e) {
-      params = data.payload.query[key];
+      params = action.payload.location.query[key];
     }
 
     if (params.sort) {
@@ -64,12 +66,15 @@ export default function* loadConfig(data) {
     if (key === 'page') {
       actions.push(put({
         type: CONFIG_SET_PAGE,
-        payload: params
+        payload: {
+          page: _toInteger(params),
+          onLoad: true
+        }
       }));
     }
   });
 
   yield actions;
-  yield put({type: TABLE_EDITOR_LOAD_START, payload: null});
+  yield put({type: TABLE_EDITOR_LOAD_START, payload: {}});
   yield put({type: TREE_LOAD_START, payload: null});
 }

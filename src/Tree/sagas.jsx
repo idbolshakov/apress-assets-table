@@ -62,7 +62,7 @@ export function* setRubricatorPosition({payload}) {
   try {
     yield put({type: ERROR_REMOVE, payload: {target: 'tree'}});
     yield call(updateRubricatorPosition.bind({}, payload));
-    yield put({type: TABLE_EDITOR_LOAD_START, payload: null});
+    yield put({type: TABLE_EDITOR_LOAD_START, payload: {}});
   } catch (err) {
     console.log(err);
   }

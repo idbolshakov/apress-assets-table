@@ -7,6 +7,9 @@ import Text from './Text';
 import Check from './Check';
 import Image from './Image';
 import Path from './Path';
+import Price from './Price';
+import Exists from './Exists';
+import CheckRelatedProducts from './CheckRelatedProducts';
 import {block} from '../utils';
 import Actions from '../Actions/Actions';
 import * as remove from '../remove/actions';
@@ -22,15 +25,15 @@ class Body extends React.Component {
     return !_isEqual(this.props, nextProps);
   }
 
-  renderCell = (row, cell, index, props = this.props) => {
+  renderCell = (row, rowId, cell, index, props = this.props) => {
     const dataRow = {
-      id: row.check.common.id,
+      id: rowId,
       data: row[cell],
       name: cell,
       classMix: cell.replace(/_/g, '-'),
       placeholder: props.placeholder[cell],
       config: props.config[cell],
-      isFocus: row.check.common.id === props.focused.activeRow && cell === props.focused.activeCell,
+      isFocus: rowId === props.focused.activeRow && cell === props.focused.activeCell,
     };
 
     const componentsCell = {
@@ -39,63 +42,78 @@ class Body extends React.Component {
         key={index}
         cell={dataRow}
         setCheck={props.actions.setCheck}
-        checked={props.table.checked.includes(row.check.common.id)}
+        checked={props.table.checked.includes(rowId)}
       />,
       img: <Image key={index} cell={dataRow} />,
       path: <Path key={index} cell={dataRow} />,
+      price: <Price key={index} cell={dataRow} />,
+      exists: <Exists key={index} cell={dataRow} />,
+      check_related_products: <CheckRelatedProducts
+        key={index}
+        cell={dataRow}
+        actions={this.props.actions.relatedProducts}
+      />
     };
 
     return componentsCell[props.config[cell].type];
   };
 
-  renderRow = (row, props = this.props) =>
-    <Trigger
-      key={row.check.common.id}
-      action={['hover']}
-      popup={<Actions
-        mix={b('actions')()}
-        actions={[
-          {
-            name: 'add',
-            title: 'Добавить группу',
-            onClick: () => props.actions.addNewRow({
-              target: row,
-              parent: row,
-              new_row: props.table.new_row
-            })
-          },
-          {
-            name: 'delete',
-            title: 'Удалить группу',
-            onClick: () => {
-              props.dispatch(remove.removeGroup({
-                id: row.check.common.id,
-                name: row.name.common.text,
-              }));
-            }
-          },
-        ]}
-      />}
-      popupAlign={{
-        points: ['cl', 'cl'],
-        destroyPopupOnHide: true,
-        offset: [-12 + props.scrollLeft, 0],
-        overflow: {
-          adjustX: false,
-          adjustY: false,
-        },
-      }}
-    >
+  renderRow = (row, props = this.props) => {
+    const rowId = row.check ? row.check.common.id : row.check_related_products.common.id;
+    const rowHtml = (
       <div
-        key={row.check.common.id}
+        key={rowId}
         className={b('body-tr').is({
-          checked: props.table.checked.includes(row.check.common.id),
-          new: String(row.check.common.id).includes('-')
+          checked: props.table.checked.includes(rowId),
+          new: String(rowId).includes('-')
         })}
       >
-        {Object.keys(row).map((cell, index) => this.renderCell(row, cell, index))}
+        {Object.keys(row).map((cell, index) => this.renderCell(row, rowId, cell, index))}
       </div>
-    </Trigger>;
+    );
+
+    return props.readonly ? (rowHtml) : (
+      <Trigger
+        key={rowId}
+        action={['hover']}
+        popup={<Actions
+          mix={b('actions')()}
+          actions={[
+            {
+              name: 'add',
+              title: 'Добавить группу',
+              onClick: () => props.actions.addNewRow({
+                target: row,
+                parent: row,
+                new_row: props.table.new_row
+              })
+            },
+            {
+              name: 'delete',
+              title: 'Удалить группу',
+              onClick: () => {
+                props.dispatch(remove.removeGroup({
+                  id: rowId,
+                  name: row.name.common.text,
+                }));
+              }
+            },
+          ]}
+        />}
+        popupAlign={{
+          points: ['cl', 'cl'],
+          destroyPopupOnHide: true,
+          offset: [-12 + props.scrollLeft, 0],
+          overflow: {
+            adjustX: false,
+            adjustY: false,
+          },
+        }}
+      >
+        {rowHtml}
+      </Trigger>
+    );
+  }
 
   render() {
     return (

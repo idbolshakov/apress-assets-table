@@ -7,6 +7,7 @@ export const CONFIG_SET_FILTER = 'CONFIG_SET_FILTER';
 export const CONFIG_SET_SORT = 'CONFIG_SET_SORT';
 export const CONFIG_RESET = 'CONFIG_RESET';
 export const CONFIG_SET_ID = 'CONFIG_SET_ID';
+export const CONFIG_SET_SCENARIO = 'CONFIG_SET_SCENARIO';
 
 export const setPage = payload => ({
   type: CONFIG_SET_PAGE,
@@ -45,5 +46,10 @@ export const loadConfig = payload => ({
 
 export const reset = payload => ({
   type: CONFIG_RESET,
+  payload
+});
+
+export const setScenario = payload => ({
+  type: CONFIG_SET_SCENARIO,
   payload
 });

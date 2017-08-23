@@ -238,17 +238,17 @@ class TextCell extends Component {
           })
         }
         tabIndex={-1}
-        onClick={this.handleCellClick}
-        onDoubleClick={() => this.handlerEdit(true)}
-        onKeyDown={this.handleKeyPress}
-        onMouseEnter={this.handleSelection}
-        onMouseDown={() => { this.handleStartSelection(); }}
-        onMouseUp={() => { this.handleMouseUp(); }}
+        onClick={this.props.cell.data.binder && this.handleCellClick}
+        onDoubleClick={() => this.props.cell.data.binder && this.handlerEdit(true)}
+        onKeyDown={this.props.cell.data.binder && this.handleKeyPress}
+        onMouseEnter={this.props.cell.data.binder && this.handleSelection}
+        onMouseDown={() => { this.props.cell.data.binder && this.handleStartSelection(); }}
+        onMouseUp={() => { this.props.cell.data.binder && this.handleMouseUp(); }}
         onDragStart={e => e.preventDefault}
         onSelect={e => e.preventDefault}
       >
         {text}
-        {this.props.isLast &&
+        {this.props.isLast && this.props.cell.data.binder &&
           <div onMouseDown={this.handleDrag} className={b('drag-tool')} />
         }
         {!this.state.edit && this.props.cell.config.ckeditor &&
