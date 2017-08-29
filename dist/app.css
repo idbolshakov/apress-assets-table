@@ -1990,7 +1990,8 @@ li.rc-select-dropdown-menu-item-divider {
     display: flex;
     align-items: center;
     padding-left: 30px;
-    flex: 0 0 0; }
+    flex: 0 0 0;
+    -ms-flex: 1 0 auto; }
   .e-actions-panel-filter-item {
     cursor: pointer;
     border-radius: 13px;
