@@ -6,8 +6,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
+  devtool: 'source-map',
   entry: {
-    app: ['babel-polyfill', path.resolve(__dirname, './src/index')],
+    app: ['webpack-hot-middleware/client', 'babel-polyfill', path.resolve(__dirname, './src/index')],
     'assets-table': [path.resolve(__dirname, './src/export')],
     'assets-help': [path.resolve(__dirname, './src/exportHelp')]
   },
@@ -16,6 +17,7 @@ const config = {
     libraryTarget: 'umd',
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, './dist'),
+    publicPath: '/static/',
   },
   module: {
     rules: [{
@@ -27,17 +29,19 @@ const config = {
     {
       test: /\.js|jsx$/,
       exclude: /node_modules/,
-      use: ['babel-loader'],
+      use: ['react-hot-loader', 'babel-loader'],
     },
     {
       test: /\.scss|.sass$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [{
-          loader: 'css-loader'
+      use: [
+        {
+          loader: 'style-loader'
         },
         {
-          loader: 'sass-loader',
+          loader: 'css-loader?sourceMap'
+        },
+        {
+          loader: 'sass-loader?sourceMap',
           options: {
             functions: {
               'encode-base64($string)': ($string) => {
@@ -45,16 +49,13 @@ const config = {
                 return nodeSass.types.String(buffer.toString('base64'));
               }
             },
-          },
-        }]
-      }),
+          }
+        }
+      ],
     },
     {
       test: /\.css$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: 'css-loader',
-      }),
+      use: ['style-loader', 'css-loader?sourceMap'],
     },
     {
       test: /\.woff$/,
@@ -64,43 +65,10 @@ const config = {
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.scss'],
   },
-  externals: {
-    react: {
-      root: 'React',
-      commonjs2: 'react',
-      commonjs: 'react',
-      amd: 'react'
-    },
-    'react-dom': {
-      root: 'ReactDom',
-      commonjs2: 'react-dom',
-      commonjs: 'react-dom',
-      amd: 'react-dom'
-    },
-    'react-router': {
-      root: 'ReactRouter',
-      commonjs2: 'react-router',
-      commonjs: 'react-router',
-      amd: 'react-router'
-    },
-    redux: {
-      root: 'Redux',
-      commonjs2: 'redux',
-      commonjs: 'redux',
-      amd: 'redux'
-    },
-    'react-redux': {
-      root: 'ReactRedux',
-      commonjs2: 'react-redux',
-      commonjs: 'react-redux',
-      amd: 'react-redux'
-    },
-    app: 'app'
-  },
   plugins: [
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify('production'),
-      'process.env.NODE_ENV': JSON.stringify('production')
+      NODE_ENV: JSON.stringify('development'),
+      'process.env.NODE_ENV': JSON.stringify('development')
     }),
     new ExtractTextPlugin({filename: '[name].css', allChunks: true}),
     new webpack.BannerPlugin({banner: 'eslint-disable', entryOnly: false}),
@@ -110,6 +78,7 @@ const config = {
       path.resolve(__dirname, './dist'),
       path.resolve(__dirname, './dist'),
     ], {root: path.dirname(__dirname), verbose: true}),
+    new webpack.HotModuleReplacementPlugin(),
   ]
 };
 

@@ -1,9 +1,7 @@
-import rows from '../reducerRow';
+import rows from '../rowReducer';
 import {
   TABLE_EDITOR_LOAD_SUCCESS,
   TABLE_EDITOR_SET_TEXT,
-  TABLE_EDITOR_CELL_END_DRAG,
-  TABLE_EDITOR_CELL_END_DRAG_IMAGES,
   TABLE_EDITOR_ROW_ADD,
   TABLE_EDITOR_ROW_ADD_ID,
   TABLE_EDITOR_SET_IMAGES,
@@ -11,12 +9,26 @@ import {
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   HISTORY_NEXT,
   HISTORY_PREV,
+  TABLE_EDITOR_CELL_SELECT_END
 } from '../actions';
 
 const initialState = {
   prev: [],
   next: [],
   current: [],
+};
+
+const addHistory = (state, action) => {
+  const newRows = state.newRows || state.current;
+  return {
+    ...state,
+    newRows: null,
+    prev: state.prev.length > 99 ?
+      [state.current, ...state.prev].slice(0, 100) :
+      [state.current, ...state.prev],
+    current: rows(newRows, action),
+    next: [],
+  };
 };
 
 export default function history(state = initialState, action) {
@@ -30,19 +42,18 @@ export default function history(state = initialState, action) {
         prev: [],
       };
 
+    case TABLE_EDITOR_CELL_SELECT_END: {
+      if (!state.newRows) {
+        return state;
+      }
+      return addHistory(state, action);
+    }
+
     case TABLE_EDITOR_SET_TEXT:
-    case TABLE_EDITOR_CELL_END_DRAG:
     case TABLE_EDITOR_ROW_ADD:
-    case TABLE_EDITOR_SET_IMAGES:
-    case TABLE_EDITOR_CELL_END_DRAG_IMAGES:
-      return {
-        ...state,
-        prev: state.prev.length > 99 ?
-          [state.current, ...state.prev].slice(0, 100) :
-          [state.current, ...state.prev],
-        current: rows(state.current, action),
-        next: [],
-      };
+    case TABLE_EDITOR_SET_IMAGES: {
+      return addHistory(state, action);
+    }
 
     case TABLE_EDITOR_ROW_ADD_ID: {
       const newPrev = state.prev.map(prev =>

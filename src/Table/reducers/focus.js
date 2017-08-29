@@ -9,6 +9,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case types.TABLE_EDITOR_CELL_SELECT_START:
+      return {...state, activeRow: null, activeCell: null};
+
     case types.TABLE_EDITOR_START_TEXT_EDIT:
       return {...state, edit: true};
 
