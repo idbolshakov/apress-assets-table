@@ -56,7 +56,7 @@ export default class PathCell extends Component {
         </span>);
 
       fullPath = ancestors.map((ancestor, index) =>
-        <span className={b('path-text')}>
+        <span className={b('path-text')} key={index}>
           {ancestor.name}
           <span
             className={b('path-text').is({'path-arrow': index + 1 !== originalAncestorsLength})}
