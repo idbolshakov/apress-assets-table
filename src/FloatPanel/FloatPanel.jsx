@@ -1,5 +1,6 @@
 /* eslint react/no-unused-prop-types: 0 */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import _isEqual from 'lodash/isEqual';
 import {block} from '../utils';
 import './e-float-panel.scss';
@@ -7,7 +8,7 @@ import './e-float-panel.scss';
 const b = block('e-float-panel');
 
 export default class FloatPanel extends Component {
-  propTypes = {
+  static propTypes = {
     onSlide: PropTypes.func,
   }
 

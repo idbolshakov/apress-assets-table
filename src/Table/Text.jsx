@@ -42,6 +42,16 @@ class TextCell extends Component {
     handleDrag: PropTypes.func
   };
 
+  static defaultProps = {
+    cell: {
+      data: {
+        common: {
+          text: ''
+        }
+      }
+    }
+  };
+
   state = {
     edit: false,
     visible: false,

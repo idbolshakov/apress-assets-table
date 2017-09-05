@@ -83,7 +83,7 @@
     "pluralize-ru": "^1.0.1",
     "prop-types": "^15.5.10",
     "rc-dialog": "^6.5.8",
-    "rc-dropdown": "^1.4.10",
+    "rc-dropdown": "^1.5.0",
     "rc-progress": "^2.1.1",
     "rc-select": "^6.7.4",
     "rc-trigger": "^1.9.1",

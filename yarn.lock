@@ -4872,9 +4872,9 @@ rc-dialog@^6.5.8:
     rc-animate "2.x"
     rc-util "^4.0.2"
 
-rc-dropdown@^1.4.10:
-  version "1.4.11"
-  resolved "https://registry.yarnpkg.com/rc-dropdown/-/rc-dropdown-1.4.11.tgz#91bdf7bb77064c928c117909d757f22582512de7"
+rc-dropdown@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/rc-dropdown/-/rc-dropdown-1.5.0.tgz#2648ea78b4d56646ef306978873d3fa8993b8c48"
   dependencies:
     prop-types "^15.5.8"
     rc-trigger "1.x"

@@ -1,5 +1,6 @@
 /* eslint react/no-unused-prop-types: 0 */
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import RcDropdown from 'rc-dropdown';
 import _isEqual from 'lodash/isEqual';
 import './e-dropdown-menu.scss';

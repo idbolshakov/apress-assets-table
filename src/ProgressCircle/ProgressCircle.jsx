@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {Circle} from 'rc-progress';
 import {block} from '../utils';
 import './e-progress-circle.scss';

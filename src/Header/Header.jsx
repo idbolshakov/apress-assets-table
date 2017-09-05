@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {block} from '../utils';
 import Toggler from '../Toggler/Toggler';
 import './e-header.scss';
