@@ -1,4 +1,5 @@
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import RcDropdown from 'rc-dropdown';
@@ -8,28 +9,47 @@ import {block} from '../utils';
 import {
   startTextEdit,
   endTextEdit,
-  setFocus,
 } from './actions';
-import {
-  handleSelection,
-  handleDrag,
-  mapSelectionProps,
-  mapFocusProps,
-  selectCellActions} from './utils';
+import {mapFocusProps} from './utils';
+
 
 const b = block('e-table');
 
 class TextCell extends Component {
+
   static propTypes = {
     cell: PropTypes.shape({
+      classMix: PropTypes.string,
+      config: PropTypes.object,
       data: PropTypes.shape({
         common: PropTypes.shape({
-          text: PropTypes.string,
-        })
+          text: PropTypes.string
+        }),
+        binder: PropTypes.object
       }),
+      id: PropTypes.number,
+      isDragged: PropTypes.bool,
+      isFocus: PropTypes.bool,
+      isLast: PropTypes.bool,
+      isSelected: PropTypes.bool,
       name: PropTypes.string,
       placeholder: PropTypes.string
-    })
+    }),
+    handleCellClick: PropTypes.func,
+    handleSelection: PropTypes.func,
+    handleStartSelection: PropTypes.func,
+    handleEndSelection: PropTypes.func,
+    handleDrag: PropTypes.func
+  };
+
+  static defaultProps = {
+    cell: {
+      data: {
+        common: {
+          text: ''
+        }
+      }
+    }
   };
 
   state = {
@@ -43,14 +63,15 @@ class TextCell extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.edit && this.props.cell.config.ckeditor) {
-      if (!CKEDITOR.instances[this.props.cell.name]) {
+    const {name, config} = this.props.cell;
+    if (this.state.edit && config.ckeditor) {
+      if (!CKEDITOR.instances[name]) {
         this.editorInit();
 
-        CKEDITOR.replace(this.props.cell.name, {
+        CKEDITOR.replace(name, {
           on: {
             instanceReady: () => setTimeout(() => {
-              const editor = CKEDITOR.instances[this.props.cell.name];
+              const editor = CKEDITOR.instances[name];
               editor.focus();
               this.setCharactersLeft(editor);
             })
@@ -78,14 +99,14 @@ class TextCell extends Component {
     if (!isValid) {
       e.preventDefault();
     }
-  }
+  };
 
   handleClose = (editor) => {
     this.props.endTextEdit();
     this.handlerEdit(false);
     this.handlerSave(editor.getData());
     editor.destroy();
-  }
+  };
 
   editorInit = () =>
     CKEDITOR.once('instanceCreated', (event) => {
@@ -113,18 +134,15 @@ class TextCell extends Component {
       charactersLeft: edit ?
         this.props.cell.config.maxLen - (text && text.length) : ''
     });
-  }
+  };
 
   handlerSave = (text) => {
-    if (text !== this.props.cell.data.common.text) {
-      this.props.setData({
-        id: this.props.cell.id,
-        name: this.props.cell.name,
-        field: 'text',
-        text,
-      });
+    const {setData, cell} = this.props;
+    const {data, id, name} = cell;
+    if (text !== data.common.text) {
+      setData({id, name, field: 'text', text});
     }
-  }
+  };
 
   handlerSetCharactersLeft = e => this.setState({
     charactersLeft: this.props.cell.config.maxLen - e.target.innerText.length
@@ -141,26 +159,7 @@ class TextCell extends Component {
     if (!isValid) {
       e.preventDefault();
     }
-  }
-
-  handleSelection = handleSelection.bind(this)
-
-  handleStartSelection = () => {
-    this.props.startSeletion({name: this.props.cell.name, id: this.props.cell.id});
-  }
-
-  handleMouseUp = () => {
-    this.props.endSeletion({name: this.props.cell.name, id: this.props.cell.id});
-    if (this.props.isDragging) {
-      this.props.endDrag({
-        name: this.props.cell.name,
-        id: this.props.cell.id,
-        selectionData: this.props.selectionData
-      });
-    }
-  }
-
-  handleDrag = handleDrag.bind(this)
+  };
 
   handleKeyPress = (e) => {
     if (e.keyCode === 13) {
@@ -169,11 +168,7 @@ class TextCell extends Component {
     if (e.keyCode === 27) {
       this.handlerEdit(false);
     }
-  }
-
-  handleCellClick = () => {
-    this.props.setFocus({name: this.props.cell.name, id: this.props.cell.id});
-  }
+  };
 
   handleEditTextKeyDown = (e) => {
     if (e.keyCode === 13) {
@@ -182,25 +177,29 @@ class TextCell extends Component {
       this.handlerEdit(false);
       this.handlerSave(e.target.innerText);
     }
-  }
+  };
 
   render() {
+    const {cell, handleCellClick, handleSelection, handleStartSelection, handleEndSelection, handleDrag} = this.props;
+    const {config, data, name, placeholder, isFocus, classMix, isSelected, isDragged, isLast} = cell;
+    const cellText = data.common.text;
+    const binder = data.binder;
+
     let text = null;
-    if (this.props.cell.data.common.text || this.state.edit) {
-      if (this.state.edit && this.props.cell.config.ckeditor) {
+    if (cellText || this.state.edit) {
+      if (this.state.edit && config.ckeditor) {
         text = (
           <textarea
             data-charactersLeft={this.state.charactersLeft}
             ref={elem => elem && elem.focus()}
             className={b('cell-text').is({edit: this.state.edit})}
-            name={this.props.cell.name}
-            id={this.props.cell.name}
-            value={this.props.cell.data.common.text}
+            name={name}
+            id={name}
+            value={cellText}
           />
         );
       } else {
-        const value = this.props.cell.data.common.text ?
-          this.props.cell.data.common.text.replace(/<.*?>/g, '') : this.props.cell.data.common.text;
+        const value = cellText ? cellText.replace(/<.*?>/g, '') : cellText;
         text = (
           <div
             data-charactersLeft={this.state.charactersLeft}
@@ -220,39 +219,35 @@ class TextCell extends Component {
         );
       }
     } else {
-      text = <div className={b('cell-placeholder')}>{this.props.cell.placeholder}</div>;
+      text = <div className={b('cell-placeholder')}>{placeholder}</div>;
     }
 
     return (
       <div
-        ref={($td) => { $td && this.props.cell.isFocus && !this.state.edit && $td.focus(); }}
-        className={b('cell').mix(`is-${this.props.cell.classMix}`)
+        ref={($td) => { $td && isFocus && !this.state.edit && $td.focus(); }}
+        className={b('cell').mix(`is-${classMix}`)
           .is({
-            focus: this.props.cell.isFocus,
-            selected: this.props.selected,
-            'selected-to': this.props.selectedTo,
-            required: this.props.cell.config.required &&
-              !this.props.cell.data.common.text &&
-              !this.state.edit &&
-              !this.props.selectedTo
+            focus: isFocus,
+            selected: isSelected,
+            'selected-to': isDragged,
+            required: config.required && !cellText && !this.state.edit
           })
         }
         tabIndex={-1}
-        onClick={this.handleCellClick}
-        onDoubleClick={() => this.handlerEdit(true)}
-        onKeyDown={this.handleKeyPress}
-        onMouseEnter={this.handleSelection}
-        onMouseDown={() => { this.handleStartSelection(); }}
-        onMouseUp={() => { this.handleMouseUp(); }}
+        onClick={binder && handleCellClick}
+        onDoubleClick={() => binder && this.handlerEdit(true)}
+        onKeyDown={binder && this.handleKeyPress}
+        onMouseEnter={binder && handleSelection}
+        onMouseDown={binder && handleStartSelection}
+        onMouseUp={binder && handleEndSelection}
         onDragStart={e => e.preventDefault}
         onSelect={e => e.preventDefault}
       >
         {text}
-        {this.props.isLast &&
-          <div onMouseDown={this.handleDrag} className={b('drag-tool')} />
+        {isLast && binder &&
+          <div onMouseDown={handleDrag} className={b('drag-tool')} />
         }
-        {!this.state.edit && this.props.cell.config.ckeditor &&
-          this.props.cell.data.common.text &&
+        {!this.state.edit && config.ckeditor && cellText &&
           <RcDropdown
             visible={this.state.visible}
             trigger={['hover']}
@@ -260,7 +255,7 @@ class TextCell extends Component {
               <div className={b('preview')}>
                 <div
                   className={b('preview-body')}
-                  dangerouslySetInnerHTML={{__html: this.props.cell.data.common.text}}
+                  dangerouslySetInnerHTML={{__html: cellText}}
                 />
               </div>
             }
@@ -276,17 +271,13 @@ class TextCell extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const selected = state.selected;
-  const focus = state.focus;
+  const focus = state.table.focus;
   return {
-    ...mapSelectionProps(selected, ownProps),
     ...mapFocusProps(focus, ownProps),
   };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  ...selectCellActions,
-  setFocus,
   startTextEdit,
   endTextEdit,
 }, dispatch);

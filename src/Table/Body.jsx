@@ -1,111 +1,215 @@
-import React, {PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Trigger from 'rc-trigger';
 import _isEqual from 'lodash/isEqual';
 import 'rc-trigger/assets/index.css';
-import Text from './Text';
-import Check from './Check';
-import Image from './Image';
-import Path from './Path';
-import {block} from '../utils';
+import Price from './Price';
+import Exists from './Exists';
+import CheckRelatedProducts from './CheckRelatedProducts';
+import {
+  block,
+  inRange
+} from '../utils';
 import Actions from '../Actions/Actions';
 import * as remove from '../remove/actions';
+import {
+  CheckWithDragging,
+  ImageWithDragging,
+  PathWithDragging,
+  TextWithDragging
+} from './cellsWithDragging';
 
 const b = block('e-table');
 
-class Body extends React.Component {
+class Body extends Component {
+
   static propTypes= {
-    table: PropTypes.object,
+    actions: PropTypes.objectOf(PropTypes.func),
+    config: PropTypes.objectOf(PropTypes.object),
+    dispatch: PropTypes.func,
+    placeholder: PropTypes.object,
+    readonly: PropTypes.bool,
+    scrollLeft: PropTypes.number,
+    table: PropTypes.shape({
+      checked: PropTypes.arrayOf(PropTypes.number),
+      focus: PropTypes.shape({
+        activeCell: PropTypes.string,
+        activeRow: PropTypes.number,
+        edit: PropTypes.bool,
+        rows: PropTypes.array
+      }),
+      new_row: PropTypes.objectOf(PropTypes.object),
+      rows: PropTypes.arrayOf(PropTypes.object),
+      selected: PropTypes.shape({
+        cellDragged: PropTypes.object,
+        cellFrom: PropTypes.object,
+        cellTo: PropTypes.object,
+        isDragging: PropTypes.bool,
+        isSelecting: PropTypes.bool
+      })
+    })
   };
 
   shouldComponentUpdate(nextProps) {
     return !_isEqual(this.props, nextProps);
   }
 
-  renderCell = (row, cell, index, props = this.props) => {
+  isCurrentCellLastInSelection = (rowIndex, columnIndex) => {
+    const {isDragging, cellDragged, cellTo, cellFrom} = this.props.table.selected;
+    const cells = [cellFrom, cellTo];
+    if (isDragging) { cells.push(cellDragged); }
+    const lastInSelection = cells.reduce((cell1, cell2) => (cell1.row > cell2.row ? cell1 : cell2));
+
+    return lastInSelection.row === rowIndex && lastInSelection.column === columnIndex;
+  };
+
+  isCurrentCellDragged = (rowIndex, columnIndex) => {
+    const {isDragging, cellDragged, cellTo, cellFrom} = this.props.table.selected;
+    const [lowerCell, upperCell] = cellTo.row >= cellFrom.row ? [cellTo, cellFrom] : [cellFrom, cellTo];
+    let num;
+    if (cellDragged.row > lowerCell.row) {
+      num = lowerCell.row + 1;
+    } else {
+      if (cellDragged.row < upperCell.row) {
+        num = upperCell.row - 1;
+      } else {
+        return false;
+      }
+    }
+
+    return isDragging && cellTo.column === columnIndex && inRange(num, cellDragged.row, rowIndex);
+  };
+
+  isRowChecked = rowId => this.props.table.checked.includes(rowId);
+
+  renderCell = (row, rowId, cell, columnIndex, rowIndex) => {
+    const {placeholder, config, actions, table} = this.props;
+    const {focus, selected} = table;
     const dataRow = {
-      id: row.check.common.id,
+      id: rowId,
       data: row[cell],
       name: cell,
       classMix: cell.replace(/_/g, '-'),
-      placeholder: props.placeholder[cell],
-      config: props.config[cell],
-      isFocus: row.check.common.id === props.focused.activeRow && cell === props.focused.activeCell,
+      placeholder: placeholder[cell],
+      config: config[cell],
+      isFocus: rowId === focus.activeRow && cell === focus.activeCell,
+      isSelected: selected.cellFrom.column === columnIndex &&
+        inRange(selected.cellFrom.row, selected.cellTo.row, rowIndex),
+      isLast: this.isCurrentCellLastInSelection(rowIndex, columnIndex),
+      isDragged: this.isCurrentCellDragged(rowIndex, columnIndex),
+      column: columnIndex,
+      row: rowIndex
     };
-
+    const tableWidth = Object.keys(row).length;
+    const key = (rowIndex * tableWidth) + columnIndex;
     const componentsCell = {
-      text: <Text key={index} cell={dataRow} setData={props.actions.setText} />,
-      check: <Check
-        key={index}
+      text: <TextWithDragging
+        key={key}
         cell={dataRow}
-        setCheck={props.actions.setCheck}
-        checked={props.table.checked.includes(row.check.common.id)}
+        setData={actions.setText}
       />,
-      img: <Image key={index} cell={dataRow} />,
-      path: <Path key={index} cell={dataRow} />,
+      check: <CheckWithDragging
+        key={key}
+        cell={dataRow}
+        setCheck={actions.setCheck}
+        checked={this.isRowChecked(rowId)}
+      />,
+      img: <ImageWithDragging
+        key={key}
+        cell={dataRow}
+      />,
+      path: <PathWithDragging
+        key={key}
+        cell={dataRow}
+      />,
+      price: <Price
+        key={key}
+        cell={dataRow}
+      />,
+      exists: <Exists
+        key={key}
+        cell={dataRow}
+      />,
+      check_related_products: <CheckRelatedProducts
+        key={key}
+        cell={dataRow}
+        actions={actions.relatedProducts}
+      />
     };
 
-    return componentsCell[props.config[cell].type];
+    return componentsCell[config[cell].type];
   };
 
-  renderRow = (row, props = this.props) =>
-    <Trigger
-      key={row.check.common.id}
-      action={['hover']}
-      popup={<Actions
-        mix={b('actions')()}
-        actions={[
-          {
-            name: 'add',
-            title: 'Добавить группу',
-            onClick: () => props.actions.addNewRow({
-              target: row,
-              parent: row,
-              new_row: props.table.new_row
-            })
-          },
-          {
-            name: 'delete',
-            title: 'Удалить группу',
-            onClick: () => {
-              props.dispatch(remove.removeGroup({
-                id: row.check.common.id,
-                name: row.name.common.text,
-              }));
-            }
-          },
-        ]}
-      />}
-      popupAlign={{
-        points: ['cl', 'cl'],
-        destroyPopupOnHide: true,
-        offset: [-12 + props.scrollLeft, 0],
-        overflow: {
-          adjustX: false,
-          adjustY: false,
-        },
-      }}
-    >
+  renderRow = (row, rowIndex) => {
+    const {table, readonly, actions, dispatch, scrollLeft} = this.props;
+    const rowId = row.check ? row.check.common.id : row.check_related_products.common.id;
+    const rowHtml = (
       <div
-        key={row.check.common.id}
+        key={rowId}
         className={b('body-tr').is({
-          checked: props.table.checked.includes(row.check.common.id),
-          new: String(row.check.common.id).includes('-')
+          checked: this.isRowChecked(rowId),
+          new: String(rowId).includes('-')
         })}
       >
-        {Object.keys(row).map((cell, index) => this.renderCell(row, cell, index))}
+        {Object.keys(row).map((cell, index) => this.renderCell(row, rowId, cell, index, rowIndex))}
       </div>
-    </Trigger>;
+    );
+
+    return readonly ? (rowHtml) : (
+      <Trigger
+        key={rowId}
+        action={['hover']}
+        popup={<Actions
+          mix={b('actions')()}
+          actions={[
+            {
+              name: 'add',
+              title: 'Добавить группу',
+              onClick: () => actions.addNewRow({
+                target: row,
+                parent: row,
+                new_row: table.new_row
+              })
+            },
+            {
+              name: 'delete',
+              title: 'Удалить группу',
+              onClick: () => {
+                dispatch(remove.removeGroup({
+                  id: rowId,
+                  name: row.name.common.text,
+                }));
+              }
+            },
+          ]}
+        />}
+        popupAlign={{
+          points: ['cl', 'cl'],
+          destroyPopupOnHide: true,
+          offset: [-12 + scrollLeft, 0],
+          overflow: {
+            adjustX: false,
+            adjustY: false,
+          },
+        }}
+      >
+        {rowHtml}
+      </Trigger>
+    );
+  };
 
   render() {
     return (
       <div className={b('body')}>
-        {this.props.table.rows.map(row => this.renderRow(row))}
+        {this.props.table.rows.map(this.renderRow)}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({focused: state.focus});
+const mapStateToProps = state => ({
+  cell: state.cell
+});
 
 export default connect(mapStateToProps)(Body);

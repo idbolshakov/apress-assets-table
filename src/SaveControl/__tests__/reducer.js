@@ -59,16 +59,9 @@ describe('reducer', () => {
       .toEqual({...initialState, isSave: true});
   });
 
-  it('should handle TABLE_EDITOR_CELL_END_DRAG', () => {
+  it('should handle TABLE_EDITOR_CELL_SELECT_END', () => {
     expect(reducer(deepFreeze(initialState), {
-      type: actionsTable.TABLE_EDITOR_CELL_END_DRAG,
-      payload: {}
-    })).toEqual({...initialState, isSave: true});
-  });
-
-  it('should handle TABLE_EDITOR_CELL_END_DRAG_IMAGES', () => {
-    expect(reducer(deepFreeze(initialState), {
-      type: actionsTable.TABLE_EDITOR_CELL_END_DRAG_IMAGES,
+      type: actionsTable.TABLE_EDITOR_CELL_SELECT_END,
       payload: {}
     })).toEqual({...initialState, isSave: true});
   });

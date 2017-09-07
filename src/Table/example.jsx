@@ -60,8 +60,8 @@ export default class App extends React.Component {
         config={config}
         placeholder={placeholder}
         actions={this.props.actions}
-        selectFilter={() => { console.log('selectFilter - disaptch'); }}
-        selectSort={() => { console.log('selectSort - disaptch'); }}
+        selectFilter={() => { console.log('selectFilter - dispatch'); }}
+        selectSort={() => { console.log('selectSort - dispatch'); }}
         countRow={this.props.table.rows.length}
       />
     );

@@ -1,5 +1,6 @@
 /* eslint react/no-unused-prop-types: 0 */
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import _throttle from 'lodash/throttle';
 import _isEqual from 'lodash/isEqual';
 import {block} from '../utils';

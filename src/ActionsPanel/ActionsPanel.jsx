@@ -1,5 +1,6 @@
 /* eslint react/no-unused-prop-types: 0 */
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {block} from '../utils';
 import Scroller from '../Scroller/Scroller';
 import './e-actions-panel.scss';
@@ -12,8 +13,17 @@ const filterTitle = {
 };
 
 const ActionsPanel = (props) => {
-  const filterCol = props.columns && props.columns
-    .filter(col => col.filter && col.filter.value && col.filter.value !== 'all');
+  const filterCol = props.columns &&
+    props.columns.filter(col => col.filter && col.filter.value && col.filter.value !== 'all');
+
+  const getFilterValue = (name, key) => {
+    if (props.filtersForColumns) {
+      const column = props.filtersForColumns.find(item => item.name === name);
+      return column.filter.options.find(option => option.value === key).title;
+    }
+
+    return filterTitle[key];
+  };
 
   return (
     <div className={b.mix(props.mix)}>
@@ -53,7 +63,7 @@ const ActionsPanel = (props) => {
                       onClick={() => props.onRemoveFilter({id: 'all', name: col.name})}
                       title='Убрать'
                     >
-                      {`${col.title} - ${filterTitle[col.filter.value]}`}
+                      {`${col.title} - ${getFilterValue(col.name, col.filter.value)}`}
                     </span>
                   )
                 }
@@ -75,6 +85,7 @@ ActionsPanel.propTypes = {
   onActionNext: PropTypes.func,
   onRemoveFilter: PropTypes.func,
   columns: PropTypes.array,
+  filtersForColumns: PropTypes.array,
 };
 
 ActionsPanel.defaultProps = {

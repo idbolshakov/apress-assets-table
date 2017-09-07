@@ -10,6 +10,7 @@ import Scroller from './Scroller/Scroller';
 import ActionsPanel from './ActionsPanel/ActionsPanel';
 import Filter from './Filter/Filter';
 import ComponentError from './Error/Error';
+import Dialog from './Dialog/Dialog';
 
 import * as actionsTree from './Tree/actions';
 import * as actionsTable from './Table/actions';
@@ -17,10 +18,11 @@ import * as actionsSaveControl from './SaveControl/actions';
 import * as actionsFilter from './Filter/actions';
 import * as actionsError from './Error/actions';
 import * as actionsDialog from './dialogs/actions';
+import * as actionsCable from './Cable/actions';
 
 import reducerTree from './Tree/reducer';
-import reducerTable from './Table/reducerTable';
-import reducerRow from './Table/reducerRow';
+import tableReducer from './Table/tableReducer';
+import rowReducer from './Table/rowReducer';
 import reducerSaveControl from './SaveControl/reducer';
 import reducerFilter from './Filter/reducer';
 import selected from './Table/reducers/selected';
@@ -29,6 +31,7 @@ import history from './Table/reducers/history';
 import error from './Error/reducer';
 import dialogs from './dialogs/reducers';
 import ContainerDialog from './dialogs/ContainerDialog';
+import reducerCable from './Cable/reducer';
 
 import imageEditor from './ImageEditor/reducer';
 import * as imageEditorActions from './ImageEditor/actions';
@@ -41,6 +44,7 @@ import * as saveSagas from './SaveControl/sagas';
 import * as removeAction from './remove/actions';
 import * as removeSagas from './remove/sagas';
 import removeReducer from './remove/reducer';
+import cableSagas from './Cable/sagas';
 
 import SwitchCategory from './SwitchCategory/SwitchCategory';
 import * as switchCategorySaga from './SwitchCategory/sagas';
@@ -59,11 +63,12 @@ export const sagas = {
   saveSagas,
   removeSagas,
   switchCategorySaga,
+  cableSagas,
 };
 
 export const reducers = {
-  reducerTable,
-  reducerRow,
+  tableReducer,
+  rowReducer,
   reducerTree,
   reducerSaveControl,
   reducerFilter,
@@ -75,6 +80,7 @@ export const reducers = {
   imageEditor,
   removeReducer,
   switchCategoryReducer,
+  reducerCable,
 };
 
 export const actions = {
@@ -87,6 +93,7 @@ export const actions = {
   imageEditorActions,
   removeAction,
   switchCategoryAction,
+  actionsCable,
 };
 
 export const components = {
@@ -106,4 +113,5 @@ export const components = {
   Error: ComponentError,
   ContainerDialog,
   SwitchCategory,
+  Dialog
 };

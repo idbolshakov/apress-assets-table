@@ -21,7 +21,7 @@ export const saveFail = data => ({
 });
 
 export const editImages = payload => (dispatch, getState) => {
-  const activeRow = getState().history.current.find(row =>
+  const activeRow = getState().table.history.current.find(row =>
     payload.id === row.check.common.id);
 
   return (

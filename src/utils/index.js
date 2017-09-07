@@ -31,3 +31,7 @@ export function checkStatus(response) {
   error.response = response;
   throw error;
 }
+
+export function inRange(num1, num2, num) {
+  return Math.min(num1, num2) <= num && num <= Math.max(num1, num2);
+}

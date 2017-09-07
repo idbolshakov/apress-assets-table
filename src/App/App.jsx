@@ -129,9 +129,9 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   table: {
     ...state.table,
-    rows: state.history.current
+    rows: state.table.history.current
   },
-  history: state.history,
+  history: state.table.history,
   tree: state.tree,
   save: state.save
 });

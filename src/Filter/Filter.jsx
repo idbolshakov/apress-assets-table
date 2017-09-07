@@ -3,6 +3,7 @@ import {
   Component,
   browserHistory,
   actionsTable,
+  actionsCable,
   actionsFilter,
 } from './import';
 
@@ -16,10 +17,14 @@ class Filter extends Component {
 
       this.props.dispatch(actionsTable.load());
 
-      browserHistory.push({
-        pathname: browserHistory.getCurrentLocation().pathname,
-        query
-      });
+      if (this.props.config.cableEnabled) {
+        actionsCable.setQuery(query);
+      } else {
+        browserHistory.push({
+          pathname: browserHistory.getCurrentLocation().pathname,
+          query
+        });
+      }
 
       this.props.dispatch(actionsFilter.noChange());
     }

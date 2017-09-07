@@ -11,7 +11,7 @@
   }
 }
 .e-select-drop-down {
-  border-radius: 0; font-size: 12px; background-color: #fff; box-shadow: 0 0 9px 0 rgba(59, 61, 77, 0.52);
+  border-radius: 0; font-size: 12px; background-color: #fff; box-shadow: 0 0 9px 0 rgba(59, 61, 77, 0.52); z-index: 1051;
   .rc-select-dropdown-menu { max-height: 300px; overflow: auto; }
   .rc-select-dropdown-menu-item {
     color: #1f2532; height: 35px; line-height: 35px; box-sizing: border-box; padding: 0; text-align: center; font-size: 12px; font-family: 'OpenSans';

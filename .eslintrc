@@ -7,7 +7,7 @@
     "es6": true
   },
   "rules": {
-    "max-len": ["error", 100],
+    "max-len": ["error", 130],
     "object-curly-spacing": ["error", "never"],
     "jsx-a11y/no-static-element-interactions": 0,
     "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
@@ -21,7 +21,8 @@
     "react/require-default-props": 0,
     "no-plusplus": 0,
     "react/no-array-index-key": 0,
-    "dot-notation": 0
+    "dot-notation": 0,
+    "no-lonely-if": 0
   },
   "globals": {
     "CKEDITOR": true,

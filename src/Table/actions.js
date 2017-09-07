@@ -14,16 +14,9 @@ export const TABLE_EDITOR_SET_CHECK_ALL_RESET = 'TABLE_EDITOR_SET_CHECK_ALL_RESE
 
 export const TABLE_EDITOR_CELL_SELECT_START = 'TABLE_EDITOR_CELL_SELECT_START';
 export const TABLE_EDITOR_CELL_SELECT_END = 'TABLE_EDITOR_CELL_SELECT_END';
-export const TABLE_EDITOR_CELL_SELECT_ADD = 'TABLE_EDITOR_CELL_SELECT_ADD';
-export const TABLE_EDITOR_CELL_SELECT_REMOVE = 'TABLE_EDITOR_CELL_SELECT_REMOVE';
-
-export const TABLE_EDITOR_CELL_SELECT_REMOVE_TO = 'TABLE_EDITOR_CELL_SELECT_REMOVE_TO';
-
-export const TABLE_EDITOR_CELL_SELECT_ADD_TO = 'TABLE_EDITOR_CELL_SELECT_ADD_TO';
-
+export const TABLE_EDITOR_CELL_SELECT_CONTINUE = 'TABLE_EDITOR_CELL_SELECT_CONTINUE';
+export const TABLE_EDITOR_CELL_SELECT_RESET = 'TABLE_EDITOR_CELL_SELECT_RESET';
 export const TABLE_EDITOR_CELL_START_DRAG = 'TABLE_EDITOR_CELL_START_DRAG';
-export const TABLE_EDITOR_CELL_END_DRAG = 'TABLE_EDITOR_CELL_END_DRAG';
-export const TABLE_EDITOR_CELL_END_DRAG_IMAGES = 'TABLE_EDITOR_CELL_END_DRAG_IMAGES';
 
 export const TABLE_EDITOR_CELL_FOCUS_NEXT = 'TABLE_EDITOR_CELL_FOCUS_NEXT';
 export const TABLE_EDITOR_CELL_FOCUS_PREV = 'TABLE_EDITOR_CELL_FOCUS_PREV';
@@ -40,7 +33,7 @@ export const HISTORY_PREV = 'HISTORY_PREV';
 export const TABLE_EDITOR_SET_IMAGES = 'TABLE_EDITOR_SET_IMAGES';
 export const TABLE_EDITOR_IMAGES_ASSIGN_ID = 'TABLE_EDITOR_IMAGES_ASSIGN_ID';
 
-export const load = payload => ({
+export const load = (payload = {}) => ({
   type: TABLE_EDITOR_LOAD_START,
   payload
 });
@@ -65,48 +58,28 @@ export const copyRow = payload => ({
   payload
 });
 
-export const startSeletion = payload => ({
+export const startSelection = payload => ({
   type: TABLE_EDITOR_CELL_SELECT_START,
   payload
 });
 
-export const endSeletion = payload => ({
+export const endSelection = payload => ({
   type: TABLE_EDITOR_CELL_SELECT_END,
   payload
 });
 
-export const selectionAdd = payload => ({
-  type: TABLE_EDITOR_CELL_SELECT_ADD,
+export const continueSelection = payload => ({
+  type: TABLE_EDITOR_CELL_SELECT_CONTINUE,
   payload
 });
 
-export const selectionAddTo = payload => ({
-  type: TABLE_EDITOR_CELL_SELECT_ADD_TO,
-  payload
-});
-
-export const selectionRemove = payload => ({
-  type: TABLE_EDITOR_CELL_SELECT_REMOVE,
-  payload
-});
-
-export const selectionRemoveTo = payload => ({
-  type: TABLE_EDITOR_CELL_SELECT_REMOVE_TO,
+export const resetSelection = payload => ({
+  type: TABLE_EDITOR_CELL_SELECT_RESET,
   payload
 });
 
 export const startDrag = payload => ({
   type: TABLE_EDITOR_CELL_START_DRAG,
-  payload
-});
-
-export const endDrag = payload => ({
-  type: TABLE_EDITOR_CELL_END_DRAG,
-  payload
-});
-
-export const endDragImages = payload => ({
-  type: TABLE_EDITOR_CELL_END_DRAG_IMAGES,
   payload
 });
 
@@ -147,89 +120,40 @@ export const historyNext = payload => ({
   payload
 });
 
-export const focusNext = payload =>
-  (dispatch, getState) => {
-    const state = getState();
-    dispatch({
-      type: TABLE_EDITOR_CELL_FOCUS_NEXT,
-      payload: {
-        ...payload,
-        rows: state.history.current
-      }
-    });
-  };
+export const focusNext = payload => ({
+  type: TABLE_EDITOR_CELL_FOCUS_NEXT,
+  payload
+});
 
-export const focusPrev = payload =>
-  (dispatch, getState) => {
-    const state = getState();
-    dispatch({
-      type: TABLE_EDITOR_CELL_FOCUS_PREV,
-      payload: {
-        ...payload,
-        rows: state.history.current
-      }
-    });
-  };
+export const focusPrev = payload => ({
+  type: TABLE_EDITOR_CELL_FOCUS_PREV,
+  payload
+});
 
-export const focusDown = payload =>
-  (dispatch, getState) => {
-    const state = getState();
-    dispatch({
-      type: TABLE_EDITOR_CELL_FOCUS_DOWN,
-      payload: {
-        ...payload,
-        rows: state.history.current
-      }
-    });
-  };
+export const focusDown = payload => ({
+  type: TABLE_EDITOR_CELL_FOCUS_DOWN,
+  payload
+});
 
-export const focusUp = payload =>
-  (dispatch, getState) => {
-    const state = getState();
-    dispatch({
-      type: TABLE_EDITOR_CELL_FOCUS_UP,
-      payload: {
-        ...payload,
-        rows: state.history.current
-      }
-    });
-  };
+export const focusUp = payload => ({
+  type: TABLE_EDITOR_CELL_FOCUS_UP,
+  payload
+});
 
-export const setFocus = payload =>
-  (dispatch, getState) => {
-    const state = getState();
-    dispatch({
-      type: TABLE_EDITOR_CELL_FOCUS_SET,
-      payload: {
-        ...payload,
-        rows: state.history.current
-      }
-    });
-  };
+export const setFocus = payload => ({
+  type: TABLE_EDITOR_CELL_FOCUS_SET,
+  payload
+});
 
-export const startTextEdit = payload =>
-  (dispatch, getState) => {
-    const state = getState();
-    dispatch({
-      type: TABLE_EDITOR_START_TEXT_EDIT,
-      payload: {
-        ...payload,
-        rows: state.history.current
-      }
-    });
-  };
+export const startTextEdit = payload => ({
+  type: TABLE_EDITOR_START_TEXT_EDIT,
+  payload
+});
 
-export const endTextEdit = payload =>
-  (dispatch, getState) => {
-    const state = getState();
-    dispatch({
-      type: TABLE_EDITOR_END_TEXT_EDIT,
-      payload: {
-        ...payload,
-        rows: state.history.current
-      }
-    });
-  };
+export const endTextEdit = payload => ({
+  type: TABLE_EDITOR_END_TEXT_EDIT,
+  payload
+});
 
 export const editImages = payload => ({
   type: TABLE_EDITOR_SET_IMAGES,
