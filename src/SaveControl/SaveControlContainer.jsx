@@ -35,7 +35,6 @@ class SaveControlContainer extends Component {
 
       return message;
     }
-    return false;
   }
 
   render() {
