@@ -43,10 +43,7 @@ export default function history(state = initialState, action) {
       };
 
     case TABLE_EDITOR_CELL_SELECT_END: {
-      if (!state.newRows) {
-        return state;
-      }
-      return addHistory(state, action);
+      return state.newRows ? addHistory(state, action) : state;
     }
 
     case TABLE_EDITOR_SET_TEXT:
