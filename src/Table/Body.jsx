@@ -9,7 +9,8 @@ import Exists from './Exists';
 import CheckRelatedProducts from './CheckRelatedProducts';
 import {
   block,
-  inRange
+  inRange,
+  swap
 } from '../utils';
 import Actions from '../Actions/Actions';
 import * as remove from '../remove/actions';
@@ -66,7 +67,7 @@ class Body extends Component {
 
   isCurrentCellDragged = (rowIndex, columnIndex) => {
     const {isDragging, cellDragged, cellTo, cellFrom} = this.props.table.selected;
-    const [lowerCell, upperCell] = cellTo.row >= cellFrom.row ? [cellTo, cellFrom] : [cellFrom, cellTo];
+    const [lowerCell, upperCell] = swap(cellFrom, cellTo, cellFrom.row < cellTo.row);
     let num;
     if (cellDragged.row > lowerCell.row) {
       num = lowerCell.row + 1;

@@ -1,6 +1,14 @@
 import b from 'bem-cn';
 import axios from 'axios';
 
+export {
+  cloneDeep,
+  isEqual,
+  get,
+  has,
+  unset
+} from 'lodash';
+
 export const api = axios.create({baseURL: ''});
 
 b.setup({el: '-'});
@@ -34,4 +42,8 @@ export function checkStatus(response) {
 
 export function inRange(num1, num2, num) {
   return Math.min(num1, num2) <= num && num <= Math.max(num1, num2);
+}
+
+export function swap(n, m, condition) {
+  return condition === undefined || condition ? [m, n] : [n, m];
 }

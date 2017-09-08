@@ -108,6 +108,16 @@ export const getTextCellDifference = (currentState, previousState, currentCellKe
 };
 
 export const getPhotoDifference = (currentState, previousState) => {
+  if (currentState.photo['copy_from']) {
+    return {
+      photo: {
+        common: {
+          copy_from: currentState.photo['copy_from']
+        }
+      }
+    };
+  }
+
   const currentImages = currentState.photo.common.images;
   const previousImages = previousState.photo.common.images;
 

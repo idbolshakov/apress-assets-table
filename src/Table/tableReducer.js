@@ -1,4 +1,8 @@
-import _cloneDeep from 'lodash/cloneDeep';
+import {
+  cloneDeep,
+  isEqual,
+  swap
+} from '../utils';
 import selected from './reducers/selected';
 import focus from './reducers/focus';
 import history from './reducers/history';
@@ -36,6 +40,58 @@ const initialState = {
   checked: [],
   isLoaded: false
 };
+
+function changePhotoColumnData(sourceRowId, destinationCell) {
+  const cell = {
+    ...destinationCell,
+    common: {
+      ...destinationCell.common
+    }
+  };
+  cell.common.images = cell.common.images.map(image => ({...image, id: -1}));
+  if (sourceRowId !== -1) {
+    cell['copy_from'] = sourceRowId;
+  }
+
+  return cell;
+}
+
+function copySelectedCell(columnName, destinationRow, sourceRow) {
+  const sourceCell = sourceRow[columnName];
+  let destinationCell = destinationRow[columnName];
+
+  if (!isEqual(destinationCell, sourceCell)) {
+    destinationCell = cloneDeep(sourceCell);
+    if (columnName === 'photo') {
+      destinationCell = changePhotoColumnData(sourceRow.check.common.id, destinationCell);
+    }
+  }
+
+  return destinationCell;
+}
+
+function getCopyVars(lowerCell, upperCell, cellDragged) {
+  const isDraggingDown = cellDragged.row > lowerCell.row;
+  const selectionHeight = (lowerCell.row - upperCell.row) + 1;
+
+  return {
+    column: upperCell.column,
+    rowNum: isDraggingDown ? lowerCell.row + 1 : upperCell.row - 1,
+    rowOffset: isDraggingDown ? 0 : selectionHeight - 1,
+    loopConditionFn(currentRow) {
+      return isDraggingDown ? currentRow <= cellDragged.row : currentRow >= cellDragged.row;
+    },
+    nextRow() {
+      if (isDraggingDown) {
+        this.rowNum++;
+        this.rowOffset = (this.rowOffset + 1) % selectionHeight;
+      } else {
+        this.rowNum--;
+        this.rowOffset = ((this.rowOffset - 1) + selectionHeight) % selectionHeight;
+      }
+    },
+  };
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -77,47 +133,22 @@ export default (state = initialState, action) => {
       };
 
     case TABLE_EDITOR_CELL_SELECT_END: {
-      if (state.selected.isDragging) {
-        const {cellFrom, cellTo, cellDragged} = state.selected;
-        const lowerCell = cellFrom.row > cellTo.row ? cellFrom : cellTo;
-        const upperCell = cellFrom.row < cellTo.row ? cellFrom : cellTo;
-        const selectionHeight = (lowerCell.row - upperCell.row) + 1;
-        const column = cellFrom.column;
-        const newRows = _cloneDeep(state.history.current);
-        let changed = false;
+      const {cellFrom, cellTo, cellDragged, isDragging} = state.selected;
+      const [lowerCell, upperCell] = swap(cellFrom, cellTo, cellFrom.row < cellTo.row);
+      let newRows = null;
 
-        if (cellDragged.row > lowerCell.row) {
-          let rowOffset = 0;
-          for (let rowNum = lowerCell.row + 1; rowNum <= cellDragged.row;
-               rowNum++, rowOffset = (rowOffset + 1) % selectionHeight) {
-            const columnName = Object.keys(newRows[rowNum])[column];
-            if (newRows[rowNum][columnName] !== newRows[upperCell.row + rowOffset][columnName]) {
-              changed = true;
-              newRows[rowNum][columnName] = newRows[upperCell.row + rowOffset][columnName];
-            }
-          }
-        } else {
-          if (cellDragged.row < lowerCell.row) {
-            let rowOffset = selectionHeight - 1;
-            for (let rowNum = upperCell.row - 1; rowNum >= cellDragged.row;
-                 rowNum--, rowOffset = ((rowOffset - 1) + selectionHeight) % selectionHeight) {
-              const columnName = Object.keys(newRows[rowNum])[column];
-              if (newRows[rowNum][columnName] !== newRows[upperCell.row + rowOffset][columnName]) {
-                changed = true;
-                newRows[rowNum][columnName] = newRows[upperCell.row + rowOffset][columnName];
-              }
-            }
-          }
+      if (isDragging && (cellDragged.row > lowerCell.row || cellDragged.row < upperCell.row)) {
+        newRows = cloneDeep(state.history.current);
+        const copyVars = getCopyVars(lowerCell, upperCell, cellDragged);
+
+        for (; copyVars.loopConditionFn(copyVars.rowNum); copyVars.nextRow()) {
+          const columnName = Object.keys(newRows[copyVars.rowNum])[copyVars.column];
+          newRows[copyVars.rowNum][columnName] = copySelectedCell(columnName, newRows[copyVars.rowNum],
+            newRows[upperCell.row + copyVars.rowOffset]);
         }
-        if (changed) {
-          return {
-            ...state,
-            history: history({...state.history, newRows}, action),
-            selected: selected(state.selected, action)};
-        }
-        return {...state, selected: selected(state.selected, action), history: history(state.history, action)};
       }
-      return {...state, selected: selected(state.selected, action), history: history(state.history, action)};
+
+      return {...state, selected: selected(state.selected, action), history: history({...state.history, newRows}, action)};
     }
 
     case TABLE_EDITOR_CELL_SELECT_START:
