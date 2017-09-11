@@ -25,6 +25,7 @@ class SaveControlContainer extends Component {
   }
 
   hendlerBeforeunload = (e) => {
+    /* eslint consistent-return: 0 */
     const {fetchDiff, isProgress, waitingState} = this.props.save;
     const {removeInProgrees} = this.props;
 
