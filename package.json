@@ -6,11 +6,11 @@
   "style": "./dist/assets-table.css",
   "scripts": {
     "dev": "node bin/server.js",
-    "prod": "./node_modules/.bin/webpack --config webpack.config.js",
-    "watch": "./node_modules/.bin/webpack --config webpack.config.js --watch",
-    "test": "jest --silent",
-    "test:watch": "npm test -- --watch --silent",
-    "test:coverage": "jest --coverage"
+    "prod": "./node_modules/.bin/webpack --config webpack.prod.config.js",
+    "prod:watch": "npm run prod -- --watch",
+    "test": "jest",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "npm run test -- --coverage"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",

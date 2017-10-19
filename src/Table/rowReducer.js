@@ -1,14 +1,37 @@
 import {
+  get,
+  has,
+  unset
+} from '../utils';
+import {
   TABLE_EDITOR_LOAD_SUCCESS,
   TABLE_EDITOR_SET_TEXT,
   TABLE_EDITOR_ROW_ADD,
   TABLE_EDITOR_ROW_ADD_ID,
   TABLE_EDITOR_ROW_REMOVE,
   TABLE_EDITOR_SET_IMAGES,
-  TABLE_EDITOR_IMAGES_ASSIGN_ID,
 } from './actions';
 
 let newId = -1;
+
+const fillPhoto = (row, payloadItem) => {
+  if (has(payloadItem, 'columns.photo')) {
+    const result = {
+      ...row,
+      photo: {
+        ...row.photo,
+        common: {
+          ...row.photo.common,
+          images: get(payloadItem, 'columns.photo.images') || row.photo.common.images || []
+        }
+      }
+    };
+    unset(result, 'photo.copy_from');
+    return result;
+  }
+
+  return row;
+};
 
 export default function rows(state = [], action) {
   switch (action.type) {
@@ -53,11 +76,6 @@ export default function rows(state = [], action) {
         }
         return row;
       });
-
-    case TABLE_EDITOR_IMAGES_ASSIGN_ID: {
-      // Todo:
-      return state;
-    }
 
     case TABLE_EDITOR_ROW_ADD: {
       const target = (action.payload && action.payload.target) ?
@@ -108,7 +126,7 @@ export default function rows(state = [], action) {
           row.check.common.id === payloadRow.id);
 
         if (payloadItem) {
-          return {
+          return fillPhoto({
             ...row,
             check: {
               ...row.check,
@@ -117,7 +135,7 @@ export default function rows(state = [], action) {
                 id: payloadItem.record_id
               }
             }
-          };
+          }, payloadItem);
         }
 
         return row;

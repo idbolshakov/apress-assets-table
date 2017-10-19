@@ -32,7 +32,7 @@ class ImageCell extends Component {
     handleCellClick: PropTypes.func,
     handleDrag: PropTypes.func,
     handleEndSelection: PropTypes.func,
-    handleResetSelection: PropTypes.func,
+    handleStartSelection: PropTypes.func,
     handleSelection: PropTypes.func,
     showImageEditor: PropTypes.func,
   };
@@ -60,7 +60,7 @@ class ImageCell extends Component {
   };
 
   render() {
-    const {cell, handleCellClick, handleResetSelection, handleSelection, handleEndSelection, handleDrag} = this.props;
+    const {cell, handleCellClick, handleStartSelection, handleSelection, handleEndSelection, handleDrag} = this.props;
     const {isLast, isFocus, isDragged, isSelected, classMix, data} = cell;
 
     const src = data.common.images &&
@@ -84,9 +84,7 @@ class ImageCell extends Component {
         onClick={data.binder && handleCellClick}
         onDoubleClick={data.binder && this.handeDoubleClick}
         ref={($td) => { $td && isFocus && $td.focus(); }}
-        // ToDo: нужен бек
-        // onMouseDown={this.props.handleStartSelection}
-        onMouseDown={handleResetSelection}
+        onMouseDown={handleStartSelection}
         onMouseEnter={handleSelection}
         onMouseUp={handleEndSelection}
         onDragStart={e => e.preventDefault}
