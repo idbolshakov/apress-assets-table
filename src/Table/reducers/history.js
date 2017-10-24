@@ -53,59 +53,17 @@ export default function history(state = initialState, action) {
     }
 
     case TABLE_EDITOR_ROW_ADD_ID: {
-      const newPrev = state.prev.map(prev =>
-        prev.map((item) => {
-          const payloadItem = action.payload.find(row => item.check.common.id === row.id);
-
-          if (payloadItem) {
-            return {
-              ...item,
-              check: {
-                ...item.check,
-                common: {
-                  ...item.check.common,
-                  id: payloadItem.record_id
-                }
-              }
-            };
-          }
-
-          return item;
-        })
-      );
-
       return {
         ...state,
-        prev: newPrev,
+        prev: state.prev.map(prev => rows(prev, action)),
         current: rows(state.current, action),
       };
     }
 
     case TABLE_EDITOR_ROW_ADD_DEFAULT_ID: {
-      const newNext = state.next.map(next =>
-        next.map((item) => {
-          const payloadItem = action.payload.find(row => item.check.common.id === row.id);
-
-          if (payloadItem) {
-            return {
-              ...item,
-              check: {
-                ...item.check,
-                common: {
-                  ...item.check.common,
-                  id: payloadItem.record_id
-                }
-              }
-            };
-          }
-
-          return item;
-        })
-      );
-
       return {
         ...state,
-        next: newNext,
+        next: state.next.map(next => rows(next, action)),
       };
     }
 

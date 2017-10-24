@@ -24,12 +24,44 @@ describe('reducer', () => {
         'text': 'name 1'
       }
     }
+  }, {
+    'check': {
+      'common': {
+        'id': -2
+      }
+    },
+    'product_group': {
+      'common': {
+        'ancestors': [],
+        'parent_id': -1
+      }
+    }
   }];
   const saveState = [{
     'id': 7,
     'columns': {
       'name': {
         'text': 'test name 1'
+      }
+    }
+  }, {
+    'id': -1,
+    'columns': {
+      'name': {
+        'text': 'test name 2'
+      },
+      'product_group': {
+        'parent_id': null
+      }
+    }
+  }, {
+    'id': -2,
+    'columns': {
+      'name': {
+        'text': 'test name 3'
+      },
+      'product_group': {
+        'parent_id': -1
       }
     }
   }];
@@ -121,6 +153,36 @@ describe('reducer', () => {
   });
 
   it('should handle SAVE_START', function() {
+    const expectSaveState = [{
+      'id': 7,
+      'columns': {
+        'name': {
+          'text': 'test name 1'
+        }
+      }
+    }, {
+      'id': -1,
+      'columns': {
+        'name': {
+          'text': 'test name 2'
+        },
+        'product_group': {
+          'parent_id': null
+        }
+      }
+    }];
+    const expectWaitingState = [{
+      'id': -2,
+      'columns': {
+        'name': {
+          'text': 'test name 3'
+        },
+        'product_group': {
+          'parent_id': -1
+        }
+      }
+    }];
+
     expect(reducer(
       deepFreeze({
         ...initialState,
@@ -130,8 +192,8 @@ describe('reducer', () => {
     ))
     .toEqual({
       ...initialState,
-      saveState: saveState,
-      waitingState: [],
+      saveState: expectSaveState,
+      waitingState: expectWaitingState,
       isProgress: true,
       isError: false,
     });
@@ -149,6 +211,18 @@ describe('reducer', () => {
           'text': 'name 1'
         }
       }
+    }, {
+      'check': {
+        'common': {
+          'id': -2
+        }
+      },
+      'product_group': {
+        'common': {
+          'ancestors': [],
+          'parent_id': 1
+        }
+      }
     }];
 
     const expectWaitingState = [{
@@ -156,6 +230,26 @@ describe('reducer', () => {
       'columns': {
         'name': {
           'text': 'test name 1'
+        }
+      }
+    }, {
+      'id': 1,
+      'columns': {
+        'name': {
+          'text': 'test name 2'
+        },
+        'product_group': {
+          'parent_id': null
+        }
+      }
+    }, {
+      'id': -2,
+      'columns': {
+        'name': {
+          'text': 'test name 3'
+        },
+        'product_group': {
+          'parent_id': 1
         }
       }
     }];
@@ -168,7 +262,7 @@ describe('reducer', () => {
       }),
       {
         type: actionsTable.TABLE_EDITOR_ROW_ADD_ID,
-        payload: [{id: 7, record_id: -7}]
+        payload: [{id: 7, record_id: -7}, {id: -1, record_id: 1}]
       }
     )).toEqual({
       ...initialState,
