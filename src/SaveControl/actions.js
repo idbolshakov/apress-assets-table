@@ -5,8 +5,12 @@ export const SAVE_REPEAT = 'SAVE_REPEAT';
 export const SAVE_CREATE_DIFF = 'SAVE_CREATE_DIFF';
 export const SAVE_DIFF = 'SAVE_DIFF';
 
-export const saveStart = payload => ({
-  type: SAVE_START,
+export const saveStart = () => ({
+  type: SAVE_START
+});
+
+export const saveSuccess = payload => ({
+  type: SAVE_SUCCESS,
   payload
 });
 

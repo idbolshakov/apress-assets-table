@@ -4,6 +4,7 @@ import {
   TABLE_EDITOR_SET_TEXT,
   TABLE_EDITOR_ROW_ADD,
   TABLE_EDITOR_ROW_ADD_ID,
+  TABLE_EDITOR_ROW_COPY_SUCCESS,
   TABLE_EDITOR_SET_IMAGES,
   TABLE_EDITOR_ROW_REMOVE,
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
@@ -66,6 +67,14 @@ export default function history(state = initialState, action) {
         next: state.next.map(next => rows(next, action)),
       };
     }
+
+    case TABLE_EDITOR_ROW_COPY_SUCCESS:
+      return {
+        ...state,
+        current: rows(state.current, action),
+        prev: [],
+        next: []
+      };
 
     case HISTORY_PREV:
       return {
