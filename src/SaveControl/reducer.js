@@ -14,6 +14,7 @@ import {
   TABLE_EDITOR_ROW_ADD,
   TABLE_EDITOR_CELL_SELECT_END
 } from '../Table/actions';
+import rows from '../Table/rowReducer';
 
 const initialState = {
   isSave: false,
@@ -60,44 +61,59 @@ export default function (state = initialState, action) {
         prevState: action.payload.prevState
       };
 
-    case SAVE_START:
+    case SAVE_START: {
+      const saveState = [];
+      const waitingState = [];
+
+      state.waitingState.forEach((row) => {
+        const columns = row.columns;
+
+        if (row.id > 0 && columns.product_group) {
+          delete columns.product_group;
+          if (!Object.keys(columns).length) {
+            return;
+          }
+        }
+
+        if (columns.product_group && columns.product_group.parent_id < 0) {
+          waitingState.push(row);
+        } else {
+          saveState.push(row);
+        }
+      });
+
       return {
         ...state,
-        saveState: state.waitingState,
+        saveState,
+        waitingState,
         isProgress: true,
-        isError: false,
-        waitingState: []
+        isError: false
       };
+    }
 
     case TABLE_EDITOR_ROW_ADD_DEFAULT_ID:
     case TABLE_EDITOR_ROW_ADD_ID: {
-      const tmpPrevState = state.prevState.map((row) => {
-        const payloadItem = action.payload.find(payloadRow =>
-          row.check.common.id === payloadRow.id);
-
-        if (payloadItem) {
-          return {
-            ...row,
-            check: {
-              ...row.check,
-              common: {
-                ...row.check.common,
-                id: payloadItem.record_id
-              }
-            }
-          };
-        }
-
-        return row;
-      });
-
       const tmpWaitingState = state.waitingState.map((row) => {
         const payloadItem = action.payload.find(payloadRow => row.id === payloadRow.id);
+        const payloadChildItem = action.payload.find(payloadRow =>
+          row.columns.product_group && row.columns.product_group.parent_id === payloadRow.id);
 
         if (payloadItem) {
           return {
             ...row,
             id: payloadItem.record_id
+          };
+        }
+
+        if (payloadChildItem) {
+          return {
+            ...row,
+            columns: {
+              ...row.columns,
+              product_group: {
+                parent_id: payloadChildItem.record_id
+              }
+            }
           };
         }
 
@@ -107,7 +123,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         waitingState: tmpWaitingState,
-        prevState: tmpPrevState
+        prevState: rows(state.prevState, action)
       };
     }
 

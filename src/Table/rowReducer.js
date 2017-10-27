@@ -8,6 +8,7 @@ import {
   TABLE_EDITOR_SET_TEXT,
   TABLE_EDITOR_ROW_ADD,
   TABLE_EDITOR_ROW_ADD_ID,
+  TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   TABLE_EDITOR_ROW_REMOVE,
   TABLE_EDITOR_SET_IMAGES,
 } from './actions';
@@ -120,10 +121,13 @@ export default function rows(state = [], action) {
       return newstate;
     }
 
+    case TABLE_EDITOR_ROW_ADD_DEFAULT_ID:
     case TABLE_EDITOR_ROW_ADD_ID:
       return state.map((row) => {
         const payloadItem = action.payload.find(payloadRow =>
           row.check.common.id === payloadRow.id);
+        const payloadChildItem = action.payload.find(payloadRow =>
+          row.product_group && row.product_group.common.parent_id === payloadRow.id);
 
         if (payloadItem) {
           return fillPhoto({
@@ -136,6 +140,31 @@ export default function rows(state = [], action) {
               }
             }
           }, payloadItem);
+        }
+
+        if (payloadChildItem) {
+          const ancestors = row.product_group.common.ancestors.map((ancestor) => {
+            if (ancestor.id === payloadChildItem.id) {
+              return {
+                ...ancestor,
+                id: payloadChildItem.record_id
+              };
+            }
+
+            return ancestor;
+          });
+
+          return {
+            ...row,
+            product_group: {
+              ...row.product_group,
+              common: {
+                ...row.product_group.common,
+                parent_id: payloadChildItem.record_id,
+                ancestors
+              }
+            }
+          };
         }
 
         return row;
