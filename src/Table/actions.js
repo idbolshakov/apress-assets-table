@@ -8,6 +8,7 @@ export const TABLE_EDITOR_ROW_ADD_ID = 'TABLE_EDITOR_ROW_ADD_ID';
 export const TABLE_EDITOR_ROW_ADD_DEFAULT_ID = 'TABLE_EDITOR_ROW_ADD_DEFAULT_ID';
 export const TABLE_EDITOR_ROW_REMOVE = 'TABLE_EDITOR_ROW_REMOVE';
 export const TABLE_EDITOR_ROW_COPY = 'TABLE_EDITOR_ROW_COPY';
+export const TABLE_EDITOR_ROW_COPY_SUCCESS = 'TABLE_EDITOR_ROW_COPY_SUCCESS';
 export const TABLE_EDITOR_SET_CHECK = 'TABLE_EDITOR_SET_CHECK';
 export const TABLE_EDITOR_SET_CHECK_ALL = 'TABLE_EDITOR_SET_CHECK_ALL';
 export const TABLE_EDITOR_SET_CHECK_ALL_RESET = 'TABLE_EDITOR_SET_CHECK_ALL_RESET';
@@ -55,6 +56,11 @@ export const removeRow = payload => ({
 
 export const copyRow = payload => ({
   type: TABLE_EDITOR_ROW_COPY,
+  payload
+});
+
+export const copyRowSuccess = payload => ({
+  type: TABLE_EDITOR_ROW_COPY_SUCCESS,
   payload
 });
 

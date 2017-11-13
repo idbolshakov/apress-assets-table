@@ -1,7 +1,8 @@
 import {
   get,
   has,
-  unset
+  unset,
+  transformFromServer
 } from '../utils';
 import {
   TABLE_EDITOR_LOAD_SUCCESS,
@@ -11,6 +12,7 @@ import {
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   TABLE_EDITOR_ROW_REMOVE,
   TABLE_EDITOR_SET_IMAGES,
+  TABLE_EDITOR_ROW_COPY_SUCCESS
 } from './actions';
 
 let newId = -1;
@@ -169,6 +171,19 @@ export default function rows(state = [], action) {
 
         return row;
       });
+
+    case TABLE_EDITOR_ROW_COPY_SUCCESS: {
+      const newState = [...state];
+      action.payload.rows.forEach((item) => {
+        const target = newState.findIndex(newStateItem => newStateItem.check.common.id === item.id);
+
+        if (target > -1) {
+          newState.splice(target + 1, 0, transformFromServer(item.copy.columns, action.payload.new_row));
+        }
+      });
+
+      return newState;
+    }
 
     case TABLE_EDITOR_ROW_REMOVE: {
       return state.filter(row => row.check.common.id !== action.payload.id);

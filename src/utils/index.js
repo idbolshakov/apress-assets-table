@@ -47,3 +47,41 @@ export function inRange(num1, num2, num) {
 export function swap(n, m, condition) {
   return condition === undefined || condition ? [m, n] : [n, m];
 }
+
+export const transformForServer = (records) => {
+  if (!records) {
+    return [];
+  }
+
+  return records.map((record) => {
+    const newObj = {
+      id: record.check.common.id,
+      columns: {}
+    };
+
+    Object.keys(record).forEach((key) => {
+      if (key !== 'check') {
+        if (record[key].common) {
+          newObj.columns[key] = record[key].common;
+        } else {
+          newObj[key] = record[key];
+        }
+      }
+    });
+
+    return newObj;
+  });
+};
+
+export const transformFromServer = (record, templateRecord) => {
+  const newRecord = {};
+
+  Object.keys(templateRecord).forEach((key) => {
+    newRecord[key] = {
+      ...templateRecord[key],
+      common: record[key]
+    };
+  });
+
+  return newRecord;
+};

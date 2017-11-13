@@ -2,12 +2,16 @@ import * as actions from '../actions';
 
 describe('actions', () => {
   it('should create an action to save start', () => {
-    const expectedAction = {
-      type: actions.SAVE_START,
-      payload: undefined
-    };
+    expect(actions.saveStart()).toEqual({type: actions.SAVE_START});
+  });
 
-    expect(actions.saveStart()).toEqual(expectedAction);
+  it('should create an action to save success', () => {
+    const someData = {};
+    expect(actions.saveSuccess(someData))
+      .toEqual({
+        type: actions.SAVE_SUCCESS,
+        payload: someData
+      });
   });
 
   it('should create an action to save create diff', () => {

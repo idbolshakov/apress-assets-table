@@ -1,11 +1,11 @@
 import {put, call, select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import _isEqual from 'lodash/isEqual';
-import {api} from '../utils';
+import {api, transformForServer} from '../utils';
 import {TREE_LOAD_START} from '../Tree/actions';
-import {TABLE_EDITOR_ROW_ADD_ID, TABLE_EDITOR_ROW_ADD_DEFAULT_ID} from '../Table/actions';
+import {TABLE_EDITOR_ROW_ADD_ID, TABLE_EDITOR_ROW_ADD_DEFAULT_ID, copyRowSuccess} from '../Table/actions';
 import {ERROR_REMOVE} from '../Error/actions';
-import {SAVE_SUCCESS, SAVE_DIFF} from './actions';
+import {saveSuccess, SAVE_DIFF} from './actions';
 
 let newId = -100000;
 
@@ -19,30 +19,12 @@ export const pollingJob = jobId =>
 
 export const getSave = props => props.save;
 
+export const getNewRow = props => props.table.new_row;
+
 const find = (secondRow, row) =>
   (row.id && secondRow.id && row.id === secondRow.id) ||
   (row.check && secondRow.check &&
   row.check.common.id === secondRow.check.common.id);
-
-export const transformForServer = records =>
-  records.map((record) => {
-    const newObj = {
-      id: record.check.common.id,
-      columns: {}
-    };
-
-    Object.keys(record).forEach((key) => {
-      if (key !== 'check') {
-        if (record[key].common) {
-          newObj.columns[key] = record[key].common;
-        } else {
-          newObj[key] = record[key];
-        }
-      }
-    });
-
-    return newObj;
-  });
 
 export const getDeletedItems = (cur, prev) => {
   const deletedItems = [];
@@ -275,6 +257,44 @@ export const setInvalidDifferenceForCurrentState = (currentState, previousState,
 
   return currentState;
 };
+
+export function* saveProcess(rows) {
+  const job = yield call(putSave, rows);
+
+  while (true) {
+    yield call(delay, 1000);
+    const response = yield call(pollingJob, job.job_id);
+
+    if (response.failed || response.succeeded) {
+      return response;
+    }
+  }
+}
+
+export function* resetRemoteId(rows) {
+  if (rows && rows.length) {
+    yield put({
+      type: TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
+      payload: rows.map((item) => {
+        const data = {
+          id: item.id,
+          record_id: newId
+        };
+        newId -= 1;
+
+        return data;
+      })
+    });
+  }
+}
+
+export function* addCopiedRows(rows) {
+  if (rows && rows.length) {
+    const newRowTemplate = yield select(getNewRow);
+    yield put(copyRowSuccess({rows, new_row: newRowTemplate}));
+  }
+}
+
 export function* saveCreateDiff(action) {
   const {
     validDifferenceState,
@@ -304,33 +324,17 @@ export function* save() {
 
     const saveProps = yield select(getSave);
     if (saveProps.saveState.length) {
-      const job = yield call(putSave, saveProps.saveState);
-      let response = {};
-
-      while (true) {
-        yield call(delay, 1000);
-        response = yield call(pollingJob, job.job_id);
-
-        if (response.failed || response.succeeded) {
-          break;
-        }
-      }
-
+      const response = yield call(saveProcess, saveProps.saveState);
       if (response.succeeded) {
-        const deletedItems = saveProps.saveState.filter(row => row.destroy);
-        if (deletedItems.length) {
-          yield put({
-            type: TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
-            payload: deletedItems.map((item) => {
-              const data = {
-                id: item.id,
-                record_id: newId
-              };
-              newId -= 1;
+        const deletedRows = saveProps.saveState.filter(row => row.destroy);
+        const copiedRows = response.payload.filter(row => row.copy);
 
-              return data;
-            })
-          });
+        if (deletedRows.length) {
+          yield call(resetRemoteId, deletedRows);
+        }
+
+        if (copiedRows.length) {
+          yield call(addCopiedRows, copiedRows);
         }
 
         yield put({type: TABLE_EDITOR_ROW_ADD_ID, payload: response.payload});
@@ -338,8 +342,8 @@ export function* save() {
       }
     }
 
-    yield put({type: SAVE_SUCCESS, payload: {error: false}});
+    yield put(saveSuccess({error: false}));
   } catch (err) {
-    yield put({type: SAVE_SUCCESS, payload: {error: true}});
+    yield put(saveSuccess({error: true}));
   }
 }
