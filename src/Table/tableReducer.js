@@ -33,7 +33,8 @@ import {
   TABLE_EDITOR_SET_IMAGES,
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   HISTORY_PREV,
-  HISTORY_NEXT
+  HISTORY_NEXT,
+  UPDATE_TABLE_EDITOR_ROWS
 } from './actions';
 
 const initialState = {
@@ -178,6 +179,7 @@ export default (state = initialState, action) => {
     case TABLE_EDITOR_ROW_ADD_DEFAULT_ID:
     case HISTORY_PREV:
     case HISTORY_NEXT:
+    case UPDATE_TABLE_EDITOR_ROWS:
       return {...state, history: history(state.history, action)};
 
     default:

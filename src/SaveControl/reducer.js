@@ -15,7 +15,8 @@ import {
   TABLE_EDITOR_ROW_ADD,
   TABLE_EDITOR_ROW_COPY,
   TABLE_EDITOR_ROW_COPY_SUCCESS,
-  TABLE_EDITOR_CELL_SELECT_END
+  TABLE_EDITOR_CELL_SELECT_END,
+  UPDATE_TABLE_EDITOR_ROWS
 } from '../Table/actions';
 import rows from '../Table/rowReducer';
 
@@ -197,6 +198,12 @@ export default function (state = initialState, action) {
         isError: true
       };
     }
+
+    case UPDATE_TABLE_EDITOR_ROWS:
+      return {
+        ...state,
+        prevState: rows(state.prevState, action)
+      };
 
     default:
       return state;

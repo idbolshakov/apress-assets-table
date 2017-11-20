@@ -16,4 +16,11 @@ describe('actions', () => {
       payload: someData
     });
   });
+
+  it('updateTableEditorRows', () => {
+    expect(tableActions.updateTableEditorRows(someData)).toEqual({
+      type: tableActions.UPDATE_TABLE_EDITOR_ROWS,
+      payload: someData
+    });
+  });
 });
