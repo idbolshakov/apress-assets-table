@@ -26,4 +26,13 @@ describe('actions', () => {
     expect(actions.saveCreateDiff({curState: [], prevState: []}))
       .toEqual(expectedAction);
   });
+
+  it('should create an action to continue save', () => {
+    const someData = {};
+    expect(actions.continueSave(someData))
+      .toEqual({
+        type: actions.CONTINUE_SAVE,
+        payload: someData
+      });
+  });
 });

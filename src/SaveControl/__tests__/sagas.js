@@ -1,7 +1,15 @@
 import {getStateSetter} from '../../../test/testUtils';
 import {put, call, select} from 'redux-saga/effects';
 import {cloneableGenerator} from 'redux-saga/utils';
-import {save, getSave, saveProcess, resetRemoteId, addCopiedRows, getNewRow} from '../sagas';
+import {
+  save,
+  getSave,
+  saveProcess,
+  resetRemoteId,
+  addCopiedRows,
+  getNewRow,
+  continueSave,
+} from '../sagas';
 import * as treeActions from '../../Tree/actions';
 import * as tableActions from '../../Table/actions';
 import * as errorActions from '../../Error/actions';
@@ -9,7 +17,7 @@ import * as saveControlActions from '../actions';
 
 describe('SaveControl sagas', () => {
   const setState = getStateSetter({
-    isSave: false,
+    withUnsavedChanges: false,
     isError: false,
     prevState: [],
     isProgress: false,
@@ -37,6 +45,34 @@ describe('SaveControl sagas', () => {
       expect(generator.next(newRowTemplate).value)
         .toEqual(put(tableActions.copyRowSuccess({rows, new_row: newRowTemplate})));
       expect(generator.next().done).toEqual(true);
+    });
+  });
+
+  describe('continueSave()', () => {
+    const continueSaveGenerator = cloneableGenerator(continueSave)();
+
+    it('should get save properties', () => {
+      expect(continueSaveGenerator.next().value).toEqual(select(getSave));
+    });
+
+    describe('clone generator', () => {
+      let cloneContinueSaveGenerator;
+
+      beforeEach(() => {
+        cloneContinueSaveGenerator = continueSaveGenerator.clone();
+      });
+
+      it('should not create an action to continue save', () => {
+        expect(cloneContinueSaveGenerator.next(setState()).done).toEqual(true);
+      });
+
+      it('should create an action to continue save', () => {
+        const prevState = [{check: {common: {id: -1}}}];
+
+        expect(cloneContinueSaveGenerator.next(setState({prevState})).value)
+          .toEqual(put(saveControlActions.continueSave()));
+        expect(cloneContinueSaveGenerator.next().done).toEqual(true);
+      });
     });
   });
 
@@ -72,6 +108,8 @@ describe('SaveControl sagas', () => {
       it('should not save with empty saveState', () => {
         expect(cloneSaveGenerator.next(setState()).value)
           .toEqual(put(saveSuccessAction));
+        expect(cloneSaveGenerator.next().value)
+          .toEqual(call(continueSave));
         expect(cloneSaveGenerator.next().done).toEqual(true);
       });
 
@@ -80,6 +118,8 @@ describe('SaveControl sagas', () => {
           .toEqual(call(saveProcess, saveState));
         expect(cloneSaveGenerator.next({succeeded: false}).value)
           .toEqual(put(saveSuccessAction));
+        expect(cloneSaveGenerator.next().value)
+          .toEqual(call(continueSave));
         expect(cloneSaveGenerator.next().done).toEqual(true);
       });
 
@@ -98,6 +138,8 @@ describe('SaveControl sagas', () => {
           .toEqual(put(treeLoadStartAction));
         expect(cloneSaveGenerator.next().value)
           .toEqual(put(saveSuccessAction));
+        expect(cloneSaveGenerator.next().value)
+          .toEqual(call(continueSave));
         expect(cloneSaveGenerator.next().done).toEqual(true);
       });
 
@@ -114,6 +156,8 @@ describe('SaveControl sagas', () => {
           .toEqual(put(treeLoadStartAction));
         expect(cloneSaveGenerator.next().value)
           .toEqual(put(saveSuccessAction));
+        expect(cloneSaveGenerator.next().value)
+          .toEqual(call(continueSave));
         expect(cloneSaveGenerator.next().done).toEqual(true);
       });
     });
@@ -127,6 +171,8 @@ describe('SaveControl sagas', () => {
         .toEqual(put(treeLoadStartAction));
       expect(saveGenerator.next().value)
         .toEqual(put(saveSuccessAction));
+      expect(saveGenerator.next().value)
+        .toEqual(call(continueSave));
       expect(saveGenerator.next().done).toEqual(true);
     });
   });

@@ -1,10 +1,10 @@
 import {transformFromServer} from '../utils';
 import {
   SAVE_SUCCESS,
-  SAVE_REPEAT,
   SAVE_CREATE_DIFF,
   SAVE_START,
-  SAVE_DIFF
+  SAVE_DIFF,
+  CONTINUE_SAVE
 } from './actions';
 import {
   TABLE_EDITOR_LOAD_SUCCESS,
@@ -20,7 +20,7 @@ import {
 import rows from '../Table/rowReducer';
 
 const initialState = {
-  isSave: false,
+  withUnsavedChanges: false,
   isError: false,
   prevState: [],
   isProgress: false,
@@ -37,7 +37,7 @@ export default function (state = initialState, action) {
         prevState: [...action.payload.rows]
       };
 
-    case SAVE_REPEAT:
+    case CONTINUE_SAVE:
     case TABLE_EDITOR_SET_TEXT:
     case TABLE_EDITOR_SET_IMAGES:
     case TABLE_EDITOR_ROW_ADD:
@@ -46,7 +46,7 @@ export default function (state = initialState, action) {
     case 'HISTORY_NEXT':
       return {
         ...state,
-        isSave: true
+        withUnsavedChanges: true
       };
 
     case TABLE_EDITOR_ROW_COPY: {
@@ -68,7 +68,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         waitingState: tmpWaitingState,
-        isSave: true
+        withUnsavedChanges: true
       };
     }
 
@@ -92,7 +92,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fetchDiff: true,
-        isSave: false,
+        withUnsavedChanges: false,
       };
 
     case SAVE_DIFF:
@@ -105,7 +105,6 @@ export default function (state = initialState, action) {
 
     case SAVE_START: {
       const saveState = [];
-      const waitingState = [];
 
       state.waitingState.forEach((row) => {
         const columns = row.columns;
@@ -121,11 +120,7 @@ export default function (state = initialState, action) {
             }
           }
 
-          if (tmpColumns.product_group && tmpColumns.product_group.parent_id < 0) {
-            waitingState.push(tmpRow);
-          } else {
-            saveState.push(tmpRow);
-          }
+          saveState.push(tmpRow);
         } else {
           saveState.push(row);
         }
@@ -134,9 +129,9 @@ export default function (state = initialState, action) {
       return {
         ...state,
         saveState,
-        waitingState,
         isProgress: true,
-        isError: false
+        isError: false,
+        waitingState: []
       };
     }
 
@@ -144,25 +139,11 @@ export default function (state = initialState, action) {
     case TABLE_EDITOR_ROW_ADD_ID: {
       const tmpWaitingState = state.waitingState.map((row) => {
         const payloadItem = action.payload.find(payloadRow => row.id === payloadRow.id);
-        const payloadChildItem = action.payload.find(payloadRow =>
-          row.columns.product_group && row.columns.product_group.parent_id === payloadRow.id);
 
         if (payloadItem) {
           return {
             ...row,
             id: payloadItem.record_id
-          };
-        }
-
-        if (payloadChildItem) {
-          return {
-            ...row,
-            columns: {
-              ...row.columns,
-              product_group: {
-                parent_id: payloadChildItem.record_id
-              }
-            }
           };
         }
 
@@ -212,7 +193,7 @@ export default function (state = initialState, action) {
         saveState: [],
         waitingState: saveState,
         isProgress: false,
-        isSave: true,
+        withUnsavedChanges: true,
         isError: true
       };
     }
