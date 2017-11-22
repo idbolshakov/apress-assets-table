@@ -37042,7 +37042,7 @@ var ActionsPanel = function ActionsPanel(props) {
       _react2.default.createElement(
         'section',
         { className: b('section-2') },
-        !!historyButton && _react2.default.createElement(
+        historyButton && _react2.default.createElement(
           'div',
           { className: b('last-actions-box') },
           _react2.default.createElement(
@@ -40759,7 +40759,8 @@ var Body = function (_Component) {
           placeholder = _this$props.placeholder,
           config = _this$props.config,
           actions = _this$props.actions,
-          table = _this$props.table;
+          table = _this$props.table,
+          readonly = _this$props.readonly;
       var focus = table.focus,
           selected = table.selected;
 
@@ -40771,11 +40772,12 @@ var Body = function (_Component) {
         placeholder: placeholder[cell],
         config: config[cell],
         isFocus: rowId === focus.activeRow && cell === focus.activeCell,
-        isSelected: selected.cellFrom.column === columnIndex && (0, _utils.inRange)(selected.cellFrom.row, selected.cellTo.row, rowIndex),
-        isLast: _this.isCurrentCellLastInSelection(rowIndex, columnIndex),
-        isDragged: _this.isCurrentCellDragged(rowIndex, columnIndex),
+        isSelected: !readonly && selected.cellFrom.column === columnIndex && (0, _utils.inRange)(selected.cellFrom.row, selected.cellTo.row, rowIndex),
+        isLast: !readonly && _this.isCurrentCellLastInSelection(rowIndex, columnIndex),
+        isDragged: !readonly && _this.isCurrentCellDragged(rowIndex, columnIndex),
         column: columnIndex,
-        row: rowIndex
+        row: rowIndex,
+        readonly: readonly
       };
       var tableWidth = (0, _keys2.default)(row).length;
       var key = rowIndex * tableWidth + columnIndex;
@@ -42508,7 +42510,8 @@ var TextCell = function (_Component) {
           classMix = cell.classMix,
           isSelected = cell.isSelected,
           isDragged = cell.isDragged,
-          isLast = cell.isLast;
+          isLast = cell.isLast,
+          readonly = cell.readonly;
 
       var cellText = data.common.text;
       var binder = data.binder;
@@ -42572,6 +42575,7 @@ var TextCell = function (_Component) {
             'selected-to': isDragged,
             required: config.required && !cellText && !this.state.edit
           }),
+          title: readonly && cellText,
           tabIndex: -1,
           onClick: binder && handleCellClick,
           onDoubleClick: function onDoubleClick() {
