@@ -35,7 +35,7 @@ const ActionsPanel = (props) => {
           </div>
         </section>
         <section className={b('section-2')}>
-          {!!historyButton &&
+          {historyButton &&
             <div className={b('last-actions-box')}>
               <span className={b('last-actions-label')}>Последние действия:</span>
               <button
