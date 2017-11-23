@@ -6,7 +6,7 @@ import * as tableActions from '../../Table/actions';
 
 describe('reducer', () => {
   const initialState = {
-    isSave: false,
+    withUnsavedChanges: false,
     isError: false,
     prevState: [],
     isProgress: false,
@@ -27,44 +27,12 @@ describe('reducer', () => {
         'text': 'name 1'
       }
     }
-  }, {
-    'check': {
-      'common': {
-        'id': -2
-      }
-    },
-    'product_group': {
-      'common': {
-        'ancestors': [],
-        'parent_id': -1
-      }
-    }
   }];
   const saveState = [{
     'id': 7,
     'columns': {
       'name': {
         'text': 'test name 1'
-      }
-    }
-  }, {
-    'id': -1,
-    'columns': {
-      'name': {
-        'text': 'test name 2'
-      },
-      'product_group': {
-        'parent_id': null
-      }
-    }
-  }, {
-    'id': -2,
-    'columns': {
-      'name': {
-        'text': 'test name 3'
-      },
-      'product_group': {
-        'parent_id': -1
       }
     }
   }];
@@ -89,47 +57,47 @@ describe('reducer', () => {
     ).toEqual({...initialState, prevState: rows});
   });
 
-  it('should handle SAVE_REPEAT', () => {
-    expect(reducer(freezedInitialState, {type: actions.SAVE_REPEAT, payload: {}}))
-      .toEqual({...initialState, isSave: true});
+  it('should handle CONTINUE_SAVE', () => {
+    expect(reducer(freezedInitialState, actions.continueSave()))
+      .toEqual({...initialState, withUnsavedChanges: true});
   });
 
   it('should handle TABLE_EDITOR_CELL_SELECT_END', () => {
     expect(reducer(freezedInitialState, {
       type: tableActions.TABLE_EDITOR_CELL_SELECT_END,
       payload: {}
-    })).toEqual({...initialState, isSave: true});
+    })).toEqual({...initialState, withUnsavedChanges: true});
   });
 
   it('should handle TABLE_EDITOR_SET_TEXT', () => {
     expect(reducer(freezedInitialState, {
       type: tableActions.TABLE_EDITOR_SET_TEXT,
       payload: {}
-    })).toEqual({...initialState, isSave: true});
+    })).toEqual({...initialState, withUnsavedChanges: true});
   });
 
   it('should handle TABLE_EDITOR_SET_IMAGES', () => {
     expect(reducer(freezedInitialState, {
       type: tableActions.TABLE_EDITOR_SET_IMAGES,
       payload: {}
-    })).toEqual({...initialState, isSave: true});
+    })).toEqual({...initialState, withUnsavedChanges: true});
   });
 
   it('should handle TABLE_EDITOR_ROW_ADD', () => {
     expect(reducer(freezedInitialState, {
       type: tableActions.TABLE_EDITOR_ROW_ADD,
       payload: {}
-    })).toEqual({...initialState, isSave: true});
+    })).toEqual({...initialState, withUnsavedChanges: true});
   });
 
   it('should handle HISTORY_PREV', () => {
     expect(reducer(freezedInitialState, {type: tableActions.HISTORY_PREV, payload: {}}))
-      .toEqual({...initialState, isSave: true});
+      .toEqual({...initialState, withUnsavedChanges: true});
   });
 
   it('should handle HISTORY_NEXT', () => {
     expect(reducer(freezedInitialState, {type: tableActions.HISTORY_NEXT, payload: {}}))
-      .toEqual({...initialState, isSave: true});
+      .toEqual({...initialState, withUnsavedChanges: true});
   });
 
   describe('TABLE_EDITOR_ROW_COPY', () => {
@@ -147,7 +115,7 @@ describe('reducer', () => {
         .toEqual({
           ...initialState,
           waitingState: [{id: target.check.common.id, copy: true}],
-          isSave: true
+          withUnsavedChanges: true
         });
     });
 
@@ -161,7 +129,7 @@ describe('reducer', () => {
       )).toEqual({
         ...initialState,
         waitingState: [{...waitingItem, copy: true}],
-        isSave: true
+        withUnsavedChanges: true
       });
     });
   });
@@ -195,7 +163,7 @@ describe('reducer', () => {
 
   it('should handle SAVE_CREATE_DIFF', () => {
     expect(reducer(freezedInitialState, {type: actions.SAVE_CREATE_DIFF, payload: {}}))
-      .toEqual({...initialState, fetchDiff: true, isSave: false});
+      .toEqual({...initialState, fetchDiff: true, withUnsavedChanges: false});
   });
 
   it('should handle SAVE_DIFF', () => {
@@ -244,21 +212,6 @@ describe('reducer', () => {
         .toEqual({
           ...initialState,
           saveState: waitingState,
-          isProgress: true,
-          isError: false
-        });
-    });
-
-    it('should not add a group with an unsaved parent', () => {
-      const waitingState = [{id: -1, columns: {product_group: {parent_id: -2}}}];
-
-      expect(reducer(
-        setState({waitingState}),
-        saveStartAction
-      ))
-        .toEqual({
-          ...initialState,
-          waitingState,
           isProgress: true,
           isError: false
         });
@@ -333,18 +286,6 @@ describe('reducer', () => {
           'text': 'name 1'
         }
       }
-    }, {
-      'check': {
-        'common': {
-          'id': -2
-        }
-      },
-      'product_group': {
-        'common': {
-          'ancestors': [],
-          'parent_id': 1
-        }
-      }
     }];
 
     const expectWaitingState = [{
@@ -352,26 +293,6 @@ describe('reducer', () => {
       'columns': {
         'name': {
           'text': 'test name 1'
-        }
-      }
-    }, {
-      'id': 1,
-      'columns': {
-        'name': {
-          'text': 'test name 2'
-        },
-        'product_group': {
-          'parent_id': null
-        }
-      }
-    }, {
-      'id': -2,
-      'columns': {
-        'name': {
-          'text': 'test name 3'
-        },
-        'product_group': {
-          'parent_id': 1
         }
       }
     }];
@@ -383,7 +304,7 @@ describe('reducer', () => {
       }),
       {
         type: tableActions.TABLE_EDITOR_ROW_ADD_ID,
-        payload: [{id: 7, record_id: -7}, {id: -1, record_id: 1}]
+        payload: [{id: 7, record_id: -7}]
       }
     )).toEqual({
       ...initialState,
@@ -392,22 +313,24 @@ describe('reducer', () => {
     });
   });
 
-  it('should handle SAVE_SUCCESS no error', function() {
-    expect(reducer(freezedInitialState, {type: actions.SAVE_SUCCESS, payload: {}}))
-      .toEqual({...initialState, saveState: [], isProgress: false});
-  });
+  describe('SAVE_SUCCESS', () => {
+    it('should handle the error save', () => {
+      expect(reducer(
+        setState({saveState}),
+        actions.saveSuccess({error: true})
+      )).toEqual({
+        ...initialState,
+        saveState: [],
+        waitingState: saveState,
+        isProgress: false,
+        withUnsavedChanges: true,
+        isError: true
+      });
+    });
 
-  it('should handle SAVE_SUCCESS error', function() {
-    expect(reducer(
-      setState({saveState}),
-      {type: actions.SAVE_SUCCESS, payload: {error: true}}
-    )).toEqual({
-      ...initialState,
-      saveState: [],
-      waitingState: saveState,
-      isProgress: false,
-      isSave: true,
-      isError: true
+    it('should handle a successful save', () => {
+      expect(reducer(freezedInitialState, actions.saveSuccess()))
+        .toEqual({...initialState, saveState: [], isProgress: false});
     });
   });
 });

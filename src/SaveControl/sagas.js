@@ -5,7 +5,7 @@ import {api, transformForServer} from '../utils';
 import {TREE_LOAD_START} from '../Tree/actions';
 import {TABLE_EDITOR_ROW_ADD_ID, TABLE_EDITOR_ROW_ADD_DEFAULT_ID, copyRowSuccess} from '../Table/actions';
 import {ERROR_REMOVE} from '../Error/actions';
-import {saveSuccess, SAVE_DIFF} from './actions';
+import * as saveControlActions from './actions';
 
 let newId = -100000;
 
@@ -169,17 +169,17 @@ export const getRowsDifference = (currentState, previousState) => {
     const previousRow = previousState
       .find(row => row.check.common.id === currentRow.check.common.id);
 
-    if (currentRow.name.common.text) {
+    if (!currentRow.name.common.text || currentRow.product_group.common.parent_id < 0) {
+      differenceRow = {
+        id: currentRow.check.common.id,
+        invalid: true
+      };
+    } else {
       if (previousRow) {
         differenceRow = getRowDifference(currentRow, previousRow);
       } else {
         differenceRow = currentRow;
       }
-    } else {
-      differenceRow = {
-        id: currentRow.check.common.id,
-        invalid: true
-      };
     }
 
     return differenceRow;
@@ -295,6 +295,15 @@ export function* addCopiedRows(rows) {
   }
 }
 
+export function* continueSave() {
+  const saveProps = yield select(getSave);
+  const withUnsavedChanges = saveProps.prevState.some(row => row.check.common.id < 0);
+
+  if (withUnsavedChanges && !saveProps.isProgress) {
+    yield put(saveControlActions.continueSave());
+  }
+}
+
 export function* saveCreateDiff(action) {
   const {
     validDifferenceState,
@@ -309,7 +318,7 @@ export function* saveCreateDiff(action) {
   );
 
   yield put({
-    type: SAVE_DIFF,
+    type: saveControlActions.SAVE_DIFF,
     payload: {
       waitingState,
       prevState: currentState
@@ -342,8 +351,9 @@ export function* save() {
       }
     }
 
-    yield put(saveSuccess({error: false}));
+    yield put(saveControlActions.saveSuccess({error: false}));
+    yield call(continueSave);
   } catch (err) {
-    yield put(saveSuccess({error: true}));
+    yield put(saveControlActions.saveSuccess({error: true}));
   }
 }
