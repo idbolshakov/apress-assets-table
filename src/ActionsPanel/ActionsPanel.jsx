@@ -15,7 +15,7 @@ const filterTitle = {
 const ActionsPanel = (props) => {
   const historyButton = props.backHistory && props.nextHistory;
   const filterCol = props.columns &&
-    props.columns.filter(col => col.filter && col.filter.value && col.filter.value !== 'all');
+    props.columns.filter(col => col.common.visible && col.filter && col.filter.value && col.filter.value !== 'all');
 
   const getFilterValue = (name, key) => {
     if (props.filtersForColumns) {
