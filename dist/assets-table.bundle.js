@@ -35443,7 +35443,7 @@ var filterTitle = {
 var ActionsPanel = function ActionsPanel(props) {
   var historyButton = props.backHistory && props.nextHistory;
   var filterCol = props.columns && props.columns.filter(function (col) {
-    return col.filter && col.filter.value && col.filter.value !== 'all';
+    return col.common.visible && col.filter && col.filter.value && col.filter.value !== 'all';
   });
 
   var getFilterValue = function getFilterValue(name, key) {
