@@ -12,7 +12,8 @@ import {
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   TABLE_EDITOR_ROW_REMOVE,
   TABLE_EDITOR_SET_IMAGES,
-  TABLE_EDITOR_ROW_COPY_SUCCESS
+  TABLE_EDITOR_ROW_COPY_SUCCESS,
+  UPDATE_TABLE_EDITOR_ROWS
 } from './actions';
 
 let newId = -1;
@@ -188,6 +189,24 @@ export default function rows(state = [], action) {
     case TABLE_EDITOR_ROW_REMOVE: {
       return state.filter(row => row.check.common.id !== action.payload.id);
     }
+
+    case UPDATE_TABLE_EDITOR_ROWS:
+      return state.map((stateRow) => {
+        const payloadRow = action.payload.rows.find(row => row.id === stateRow.check.common.id);
+
+        if (payloadRow) {
+          const transformedPayloadRow = transformFromServer(payloadRow.columns, action.payload.new_row);
+
+          return Object.keys(transformedPayloadRow).reduce((result, nextKey) => {
+            /* eslint no-param-reassign: ['error', { 'props': false }]*/
+            result[nextKey] = transformedPayloadRow[nextKey];
+
+            return result;
+          }, {...stateRow});
+        }
+
+        return stateRow;
+      });
 
     default:
       return state;

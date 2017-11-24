@@ -1,6 +1,7 @@
 import {getStateSetter, mockGroupsRequest} from '../../../test/testUtils';
 import tableData from '../../../_mock/table/data.json';
 import reducer from '../reducer';
+import rowReducer from '../../Table/rowReducer';
 import * as actions from '../actions';
 import * as tableActions from '../../Table/actions';
 
@@ -331,6 +332,20 @@ describe('reducer', () => {
     it('should handle a successful save', () => {
       expect(reducer(freezedInitialState, actions.saveSuccess()))
         .toEqual({...initialState, saveState: [], isProgress: false});
+    });
+  });
+
+  it('should handle UPDATE_TABLE_EDITOR_ROWS', () => {
+    const updateRowsRequestPayload = {rows: [{id: 45496, columns: {name: {text: 'updated text'}}}]};
+    const updatedRows = mockGroupsRequest(updateRowsRequestPayload);
+    const action = tableActions.updateTableEditorRows({rows: updatedRows.payload, new_row: tableData.new_row});
+
+    expect(reducer(
+      setState({prevState: tableData.rows}),
+      action
+    )).toEqual({
+      ...initialState,
+      prevState: rowReducer(tableData.rows, action)
     });
   });
 });

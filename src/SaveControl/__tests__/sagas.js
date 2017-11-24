@@ -9,6 +9,7 @@ import {
   addCopiedRows,
   getNewRow,
   continueSave,
+  updateRows
 } from '../sagas';
 import * as treeActions from '../../Tree/actions';
 import * as tableActions from '../../Table/actions';
@@ -76,6 +77,28 @@ describe('SaveControl sagas', () => {
     });
   });
 
+  describe('updateRows(rows)', () => {
+    it('should exit if rows are undefined', () => {
+      expect(updateRows().next().done).toEqual(true);
+    });
+
+    it('should exit if rows are an empty array', () => {
+      expect(updateRows([]).next().done).toEqual(true);
+    });
+
+    it('should update rows', () => {
+      const rows = [{}, {}];
+      const newRowTemplate = {};
+      const updateRowsGenerator = updateRows(rows);
+
+      expect(updateRowsGenerator.next().value)
+        .toEqual(select(getNewRow));
+      expect(updateRowsGenerator.next(newRowTemplate).value)
+        .toEqual(put(tableActions.updateTableEditorRows({rows, new_row: newRowTemplate})));
+      expect(updateRowsGenerator.next().done).toEqual(true);
+    });
+  });
+
   describe('save()', () => {
     const saveState = [{id: 1, columns: {}}];
     const saveGenerator = cloneableGenerator(save)();
@@ -123,7 +146,7 @@ describe('SaveControl sagas', () => {
         expect(cloneSaveGenerator.next().done).toEqual(true);
       });
 
-      it('should to remove the group', () => {
+      it('should remove group', () => {
         const removeGroupSaveState = [{id: 1, destroy: true}];
 
         expect(cloneSaveGenerator.next(
@@ -143,7 +166,7 @@ describe('SaveControl sagas', () => {
         expect(cloneSaveGenerator.next().done).toEqual(true);
       });
 
-      it('should to copy the group', () => {
+      it('should copy group', () => {
         const copyGroupPayload = [{id: 1, copy: true}];
 
         expect(cloneSaveGenerator.next(setState({saveState})).value)
@@ -152,6 +175,24 @@ describe('SaveControl sagas', () => {
           .toEqual(call(addCopiedRows, copyGroupPayload));
         expect(cloneSaveGenerator.next().value)
           .toEqual(put({type: tableActions.TABLE_EDITOR_ROW_ADD_ID, payload: copyGroupPayload}));
+        expect(cloneSaveGenerator.next().value)
+          .toEqual(put(treeLoadStartAction));
+        expect(cloneSaveGenerator.next().value)
+          .toEqual(put(saveSuccessAction));
+        expect(cloneSaveGenerator.next().value)
+          .toEqual(call(continueSave));
+        expect(cloneSaveGenerator.next().done).toEqual(true);
+      });
+
+      it('should update group', () => {
+        const updateGroupPayload = [{id: 1, columns: {}}];
+
+        expect(cloneSaveGenerator.next(setState({saveState})).value)
+          .toEqual(call(saveProcess, saveState));
+        expect(cloneSaveGenerator.next({succeeded: true, payload: updateGroupPayload}).value)
+          .toEqual(call(updateRows, updateGroupPayload));
+        expect(cloneSaveGenerator.next().value)
+          .toEqual(put({type: tableActions.TABLE_EDITOR_ROW_ADD_ID, payload: updateGroupPayload}));
         expect(cloneSaveGenerator.next().value)
           .toEqual(put(treeLoadStartAction));
         expect(cloneSaveGenerator.next().value)

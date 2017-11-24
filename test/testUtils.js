@@ -7,33 +7,50 @@ import tableData from '../_mock/table/data.json';
 import {transformForServer} from '../src/utils';
 
 export const getStateSetter = (initialState) => (
-  stateToExtend => deepFreeze({...initialState, ...stateToExtend})
+  (stateToExtend) => {
+    if (initialState instanceof Array) {
+      if (!stateToExtend) {
+        stateToExtend = [];
+      }
+
+      return deepFreeze([...initialState, ...stateToExtend]);
+    } else {
+      return deepFreeze({...initialState, ...stateToExtend});
+    }
+  }
 );
 
 export const mockGroupsRequest = (requestPayload) => {
-  const responsePayload = [];
-  const copyRows = requestPayload.rows.filter(payloadRow => payloadRow.copy);
-
-  copyRows.forEach((copyRow) => {
-    const originalRow = tableData.rows.find(tableDataRow => tableDataRow.check.common.id === copyRow.id);
+  const responsePayload = requestPayload.rows.map((requestPayloadRow) => {
+    const responsePayloadRow = {
+      id: requestPayloadRow.id,
+      record_id: requestPayloadRow.id
+    };
+    const originalRow = tableData.rows.find(tableDataRow => tableDataRow.check.common.id === requestPayloadRow.id);
 
     if (originalRow) {
       const transformedRow = {
-        columns: {
-          check: {id: copyRow.id},
-          ...transformForServer([originalRow])[0].columns
-        }
+        check: {id: requestPayloadRow.id},
+        ...transformForServer([originalRow])[0].columns
       };
 
-      responsePayload.push({
-        id: copyRow.id,
-        record_id: copyRow.id,
-        copy: transformedRow
-      });
+      if (requestPayloadRow.copy) {
+        responsePayloadRow.copy = {columns: transformedRow};
+      }
+
+      if (requestPayloadRow.columns) {
+        responsePayloadRow.columns = Object.keys(requestPayloadRow.columns).reduce((result, nextKey) => {
+          result[nextKey] = requestPayloadRow.columns[nextKey];
+
+          return result;
+        }, transformedRow);
+      }
+
+      return responsePayloadRow;
     }
   });
 
-  return {payload: responsePayload};
+  return {payload: responsePayload.filter(row => row)};
 };
 
 export const mountProvider = (test, initStore) =>

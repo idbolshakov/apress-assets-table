@@ -248,7 +248,7 @@ var _extends2 = __webpack_require__(9);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _keys = __webpack_require__(43);
+var _keys = __webpack_require__(35);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -821,6 +821,8 @@ var HISTORY_PREV = exports.HISTORY_PREV = 'HISTORY_PREV';
 var TABLE_EDITOR_SET_IMAGES = exports.TABLE_EDITOR_SET_IMAGES = 'TABLE_EDITOR_SET_IMAGES';
 var TABLE_EDITOR_IMAGES_ASSIGN_ID = exports.TABLE_EDITOR_IMAGES_ASSIGN_ID = 'TABLE_EDITOR_IMAGES_ASSIGN_ID';
 
+var UPDATE_TABLE_EDITOR_ROWS = exports.UPDATE_TABLE_EDITOR_ROWS = 'UPDATE_TABLE_EDITOR_ROWS';
+
 var load = exports.load = function load() {
   var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return {
@@ -1005,6 +1007,13 @@ var editImages = exports.editImages = function editImages(payload) {
       name: payload.activeCell,
       id: payload.activeRow
     }
+  };
+};
+
+var updateTableEditorRows = exports.updateTableEditorRows = function updateTableEditorRows(payload) {
+  return {
+    type: UPDATE_TABLE_EDITOR_ROWS,
+    payload: payload
   };
 };
 
@@ -1536,7 +1545,7 @@ module.exports = $export;
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject       = __webpack_require__(38)
+var anObject       = __webpack_require__(39)
   , IE8_DOM_DEFINE = __webpack_require__(149)
   , toPrimitive    = __webpack_require__(100)
   , dP             = Object.defineProperty;
@@ -1686,6 +1695,12 @@ module.exports = isObject;
 /* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = { "default": __webpack_require__(247), __esModule: true };
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var baseIsNative = __webpack_require__(306),
     getValue = __webpack_require__(319);
 
@@ -1706,7 +1721,7 @@ module.exports = getNative;
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1784,7 +1799,7 @@ var hideImageEditor = exports.hideImageEditor = function hideImageEditor(payload
 };
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1811,7 +1826,7 @@ exports.default = function (arr) {
 };
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(49);
@@ -1821,9 +1836,9 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 39 */,
 /* 40 */,
-/* 41 */
+/* 41 */,
+/* 42 */
 /***/ (function(module, exports) {
 
 /**
@@ -1858,7 +1873,7 @@ module.exports = isObjectLike;
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1886,12 +1901,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takeLatest", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["t"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "throttle", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["u"]; });
 
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(247), __esModule: true };
 
 /***/ }),
 /* 44 */
@@ -2709,7 +2718,7 @@ var _reactRedux = __webpack_require__(12);
 
 var _reactDom = __webpack_require__(21);
 
-var _effects = __webpack_require__(42);
+var _effects = __webpack_require__(43);
 
 var _reactDnd = __webpack_require__(639);
 
@@ -2799,7 +2808,7 @@ exports.Search = _Search2.default;
 
 var baseGetTag = __webpack_require__(50),
     getPrototype = __webpack_require__(566),
-    isObjectLike = __webpack_require__(41);
+    isObjectLike = __webpack_require__(42);
 
 /** `Object#toString` result references. */
 var objectTag = '[object Object]';
@@ -2998,7 +3007,7 @@ module.exports = getMapData;
 /* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(35);
+var getNative = __webpack_require__(36);
 
 /* Built-in method references that are verified to be native. */
 var nativeCreate = getNative(Object, 'create');
@@ -3794,7 +3803,7 @@ module.exports = true;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject    = __webpack_require__(38)
+var anObject    = __webpack_require__(39)
   , dPs         = __webpack_require__(262)
   , enumBugKeys = __webpack_require__(92)
   , IE_PROTO    = __webpack_require__(97)('IE_PROTO')
@@ -4524,7 +4533,7 @@ mix(utils, domUtils);
 /* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(35),
+var getNative = __webpack_require__(36),
     root = __webpack_require__(17);
 
 /* Built-in method references that are verified to be native. */
@@ -5880,7 +5889,7 @@ module.exports = setToArray;
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArrayLike = __webpack_require__(111),
-    isObjectLike = __webpack_require__(41);
+    isObjectLike = __webpack_require__(42);
 
 /**
  * This method is like `_.isArrayLike` except that it also checks if `value`
@@ -7053,7 +7062,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "CANCEL", function() { return __WEBPACK_IMPORTED_MODULE_5__internal_utils__["q"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__internal_io__ = __webpack_require__(47);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "detach", function() { return __WEBPACK_IMPORTED_MODULE_6__internal_io__["v"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__effects__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__effects__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils__ = __webpack_require__(645);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "effects", function() { return __WEBPACK_IMPORTED_MODULE_7__effects__; });
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "utils", function() { return __WEBPACK_IMPORTED_MODULE_8__utils__; });
@@ -7156,10 +7165,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 var SAVE_START = exports.SAVE_START = 'SAVE_START';
 var SAVE_SUCCESS = exports.SAVE_SUCCESS = 'SAVE_SUCCESS';
-var SAVE_PROGRESS = exports.SAVE_PROGRESS = 'SAVE_PROGRESS';
-var SAVE_REPEAT = exports.SAVE_REPEAT = 'SAVE_REPEAT';
 var SAVE_CREATE_DIFF = exports.SAVE_CREATE_DIFF = 'SAVE_CREATE_DIFF';
 var SAVE_DIFF = exports.SAVE_DIFF = 'SAVE_DIFF';
+var CONTINUE_SAVE = exports.CONTINUE_SAVE = 'CONTINUE_SAVE';
 
 var saveStart = exports.saveStart = function saveStart() {
   return {
@@ -7167,7 +7175,8 @@ var saveStart = exports.saveStart = function saveStart() {
   };
 };
 
-var saveSuccess = exports.saveSuccess = function saveSuccess(payload) {
+var saveSuccess = exports.saveSuccess = function saveSuccess() {
+  var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return {
     type: SAVE_SUCCESS,
     payload: payload
@@ -7177,6 +7186,13 @@ var saveSuccess = exports.saveSuccess = function saveSuccess(payload) {
 var saveCreateDiff = exports.saveCreateDiff = function saveCreateDiff(payload) {
   return {
     type: SAVE_CREATE_DIFF,
+    payload: payload
+  };
+};
+
+var continueSave = exports.continueSave = function continueSave(payload) {
+  return {
+    type: CONTINUE_SAVE,
     payload: payload
   };
 };
@@ -7426,7 +7442,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
 /* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(35),
+var getNative = __webpack_require__(36),
     root = __webpack_require__(17);
 
 /* Built-in method references that are verified to be native. */
@@ -7897,7 +7913,7 @@ module.exports = debounce;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsArguments = __webpack_require__(303),
-    isObjectLike = __webpack_require__(41);
+    isObjectLike = __webpack_require__(42);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -8626,7 +8642,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(37);
+var _keys = __webpack_require__(35);
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _toConsumableArray2 = __webpack_require__(38);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -8803,6 +8823,26 @@ function rows() {
           return row.check.common.id !== action.payload.id;
         });
       }
+
+    case _actions.UPDATE_TABLE_EDITOR_ROWS:
+      return state.map(function (stateRow) {
+        var payloadRow = action.payload.rows.find(function (row) {
+          return row.id === stateRow.check.common.id;
+        });
+
+        if (payloadRow) {
+          var transformedPayloadRow = (0, _utils.transformFromServer)(payloadRow.columns, action.payload.new_row);
+
+          return (0, _keys2.default)(transformedPayloadRow).reduce(function (result, nextKey) {
+            /* eslint no-param-reassign: ['error', { 'props': false }]*/
+            result[nextKey] = transformedPayloadRow[nextKey];
+
+            return result;
+          }, (0, _extends6.default)({}, stateRow));
+        }
+
+        return stateRow;
+      });
 
     default:
       return state;
@@ -11583,7 +11623,7 @@ module.exports = !$assign || __webpack_require__(44)(function(){
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP       = __webpack_require__(27)
-  , anObject = __webpack_require__(38)
+  , anObject = __webpack_require__(39)
   , getKeys  = __webpack_require__(46);
 
 module.exports = __webpack_require__(31) ? Object.defineProperties : function defineProperties(O, Properties){
@@ -11628,7 +11668,7 @@ module.exports.f = function getOwnPropertyNames(it){
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
 var isObject = __webpack_require__(49)
-  , anObject = __webpack_require__(38);
+  , anObject = __webpack_require__(39);
 var check = function(O, proto){
   anObject(O);
   if(!isObject(proto) && proto !== null)throw TypeError(proto + ": can't set as prototype!");
@@ -11828,7 +11868,7 @@ var global         = __webpack_require__(24)
   , keyOf          = __webpack_require__(260)
   , enumKeys       = __webpack_require__(255)
   , isArray        = __webpack_require__(257)
-  , anObject       = __webpack_require__(38)
+  , anObject       = __webpack_require__(39)
   , toIObject      = __webpack_require__(28)
   , toPrimitive    = __webpack_require__(100)
   , createDesc     = __webpack_require__(56)
@@ -12434,7 +12474,7 @@ module.exports = emptyFunction;
 /* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(35),
+var getNative = __webpack_require__(36),
     root = __webpack_require__(17);
 
 /* Built-in method references that are verified to be native. */
@@ -12485,7 +12525,7 @@ module.exports = Hash;
 /* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(35),
+var getNative = __webpack_require__(36),
     root = __webpack_require__(17);
 
 /* Built-in method references that are verified to be native. */
@@ -12543,7 +12583,7 @@ module.exports = Uint8Array;
 /* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(35),
+var getNative = __webpack_require__(36),
     root = __webpack_require__(17);
 
 /* Built-in method references that are verified to be native. */
@@ -12787,7 +12827,7 @@ module.exports = baseGetAllKeys;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(50),
-    isObjectLike = __webpack_require__(41);
+    isObjectLike = __webpack_require__(42);
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]';
@@ -12811,7 +12851,7 @@ module.exports = baseIsArguments;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsEqualDeep = __webpack_require__(305),
-    isObjectLike = __webpack_require__(41);
+    isObjectLike = __webpack_require__(42);
 
 /**
  * The base implementation of `_.isEqual` which supports partial comparisons
@@ -12988,7 +13028,7 @@ module.exports = baseIsNative;
 
 var baseGetTag = __webpack_require__(50),
     isLength = __webpack_require__(164),
-    isObjectLike = __webpack_require__(41);
+    isObjectLike = __webpack_require__(42);
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]',
@@ -13204,7 +13244,7 @@ module.exports = coreJsData;
 /* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(35);
+var getNative = __webpack_require__(36);
 
 var defineProperty = (function() {
   try {
@@ -14365,7 +14405,7 @@ module.exports = identity;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(50),
-    isObjectLike = __webpack_require__(41);
+    isObjectLike = __webpack_require__(42);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -34455,7 +34495,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _keys = __webpack_require__(43);
+var _keys = __webpack_require__(35);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -34570,7 +34610,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(37);
+var _toConsumableArray2 = __webpack_require__(38);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -34667,6 +34707,11 @@ function history() {
         current: state.next[0],
         prev: [state.current].concat((0, _toConsumableArray3.default)(state.prev)),
         next: state.next.slice(1, state.next.length)
+      });
+
+    case _actions.UPDATE_TABLE_EDITOR_ROWS:
+      return (0, _extends3.default)({}, state, {
+        current: (0, _rowReducer2.default)(state.current, action)
       });
 
     default:
@@ -36053,7 +36098,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(37);
+var _toConsumableArray2 = __webpack_require__(38);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -36118,7 +36163,7 @@ var _reactRouter = __webpack_require__(896);
 
 var _reactRedux = __webpack_require__(12);
 
-var _effects = __webpack_require__(42);
+var _effects = __webpack_require__(43);
 
 var _toInteger2 = __webpack_require__(894);
 
@@ -36346,7 +36391,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(37);
+var _toConsumableArray2 = __webpack_require__(38);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -36404,7 +36449,7 @@ var _pluralizeRu = __webpack_require__(582);
 
 var _pluralizeRu2 = _interopRequireDefault(_pluralizeRu);
 
-var _actions = __webpack_require__(36);
+var _actions = __webpack_require__(37);
 
 var _actions2 = __webpack_require__(115);
 
@@ -36752,13 +36797,13 @@ var _regenerator = __webpack_require__(48);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _toConsumableArray2 = __webpack_require__(37);
+var _toConsumableArray2 = __webpack_require__(38);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
 exports.updateImages = updateImages;
 
-var _effects = __webpack_require__(42);
+var _effects = __webpack_require__(43);
 
 var _utils = __webpack_require__(7);
 
@@ -36766,7 +36811,7 @@ var _actions = __webpack_require__(14);
 
 var tableActions = _interopRequireWildcard(_actions);
 
-var _actions2 = __webpack_require__(36);
+var _actions2 = __webpack_require__(37);
 
 var dialogsActions = _interopRequireWildcard(_actions2);
 
@@ -37043,7 +37088,7 @@ var _Button = __webpack_require__(70);
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _actions = __webpack_require__(36);
+var _actions = __webpack_require__(37);
 
 var _TreeDndContext = __webpack_require__(233);
 
@@ -37417,7 +37462,7 @@ var _actions = __webpack_require__(52);
 
 var remove = _interopRequireWildcard(_actions);
 
-var _actions2 = __webpack_require__(36);
+var _actions2 = __webpack_require__(37);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -37578,7 +37623,7 @@ var _Button = __webpack_require__(70);
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _actions = __webpack_require__(36);
+var _actions = __webpack_require__(37);
 
 var _actions2 = __webpack_require__(52);
 
@@ -37866,7 +37911,7 @@ var SaveControlContainer = function (_Component) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       var _nextProps$save = nextProps.save,
-          isSave = _nextProps$save.isSave,
+          withUnsavedChanges = _nextProps$save.withUnsavedChanges,
           fetchDiff = _nextProps$save.fetchDiff,
           isProgress = _nextProps$save.isProgress,
           waitingState = _nextProps$save.waitingState,
@@ -37874,7 +37919,7 @@ var SaveControlContainer = function (_Component) {
       var curState = nextProps.rows;
 
 
-      if (isSave && !fetchDiff) {
+      if (withUnsavedChanges && !fetchDiff) {
         nextProps.actions.saveCreateDiff({ curState: curState, prevState: prevState });
       }
 
@@ -37924,11 +37969,11 @@ var _typeof2 = __webpack_require__(61);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
-var _keys = __webpack_require__(43);
+var _keys = __webpack_require__(35);
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _toConsumableArray2 = __webpack_require__(37);
+var _toConsumableArray2 = __webpack_require__(38);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -37946,7 +37991,7 @@ exports.default = function () {
         prevState: [].concat((0, _toConsumableArray3.default)(action.payload.rows))
       });
 
-    case _actions.SAVE_REPEAT:
+    case _actions.CONTINUE_SAVE:
     case _actions2.TABLE_EDITOR_SET_TEXT:
     case _actions2.TABLE_EDITOR_SET_IMAGES:
     case _actions2.TABLE_EDITOR_ROW_ADD:
@@ -37954,7 +37999,7 @@ exports.default = function () {
     case 'HISTORY_PREV':
     case 'HISTORY_NEXT':
       return (0, _extends3.default)({}, state, {
-        isSave: true
+        withUnsavedChanges: true
       });
 
     case _actions2.TABLE_EDITOR_ROW_COPY:
@@ -37978,7 +38023,7 @@ exports.default = function () {
 
         return (0, _extends3.default)({}, state, {
           waitingState: tmpWaitingState,
-          isSave: true
+          withUnsavedChanges: true
         });
       }
 
@@ -38003,7 +38048,7 @@ exports.default = function () {
     case _actions.SAVE_CREATE_DIFF:
       return (0, _extends3.default)({}, state, {
         fetchDiff: true,
-        isSave: false
+        withUnsavedChanges: false
       });
 
     case _actions.SAVE_DIFF:
@@ -38016,7 +38061,6 @@ exports.default = function () {
     case _actions.SAVE_START:
       {
         var saveState = [];
-        var waitingState = [];
 
         state.waitingState.forEach(function (row) {
           var columns = row.columns;
@@ -38032,11 +38076,7 @@ exports.default = function () {
               }
             }
 
-            if (tmpColumns.product_group && tmpColumns.product_group.parent_id < 0) {
-              waitingState.push(tmpRow);
-            } else {
-              saveState.push(tmpRow);
-            }
+            saveState.push(tmpRow);
           } else {
             saveState.push(row);
           }
@@ -38044,9 +38084,9 @@ exports.default = function () {
 
         return (0, _extends3.default)({}, state, {
           saveState: saveState,
-          waitingState: waitingState,
           isProgress: true,
-          isError: false
+          isError: false,
+          waitingState: []
         });
       }
 
@@ -38057,23 +38097,10 @@ exports.default = function () {
           var payloadItem = action.payload.find(function (payloadRow) {
             return row.id === payloadRow.id;
           });
-          var payloadChildItem = action.payload.find(function (payloadRow) {
-            return row.columns.product_group && row.columns.product_group.parent_id === payloadRow.id;
-          });
 
           if (payloadItem) {
             return (0, _extends3.default)({}, row, {
               id: payloadItem.record_id
-            });
-          }
-
-          if (payloadChildItem) {
-            return (0, _extends3.default)({}, row, {
-              columns: (0, _extends3.default)({}, row.columns, {
-                product_group: {
-                  parent_id: payloadChildItem.record_id
-                }
-              })
             });
           }
 
@@ -38123,10 +38150,15 @@ exports.default = function () {
           saveState: [],
           waitingState: _saveState,
           isProgress: false,
-          isSave: true,
+          withUnsavedChanges: true,
           isError: true
         });
       }
+
+    case _actions2.UPDATE_TABLE_EDITOR_ROWS:
+      return (0, _extends3.default)({}, state, {
+        prevState: (0, _rowReducer2.default)(state.prevState, action)
+      });
 
     default:
       return state;
@@ -38146,7 +38178,7 @@ var _rowReducer2 = _interopRequireDefault(_rowReducer);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var initialState = {
-  isSave: false,
+  withUnsavedChanges: false,
   isError: false,
   prevState: [],
   isProgress: false,
@@ -38175,7 +38207,7 @@ var _typeof2 = __webpack_require__(61);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
-var _toConsumableArray2 = __webpack_require__(37);
+var _toConsumableArray2 = __webpack_require__(38);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -38183,7 +38215,7 @@ var _extends2 = __webpack_require__(9);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _keys = __webpack_require__(43);
+var _keys = __webpack_require__(35);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -38194,10 +38226,12 @@ var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 exports.saveProcess = saveProcess;
 exports.resetRemoteId = resetRemoteId;
 exports.addCopiedRows = addCopiedRows;
+exports.continueSave = continueSave;
+exports.updateRows = updateRows;
 exports.saveCreateDiff = saveCreateDiff;
 exports.save = save;
 
-var _effects = __webpack_require__(42);
+var _effects = __webpack_require__(43);
 
 var _reduxSaga = __webpack_require__(166);
 
@@ -38215,9 +38249,13 @@ var _actions3 = __webpack_require__(82);
 
 var _actions4 = __webpack_require__(168);
 
+var saveControlActions = _interopRequireWildcard(_actions4);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _marked = [saveProcess, resetRemoteId, addCopiedRows, saveCreateDiff, save].map(_regenerator2.default.mark);
+var _marked = [saveProcess, resetRemoteId, addCopiedRows, continueSave, updateRows, saveCreateDiff, save].map(_regenerator2.default.mark);
 
 var newId = -100000;
 
@@ -38378,17 +38416,17 @@ var getRowsDifference = exports.getRowsDifference = function getRowsDifference(c
       return row.check.common.id === currentRow.check.common.id;
     });
 
-    if (currentRow.name.common.text) {
+    if (!currentRow.name.common.text || currentRow.product_group.common.parent_id < 0) {
+      differenceRow = {
+        id: currentRow.check.common.id,
+        invalid: true
+      };
+    } else {
       if (previousRow) {
         differenceRow = getRowDifference(currentRow, previousRow);
       } else {
         differenceRow = currentRow;
       }
-    } else {
-      differenceRow = {
-        id: currentRow.check.common.id,
-        invalid: true
-      };
     }
 
     return differenceRow;
@@ -38580,38 +38618,96 @@ function addCopiedRows(rows) {
   }, _marked[2], this);
 }
 
-function saveCreateDiff(action) {
-  var _ref2, validDifferenceState, invalidDifferenceState, saveState, waitingState, currentState;
-
-  return _regenerator2.default.wrap(function saveCreateDiff$(_context4) {
+function continueSave() {
+  var saveProps, withUnsavedChanges;
+  return _regenerator2.default.wrap(function continueSave$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           _context4.next = 2;
+          return (0, _effects.select)(getSave);
+
+        case 2:
+          saveProps = _context4.sent;
+          withUnsavedChanges = saveProps.prevState.some(function (row) {
+            return row.check.common.id < 0;
+          });
+
+          if (!(withUnsavedChanges && !saveProps.isProgress)) {
+            _context4.next = 7;
+            break;
+          }
+
+          _context4.next = 7;
+          return (0, _effects.put)(saveControlActions.continueSave());
+
+        case 7:
+        case 'end':
+          return _context4.stop();
+      }
+    }
+  }, _marked[3], this);
+}
+
+function updateRows(rows) {
+  var newRowTemplate;
+  return _regenerator2.default.wrap(function updateRows$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          if (!(rows && rows.length)) {
+            _context5.next = 6;
+            break;
+          }
+
+          _context5.next = 3;
+          return (0, _effects.select)(getNewRow);
+
+        case 3:
+          newRowTemplate = _context5.sent;
+          _context5.next = 6;
+          return (0, _effects.put)((0, _actions2.updateTableEditorRows)({ rows: rows, new_row: newRowTemplate }));
+
+        case 6:
+        case 'end':
+          return _context5.stop();
+      }
+    }
+  }, _marked[4], this);
+}
+
+function saveCreateDiff(action) {
+  var _ref2, validDifferenceState, invalidDifferenceState, saveState, waitingState, currentState;
+
+  return _regenerator2.default.wrap(function saveCreateDiff$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.next = 2;
           return getDifferenceState(action.payload.curState, action.payload.prevState);
 
         case 2:
-          _ref2 = _context4.sent;
+          _ref2 = _context6.sent;
           validDifferenceState = _ref2.validDifferenceState;
           invalidDifferenceState = _ref2.invalidDifferenceState;
-          _context4.next = 7;
+          _context6.next = 7;
           return (0, _effects.select)(getSave);
 
         case 7:
-          saveState = _context4.sent;
-          _context4.next = 10;
+          saveState = _context6.sent;
+          _context6.next = 10;
           return mergeDifference(validDifferenceState, saveState.waitingState);
 
         case 10:
-          waitingState = _context4.sent;
-          _context4.next = 13;
+          waitingState = _context6.sent;
+          _context6.next = 13;
           return setInvalidDifferenceForCurrentState([].concat((0, _toConsumableArray3.default)(action.payload.curState)), action.payload.prevState, invalidDifferenceState);
 
         case 13:
-          currentState = _context4.sent;
-          _context4.next = 16;
+          currentState = _context6.sent;
+          _context6.next = 16;
           return (0, _effects.put)({
-            type: _actions4.SAVE_DIFF,
+            type: saveControlActions.SAVE_DIFF,
             payload: {
               waitingState: waitingState,
               prevState: currentState
@@ -38620,43 +38716,43 @@ function saveCreateDiff(action) {
 
         case 16:
         case 'end':
-          return _context4.stop();
+          return _context6.stop();
       }
     }
-  }, _marked[3], this);
+  }, _marked[5], this);
 }
 window.saveCreateDiff = saveCreateDiff;
 
 function save() {
-  var saveProps, response, deletedRows, copiedRows;
-  return _regenerator2.default.wrap(function save$(_context5) {
+  var saveProps, response, deletedRows, copiedRows, updatedRows;
+  return _regenerator2.default.wrap(function save$(_context7) {
     while (1) {
-      switch (_context5.prev = _context5.next) {
+      switch (_context7.prev = _context7.next) {
         case 0:
-          _context5.prev = 0;
-          _context5.next = 3;
+          _context7.prev = 0;
+          _context7.next = 3;
           return (0, _effects.put)({ type: _actions3.ERROR_REMOVE, payload: { target: 'save' } });
 
         case 3:
-          _context5.next = 5;
+          _context7.next = 5;
           return (0, _effects.select)(getSave);
 
         case 5:
-          saveProps = _context5.sent;
+          saveProps = _context7.sent;
 
           if (!saveProps.saveState.length) {
-            _context5.next = 23;
+            _context7.next = 27;
             break;
           }
 
-          _context5.next = 9;
+          _context7.next = 9;
           return (0, _effects.call)(saveProcess, saveProps.saveState);
 
         case 9:
-          response = _context5.sent;
+          response = _context7.sent;
 
           if (!response.succeeded) {
-            _context5.next = 23;
+            _context7.next = 27;
             break;
           }
 
@@ -38666,52 +38762,68 @@ function save() {
           copiedRows = response.payload.filter(function (row) {
             return row.copy;
           });
+          updatedRows = response.payload.filter(function (row) {
+            return row.columns;
+          });
 
           if (!deletedRows.length) {
-            _context5.next = 16;
+            _context7.next = 17;
             break;
           }
 
-          _context5.next = 16;
+          _context7.next = 17;
           return (0, _effects.call)(resetRemoteId, deletedRows);
 
-        case 16:
+        case 17:
           if (!copiedRows.length) {
-            _context5.next = 19;
+            _context7.next = 20;
             break;
           }
 
-          _context5.next = 19;
+          _context7.next = 20;
           return (0, _effects.call)(addCopiedRows, copiedRows);
 
-        case 19:
-          _context5.next = 21;
-          return (0, _effects.put)({ type: _actions2.TABLE_EDITOR_ROW_ADD_ID, payload: response.payload });
+        case 20:
+          if (!updatedRows.length) {
+            _context7.next = 23;
+            break;
+          }
 
-        case 21:
-          _context5.next = 23;
-          return (0, _effects.put)({ type: _actions.TREE_LOAD_START, payload: null });
+          _context7.next = 23;
+          return (0, _effects.call)(updateRows, updatedRows);
 
         case 23:
-          _context5.next = 25;
-          return (0, _effects.put)((0, _actions4.saveSuccess)({ error: false }));
+          _context7.next = 25;
+          return (0, _effects.put)({ type: _actions2.TABLE_EDITOR_ROW_ADD_ID, payload: response.payload });
 
         case 25:
-          _context5.next = 31;
-          break;
+          _context7.next = 27;
+          return (0, _effects.put)({ type: _actions.TREE_LOAD_START, payload: null });
 
         case 27:
-          _context5.prev = 27;
-          _context5.t0 = _context5['catch'](0);
-          _context5.next = 31;
-          return (0, _effects.put)((0, _actions4.saveSuccess)({ error: true }));
+          _context7.next = 29;
+          return (0, _effects.put)(saveControlActions.saveSuccess({ error: false }));
+
+        case 29:
+          _context7.next = 31;
+          return (0, _effects.call)(continueSave);
 
         case 31:
+          _context7.next = 37;
+          break;
+
+        case 33:
+          _context7.prev = 33;
+          _context7.t0 = _context7['catch'](0);
+          _context7.next = 37;
+          return (0, _effects.put)(saveControlActions.saveSuccess({ error: true }));
+
+        case 37:
         case 'end':
-          return _context5.stop();
+          return _context7.stop();
       }
     }
-  }, _marked[4], this, [[0, 27]]);
+  }, _marked[6], this, [[0, 33]]);
 }
 
 /***/ }),
@@ -39103,7 +39215,7 @@ var _regenerator2 = _interopRequireDefault(_regenerator);
 exports.init = init;
 exports.changeCategoryView = changeCategoryView;
 
-var _effects = __webpack_require__(42);
+var _effects = __webpack_require__(43);
 
 var _reduxSaga = __webpack_require__(166);
 
@@ -39225,7 +39337,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _keys = __webpack_require__(43);
+var _keys = __webpack_require__(35);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -40168,7 +40280,7 @@ var _isEqual3 = _interopRequireDefault(_isEqual2);
 
 var _redux = __webpack_require__(79);
 
-var _actions = __webpack_require__(36);
+var _actions = __webpack_require__(37);
 
 var _actions2 = __webpack_require__(115);
 
@@ -41349,7 +41461,7 @@ var _regenerator2 = _interopRequireDefault(_regenerator);
 
 exports.default = loadTableData;
 
-var _effects = __webpack_require__(42);
+var _effects = __webpack_require__(43);
 
 var _utils = __webpack_require__(7);
 
@@ -41455,7 +41567,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _keys = __webpack_require__(43);
+var _keys = __webpack_require__(35);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -41463,7 +41575,7 @@ var _slicedToArray2 = __webpack_require__(239);
 
 var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 
-var _toConsumableArray2 = __webpack_require__(37);
+var _toConsumableArray2 = __webpack_require__(38);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -41639,6 +41751,7 @@ exports.default = function () {
     case _actions2.TABLE_EDITOR_ROW_ADD_DEFAULT_ID:
     case _actions2.HISTORY_PREV:
     case _actions2.HISTORY_NEXT:
+    case _actions2.UPDATE_TABLE_EDITOR_ROWS:
       return (0, _extends3.default)({}, state, { history: (0, _history2.default)(state.history, action) });
 
     default:
@@ -42460,7 +42573,7 @@ var _extends2 = __webpack_require__(9);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _toConsumableArray2 = __webpack_require__(37);
+var _toConsumableArray2 = __webpack_require__(38);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -43065,7 +43178,7 @@ var _extends2 = __webpack_require__(9);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _actions = __webpack_require__(36);
+var _actions = __webpack_require__(37);
 
 var types = _interopRequireWildcard(_actions);
 
@@ -43131,7 +43244,7 @@ var _actions = __webpack_require__(52);
 
 var removeActions = _interopRequireWildcard(_actions);
 
-var _actions2 = __webpack_require__(36);
+var _actions2 = __webpack_require__(37);
 
 var dialogsActions = _interopRequireWildcard(_actions2);
 
@@ -43234,7 +43347,7 @@ exports.removeGroups = removeGroups;
 exports.deleteGroup = deleteGroup;
 exports.deleteEmptyGroups = deleteEmptyGroups;
 
-var _effects = __webpack_require__(42);
+var _effects = __webpack_require__(43);
 
 var _reduxSaga = __webpack_require__(166);
 
@@ -43244,7 +43357,7 @@ var _actions = __webpack_require__(14);
 
 var tableActions = _interopRequireWildcard(_actions);
 
-var _actions2 = __webpack_require__(36);
+var _actions2 = __webpack_require__(37);
 
 var dialogsActions = _interopRequireWildcard(_actions2);
 
@@ -43930,7 +44043,7 @@ module.exports = function(it){
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
-var anObject = __webpack_require__(38);
+var anObject = __webpack_require__(39);
 module.exports = function(iterator, fn, value, entries){
   try {
     return entries ? fn(anObject(value)[0], value[1]) : fn(value);
@@ -43972,7 +44085,7 @@ module.exports = function(exec, skipClosing){
 /* 471 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(38)
+var anObject = __webpack_require__(39)
   , get      = __webpack_require__(267);
 module.exports = __webpack_require__(11).getIterator = function(it){
   var iterFn = get(it);
@@ -59064,7 +59177,7 @@ var _actions5 = __webpack_require__(82);
 
 var actionsError = _interopRequireWildcard(_actions5);
 
-var _actions6 = __webpack_require__(36);
+var _actions6 = __webpack_require__(37);
 
 var actionsDialog = _interopRequireWildcard(_actions6);
 
@@ -59322,13 +59435,13 @@ var _stringify = __webpack_require__(650);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _keys = __webpack_require__(43);
+var _keys = __webpack_require__(35);
 
 var _keys2 = _interopRequireDefault(_keys);
 
 exports.default = proccess;
 
-var _effects = __webpack_require__(42);
+var _effects = __webpack_require__(43);
 
 var _actions = __webpack_require__(382);
 
@@ -59420,7 +59533,7 @@ var _stringify = __webpack_require__(650);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _keys = __webpack_require__(43);
+var _keys = __webpack_require__(35);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -59773,7 +59886,7 @@ var _regenerator = __webpack_require__(48);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _keys = __webpack_require__(43);
+var _keys = __webpack_require__(35);
 
 var _keys2 = _interopRequireDefault(_keys);
 

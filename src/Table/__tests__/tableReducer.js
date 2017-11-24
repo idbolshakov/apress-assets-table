@@ -1,6 +1,7 @@
 import {getStateSetter, mockGroupsRequest} from '../../../test/testUtils';
 import tableData from '../../../_mock/table/data.json';
 import tableReducer from '../tableReducer';
+import rowReducer from '../rowReducer';
 import * as tableActions from '../actions';
 
 describe('tableReducer', () => {
@@ -65,5 +66,27 @@ describe('tableReducer', () => {
         tableActions.copyRowSuccess({rows: copiedRows.payload, new_row: tableData.new_row})
       )).toEqual(initialState);
     });
+  });
+
+  it('should handle UPDATE_TABLE_EDITOR_ROWS', () => {
+    const updateRowsRequestPayload = {rows: [{id: 45496, columns: {name: {text: 'updated text'}}}]};
+    const updatedRows = mockGroupsRequest(updateRowsRequestPayload);
+    const action = tableActions.updateTableEditorRows({rows: updatedRows.payload, new_row: tableData.new_row});
+
+    expect(tableReducer(
+        setState({
+          history: {
+            ...initialState.history,
+            current: tableData.rows
+          }
+        }),
+        action
+      )).toEqual({
+        ...initialState,
+        history: {
+          ...initialState.history,
+          current: rowReducer(tableData.rows, action)
+        }
+      });
   });
 });

@@ -3,7 +3,12 @@ import {delay} from 'redux-saga';
 import _isEqual from 'lodash/isEqual';
 import {api, transformForServer} from '../utils';
 import {TREE_LOAD_START} from '../Tree/actions';
-import {TABLE_EDITOR_ROW_ADD_ID, TABLE_EDITOR_ROW_ADD_DEFAULT_ID, copyRowSuccess} from '../Table/actions';
+import {
+  TABLE_EDITOR_ROW_ADD_ID,
+  TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
+  copyRowSuccess,
+  updateTableEditorRows
+} from '../Table/actions';
 import {ERROR_REMOVE} from '../Error/actions';
 import * as saveControlActions from './actions';
 
@@ -304,6 +309,13 @@ export function* continueSave() {
   }
 }
 
+export function* updateRows(rows) {
+  if (rows && rows.length) {
+    const newRowTemplate = yield select(getNewRow);
+    yield put(updateTableEditorRows({rows, new_row: newRowTemplate}));
+  }
+}
+
 export function* saveCreateDiff(action) {
   const {
     validDifferenceState,
@@ -337,6 +349,7 @@ export function* save() {
       if (response.succeeded) {
         const deletedRows = saveProps.saveState.filter(row => row.destroy);
         const copiedRows = response.payload.filter(row => row.copy);
+        const updatedRows = response.payload.filter(row => row.columns);
 
         if (deletedRows.length) {
           yield call(resetRemoteId, deletedRows);
@@ -344,6 +357,10 @@ export function* save() {
 
         if (copiedRows.length) {
           yield call(addCopiedRows, copiedRows);
+        }
+
+        if (updatedRows.length) {
+          yield call(updateRows, updatedRows);
         }
 
         yield put({type: TABLE_EDITOR_ROW_ADD_ID, payload: response.payload});

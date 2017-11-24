@@ -10,7 +10,8 @@ import {
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   HISTORY_NEXT,
   HISTORY_PREV,
-  TABLE_EDITOR_CELL_SELECT_END
+  TABLE_EDITOR_CELL_SELECT_END,
+  UPDATE_TABLE_EDITOR_ROWS
 } from '../actions';
 
 const initialState = {
@@ -90,6 +91,12 @@ export default function history(state = initialState, action) {
         current: state.next[0],
         prev: [state.current, ...state.prev],
         next: state.next.slice(1, state.next.length),
+      };
+
+    case UPDATE_TABLE_EDITOR_ROWS:
+      return {
+        ...state,
+        current: rows(state.current, action)
       };
 
     default:
