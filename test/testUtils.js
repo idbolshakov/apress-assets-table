@@ -1,7 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-import {mount} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import deepFreeze from 'deep-freeze';
 import tableData from '../_mock/table/data.json';
 import {transformForServer} from '../src/utils';
@@ -59,3 +59,17 @@ export const mountProvider = (test, initStore) =>
       {test}
     </Provider>
   );
+
+export function getShallowWrapper(Component, props, ...args) {
+  return shallow(
+    <Component {...props} />,
+    ...args
+  );
+}
+
+export function getMountWrapper(Component, props, ...args) {
+  return mount(
+    <Component {...props} />,
+    ...args
+  );
+}

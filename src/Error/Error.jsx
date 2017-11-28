@@ -32,7 +32,7 @@ class ComponentError extends React.Component {
     </div>;
 
   createDefaultError = error =>
-    <div className={b}>
+    <div className={b} key={error.id}>
       <div className={b('title')}>{error.title}</div>
       <div
         className={b('close')}

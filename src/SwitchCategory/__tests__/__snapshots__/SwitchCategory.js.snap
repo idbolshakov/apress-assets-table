@@ -275,7 +275,6 @@ exports[`component-conatiner SwitchCategory должен показать дро
                   <div
                     className="e-switch-cat-menu"
                     onClick={[Function]}
-                    prefixCls="rc-dropdown-menu"
                     title={undefined}
                   >
                     <div
@@ -504,7 +503,6 @@ exports[`component-conatiner SwitchCategory должен показать дро
               <div
                 className="e-switch-tooltip"
                 onClick={[Function]}
-                prefixCls="rc-dropdown-menu"
               >
                 Режим Рубрики Пульса цен - это вид каталога состоящий из рубрик площадки Пульс цен к которым привязаны ваши товары. Если вы хотите использовать свои группы, переключитесь в режим Ваши группы.
                 <div
@@ -785,7 +783,6 @@ exports[`component-conatiner SwitchCategory должен показать дро
                   <div
                     className="e-switch-cat-menu"
                     onClick={[Function]}
-                    prefixCls="rc-dropdown-menu"
                     title={undefined}
                   >
                     <div
@@ -1014,7 +1011,6 @@ exports[`component-conatiner SwitchCategory должен показать дро
               <div
                 className="e-switch-tooltip"
                 onClick={[Function]}
-                prefixCls="rc-dropdown-menu"
               >
                 Режим Рубрики Пульса цен - это вид каталога состоящий из рубрик площадки Пульс цен к которым привязаны ваши товары. Если вы хотите использовать свои группы, переключитесь в режим Ваши группы.
                 <div
@@ -1295,7 +1291,6 @@ exports[`component-conatiner SwitchCategory должен показать под
                   <div
                     className="e-switch-cat-menu"
                     onClick={[Function]}
-                    prefixCls="rc-dropdown-menu"
                     title={undefined}
                   >
                     <div
@@ -1524,7 +1519,6 @@ exports[`component-conatiner SwitchCategory должен показать под
               <div
                 className="e-switch-tooltip"
                 onClick={[Function]}
-                prefixCls="rc-dropdown-menu"
               >
                 Режим Рубрики Пульса цен - это вид каталога состоящий из рубрик площадки Пульс цен к которым привязаны ваши товары. Если вы хотите использовать свои группы, переключитесь в режим Ваши группы.
                 <div

@@ -5,3 +5,8 @@ export const remove = payload => ({
   type: ERROR_REMOVE,
   payload
 });
+
+export const add = payload => ({
+  type: ERROR_ADD,
+  payload
+});
