@@ -39,6 +39,25 @@ class TextCellEditor extends Component {
     };
   };
 
+  getClipboardText = (clipboardData) => {
+    let paste;
+
+    if (window.clipboardData) {
+      paste = window.clipboardData.getData('Text');
+    } else {
+      paste = clipboardData.getData('text/plain');
+    }
+
+    return paste.replace(/\r|\n/g, '');
+  };
+
+  getTextWithoutSelection = (range) => {
+    const textContent = range.startContainer.textContent;
+
+    return textContent.substring(0, range.startOffset) +
+        textContent.substring(range.endOffset, textContent.length);
+  };
+
   setCharactersCountLeft = (text, props) => {
     this.setState({
       charactersLeft: this.getCharectersCountLeft(text, props)
@@ -50,22 +69,6 @@ class TextCellEditor extends Component {
     this.props.handlerSave(text);
   };
 
-  paste = (e) => {
-    const text = e.target.textContent;
-    const paste = e.clipboardData.getData('text/plain');
-
-    if (paste) {
-      const selection = window.getSelection();
-      const range = selection.getRangeAt(0);
-      const cursorPos = range.startOffset;
-      const extraCharacters = (text.length + paste.length) - this.props.maxLen;
-      const pasteLen = extraCharacters > 0 ? paste.length - extraCharacters : paste.length;
-
-      e.target.textContent = text.substring(0, cursorPos) + paste.substr(0, pasteLen) + text.substring(cursorPos);
-      range.startContainer.firstChild && range.setStart(range.startContainer.firstChild, cursorPos + pasteLen);
-    }
-  };
-
   handleKeyDown = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
@@ -75,18 +78,41 @@ class TextCellEditor extends Component {
   };
 
   handleKeyPress = (e) => {
-    if (e.target.textContent.length >= this.props.maxLen) {
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const textWithoutSelection = this.getTextWithoutSelection(range);
+
+    if (textWithoutSelection.length >= this.props.maxLen) {
       e.preventDefault();
     }
   };
 
   handlePaste = (e) => {
-    const text = e.target.textContent;
-    const maxLen = this.props.maxLen;
+    const paste = this.getClipboardText(e.clipboardData);
 
     e.preventDefault();
-    if (text.length < maxLen) {
-      this.paste(e);
+    if (paste) {
+      const selection = window.getSelection();
+      const range = selection.getRangeAt(0);
+      const textWithoutSelection = this.getTextWithoutSelection(range);
+
+      if (textWithoutSelection.length < this.props.maxLen) {
+        const extraCharacters = (textWithoutSelection.length + paste.length) - this.props.maxLen;
+        const pasteLen = extraCharacters > 0 ? paste.length - extraCharacters : paste.length;
+        const cursorPos = range.startOffset;
+
+        e.target.textContent = textWithoutSelection.substring(0, cursorPos) +
+          paste.substr(0, pasteLen) + textWithoutSelection.substring(cursorPos);
+
+        setTimeout(() => {
+          range.setStart(range.startContainer.firstChild || range.startContainer, cursorPos + pasteLen);
+          range.collapse(true);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        });
+
+        this.setCharactersCountLeft(e.target.textContent, this.props);
+      }
     }
   };
 
@@ -97,12 +123,15 @@ class TextCellEditor extends Component {
     return (
       <div
         data-charactersLeft={this.state.charactersLeft}
-        ref={elem => elem && isEdit && elem.focus()}
         className={b('cell-text').is({edit: isEdit})}
-        contentEditable={isEdit}
-        dangerouslySetInnerHTML={{__html: textWithoutTags}}
-        {...this.getEventHandlers()}
-      />
+      >
+        <div
+          ref={elem => elem && isEdit && elem.focus()}
+          contentEditable={isEdit}
+          dangerouslySetInnerHTML={{__html: textWithoutTags}}
+          {...this.getEventHandlers()}
+        />
+      </div>
     );
   }
 }
