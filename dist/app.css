@@ -1566,7 +1566,6 @@ li.rc-select-dropdown-menu-item-divider {
     user-select: text; }
     .e-table-cell-text + .cke, .e-table-cell-text.is-edit {
       font-size: 14px;
-      padding: 20px;
       background: #fff;
       box-sizing: border-box;
       max-height: 150px;
@@ -1578,6 +1577,9 @@ li.rc-select-dropdown-menu-item-divider {
       left: 0;
       top: 0;
       border: solid 1px #028dd8; }
+      .e-table-cell-text + .cke div, .e-table-cell-text.is-edit div {
+        height: calc(100% - 40px);
+        padding: 20px; }
     .e-table-cell-text + .cke:after, .e-table-cell-text:after {
       content: attr(data-charactersLeft);
       position: absolute;

@@ -372,9 +372,13 @@ var transformFromServer = exports.transformFromServer = function transformFromSe
   var newRecord = {};
 
   (0, _keys2.default)(templateRecord).forEach(function (key) {
-    newRecord[key] = (0, _extends3.default)({}, templateRecord[key], {
-      common: record[key]
-    });
+    var recordField = record[key];
+
+    if (recordField) {
+      newRecord[key] = (0, _extends3.default)({}, templateRecord[key], {
+        common: recordField
+      });
+    }
   });
 
   return newRecord;
