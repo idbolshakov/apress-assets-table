@@ -372,9 +372,13 @@ var transformFromServer = exports.transformFromServer = function transformFromSe
   var newRecord = {};
 
   (0, _keys2.default)(templateRecord).forEach(function (key) {
-    newRecord[key] = (0, _extends3.default)({}, templateRecord[key], {
-      common: record[key]
-    });
+    var recordField = record[key];
+
+    if (recordField) {
+      newRecord[key] = (0, _extends3.default)({}, templateRecord[key], {
+        common: recordField
+      });
+    }
   });
 
   return newRecord;
@@ -43236,15 +43240,20 @@ var TextCellEditor = function (_Component) {
 
       var textWithoutTags = text.replace(/<.*?>/g, '');
 
-      return _react2.default.createElement('div', (0, _extends3.default)({
-        'data-charactersLeft': this.state.charactersLeft,
-        ref: function ref(elem) {
-          return elem && isEdit && elem.focus();
+      return _react2.default.createElement(
+        'div',
+        {
+          'data-charactersLeft': this.state.charactersLeft,
+          className: b('cell-text').is({ edit: isEdit })
         },
-        className: b('cell-text').is({ edit: isEdit }),
-        contentEditable: isEdit,
-        dangerouslySetInnerHTML: { __html: textWithoutTags }
-      }, this.getEventHandlers()));
+        _react2.default.createElement('div', (0, _extends3.default)({
+          ref: function ref(elem) {
+            return elem && isEdit && elem.focus();
+          },
+          contentEditable: isEdit,
+          dangerouslySetInnerHTML: { __html: textWithoutTags }
+        }, this.getEventHandlers()))
+      );
     }
   }]);
   return TextCellEditor;
@@ -43281,6 +43290,24 @@ var _initialiseProps = function _initialiseProps() {
     };
   };
 
+  this.getClipboardText = function (clipboardData) {
+    var paste = void 0;
+
+    if (window.clipboardData) {
+      paste = window.clipboardData.getData('Text');
+    } else {
+      paste = clipboardData.getData('text/plain');
+    }
+
+    return paste.replace(/\r|\n/g, '');
+  };
+
+  this.getTextWithoutSelection = function (range) {
+    var textContent = range.startContainer.textContent;
+
+    return textContent.substring(0, range.startOffset) + textContent.substring(range.endOffset, textContent.length);
+  };
+
   this.setCharactersCountLeft = function (text, props) {
     _this2.setState({
       charactersLeft: _this2.getCharectersCountLeft(text, props)
@@ -43292,22 +43319,6 @@ var _initialiseProps = function _initialiseProps() {
     _this2.props.handlerSave(text);
   };
 
-  this.paste = function (e) {
-    var text = e.target.textContent;
-    var paste = e.clipboardData.getData('text/plain');
-
-    if (paste) {
-      var selection = window.getSelection();
-      var range = selection.getRangeAt(0);
-      var cursorPos = range.startOffset;
-      var extraCharacters = text.length + paste.length - _this2.props.maxLen;
-      var pasteLen = extraCharacters > 0 ? paste.length - extraCharacters : paste.length;
-
-      e.target.textContent = text.substring(0, cursorPos) + paste.substr(0, pasteLen) + text.substring(cursorPos);
-      range.startContainer.firstChild && range.setStart(range.startContainer.firstChild, cursorPos + pasteLen);
-    }
-  };
-
   this.handleKeyDown = function (e) {
     if (e.keyCode === 13) {
       e.preventDefault();
@@ -43317,18 +43328,40 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.handleKeyPress = function (e) {
-    if (e.target.textContent.length >= _this2.props.maxLen) {
+    var selection = window.getSelection();
+    var range = selection.getRangeAt(0);
+    var textWithoutSelection = _this2.getTextWithoutSelection(range);
+
+    if (textWithoutSelection.length >= _this2.props.maxLen) {
       e.preventDefault();
     }
   };
 
   this.handlePaste = function (e) {
-    var text = e.target.textContent;
-    var maxLen = _this2.props.maxLen;
+    var paste = _this2.getClipboardText(e.clipboardData);
 
     e.preventDefault();
-    if (text.length < maxLen) {
-      _this2.paste(e);
+    if (paste) {
+      var selection = window.getSelection();
+      var range = selection.getRangeAt(0);
+      var textWithoutSelection = _this2.getTextWithoutSelection(range);
+
+      if (textWithoutSelection.length < _this2.props.maxLen) {
+        var extraCharacters = textWithoutSelection.length + paste.length - _this2.props.maxLen;
+        var pasteLen = extraCharacters > 0 ? paste.length - extraCharacters : paste.length;
+        var cursorPos = range.startOffset;
+
+        e.target.textContent = textWithoutSelection.substring(0, cursorPos) + paste.substr(0, pasteLen) + textWithoutSelection.substring(cursorPos);
+
+        setTimeout(function () {
+          range.setStart(range.startContainer.firstChild || range.startContainer, cursorPos + pasteLen);
+          range.collapse(true);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        });
+
+        _this2.setCharactersCountLeft(e.target.textContent, _this2.props);
+      }
     }
   };
 };
