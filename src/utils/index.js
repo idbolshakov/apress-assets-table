@@ -77,10 +77,14 @@ export const transformFromServer = (record, templateRecord) => {
   const newRecord = {};
 
   Object.keys(templateRecord).forEach((key) => {
-    newRecord[key] = {
-      ...templateRecord[key],
-      common: record[key]
-    };
+    const recordField = record[key];
+
+    if (recordField) {
+      newRecord[key] = {
+        ...templateRecord[key],
+        common: recordField
+      };
+    }
   });
 
   return newRecord;

@@ -46,5 +46,18 @@ describe('utils', () => {
 
       expect(transformFromServer(recordFromServer, tableData.new_row)).toEqual(record);
     });
+
+    it('should transform incomplete record from server', () => {
+      const record = {
+        check: tableData.rows[0].check,
+        product_group: tableData.rows[0].product_group
+      };
+      const recordFromServer = {
+        check: {id: record.check.common.id},
+        ...transformForServer([record])[0].columns
+      };
+
+      expect(transformFromServer(recordFromServer, tableData.new_row)).toEqual(record);
+    });
   });
 });
