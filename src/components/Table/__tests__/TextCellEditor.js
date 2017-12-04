@@ -224,6 +224,13 @@ describe('TextCellEditor', () => {
     const instance = wrapper.instance();
     const textContent = 'textContent';
     const clipboardData = 'clipboardData';
+    const setRange = getStateSetter({
+      startOffset: 0,
+      endOffset: 0,
+      startContainer: {firstChild: {}},
+      setStart: () => {},
+      collapse: () => {}
+    });
 
     it('should not change the original text if the text to insert is missing', () => {
       const event = {
@@ -246,11 +253,7 @@ describe('TextCellEditor', () => {
       };
 
       window.getSelection = () => ({
-        getRangeAt: () => ({
-          startOffset: 0,
-          startContainer: {firstChild: {}},
-          setStart: jest.fn()
-        })
+        getRangeAt: () => (setRange())
       });
 
       instance.paste(event);
@@ -266,11 +269,12 @@ describe('TextCellEditor', () => {
       };
 
       window.getSelection = () => ({
-        getRangeAt: () => ({
-          startOffset: textContent.length,
-          startContainer: {firstChild: {}},
-          setStart: jest.fn()
-        })
+        getRangeAt: () => (
+          setRange({
+            startOffset: textContent.length,
+            endOffset: textContent.length
+          })
+        )
       });
 
       instance.paste(event);
@@ -287,11 +291,12 @@ describe('TextCellEditor', () => {
       };
 
       window.getSelection = () => ({
-        getRangeAt: () => ({
-          startOffset: middleOfTextContent,
-          startContainer: {firstChild: {}},
-          setStart: jest.fn()
-        })
+        getRangeAt: () => (
+          setRange({
+            startOffset: middleOfTextContent,
+            endOffset: middleOfTextContent
+          })
+        )
       });
 
       instance.paste(event);
@@ -311,11 +316,12 @@ describe('TextCellEditor', () => {
       const pastedLength = maxLength - text.length;
 
       window.getSelection = () => ({
-        getRangeAt: () => ({
-          startOffset: middleOfTextContent,
-          startContainer: {firstChild: {}},
-          setStart: jest.fn()
-        })
+        getRangeAt: () => (
+          setRange({
+            startOffset: middleOfTextContent,
+            endOffset: middleOfTextContent
+          })
+        )
       });
 
       instance.paste(event);
@@ -324,6 +330,27 @@ describe('TextCellEditor', () => {
         clipboardData.substring(0, pastedLength) +
         text.substring(middleOfTextContent)
       );
+    });
+
+    it('should delete the selected text and insert new text', () => {
+      const event = {
+        target: {textContent},
+        clipboardData: {
+          getData: () => clipboardData
+        }
+      };
+
+      window.getSelection = () => ({
+        getRangeAt: () => (
+          setRange({
+            startOffset: 0,
+            endOffset: textContent.length
+          })
+        )
+      });
+
+      instance.paste(event);
+      expect(event.target.textContent).toBe(clipboardData);
     });
   });
 
@@ -441,10 +468,12 @@ describe('TextCellEditor', () => {
       };
 
       spyOn(event, 'preventDefault');
+      spyOn(instance, 'setCharactersCountLeft');
       container.simulate('paste', event);
 
       expect(event.preventDefault).toHaveBeenCalled();
       expect(instance.paste).toHaveBeenCalledWith(event);
+      expect(instance.setCharactersCountLeft).toHaveBeenCalledWith(event.target.textContent, instance.props);
     });
   });
 });
