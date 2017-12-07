@@ -8679,22 +8679,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var newId = -1;
 
-var fillPhoto = function fillPhoto(row, payloadItem) {
-  if ((0, _utils.has)(payloadItem, 'columns.photo')) {
-    var result = (0, _extends6.default)({}, row, {
-      photo: (0, _extends6.default)({}, row.photo, {
-        common: (0, _extends6.default)({}, row.photo.common, {
-          images: (0, _utils.get)(payloadItem, 'columns.photo.images') || row.photo.common.images || []
-        })
-      })
-    });
-    (0, _utils.unset)(result, 'photo.copy_from');
-    return result;
-  }
-
-  return row;
-};
-
 function rows() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments[1];
@@ -8771,22 +8755,9 @@ function rows() {
     case _actions.TABLE_EDITOR_ROW_ADD_DEFAULT_ID:
     case _actions.TABLE_EDITOR_ROW_ADD_ID:
       return state.map(function (row) {
-        var payloadItem = action.payload.find(function (payloadRow) {
-          return row.check.common.id === payloadRow.id;
-        });
         var payloadChildItem = action.payload.find(function (payloadRow) {
           return row.product_group && row.product_group.common.parent_id === payloadRow.id;
         });
-
-        if (payloadItem) {
-          return fillPhoto((0, _extends6.default)({}, row, {
-            check: (0, _extends6.default)({}, row.check, {
-              common: (0, _extends6.default)({}, row.check.common, {
-                id: payloadItem.record_id
-              })
-            })
-          }), payloadItem);
-        }
 
         if (payloadChildItem) {
           var ancestors = row.product_group.common.ancestors.map(function (ancestor) {
