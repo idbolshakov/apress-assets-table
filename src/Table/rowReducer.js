@@ -1,9 +1,4 @@
-import {
-  get,
-  has,
-  unset,
-  transformFromServer
-} from '../utils';
+import {transformFromServer} from '../utils';
 import {
   TABLE_EDITOR_LOAD_SUCCESS,
   TABLE_EDITOR_SET_TEXT,
@@ -17,25 +12,6 @@ import {
 } from './actions';
 
 let newId = -1;
-
-const fillPhoto = (row, payloadItem) => {
-  if (has(payloadItem, 'columns.photo')) {
-    const result = {
-      ...row,
-      photo: {
-        ...row.photo,
-        common: {
-          ...row.photo.common,
-          images: get(payloadItem, 'columns.photo.images') || row.photo.common.images || []
-        }
-      }
-    };
-    unset(result, 'photo.copy_from');
-    return result;
-  }
-
-  return row;
-};
 
 export default function rows(state = [], action) {
   switch (action.type) {
@@ -127,23 +103,8 @@ export default function rows(state = [], action) {
     case TABLE_EDITOR_ROW_ADD_DEFAULT_ID:
     case TABLE_EDITOR_ROW_ADD_ID:
       return state.map((row) => {
-        const payloadItem = action.payload.find(payloadRow =>
-          row.check.common.id === payloadRow.id);
         const payloadChildItem = action.payload.find(payloadRow =>
           row.product_group && row.product_group.common.parent_id === payloadRow.id);
-
-        if (payloadItem) {
-          return fillPhoto({
-            ...row,
-            check: {
-              ...row.check,
-              common: {
-                ...row.check.common,
-                id: payloadItem.record_id
-              }
-            }
-          }, payloadItem);
-        }
 
         if (payloadChildItem) {
           const ancestors = row.product_group.common.ancestors.map((ancestor) => {
