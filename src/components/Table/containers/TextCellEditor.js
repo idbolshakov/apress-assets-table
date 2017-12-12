@@ -16,9 +16,11 @@ class TextCellEditor extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      value: this.getValidValue(nextProps.text)
-    });
+    if (this.props.text !== nextProps.text || this.props.isEdit !== nextProps.isEdit) {
+      this.setState({
+        value: this.getValidValue(nextProps.text)
+      });
+    }
   }
 
   getCharactersCountLeft = () => (

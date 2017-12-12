@@ -43252,9 +43252,11 @@ var TextCellEditor = function (_Component) {
   (0, _createClass3.default)(TextCellEditor, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      this.setState({
-        value: this.getValidValue(nextProps.text)
-      });
+      if (this.props.text !== nextProps.text || this.props.isEdit !== nextProps.isEdit) {
+        this.setState({
+          value: this.getValidValue(nextProps.text)
+        });
+      }
     }
   }, {
     key: 'render',
