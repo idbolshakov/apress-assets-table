@@ -8,6 +8,7 @@ import TextCellEditor from '../containers/TextCellEditor';
 describe('TextCellEditor', () => {
   const maxLength = 75;
   const className = '.e-table-cell-text';
+  const elementName = 'textarea';
   const props = {
     isEdit: false,
     maxLen: maxLength,
@@ -26,9 +27,10 @@ describe('TextCellEditor', () => {
 
     it('should be enabled the read only mode', () => {
       const container = wrapper.find(className);
+      const element = container.find(elementName);
 
       expect(container.is('.is-edit')).toEqual(false);
-      expect(container.prop('contentEditable')).toEqual(false);
+      expect(element.prop('readOnly')).toEqual(true);
     });
 
     it('should not listen to an blur event', () => {
@@ -39,100 +41,67 @@ describe('TextCellEditor', () => {
       expect(wrapper.getNode().props.onKeyDown).toBeUndefined();
     });
 
-    it('should not listen to an keypress event', () => {
-      expect(wrapper.getNode().props.onKeyPress).toBeUndefined();
-    });
-
-    it('should not listen to an keyup event', () => {
-      expect(wrapper.getNode().props.onKeyUp).toBeUndefined();
-    });
-
-    it('should not listen to an paste event', () => {
-      expect(wrapper.getNode().props.onPaste).toBeUndefined();
+    it('should not listen to an input event', () => {
+      expect(wrapper.getNode().props.onInput).toBeUndefined();
     });
   });
 
   describe('content editable mode', () => {
     const freezedProps = setProps({isEdit: true});
-    const event = {target: {textContent: ''}};
     let wrapper;
     let container;
+    let element;
     let instance;
 
     beforeEach(() => {
       wrapper = getShallowWrapper(TextCellEditor, freezedProps);
       container = wrapper.find(className);
+      element = container.find(elementName);
       instance = wrapper.instance();
     });
 
     it('should be enabled the edit mode', () => {
       expect(container.is('.is-edit')).toEqual(true);
-      expect(container.prop('contentEditable')).toEqual(true);
+      expect(element.prop('readOnly')).toEqual(false);
     });
 
     it('should listen to an blur event', () => {
       spyOn(instance, 'save');
-      container.simulate('blur', event);
+      element.simulate('blur');
 
       expect(instance.save).toHaveBeenCalled();
     });
 
     it('should listen to an keydown event', () => {
       spyOn(instance, 'handleKeyDown');
-      container.simulate('keydown');
+      element.simulate('keydown');
 
       expect(instance.handleKeyDown).toHaveBeenCalled();
     });
 
-    it('should listen to an keypress event', () => {
-      spyOn(instance, 'handleKeyPress');
-      container.simulate('keypress');
+    it('should listen to an input event', () => {
+      spyOn(instance, 'handleInput');
+      element.simulate('input');
 
-      expect(instance.handleKeyPress).toHaveBeenCalled();
-    });
-
-    it('should listen to an keyup event', () => {
-      spyOn(instance, 'setCharactersCountLeft');
-      container.simulate('keyup', event);
-
-      expect(instance.setCharactersCountLeft).toHaveBeenCalled();
-    });
-
-    it('should listen to an paste event', () => {
-      spyOn(instance, 'handlePaste');
-      container.simulate('paste');
-
-      expect(instance.handlePaste).toHaveBeenCalled();
+      expect(instance.handleInput).toHaveBeenCalled();
     });
   });
 
   describe('componentWillReceiveProps(nextProps)', () => {
-    it('should clear state.charactersLeft', () => {
-      const freezedProps = setProps({isEdit: true});
-      const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
-      const instance = wrapper.instance();
-      const nextProps = setProps();
-
-      wrapper.setProps(nextProps);
-
-      expect(wrapper.state('charactersLeft'))
-        .toBe(instance.getCharectersCountLeft(nextProps.text, nextProps));
-    });
-
-    it('should set state.charactersLeft', () => {
+    it('should set valid state.value', () => {
       const freezedProps = setProps();
       const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
       const instance = wrapper.instance();
-      const nextProps = setProps({text: '', isEdit: true});
+      const nextProps = setProps({text: 'test'});
 
       wrapper.setProps(nextProps);
 
-      expect(wrapper.state('charactersLeft'))
-        .toBe(instance.getCharectersCountLeft(nextProps.text, nextProps));
+      expect(wrapper.state('value'))
+        .toBe(instance.getValidValue(nextProps.text));
     });
   });
 
-  describe('getCharectersCountLeft(text, props)', () => {
+  describe('getCharactersCountLeft()', () => {
     const text = 'text example';
 
     it('should return an empty string in read-only mode', () => {
@@ -140,7 +109,7 @@ describe('TextCellEditor', () => {
       const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
       const instance = wrapper.instance();
 
-      expect(instance.getCharectersCountLeft(text, freezedProps)).toBe('');
+      expect(instance.getCharactersCountLeft()).toBe('');
     });
 
     it('should return the number of remaining characters in edit mode', () => {
@@ -148,7 +117,7 @@ describe('TextCellEditor', () => {
       const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
       const instance = wrapper.instance();
 
-      expect(instance.getCharectersCountLeft(text, freezedProps)).toBe(freezedProps.maxLen - text.length);
+      expect(instance.getCharactersCountLeft()).toBe(freezedProps.maxLen);
     });
   });
 
@@ -165,48 +134,34 @@ describe('TextCellEditor', () => {
       const freezedProps = setProps({isEdit: true});
       const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
       const handlers = wrapper.instance().getEventHandlers();
-      const expected = ['onBlur', 'onKeyDown', 'onKeyPress', 'onKeyUp', 'onPaste'];
+      const expected = ['onBlur', 'onKeyDown', 'onInput'];
 
       expect(Object.keys(handlers)).toEqual(expected);
     });
   });
 
-  describe('setCharactersCountLeft(text, props)', () => {
-    const changedText = 'changed text';
+  describe('getValidValue(value)', () => {
+    const freezedProps = setProps();
+    const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
+    const instance = wrapper.instance();
 
-    it('should not update the state in read-only mode', () => {
-      const freezedProps = setProps({text: ''});
-      const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
-      const instance = wrapper.instance();
-      const prevStateCharactersLeft = wrapper.state('charactersLeft');
-
-      instance.setCharactersCountLeft(changedText, freezedProps);
-
-      expect(wrapper.state('charactersLeft')).toBe(prevStateCharactersLeft);
+    it('should replace the line breaks with spaces', () => {
+      expect(instance.getValidValue('\n')).toEqual(' ');
     });
 
-    it('should update the state in edit mode', () => {
-      const freezedProps = setProps({text: '', isEdit: true});
-      const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
-      const instance = wrapper.instance();
-      const prevStateCharactersLeft = wrapper.state('charactersLeft');
-
-      instance.setCharactersCountLeft(changedText, freezedProps);
-
-      expect(wrapper.state('charactersLeft')).not.toBe(prevStateCharactersLeft);
+    it('should delete tags', () => {
+      expect(instance.getValidValue('<p>test</p>')).toEqual('test');
     });
   });
 
   describe('save()', () => {
-    const textToSave = 'textToSave';
-
     beforeEach(() => {
       spyOn(props, 'handlerEdit');
       spyOn(props, 'handlerSave');
 
       const wrapper = getShallowWrapper(TextCellEditor, props);
 
-      wrapper.instance().save(textToSave);
+      wrapper.instance().save();
     });
 
     it('should call handlerEdit', () => {
@@ -214,143 +169,7 @@ describe('TextCellEditor', () => {
     });
 
     it('should call handlerSave', () => {
-      expect(props.handlerSave).toHaveBeenCalledWith(textToSave);
-    });
-  });
-
-  describe('paste(e)', () => {
-    const freezedProps = setProps();
-    const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
-    const instance = wrapper.instance();
-    const textContent = 'textContent';
-    const clipboardData = 'clipboardData';
-    const setRange = getStateSetter({
-      startOffset: 0,
-      endOffset: 0,
-      startContainer: {firstChild: {}},
-      setStart: () => {},
-      collapse: () => {}
-    });
-
-    it('should not change the original text if the text to insert is missing', () => {
-      const event = {
-        target: {textContent},
-        clipboardData: {
-          getData: () => null
-        }
-      };
-
-      instance.paste(event);
-      expect(event.target.textContent).toBe(textContent);
-    });
-
-    it('should insert text at the beginning of the line', () => {
-      const event = {
-        target: {textContent},
-        clipboardData: {
-          getData: () => clipboardData
-        }
-      };
-
-      window.getSelection = () => ({
-        getRangeAt: () => (setRange())
-      });
-
-      instance.paste(event);
-      expect(event.target.textContent).toBe(clipboardData + textContent);
-    });
-
-    it('should insert text at the end of the line', () => {
-      const event = {
-        target: {textContent},
-        clipboardData: {
-          getData: () => clipboardData
-        }
-      };
-
-      window.getSelection = () => ({
-        getRangeAt: () => (
-          setRange({
-            startOffset: textContent.length,
-            endOffset: textContent.length
-          })
-        )
-      });
-
-      instance.paste(event);
-      expect(event.target.textContent).toBe(textContent + clipboardData);
-    });
-
-    it('should insert text at the middle of the line', () => {
-      const middleOfTextContent = textContent.length / 2;
-      const event = {
-        target: {textContent},
-        clipboardData: {
-          getData: () => clipboardData
-        }
-      };
-
-      window.getSelection = () => ({
-        getRangeAt: () => (
-          setRange({
-            startOffset: middleOfTextContent,
-            endOffset: middleOfTextContent
-          })
-        )
-      });
-
-      instance.paste(event);
-      expect(event.target.textContent)
-        .toBe(textContent.substring(0, middleOfTextContent) + clipboardData + textContent.substring(middleOfTextContent));
-    });
-
-    it('should insert a piece of text', () => {
-      const text = 'a'.repeat(maxLength - clipboardData.length / 2);
-      const event = {
-        target: {textContent: text},
-        clipboardData: {
-          getData: () => clipboardData
-        }
-      };
-      const middleOfTextContent = text.length / 2;
-      const pastedLength = maxLength - text.length;
-
-      window.getSelection = () => ({
-        getRangeAt: () => (
-          setRange({
-            startOffset: middleOfTextContent,
-            endOffset: middleOfTextContent
-          })
-        )
-      });
-
-      instance.paste(event);
-      expect(event.target.textContent).toBe(
-        text.substring(0, middleOfTextContent) +
-        clipboardData.substring(0, pastedLength) +
-        text.substring(middleOfTextContent)
-      );
-    });
-
-    it('should delete the selected text and insert new text', () => {
-      const event = {
-        target: {textContent},
-        clipboardData: {
-          getData: () => clipboardData
-        }
-      };
-
-      window.getSelection = () => ({
-        getRangeAt: () => (
-          setRange({
-            startOffset: 0,
-            endOffset: textContent.length
-          })
-        )
-      });
-
-      instance.paste(event);
-      expect(event.target.textContent).toBe(clipboardData);
+      expect(props.handlerSave).toHaveBeenCalled();
     });
   });
 
@@ -358,17 +177,16 @@ describe('TextCellEditor', () => {
     const event = {
       keyCode: 1,
       preventDefault: jest.fn(),
-      stopPropagation: jest.fn(),
-      target: {textContent: 'textContent'}
+      stopPropagation: jest.fn()
     };
-    let container;
+    let element;
     let instance;
 
     beforeEach(() => {
       const freezedProps = setProps({isEdit: true});
       const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
 
-      container = wrapper.find(className);
+      element = wrapper.find(elementName);
       instance = wrapper.instance();
 
       spyOn(instance, 'save');
@@ -378,7 +196,7 @@ describe('TextCellEditor', () => {
       spyOn(event, 'preventDefault');
       spyOn(event, 'stopPropagation');
 
-      container.simulate('keydown', event);
+      element.simulate('keydown', event);
 
       expect(event.preventDefault).not.toHaveBeenCalled();
       expect(event.stopPropagation).not.toHaveBeenCalled();
@@ -391,89 +209,23 @@ describe('TextCellEditor', () => {
       spyOn(e, 'preventDefault');
       spyOn(e, 'stopPropagation');
 
-      container.simulate('keydown', e);
+      element.simulate('keydown', e);
 
       expect(e.preventDefault).toHaveBeenCalled();
       expect(e.stopPropagation).toHaveBeenCalled();
-      expect(instance.save).toHaveBeenCalledWith(e.target.textContent);
+      expect(instance.save).toHaveBeenCalled();
     });
   });
 
-  describe('handleKeyPress(e)', () => {
-    let container;
-
-    beforeEach(() => {
+  describe('handleInput(e)', () => {
+    it('should update state.value', () => {
+      const event = {currentTarget: {value: 'value'}};
       const freezedProps = setProps({isEdit: true});
       const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
+      const element = wrapper.find(elementName);
 
-      container = wrapper.find(className);
-    });
-
-    it('should not do anything', () => {
-      const event = {
-        target: {textContent: 'textContent'},
-        preventDefault: jest.fn()
-      };
-
-      spyOn(event, 'preventDefault');
-      container.simulate('keypress', event);
-
-      expect(event.preventDefault).not.toHaveBeenCalled();
-    });
-
-    it('should stop the event', () => {
-      const event = {
-        target: {textContent: 'a'.repeat(maxLength)},
-        preventDefault: jest.fn()
-      };
-
-      spyOn(event, 'preventDefault');
-      container.simulate('keypress', event);
-
-      expect(event.preventDefault).toHaveBeenCalled();
-    });
-  });
-
-  describe('handlePaste(e)', () => {
-    let container;
-    let instance;
-
-    beforeEach(() => {
-      const freezedProps = setProps({isEdit: true});
-      const wrapper = getShallowWrapper(TextCellEditor, freezedProps);
-
-      container = wrapper.find(className);
-      instance = wrapper.instance();
-
-      spyOn(instance, 'paste');
-    });
-
-    it('should stop the event', () => {
-      const event = {
-        target: {textContent: 'a'.repeat(maxLength)},
-        preventDefault: jest.fn()
-      };
-
-      spyOn(event, 'preventDefault');
-      container.simulate('paste', event);
-
-      expect(event.preventDefault).toHaveBeenCalled();
-      expect(instance.paste).not.toHaveBeenCalled();
-    });
-
-    it('should call paste method', () => {
-      const event = {
-        target: {textContent: 'textContent'},
-        preventDefault: jest.fn()
-      };
-
-      spyOn(event, 'preventDefault');
-      spyOn(instance, 'setCharactersCountLeft');
-      container.simulate('paste', event);
-
-      expect(event.preventDefault).toHaveBeenCalled();
-      expect(instance.paste).toHaveBeenCalledWith(event);
-      expect(instance.setCharactersCountLeft).toHaveBeenCalledWith(event.target.textContent, instance.props);
+      element.simulate('input', event);
+      expect(wrapper.state('value')).toEqual(event.currentTarget.value);
     });
   });
 });

@@ -11,18 +11,18 @@ class TextCellEditor extends Component {
     super();
 
     this.state = {
-      charactersLeft: this.getCharectersCountLeft(props.text, props)
+      value: this.getValidValue(props.text)
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.isEdit !== nextProps.isEdit) {
-      this.setCharactersCountLeft(nextProps.text, nextProps);
-    }
+    this.setState({
+      value: this.getValidValue(nextProps.text)
+    });
   }
 
-  getCharectersCountLeft = (text, props) => (
-    props.isEdit ? props.maxLen - text.length : ''
+  getCharactersCountLeft = () => (
+    this.props.isEdit ? this.props.maxLen - this.state.value.length : ''
   );
 
   getEventHandlers = () => {
@@ -31,104 +31,46 @@ class TextCellEditor extends Component {
     }
 
     return {
-      onBlur: e => this.save(e.target.textContent),
+      onBlur: () => this.save(),
       onKeyDown: e => this.handleKeyDown(e),
-      onKeyPress: e => this.handleKeyPress(e),
-      onKeyUp: e => this.setCharactersCountLeft(e.target.textContent, this.props),
-      onPaste: e => this.handlePaste(e)
+      onInput: e => this.handleInput(e)
     };
   };
 
-  getClipboardText = (clipboardData) => {
-    let paste;
+  getValidValue = value => (
+    value.replace(/\n/g, ' ').replace(/<.*?>/g, '')
+  );
 
-    if (window.clipboardData) {
-      paste = window.clipboardData.getData('Text');
-    } else {
-      paste = clipboardData.getData('text/plain');
-    }
-
-    return paste.replace(/\r|\n/g, '');
-  };
-
-  getTextWithoutSelection = (range) => {
-    const textContent = range.startContainer.textContent;
-
-    return textContent.substring(0, range.startOffset) +
-        textContent.substring(range.endOffset, textContent.length);
-  };
-
-  setCharactersCountLeft = (text, props) => {
-    this.setState({
-      charactersLeft: this.getCharectersCountLeft(text, props)
-    });
-  };
-
-  save = (text) => {
+  save = () => {
     this.props.handlerEdit(false);
-    this.props.handlerSave(text);
+    this.props.handlerSave(this.state.value);
   };
 
   handleKeyDown = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
       e.stopPropagation();
-      this.save(e.target.textContent);
+      this.save();
     }
   };
 
-  handleKeyPress = (e) => {
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    const textWithoutSelection = this.getTextWithoutSelection(range);
-
-    if (textWithoutSelection.length >= this.props.maxLen) {
-      e.preventDefault();
-    }
-  };
-
-  handlePaste = (e) => {
-    const paste = this.getClipboardText(e.clipboardData);
-
-    e.preventDefault();
-    if (paste) {
-      const selection = window.getSelection();
-      const range = selection.getRangeAt(0);
-      const textWithoutSelection = this.getTextWithoutSelection(range);
-
-      if (textWithoutSelection.length < this.props.maxLen) {
-        const extraCharacters = (textWithoutSelection.length + paste.length) - this.props.maxLen;
-        const pasteLen = extraCharacters > 0 ? paste.length - extraCharacters : paste.length;
-        const cursorPos = range.startOffset;
-
-        e.target.textContent = textWithoutSelection.substring(0, cursorPos) +
-          paste.substr(0, pasteLen) + textWithoutSelection.substring(cursorPos);
-
-        setTimeout(() => {
-          range.setStart(range.startContainer.firstChild || range.startContainer, cursorPos + pasteLen);
-          range.collapse(true);
-          selection.removeAllRanges();
-          selection.addRange(range);
-        });
-
-        this.setCharactersCountLeft(e.target.textContent, this.props);
-      }
-    }
+  handleInput = (e) => {
+    this.setState({value: e.currentTarget.value});
   };
 
   render() {
-    const {text, isEdit} = this.props;
-    const textWithoutTags = text.replace(/<.*?>/g, '');
+    const {isEdit, maxLen} = this.props;
 
     return (
       <div
-        data-charactersLeft={this.state.charactersLeft}
+        data-charactersLeft={this.getCharactersCountLeft()}
         className={b('cell-text').is({edit: isEdit})}
       >
-        <div
+        <textarea
           ref={elem => elem && isEdit && elem.focus()}
-          contentEditable={isEdit}
-          dangerouslySetInnerHTML={{__html: textWithoutTags}}
+          maxLength={maxLen}
+          readOnly={!isEdit}
+          value={this.state.value}
           {...this.getEventHandlers()}
         />
       </div>

@@ -103,8 +103,23 @@ export default function rows(state = [], action) {
     case TABLE_EDITOR_ROW_ADD_DEFAULT_ID:
     case TABLE_EDITOR_ROW_ADD_ID:
       return state.map((row) => {
+        const payloadItem = action.payload.find(payloadRow =>
+          row.check.common.id === payloadRow.id);
         const payloadChildItem = action.payload.find(payloadRow =>
           row.product_group && row.product_group.common.parent_id === payloadRow.id);
+
+        if (payloadItem) {
+          return {
+            ...row,
+            check: {
+              ...row.check,
+              common: {
+                ...row.check.common,
+                id: payloadItem.record_id
+              }
+            }
+          };
+        }
 
         if (payloadChildItem) {
           const ancestors = row.product_group.common.ancestors.map((ancestor) => {

@@ -8755,9 +8755,22 @@ function rows() {
     case _actions.TABLE_EDITOR_ROW_ADD_DEFAULT_ID:
     case _actions.TABLE_EDITOR_ROW_ADD_ID:
       return state.map(function (row) {
+        var payloadItem = action.payload.find(function (payloadRow) {
+          return row.check.common.id === payloadRow.id;
+        });
         var payloadChildItem = action.payload.find(function (payloadRow) {
           return row.product_group && row.product_group.common.parent_id === payloadRow.id;
         });
+
+        if (payloadItem) {
+          return (0, _extends6.default)({}, row, {
+            check: (0, _extends6.default)({}, row.check, {
+              common: (0, _extends6.default)({}, row.check.common, {
+                id: payloadItem.record_id
+              })
+            })
+          });
+        }
 
         if (payloadChildItem) {
           var ancestors = row.product_group.common.ancestors.map(function (ancestor) {
@@ -43187,10 +43200,51 @@ var TextCellEditor = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (TextCellEditor.__proto__ || (0, _getPrototypeOf2.default)(TextCellEditor)).call(this));
 
-    _initialiseProps.call(_this);
+    _this.getCharactersCountLeft = function () {
+      return _this.props.isEdit ? _this.props.maxLen - _this.state.value.length : '';
+    };
+
+    _this.getEventHandlers = function () {
+      if (!_this.props.isEdit) {
+        return {};
+      }
+
+      return {
+        onBlur: function onBlur() {
+          return _this.save();
+        },
+        onKeyDown: function onKeyDown(e) {
+          return _this.handleKeyDown(e);
+        },
+        onInput: function onInput(e) {
+          return _this.handleInput(e);
+        }
+      };
+    };
+
+    _this.getValidValue = function (value) {
+      return value.replace(/\n/g, ' ').replace(/<.*?>/g, '');
+    };
+
+    _this.save = function () {
+      _this.props.handlerEdit(false);
+      _this.props.handlerSave(_this.state.value);
+    };
+
+    _this.handleKeyDown = function (e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        e.stopPropagation();
+        _this.save();
+      }
+    };
+
+    _this.handleInput = function (e) {
+      _this.setState({ value: e.currentTarget.value });
+    };
 
     _this.state = {
-      charactersLeft: _this.getCharectersCountLeft(props.text, props)
+      value: _this.getValidValue(props.text)
     };
     return _this;
   }
@@ -43198,144 +43252,37 @@ var TextCellEditor = function (_Component) {
   (0, _createClass3.default)(TextCellEditor, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      if (this.props.isEdit !== nextProps.isEdit) {
-        this.setCharactersCountLeft(nextProps.text, nextProps);
-      }
+      this.setState({
+        value: this.getValidValue(nextProps.text)
+      });
     }
   }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
-          text = _props.text,
-          isEdit = _props.isEdit;
+          isEdit = _props.isEdit,
+          maxLen = _props.maxLen;
 
-      var textWithoutTags = text.replace(/<.*?>/g, '');
 
       return _react2.default.createElement(
         'div',
         {
-          'data-charactersLeft': this.state.charactersLeft,
+          'data-charactersLeft': this.getCharactersCountLeft(),
           className: b('cell-text').is({ edit: isEdit })
         },
-        _react2.default.createElement('div', (0, _extends3.default)({
+        _react2.default.createElement('textarea', (0, _extends3.default)({
           ref: function ref(elem) {
             return elem && isEdit && elem.focus();
           },
-          contentEditable: isEdit,
-          dangerouslySetInnerHTML: { __html: textWithoutTags }
+          maxLength: maxLen,
+          readOnly: !isEdit,
+          value: this.state.value
         }, this.getEventHandlers()))
       );
     }
   }]);
   return TextCellEditor;
 }(_react.Component);
-
-var _initialiseProps = function _initialiseProps() {
-  var _this2 = this;
-
-  this.getCharectersCountLeft = function (text, props) {
-    return props.isEdit ? props.maxLen - text.length : '';
-  };
-
-  this.getEventHandlers = function () {
-    if (!_this2.props.isEdit) {
-      return {};
-    }
-
-    return {
-      onBlur: function onBlur(e) {
-        return _this2.save(e.target.textContent);
-      },
-      onKeyDown: function onKeyDown(e) {
-        return _this2.handleKeyDown(e);
-      },
-      onKeyPress: function onKeyPress(e) {
-        return _this2.handleKeyPress(e);
-      },
-      onKeyUp: function onKeyUp(e) {
-        return _this2.setCharactersCountLeft(e.target.textContent, _this2.props);
-      },
-      onPaste: function onPaste(e) {
-        return _this2.handlePaste(e);
-      }
-    };
-  };
-
-  this.getClipboardText = function (clipboardData) {
-    var paste = void 0;
-
-    if (window.clipboardData) {
-      paste = window.clipboardData.getData('Text');
-    } else {
-      paste = clipboardData.getData('text/plain');
-    }
-
-    return paste.replace(/\r|\n/g, '');
-  };
-
-  this.getTextWithoutSelection = function (range) {
-    var textContent = range.startContainer.textContent;
-
-    return textContent.substring(0, range.startOffset) + textContent.substring(range.endOffset, textContent.length);
-  };
-
-  this.setCharactersCountLeft = function (text, props) {
-    _this2.setState({
-      charactersLeft: _this2.getCharectersCountLeft(text, props)
-    });
-  };
-
-  this.save = function (text) {
-    _this2.props.handlerEdit(false);
-    _this2.props.handlerSave(text);
-  };
-
-  this.handleKeyDown = function (e) {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      e.stopPropagation();
-      _this2.save(e.target.textContent);
-    }
-  };
-
-  this.handleKeyPress = function (e) {
-    var selection = window.getSelection();
-    var range = selection.getRangeAt(0);
-    var textWithoutSelection = _this2.getTextWithoutSelection(range);
-
-    if (textWithoutSelection.length >= _this2.props.maxLen) {
-      e.preventDefault();
-    }
-  };
-
-  this.handlePaste = function (e) {
-    var paste = _this2.getClipboardText(e.clipboardData);
-
-    e.preventDefault();
-    if (paste) {
-      var selection = window.getSelection();
-      var range = selection.getRangeAt(0);
-      var textWithoutSelection = _this2.getTextWithoutSelection(range);
-
-      if (textWithoutSelection.length < _this2.props.maxLen) {
-        var extraCharacters = textWithoutSelection.length + paste.length - _this2.props.maxLen;
-        var pasteLen = extraCharacters > 0 ? paste.length - extraCharacters : paste.length;
-        var cursorPos = range.startOffset;
-
-        e.target.textContent = textWithoutSelection.substring(0, cursorPos) + paste.substr(0, pasteLen) + textWithoutSelection.substring(cursorPos);
-
-        setTimeout(function () {
-          range.setStart(range.startContainer.firstChild || range.startContainer, cursorPos + pasteLen);
-          range.collapse(true);
-          selection.removeAllRanges();
-          selection.addRange(range);
-        });
-
-        _this2.setCharactersCountLeft(e.target.textContent, _this2.props);
-      }
-    }
-  };
-};
 
 TextCellEditor.propTypes = _propTypes.textCellEditorPropType.isRequired;
 
