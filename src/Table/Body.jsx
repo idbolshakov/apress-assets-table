@@ -85,7 +85,7 @@ class Body extends Component {
   isRowChecked = rowId => this.props.table.checked.includes(rowId);
 
   renderCell = (row, rowId, cell, columnIndex, rowIndex) => {
-    const {placeholder, config, actions, table} = this.props;
+    const {placeholder, config, actions, table, readonly} = this.props;
     const {focus, selected} = table;
     const dataRow = {
       id: rowId,
@@ -95,12 +95,13 @@ class Body extends Component {
       placeholder: placeholder[cell],
       config: config[cell],
       isFocus: rowId === focus.activeRow && cell === focus.activeCell,
-      isSelected: selected.cellFrom.column === columnIndex &&
+      isSelected: !readonly && selected.cellFrom.column === columnIndex &&
         inRange(selected.cellFrom.row, selected.cellTo.row, rowIndex),
-      isLast: this.isCurrentCellLastInSelection(rowIndex, columnIndex),
-      isDragged: this.isCurrentCellDragged(rowIndex, columnIndex),
+      isLast: !readonly && this.isCurrentCellLastInSelection(rowIndex, columnIndex),
+      isDragged: !readonly && this.isCurrentCellDragged(rowIndex, columnIndex),
       column: columnIndex,
-      row: rowIndex
+      row: rowIndex,
+      readonly
     };
     const tableWidth = Object.keys(row).length;
     const key = (rowIndex * tableWidth) + columnIndex;

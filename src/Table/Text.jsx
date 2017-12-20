@@ -90,7 +90,7 @@ class TextCell extends Component {
 
   render() {
     const {cell, handleCellClick, handleSelection, handleStartSelection, handleEndSelection, handleDrag} = this.props;
-    const {config, data, name, placeholder, isFocus, classMix, isSelected, isDragged, isLast} = cell;
+    const {config, data, name, placeholder, isFocus, classMix, isSelected, isDragged, isLast, readonly} = cell;
     const cellText = data.common.text;
     const binder = data.binder;
 
@@ -132,6 +132,7 @@ class TextCell extends Component {
             required: config.required && !cellText && !this.state.edit
           })
         }
+        title={readonly && cellText}
         tabIndex={-1}
         onClick={binder && handleCellClick}
         onDoubleClick={() => binder && this.handlerEdit(true)}
