@@ -34961,7 +34961,7 @@ var ContainerTree = function (_Component) {
       var _this2 = this;
 
       var hasDragNode = true;
-      var hasSettingsNode = true;
+      var hasSettingsNode = this.props.hasSettingsNode;
       var treeData = this.state.filter ? this.filterTree(this.props.tree.data, new RegExp(this.state.filter, 'i')) : this.props.tree.data;
 
       var searchHtml = _import.React.createElement(
@@ -35855,8 +35855,9 @@ var filterTitle = {
 };
 
 var ActionsPanel = function ActionsPanel(props) {
+  var historyButton = props.backHistory && props.nextHistory;
   var filterCol = props.columns && props.columns.filter(function (col) {
-    return col.filter && col.filter.value && col.filter.value !== 'all';
+    return col.common.visible && col.filter && col.filter.value && col.filter.value !== 'all';
   });
 
   var getFilterValue = function getFilterValue(name, key) {
@@ -35890,7 +35891,7 @@ var ActionsPanel = function ActionsPanel(props) {
       _react2.default.createElement(
         'section',
         { className: b('section-2') },
-        _react2.default.createElement(
+        historyButton && _react2.default.createElement(
           'div',
           { className: b('last-actions-box') },
           _react2.default.createElement(
@@ -39505,7 +39506,8 @@ var Body = function (_Component) {
           placeholder = _this$props.placeholder,
           config = _this$props.config,
           actions = _this$props.actions,
-          table = _this$props.table;
+          table = _this$props.table,
+          readonly = _this$props.readonly;
       var focus = table.focus,
           selected = table.selected;
 
@@ -39517,11 +39519,12 @@ var Body = function (_Component) {
         placeholder: placeholder[cell],
         config: config[cell],
         isFocus: rowId === focus.activeRow && cell === focus.activeCell,
-        isSelected: selected.cellFrom.column === columnIndex && (0, _utils.inRange)(selected.cellFrom.row, selected.cellTo.row, rowIndex),
-        isLast: _this.isCurrentCellLastInSelection(rowIndex, columnIndex),
-        isDragged: _this.isCurrentCellDragged(rowIndex, columnIndex),
+        isSelected: !readonly && selected.cellFrom.column === columnIndex && (0, _utils.inRange)(selected.cellFrom.row, selected.cellTo.row, rowIndex),
+        isLast: !readonly && _this.isCurrentCellLastInSelection(rowIndex, columnIndex),
+        isDragged: !readonly && _this.isCurrentCellDragged(rowIndex, columnIndex),
         column: columnIndex,
-        row: rowIndex
+        row: rowIndex,
+        readonly: readonly
       };
       var tableWidth = (0, _keys2.default)(row).length;
       var key = rowIndex * tableWidth + columnIndex;
@@ -40722,6 +40725,15 @@ var Price = function (_React$Component) {
 
     return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Price.__proto__ || (0, _getPrototypeOf2.default)(Price)).call.apply(_ref, [this].concat(args))), _this), _this.renderPriceByType = function (priceObject) {
       var priceElement = b('price');
+
+      if (!priceObject.price) {
+        return _react2.default.createElement(
+          'div',
+          { className: b('cell-placeholder') },
+          '\u041D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430'
+        );
+      }
+
       switch (priceObject.type) {
         case 'range':
           return _react2.default.createElement(
@@ -41161,7 +41173,8 @@ var TextCell = function (_Component) {
           classMix = cell.classMix,
           isSelected = cell.isSelected,
           isDragged = cell.isDragged,
-          isLast = cell.isLast;
+          isLast = cell.isLast,
+          readonly = cell.readonly;
 
       var cellText = data.common.text;
       var binder = data.binder;
@@ -41205,6 +41218,7 @@ var TextCell = function (_Component) {
             'selected-to': isDragged,
             required: config.required && !cellText && !this.state.edit
           }),
+          title: readonly && cellText,
           tabIndex: -1,
           onClick: binder && handleCellClick,
           onDoubleClick: function onDoubleClick() {
@@ -41884,6 +41898,8 @@ var Tree = function (_Component) {
             moveStart: _this2.moveStart,
             moveStep: _this2.moveStep,
             moveEnd: _this2.moveEnd,
+
+            withoutSearch: _this2.props.withoutSearch,
 
             config: _this2.props.config,
             hoverNode: _this2.state.hover,
