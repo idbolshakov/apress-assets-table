@@ -20,7 +20,7 @@ class CheckRelatedProducts extends React.Component {
 
   handleChecked = (checked) => {
     if (checked) {
-      this.props.relatedProducts.attendantProducts.length < 20 &&
+      this.props.relatedProducts.attendantProducts.length < 30 &&
       this.props.actions.add({
         relation: {
           position: this.props.relatedProducts.attendantProducts.length

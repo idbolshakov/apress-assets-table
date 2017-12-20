@@ -11,10 +11,17 @@ class Price extends React.Component {
     return !_isEqual(this.props, nextProps);
   }
 
+  getRangePrice = ({price, price_max: priceMax, currency_name: currencyName}) => (
+    `${price ? `от ${price}` : ''}\
+     ${price && priceMax ? ' ' : ''}\
+     ${priceMax ? `до ${priceMax}` : ''} \
+     ${currencyName}`
+  );
+
   renderPriceByType = (priceObject) => {
     const priceElement = b('price');
 
-    if (!priceObject.price) {
+    if (!priceObject.price && !priceObject.price_max) {
       return (
         <div className={b('cell-placeholder')}>Не указана</div>
       );
@@ -24,14 +31,14 @@ class Price extends React.Component {
       case 'range':
         return (
           <div className={priceElement('amount')}>
-            {`${priceObject.price} - ${priceObject.price_max} ${priceObject.currency_name}`}
+            {this.getRangePrice(priceObject)}
           </div>
         );
       case 'discount':
         return (
           <div>
             <div className={priceElement('amount')}>{`${priceObject.discount_price} ${priceObject.currency_name}`}</div>
-            <divc className={priceElement('old')}>{`${priceObject.price} ${priceObject.currency_name}`}</divc>
+            <div className={priceElement('old')}>{`${priceObject.price} ${priceObject.currency_name}`}</div>
             <div className={priceElement('expiration-date')}>{`до ${priceObject.discount_expires_at}`}</div>
           </div>
         );
