@@ -1566,7 +1566,6 @@ li.rc-select-dropdown-menu-item-divider {
     user-select: text; }
     .e-table-cell-text + .cke, .e-table-cell-text.is-edit {
       font-size: 14px;
-      padding: 20px;
       background: #fff;
       box-sizing: border-box;
       max-height: 150px;
@@ -1578,6 +1577,9 @@ li.rc-select-dropdown-menu-item-divider {
       left: 0;
       top: 0;
       border: solid 1px #028dd8; }
+      .e-table-cell-text + .cke textarea, .e-table-cell-text.is-edit textarea {
+        height: 100%;
+        padding: 20px; }
     .e-table-cell-text + .cke:after, .e-table-cell-text:after {
       content: attr(data-charactersLeft);
       position: absolute;
@@ -1596,6 +1598,14 @@ li.rc-select-dropdown-menu-item-divider {
         bottom: 4px; }
       .e-table-cell-text + .cke .cke_top.cke_reset_all {
         padding-right: 2px; }
+    .e-table-cell-text textarea {
+      width: 100%;
+      border: none;
+      resize: unset;
+      overflow: hidden;
+      font: inherit;
+      cursor: inherit;
+      background-color: transparent; }
   .e-table-price-old {
     text-decoration: line-through;
     color: #999; }

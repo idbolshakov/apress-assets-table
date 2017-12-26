@@ -1,37 +1,17 @@
-import {
-  get,
-  has,
-  unset
-} from '../utils';
+import {transformFromServer} from '../utils';
 import {
   TABLE_EDITOR_LOAD_SUCCESS,
   TABLE_EDITOR_SET_TEXT,
   TABLE_EDITOR_ROW_ADD,
   TABLE_EDITOR_ROW_ADD_ID,
+  TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   TABLE_EDITOR_ROW_REMOVE,
   TABLE_EDITOR_SET_IMAGES,
+  TABLE_EDITOR_ROW_COPY_SUCCESS,
+  UPDATE_TABLE_EDITOR_ROWS
 } from './actions';
 
 let newId = -1;
-
-const fillPhoto = (row, payloadItem) => {
-  if (has(payloadItem, 'columns.photo')) {
-    const result = {
-      ...row,
-      photo: {
-        ...row.photo,
-        common: {
-          ...row.photo.common,
-          images: get(payloadItem, 'columns.photo.images') || row.photo.common.images || []
-        }
-      }
-    };
-    unset(result, 'photo.copy_from');
-    return result;
-  }
-
-  return row;
-};
 
 export default function rows(state = [], action) {
   switch (action.type) {
@@ -120,13 +100,16 @@ export default function rows(state = [], action) {
       return newstate;
     }
 
+    case TABLE_EDITOR_ROW_ADD_DEFAULT_ID:
     case TABLE_EDITOR_ROW_ADD_ID:
       return state.map((row) => {
         const payloadItem = action.payload.find(payloadRow =>
           row.check.common.id === payloadRow.id);
+        const payloadChildItem = action.payload.find(payloadRow =>
+          row.product_group && row.product_group.common.parent_id === payloadRow.id);
 
         if (payloadItem) {
-          return fillPhoto({
+          return {
             ...row,
             check: {
               ...row.check,
@@ -135,15 +118,71 @@ export default function rows(state = [], action) {
                 id: payloadItem.record_id
               }
             }
-          }, payloadItem);
+          };
+        }
+
+        if (payloadChildItem) {
+          const ancestors = row.product_group.common.ancestors.map((ancestor) => {
+            if (ancestor.id === payloadChildItem.id) {
+              return {
+                ...ancestor,
+                id: payloadChildItem.record_id
+              };
+            }
+
+            return ancestor;
+          });
+
+          return {
+            ...row,
+            product_group: {
+              ...row.product_group,
+              common: {
+                ...row.product_group.common,
+                parent_id: payloadChildItem.record_id,
+                ancestors
+              }
+            }
+          };
         }
 
         return row;
       });
 
+    case TABLE_EDITOR_ROW_COPY_SUCCESS: {
+      const newState = [...state];
+      action.payload.rows.forEach((item) => {
+        const target = newState.findIndex(newStateItem => newStateItem.check.common.id === item.id);
+
+        if (target > -1) {
+          newState.splice(target + 1, 0, transformFromServer(item.copy.columns, action.payload.new_row));
+        }
+      });
+
+      return newState;
+    }
+
     case TABLE_EDITOR_ROW_REMOVE: {
       return state.filter(row => row.check.common.id !== action.payload.id);
     }
+
+    case UPDATE_TABLE_EDITOR_ROWS:
+      return state.map((stateRow) => {
+        const payloadRow = action.payload.rows.find(row => row.id === stateRow.check.common.id);
+
+        if (payloadRow) {
+          const transformedPayloadRow = transformFromServer(payloadRow.columns, action.payload.new_row);
+
+          return Object.keys(transformedPayloadRow).reduce((result, nextKey) => {
+            /* eslint no-param-reassign: ['error', { 'props': false }]*/
+            result[nextKey] = transformedPayloadRow[nextKey];
+
+            return result;
+          }, {...stateRow});
+        }
+
+        return stateRow;
+      });
 
     default:
       return state;

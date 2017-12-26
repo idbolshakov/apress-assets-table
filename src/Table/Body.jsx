@@ -175,6 +175,13 @@ class Body extends Component {
               })
             },
             {
+              name: 'copy',
+              title: 'Копировать группу',
+              onClick: () => actions.copyRow({
+                target: row
+              })
+            },
+            {
               name: 'delete',
               title: 'Удалить группу',
               onClick: () => {

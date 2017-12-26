@@ -1,9 +1,10 @@
+import {transformFromServer} from '../utils';
 import {
   SAVE_SUCCESS,
-  SAVE_REPEAT,
   SAVE_CREATE_DIFF,
   SAVE_START,
-  SAVE_DIFF
+  SAVE_DIFF,
+  CONTINUE_SAVE
 } from './actions';
 import {
   TABLE_EDITOR_LOAD_SUCCESS,
@@ -12,11 +13,15 @@ import {
   TABLE_EDITOR_ROW_ADD_ID,
   TABLE_EDITOR_SET_IMAGES,
   TABLE_EDITOR_ROW_ADD,
-  TABLE_EDITOR_CELL_SELECT_END
+  TABLE_EDITOR_ROW_COPY,
+  TABLE_EDITOR_ROW_COPY_SUCCESS,
+  TABLE_EDITOR_CELL_SELECT_END,
+  UPDATE_TABLE_EDITOR_ROWS
 } from '../Table/actions';
+import rows from '../Table/rowReducer';
 
 const initialState = {
-  isSave: false,
+  withUnsavedChanges: false,
   isError: false,
   prevState: [],
   isProgress: false,
@@ -33,7 +38,7 @@ export default function (state = initialState, action) {
         prevState: [...action.payload.rows]
       };
 
-    case SAVE_REPEAT:
+    case CONTINUE_SAVE:
     case TABLE_EDITOR_SET_TEXT:
     case TABLE_EDITOR_SET_IMAGES:
     case TABLE_EDITOR_ROW_ADD:
@@ -42,14 +47,53 @@ export default function (state = initialState, action) {
     case 'HISTORY_NEXT':
       return {
         ...state,
-        isSave: true
+        withUnsavedChanges: true
       };
+
+    case TABLE_EDITOR_ROW_COPY: {
+      const targetId = action.payload.target && action.payload.target.check.common.id;
+
+      if (targetId < 0) {
+        return state;
+      }
+
+      const tmpWaitingState = [...state.waitingState];
+      const tmpWaitingItemIndex = tmpWaitingState.findIndex(item => item.id === targetId);
+
+      if (tmpWaitingItemIndex !== -1) {
+        tmpWaitingState[tmpWaitingItemIndex] = {...tmpWaitingState[tmpWaitingItemIndex], copy: true};
+      } else {
+        tmpWaitingState.push({id: targetId, copy: true});
+      }
+
+      return {
+        ...state,
+        waitingState: tmpWaitingState,
+        withUnsavedChanges: true
+      };
+    }
+
+    case TABLE_EDITOR_ROW_COPY_SUCCESS: {
+      const newPrevState = [...state.prevState];
+      action.payload.rows.forEach((item) => {
+        const target = newPrevState.findIndex(newPrevStateItem => newPrevStateItem.check.common.id === item.id);
+
+        if (target > -1) {
+          newPrevState.push(transformFromServer(item.copy.columns, action.payload.new_row));
+        }
+      });
+
+      return {
+        ...state,
+        prevState: newPrevState
+      };
+    }
 
     case SAVE_CREATE_DIFF:
       return {
         ...state,
         fetchDiff: true,
-        isSave: false,
+        withUnsavedChanges: false,
       };
 
     case SAVE_DIFF:
@@ -60,37 +104,40 @@ export default function (state = initialState, action) {
         prevState: action.payload.prevState
       };
 
-    case SAVE_START:
+    case SAVE_START: {
+      const saveState = [];
+
+      state.waitingState.forEach((row) => {
+        const columns = row.columns;
+
+        if (columns) {
+          const tmpColumns = {...columns};
+          const tmpRow = {...row, columns: tmpColumns};
+
+          if (row.id > 0 && tmpColumns.product_group) {
+            delete tmpColumns.product_group;
+            if (!Object.keys(tmpColumns).length) {
+              return;
+            }
+          }
+
+          saveState.push(tmpRow);
+        } else {
+          saveState.push(row);
+        }
+      });
+
       return {
         ...state,
-        saveState: state.waitingState,
+        saveState,
         isProgress: true,
         isError: false,
         waitingState: []
       };
+    }
 
     case TABLE_EDITOR_ROW_ADD_DEFAULT_ID:
     case TABLE_EDITOR_ROW_ADD_ID: {
-      const tmpPrevState = state.prevState.map((row) => {
-        const payloadItem = action.payload.find(payloadRow =>
-          row.check.common.id === payloadRow.id);
-
-        if (payloadItem) {
-          return {
-            ...row,
-            check: {
-              ...row.check,
-              common: {
-                ...row.check.common,
-                id: payloadItem.record_id
-              }
-            }
-          };
-        }
-
-        return row;
-      });
-
       const tmpWaitingState = state.waitingState.map((row) => {
         const payloadItem = action.payload.find(payloadRow => row.id === payloadRow.id);
 
@@ -107,7 +154,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         waitingState: tmpWaitingState,
-        prevState: tmpPrevState
+        prevState: rows(state.prevState, action)
       };
     }
 
@@ -147,10 +194,16 @@ export default function (state = initialState, action) {
         saveState: [],
         waitingState: saveState,
         isProgress: false,
-        isSave: true,
+        withUnsavedChanges: true,
         isError: true
       };
     }
+
+    case UPDATE_TABLE_EDITOR_ROWS:
+      return {
+        ...state,
+        prevState: rows(state.prevState, action)
+      };
 
     default:
       return state;

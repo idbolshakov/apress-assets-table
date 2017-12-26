@@ -8,10 +8,10 @@ class SaveControlContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {isSave, fetchDiff, isProgress, waitingState, prevState} = nextProps.save;
+    const {withUnsavedChanges, fetchDiff, isProgress, waitingState, prevState} = nextProps.save;
     const {rows: curState} = nextProps;
 
-    if (isSave && !fetchDiff) {
+    if (withUnsavedChanges && !fetchDiff) {
       nextProps.actions.saveCreateDiff({curState, prevState});
     }
 

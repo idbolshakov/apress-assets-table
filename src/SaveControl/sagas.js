@@ -1,11 +1,16 @@
 import {put, call, select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import _isEqual from 'lodash/isEqual';
-import {api} from '../utils';
+import {api, transformForServer} from '../utils';
 import {TREE_LOAD_START} from '../Tree/actions';
-import {TABLE_EDITOR_ROW_ADD_ID, TABLE_EDITOR_ROW_ADD_DEFAULT_ID} from '../Table/actions';
+import {
+  TABLE_EDITOR_ROW_ADD_ID,
+  TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
+  copyRowSuccess,
+  updateTableEditorRows
+} from '../Table/actions';
 import {ERROR_REMOVE} from '../Error/actions';
-import {SAVE_SUCCESS, SAVE_DIFF} from './actions';
+import * as saveControlActions from './actions';
 
 let newId = -100000;
 
@@ -19,30 +24,12 @@ export const pollingJob = jobId =>
 
 export const getSave = props => props.save;
 
+export const getNewRow = props => props.table.new_row;
+
 const find = (secondRow, row) =>
   (row.id && secondRow.id && row.id === secondRow.id) ||
   (row.check && secondRow.check &&
   row.check.common.id === secondRow.check.common.id);
-
-export const transformForServer = records =>
-  records.map((record) => {
-    const newObj = {
-      id: record.check.common.id,
-      columns: {}
-    };
-
-    Object.keys(record).forEach((key) => {
-      if (key !== 'check') {
-        if (record[key].common) {
-          newObj.columns[key] = record[key].common;
-        } else {
-          newObj[key] = record[key];
-        }
-      }
-    });
-
-    return newObj;
-  });
 
 export const getDeletedItems = (cur, prev) => {
   const deletedItems = [];
@@ -187,17 +174,17 @@ export const getRowsDifference = (currentState, previousState) => {
     const previousRow = previousState
       .find(row => row.check.common.id === currentRow.check.common.id);
 
-    if (currentRow.name.common.text) {
+    if (!currentRow.name.common.text || currentRow.product_group.common.parent_id < 0) {
+      differenceRow = {
+        id: currentRow.check.common.id,
+        invalid: true
+      };
+    } else {
       if (previousRow) {
         differenceRow = getRowDifference(currentRow, previousRow);
       } else {
         differenceRow = currentRow;
       }
-    } else {
-      differenceRow = {
-        id: currentRow.check.common.id,
-        invalid: true
-      };
     }
 
     return differenceRow;
@@ -275,6 +262,60 @@ export const setInvalidDifferenceForCurrentState = (currentState, previousState,
 
   return currentState;
 };
+
+export function* saveProcess(rows) {
+  const job = yield call(putSave, rows);
+
+  while (true) {
+    yield call(delay, 1000);
+    const response = yield call(pollingJob, job.job_id);
+
+    if (response.failed || response.succeeded) {
+      return response;
+    }
+  }
+}
+
+export function* resetRemoteId(rows) {
+  if (rows && rows.length) {
+    yield put({
+      type: TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
+      payload: rows.map((item) => {
+        const data = {
+          id: item.id,
+          record_id: newId
+        };
+        newId -= 1;
+
+        return data;
+      })
+    });
+  }
+}
+
+export function* addCopiedRows(rows) {
+  if (rows && rows.length) {
+    const newRowTemplate = yield select(getNewRow);
+    yield put(copyRowSuccess({rows, new_row: newRowTemplate}));
+  }
+}
+
+export function* continueSave() {
+  const saveProps = yield select(getSave);
+  const withUnsavedChanges = saveProps.prevState.some(row => row.check.common.id < 0);
+
+  if (withUnsavedChanges && !saveProps.isProgress) {
+    yield put(saveControlActions.continueSave());
+  }
+}
+
+export function* updateRows(rows) {
+  if (rows && rows.length) {
+    const newRowTemplate = yield select(getNewRow);
+    yield put(updateTableEditorRows({rows, new_row: newRowTemplate}));
+  }
+}
+
 export function* saveCreateDiff(action) {
   const {
     validDifferenceState,
@@ -289,7 +330,7 @@ export function* saveCreateDiff(action) {
   );
 
   yield put({
-    type: SAVE_DIFF,
+    type: saveControlActions.SAVE_DIFF,
     payload: {
       waitingState,
       prevState: currentState
@@ -304,33 +345,22 @@ export function* save() {
 
     const saveProps = yield select(getSave);
     if (saveProps.saveState.length) {
-      const job = yield call(putSave, saveProps.saveState);
-      let response = {};
-
-      while (true) {
-        yield call(delay, 1000);
-        response = yield call(pollingJob, job.job_id);
-
-        if (response.failed || response.succeeded) {
-          break;
-        }
-      }
-
+      const response = yield call(saveProcess, saveProps.saveState);
       if (response.succeeded) {
-        const deletedItems = saveProps.saveState.filter(row => row.destroy);
-        if (deletedItems.length) {
-          yield put({
-            type: TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
-            payload: deletedItems.map((item) => {
-              const data = {
-                id: item.id,
-                record_id: newId
-              };
-              newId -= 1;
+        const deletedRows = saveProps.saveState.filter(row => row.destroy);
+        const copiedRows = response.payload.filter(row => row.copy);
+        const updatedRows = response.payload.filter(row => row.columns);
 
-              return data;
-            })
-          });
+        if (deletedRows.length) {
+          yield call(resetRemoteId, deletedRows);
+        }
+
+        if (copiedRows.length) {
+          yield call(addCopiedRows, copiedRows);
+        }
+
+        if (updatedRows.length) {
+          yield call(updateRows, updatedRows);
         }
 
         yield put({type: TABLE_EDITOR_ROW_ADD_ID, payload: response.payload});
@@ -338,8 +368,9 @@ export function* save() {
       }
     }
 
-    yield put({type: SAVE_SUCCESS, payload: {error: false}});
+    yield put(saveControlActions.saveSuccess({error: false}));
+    yield call(continueSave);
   } catch (err) {
-    yield put({type: SAVE_SUCCESS, payload: {error: true}});
+    yield put(saveControlActions.saveSuccess({error: true}));
   }
 }

@@ -124,7 +124,10 @@
   &-cell-text {
     overflow: hidden; text-overflow: ellipsis; max-height: 50px; user-select: text;
     + .cke,
-    &.is-edit { font-size: 14px; padding: 20px; background: #fff; box-sizing: border-box; max-height: 150px; height: 150px; width: 380px; outline: none; z-index: 9; position: absolute; left: 0; top: 0; border: solid 1px #028dd8; }
+    &.is-edit {
+      font-size: 14px; background: #fff; box-sizing: border-box; max-height: 150px; height: 150px; width: 380px; outline: none; z-index: 9; position: absolute; left: 0; top: 0; border: solid 1px #028dd8;
+      textarea { height: 100%; padding: 20px; }
+    }
     + .cke:after,
     &:after { content: attr(data-charactersLeft); position: absolute; right: 10px; bottom: 10px; font-size: 12px; }
     + .cke[data-charactersLeft='0']:after,
@@ -134,6 +137,7 @@
       &:after { bottom: 4px; }
       .cke_top.cke_reset_all { padding-right: 2px; }
     }
+    textarea { width: 100%; border: none; resize: unset; overflow: hidden; font: inherit; cursor: inherit; background-color: transparent; }
   }
   &-price {
     &-old { text-decoration: line-through; color: #999; }

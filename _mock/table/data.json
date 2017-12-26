@@ -255,65 +255,66 @@
         "name": null,
         "ancestors": []
       },
-      "filter": null
+      "binder": {},
+      "filter": {}
     },
     "name": {
       "common": {
         "text": null
       },
-      "sorter": null,
+      "sorter": {},
       "binder": {}
     },
     "photo": {
       "common": { "images": []},
-      "filter": null,
+      "filter": {},
       "binder": {}
     },
     "description": {
       "common": {
         "text": null
       },
-      "filter": null,
-      "sorter": null,
+      "filter": {},
+      "sorter": {},
       "binder": {}
     },
     "h1": {
       "common": {
         "text": null
       },
-      "filter": null,
-      "sorter": null,
+      "filter": {},
+      "sorter": {},
       "binder": {}
     },
     "tag_title": {
       "common": {
         "text": null
       },
-      "filter": null,
-      "sorter": null,
+      "filter": {},
+      "sorter": {},
       "binder": {}
     },
     "url": {
       "common": {
         "text": null
       },
-      "sorter": null,
+      "sorter": {},
       "binder": {}
     },
     "page_description": {
       "common": {
         "text": null
       },
-      "filter": null,
-      "sorter": null,
+      "filter": {},
+      "sorter": {},
       "binder": {}
     },
     "detailed_description": {
       "common": {
         "text": null
       },
-      "filter": null,
-      "sorter": null,
+      "filter": {},
+      "sorter": {},
       "binder": {}
     }
   },
@@ -326,69 +327,75 @@
       },
       "product_group": {
         "common": {
-          "id": 45496,
-          "name": "1",
+          "id": 45497,
+          "name": "product_group_name",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
-          "text": "1"
+          "text": "name"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
-        "common": {"images": []},
-        "filter": null,
+        "common": {
+          "images": [{
+            "src": "images_src",
+            "id": 1
+          }]
+        },
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
-          "text": "gxhmяавиавяивяаиваиявиявиop[l[plp[l[plp[l"
+          "text": "description"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
-          "text": null
+          "text": "h1"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
-          "text": ""
+          "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
-          "text": "1"
+          "text": "url"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
-          "text": null
+          "text": "<p>detailed_description</p>\n"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -404,65 +411,66 @@
           "name": "123",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "123"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": "wfwef"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "123"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -478,65 +486,66 @@
           "name": "3",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "3"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": "wef"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "3"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -552,65 +561,66 @@
           "name": "4",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "4"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": "wefwef"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "4"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -626,65 +636,66 @@
           "name": "5",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "5"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": "wef"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "5"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": "2"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -700,65 +711,66 @@
           "name": "6",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "6"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "6"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": "2"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -774,65 +786,66 @@
           "name": "7",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "7"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "7"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": "2"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -848,65 +861,66 @@
           "name": "8",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "8"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "8"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": "2"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -922,65 +936,66 @@
           "name": "9",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "9"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "9"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": "2"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -996,65 +1011,66 @@
           "name": "9",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "9"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "9"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -1070,65 +1086,66 @@
           "name": "adfhbaFDbd",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "adfhbaFDbd"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "adfhbafdbd"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -1150,65 +1167,66 @@
             }
           ]
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "hkmdghdcg"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "hkmdghdcg"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": "<p>wqdwqd</p>\n"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -1230,65 +1248,66 @@
             }
           ]
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "wqdqwdПутешествие"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "puteshestviye"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": "<p>dwqdwd</p>\n"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -1315,65 +1334,66 @@
             }
           ]
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "Дорожные наборы"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images":[]},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "dorozhnyye_nabory"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -1389,13 +1409,14 @@
           "name": "Котик",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "Котик"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
@@ -1411,54 +1432,54 @@
             }
           ]
         },
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "2"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -1474,13 +1495,14 @@
           "name": "Котики",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "Котики"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
@@ -1490,54 +1512,54 @@
             "id": 117
             }]
         },
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": "Котики бла бла бла бла"
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "kotiki"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": ""
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     },
@@ -1553,65 +1575,66 @@
           "name": "Путешествие и отдых",
           "ancestors": []
         },
-        "filter": null
+        "binder": {},
+        "filter": {}
       },
       "name": {
         "common": {
           "text": "Путешествие и отдых"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "photo": {
         "common": {"images": []},
-        "filter": null,
+        "filter": {},
         "binder": {}
       },
       "description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "h1": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "tag_title": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "url": {
         "common": {
           "text": "puteshestviye_i_otdykh"
         },
-        "sorter": null,
+        "sorter": {},
         "binder": {}
       },
       "page_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       },
       "detailed_description": {
         "common": {
           "text": null
         },
-        "filter": null,
-        "sorter": null,
+        "filter": {},
+        "sorter": {},
         "binder": {}
       }
     }

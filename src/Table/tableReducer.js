@@ -29,10 +29,12 @@ import {
   TABLE_EDITOR_ROW_REMOVE,
   TABLE_EDITOR_SET_TEXT,
   TABLE_EDITOR_ROW_ADD,
+  TABLE_EDITOR_ROW_COPY_SUCCESS,
   TABLE_EDITOR_SET_IMAGES,
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   HISTORY_PREV,
-  HISTORY_NEXT
+  HISTORY_NEXT,
+  UPDATE_TABLE_EDITOR_ROWS
 } from './actions';
 
 const initialState = {
@@ -172,10 +174,12 @@ export default (state = initialState, action) => {
     case TABLE_EDITOR_ROW_REMOVE:
     case TABLE_EDITOR_SET_TEXT:
     case TABLE_EDITOR_ROW_ADD:
+    case TABLE_EDITOR_ROW_COPY_SUCCESS:
     case TABLE_EDITOR_SET_IMAGES:
     case TABLE_EDITOR_ROW_ADD_DEFAULT_ID:
     case HISTORY_PREV:
     case HISTORY_NEXT:
+    case UPDATE_TABLE_EDITOR_ROWS:
       return {...state, history: history(state.history, action)};
 
     default:

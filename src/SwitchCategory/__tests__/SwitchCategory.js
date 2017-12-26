@@ -1,6 +1,6 @@
 import React from 'react';
 import SwitchCategory from '../SwitchCategory';
-import {mountProvider} from '../../../test/test-utils';
+import {mountProvider} from '../../../test/testUtils';
 
 describe('component-conatiner SwitchCategory', () => {
   it('Первичный рендринг, компонент еще не инициализирован', () => {

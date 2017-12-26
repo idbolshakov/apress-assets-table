@@ -4,12 +4,14 @@ import {
   TABLE_EDITOR_SET_TEXT,
   TABLE_EDITOR_ROW_ADD,
   TABLE_EDITOR_ROW_ADD_ID,
+  TABLE_EDITOR_ROW_COPY_SUCCESS,
   TABLE_EDITOR_SET_IMAGES,
   TABLE_EDITOR_ROW_REMOVE,
   TABLE_EDITOR_ROW_ADD_DEFAULT_ID,
   HISTORY_NEXT,
   HISTORY_PREV,
-  TABLE_EDITOR_CELL_SELECT_END
+  TABLE_EDITOR_CELL_SELECT_END,
+  UPDATE_TABLE_EDITOR_ROWS
 } from '../actions';
 
 const initialState = {
@@ -53,61 +55,27 @@ export default function history(state = initialState, action) {
     }
 
     case TABLE_EDITOR_ROW_ADD_ID: {
-      const newPrev = state.prev.map(prev =>
-        prev.map((item) => {
-          const payloadItem = action.payload.find(row => item.check.common.id === row.id);
-
-          if (payloadItem) {
-            return {
-              ...item,
-              check: {
-                ...item.check,
-                common: {
-                  ...item.check.common,
-                  id: payloadItem.record_id
-                }
-              }
-            };
-          }
-
-          return item;
-        })
-      );
-
       return {
         ...state,
-        prev: newPrev,
+        prev: state.prev.map(prev => rows(prev, action)),
         current: rows(state.current, action),
       };
     }
 
     case TABLE_EDITOR_ROW_ADD_DEFAULT_ID: {
-      const newNext = state.next.map(next =>
-        next.map((item) => {
-          const payloadItem = action.payload.find(row => item.check.common.id === row.id);
-
-          if (payloadItem) {
-            return {
-              ...item,
-              check: {
-                ...item.check,
-                common: {
-                  ...item.check.common,
-                  id: payloadItem.record_id
-                }
-              }
-            };
-          }
-
-          return item;
-        })
-      );
-
       return {
         ...state,
-        next: newNext,
+        next: state.next.map(next => rows(next, action)),
       };
     }
+
+    case TABLE_EDITOR_ROW_COPY_SUCCESS:
+      return {
+        ...state,
+        current: rows(state.current, action),
+        prev: [],
+        next: []
+      };
 
     case HISTORY_PREV:
       return {
@@ -123,6 +91,12 @@ export default function history(state = initialState, action) {
         current: state.next[0],
         prev: [state.current, ...state.prev],
         next: state.next.slice(1, state.next.length),
+      };
+
+    case UPDATE_TABLE_EDITOR_ROWS:
+      return {
+        ...state,
+        current: rows(state.current, action)
       };
 
     default:
