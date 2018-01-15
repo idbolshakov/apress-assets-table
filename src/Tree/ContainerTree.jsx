@@ -78,8 +78,6 @@ class ContainerTree extends Component {
   }
 
   render() {
-    const hasDragNode = true;
-    const hasSettingsNode = this.props.hasSettingsNode;
     const treeData = this.state.filter ?
       this.filterTree(this.props.tree.data, new RegExp(this.state.filter, 'i')) :
       this.props.tree.data;
@@ -104,8 +102,8 @@ class ContainerTree extends Component {
             actionSetExpanded={this.actionSetExpanded}
             actionUpdate={this.actionUpdate}
             actionSetNode={this.actionSetNode}
-            hasDragNode={hasDragNode}
-            hasSettingsNode={hasSettingsNode}
+            hasDragNode
+            hasSettingsNode
             actionShowRemoveConfirmation={this.actionShowRemoveConfirmation}
             actionConfigSetId={this.actionConfigSetId}
           >

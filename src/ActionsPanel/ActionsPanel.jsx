@@ -1,7 +1,11 @@
 /* eslint react/no-unused-prop-types: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import {block} from '../utils';
+import {
+  block,
+  get,
+  has
+} from '../utils';
 import Scroller from '../Scroller/Scroller';
 import './e-actions-panel.scss';
 
@@ -13,9 +17,9 @@ const filterTitle = {
 };
 
 const ActionsPanel = (props) => {
-  const historyButton = props.backHistory && props.nextHistory;
-  const filterCol = props.columns &&
-    props.columns.filter(col => col.common.visible && col.filter && col.filter.value && col.filter.value !== 'all');
+  const historyButton = has(props, 'backHistory') && has(props, 'nextHistory');
+  const filterCol = get(props, 'columns').filter(col =>
+    get(col, 'common.visible') && get(col, 'filter.value') && get(col, 'filter.value') !== 'all');
 
   const getFilterValue = (name, key) => {
     if (props.filtersForColumns) {
