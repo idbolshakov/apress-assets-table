@@ -34960,8 +34960,6 @@ var ContainerTree = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var hasDragNode = true;
-      var hasSettingsNode = this.props.hasSettingsNode;
       var treeData = this.state.filter ? this.filterTree(this.props.tree.data, new RegExp(this.state.filter, 'i')) : this.props.tree.data;
 
       var searchHtml = _import.React.createElement(
@@ -34990,8 +34988,8 @@ var ContainerTree = function (_Component) {
               actionSetExpanded: this.actionSetExpanded,
               actionUpdate: this.actionUpdate,
               actionSetNode: this.actionSetNode,
-              hasDragNode: hasDragNode,
-              hasSettingsNode: hasSettingsNode,
+              hasDragNode: true,
+              hasSettingsNode: true,
               actionShowRemoveConfirmation: this.actionShowRemoveConfirmation,
               actionConfigSetId: this.actionConfigSetId
             },
@@ -35855,9 +35853,9 @@ var filterTitle = {
 };
 
 var ActionsPanel = function ActionsPanel(props) {
-  var historyButton = props.backHistory && props.nextHistory;
-  var filterCol = props.columns && props.columns.filter(function (col) {
-    return col.common.visible && col.filter && col.filter.value && col.filter.value !== 'all';
+  var historyButton = (0, _utils.has)(props, 'backHistory') && (0, _utils.has)(props, 'nextHistory');
+  var filterCol = (0, _utils.get)(props, 'columns').filter(function (col) {
+    return (0, _utils.get)(col, 'common.visible') && (0, _utils.get)(col, 'filter.value') && (0, _utils.get)(col, 'filter.value') !== 'all';
   });
 
   var getFilterValue = function getFilterValue(name, key) {
