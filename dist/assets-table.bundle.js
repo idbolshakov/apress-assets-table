@@ -39906,7 +39906,7 @@ var CheckRelatedProducts = function (_React$Component) {
       _this.props.dispatch((0, _actions.setFocus)({ name: _this.props.cell.name, id: _this.props.cell.id }));
     }, _this.handleChecked = function (checked) {
       if (checked) {
-        _this.props.relatedProducts.attendantProducts.length < 20 && _this.props.actions.add({
+        _this.props.relatedProducts.attendantProducts.length < 30 && _this.props.actions.add({
           relation: {
             position: _this.props.relatedProducts.attendantProducts.length
           },
@@ -40721,10 +40721,15 @@ var Price = function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Price.__proto__ || (0, _getPrototypeOf2.default)(Price)).call.apply(_ref, [this].concat(args))), _this), _this.renderPriceByType = function (priceObject) {
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Price.__proto__ || (0, _getPrototypeOf2.default)(Price)).call.apply(_ref, [this].concat(args))), _this), _this.getRangePrice = function (_ref2) {
+      var price = _ref2.price,
+          priceMax = _ref2.price_max,
+          currencyName = _ref2.currency_name;
+      return (price ? '\u043E\u0442 ' + price : '') + '     ' + (price && priceMax ? ' ' : '') + '     ' + (priceMax ? '\u0434\u043E ' + priceMax : '') + '      ' + currencyName;
+    }, _this.renderPriceByType = function (priceObject) {
       var priceElement = b('price');
 
-      if (!priceObject.price) {
+      if (!priceObject.price && !priceObject.price_max) {
         return _react2.default.createElement(
           'div',
           { className: b('cell-placeholder') },
@@ -40737,7 +40742,7 @@ var Price = function (_React$Component) {
           return _react2.default.createElement(
             'div',
             { className: priceElement('amount') },
-            priceObject.price + ' - ' + priceObject.price_max + ' ' + priceObject.currency_name
+            _this.getRangePrice(priceObject)
           );
         case 'discount':
           return _react2.default.createElement(
@@ -40749,7 +40754,7 @@ var Price = function (_React$Component) {
               priceObject.discount_price + ' ' + priceObject.currency_name
             ),
             _react2.default.createElement(
-              'divc',
+              'div',
               { className: priceElement('old') },
               priceObject.price + ' ' + priceObject.currency_name
             ),
