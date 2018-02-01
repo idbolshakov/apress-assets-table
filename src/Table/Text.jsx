@@ -80,6 +80,13 @@ class TextCell extends Component {
   };
 
   handleKeyPress = (e) => {
+    const {setData, cell: {id, name, isFocus}} = this.props;
+
+    if (isFocus && !this.state.edit && e.key.length === 1) {
+      setData({id, name, field: 'text', text: e.key});
+      this.handlerEdit(true);
+    }
+
     if (e.keyCode === 13) {
       setTimeout(() => { this.handlerEdit(true); }, 100);
     }
