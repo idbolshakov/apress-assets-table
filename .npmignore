@@ -2,7 +2,6 @@
 .idea
 /coverage
 *.log
-/dist
 
 # ignore vim swap
 *.swp

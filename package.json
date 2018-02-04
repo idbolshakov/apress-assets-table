@@ -1,6 +1,6 @@
 {
-  "name": "apress-assets-table",
-  "version": "1.0.0",
+  "name": "@apress/apress-assets-table",
+  "version": "1.0.1",
   "description": "",
   "main": "./dist/assets-table.bundle.js",
   "style": "./dist/assets-table.css",
@@ -98,5 +98,8 @@
     "redux-saga": "0.16.0",
     "redux-thunk": "^2.2.0",
     "webpack": "^2.7.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.railsc.ru"
   }
 }
