@@ -1,0 +1,10 @@
+src/
+_mock/
+bin/
+coverage/
+dist/
+src/
+test/
+server.js
+webpack.dev.config.js
+webpack.prod.config.js
